@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 export const Signup = () => {
   const { register, handleSubmit } = useForm();
@@ -14,7 +15,7 @@ export const Signup = () => {
             className="frame5 w-screen h-screen bg-no-repeat bg-center bg-cover flex justify-center items-center"
             style={{ backgroundImage: "url(./img/login-background.png)" }}
           >
-            <div className=" bg-white w-96  py-16 shadow-lg rounded-3xl mt-3 px-20 ">
+            <div className=" bg-white w-screen md:w-96 h-screen md:h-[695px]  py-16 shadow-lg rounded-3xl mt-3 px-20 ">
               <div className="flex justify-center pb-10">
                 <img src="./img/logo.png" alt="" />
               </div>
@@ -33,7 +34,7 @@ export const Signup = () => {
               <div className=" mt-6">
                 <input
                   type="text"
-                  {...register("name")}
+                  {...register("username")}
                   placeholder="نام کاربری"
                   className="border rounded-2xl w-full text-right text-base mb-6 px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
                 />
@@ -51,6 +52,7 @@ export const Signup = () => {
                 />
                 <input
                   type="text"
+                  {...register("confirmPassword")}
                   placeholder="تکرار رمز عبور"
                   className="border text-right rounded-2xl w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
                 />
