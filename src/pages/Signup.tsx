@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
 
 const FormSchema = z.object({
   username: z
@@ -30,11 +31,12 @@ export const Signup = () => {
 
   const onSubmit = (data: IFormInput) => {
     console.log(data);
+    // axios
+    //   .post("url", { data })
+    //   .then((response) => console.log(response))
+    //   .catch((err) => console.log(err));
   };
 
-  // const { register, handleSubmit } = useForm();
-
-  // const onSubmit = (data: {}) => console.log(data);
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
