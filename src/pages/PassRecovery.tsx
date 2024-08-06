@@ -8,7 +8,7 @@ export const PassRecovery = () => {
           className="frame5 w-screen h-screen bg-no-repeat bg-center bg-cover flex justify-center items-center"
           style={{ backgroundImage: "url(./img/login-background.png)" }}
         >
-          <div className=" bg-white w-screen md:w-[485px] h-screen md:h-[695px] py-16 shadow-lg rounded-3xl mt-3 px-20 ">
+          <div className=" bg-white w-screen md:w-[485px] h-screen md:h-auto py-16 shadow-lg rounded-3xl mt-3 px-20 ">
             <div className="flex justify-center pb-10">
               <img src="./img/logo.png" alt="" />
             </div>
@@ -24,7 +24,7 @@ export const PassRecovery = () => {
               />
             </div>
             <div className="flex items-center">
-              <div className="text-center mr-1 flex border-solid rounded-2xl bg-[#EA5A69] w-[181px] h-[36px] text-sm ml-auto justify-center items-center px-[8px] py-[16px] ">
+              <div className="text-center mr-1 flex border-solid rounded-2xl bg-[#EA5A69] w-[181px] h-[36px] text-sm justify-center items-center px-[8px] py-[16px] ">
                 <Link to="/newpass">
                   <button>ارسال لینک بازیابی رمز عبور</button>
                 </Link>

@@ -60,7 +60,7 @@ export const Login = () => {
                   <input type="checkbox" name="" id="savePass" />
                 </div>
               </div>
-              <div className="text-center mt-6 flex border-solid rounded-2xl bg-[#EA5A69] w-[84px] ml-auto mr-auto justify-center items-center px-[16px] py-[8px] ">
+              <div className="text-center mt-6 flex border-solid rounded-2xl bg-[#EA5A69] w-[84px] mr-auto justify-center items-center px-[16px] py-[8px] ">
                 <button type={"submit"}>ورود</button>
               </div>
               <div className="flex flex-col text-right mt-12">
