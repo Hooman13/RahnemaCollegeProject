@@ -30,12 +30,12 @@ export const Login = () => {
                 <img src="./img/logo.png" alt="" />
               </div>
               <div className="mb-12 justify-evenly flex">
-                <Link to="/login">
-                  <button>ورود</button>
+                <Link to="/signup">
+                  <button className="text-[#A5A5A5]">ثبت نام</button>
                 </Link>
                 |
-                <Link to="/signup">
-                  <button>ثبت نام</button>
+                <Link to="/login">
+                  <button>ورود</button>
                 </Link>
               </div>
               <div className="text-right mb-8">
