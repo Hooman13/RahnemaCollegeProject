@@ -30,11 +30,36 @@ export const Signup = () => {
   });
 
   const onSubmit = (data: IFormInput) => {
-    console.log(data);
-    // axios
-    //   .post("url", { data })
-    //   .then((response) => console.log(response))
-    //   .catch((err) => console.log(err));
+    // console.log(data);
+    axios
+      .post("http://37.32.5.72:3000/auth/signup", { data })
+      .then((response) => console.log(response))
+      .catch((err) => console.log(err));
+  };
+
+  const [formInput, setFormInput] = useState({
+    password: "",
+    confirmPassword: "",
+  });
+  const [formError, setFormError] = useState({
+    password: "",
+    confirmPassword: "",
+  });
+
+  const validatePassInputs = (e: any) => {
+    e.preventDefault();
+    let passError = {
+      email: "",
+      password: "",
+      confirmPassword: "",
+    };
+    if (formInput.confirmPassword !== formInput.password) {
+      setFormError({
+        ...inputError,
+        confirmPassword: "pass shoul be same",
+      });
+      return;
+    }
   };
 
   return (
@@ -84,28 +109,32 @@ export const Signup = () => {
                     <p className="text-red-700">{errors.email.message}</p>
                   )}
                 </div>
-                <div className="mb-6">
-                  <input
-                    type="text"
-                    {...register("password")}
-                    placeholder="رمز عبور"
-                    className="border text-right rounded-2xl w-full px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
-                  />
-                  {errors?.password?.message && (
-                    <p className="text-red-700">{errors.password.message}</p>
-                  )}
-                </div>
-                <div className="mb-6">
-                  <input
-                    type="text"
-                    {...register("confirmPassword")}
-                    placeholder="تکرار رمز عبور"
-                    className="border text-right rounded-2xl w-full px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
-                  />
-                  {errors?.password?.message && (
-                    <p className="text-red-700">{errors.password.message}</p>
-                  )}
-                </div>
+                <form action="">
+                  <div className="mb-6">
+                    <input
+                      type="text"
+                      {...register("password")}
+                      value={formInput.password}
+                      placeholder="رمز عبور"
+                      className="border text-right rounded-2xl w-full px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
+                    />
+                    {errors?.password?.message && (
+                      <p className="text-red-700">{errors.password.message}</p>
+                    )}
+                  </div>
+                  <div className="mb-6">
+                    <input
+                      type="text"
+                      {...register("confirmPassword")}
+                      value={formInput.confirmPassword}
+                      placeholder="تکرار رمز عبور"
+                      className="border text-right rounded-2xl w-full px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
+                    />
+                    {errors?.password?.message && (
+                      <p className="text-red-700">{errors.password.message}</p>
+                    )}
+                  </div>
+                </form>
               </div>
               <div className="font-normal text-sm text-center mt-6 flex border-solid rounded-2xl bg-[#EA5A69] w-[84px] mr-auto justify-center items-center px-[16px] py-[8px] ">
                 <button type={"submit"}>ثبت نام</button>
