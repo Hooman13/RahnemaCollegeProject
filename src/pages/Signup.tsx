@@ -55,7 +55,7 @@ export const Signup = () => {
     };
     if (formInput.confirmPassword !== formInput.password) {
       setFormError({
-        ...inputError,
+        ...passError,
         confirmPassword: "pass shoul be same",
       });
       return;
@@ -109,13 +109,14 @@ export const Signup = () => {
                     <p className="text-red-700">{errors.email.message}</p>
                   )}
                 </div>
-                <form action="">
+                <form onSubmit={validatePassInputs}>
                   <div className="mb-6">
                     <input
-                      type="text"
+                      type="password"
                       {...register("password")}
                       value={formInput.password}
                       placeholder="رمز عبور"
+                      onChange={({ target }) => {}}
                       className="border text-right rounded-2xl w-full px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
                     />
                     {errors?.password?.message && (
@@ -124,7 +125,7 @@ export const Signup = () => {
                   </div>
                   <div className="mb-6">
                     <input
-                      type="text"
+                      type="confirmPassword"
                       {...register("confirmPassword")}
                       value={formInput.confirmPassword}
                       placeholder="تکرار رمز عبور"
