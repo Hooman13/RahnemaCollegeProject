@@ -1,10 +1,11 @@
 @font-face {
   font-family: "IRANSansWeb";
-  src: local("IRANSansWeb"), url(./fonts/IRANSansWeb.ttf) format("truetype");
+  src: local(IRANSansWeb(FaNum)),
+    url(./fonts/IRANSansWeb\(FaNum\).ttf) format("truetype");
 }
 
 body {
-  font-family: IRANSansWeb;
+  font-family: IRANSansWeb(FaNum);
 }
 
 @tailwind base;

@@ -12,11 +12,13 @@ export const NewPass = () => {
             <div className="flex justify-center pb-10">
               <img src="./img/logo.png" alt="" />
             </div>
-            <div className="mb-12 justify-evenly flex">تنظیم رمز عبور جدید</div>
-            <div className="text-right mb-8">
+            <div className="text-xl mb-12 justify-evenly flex">
+              تنظیم رمز عبور جدید
+            </div>
+            <div className="text-sm text-right mb-8">
               لطفاً رمز جدیدی برای حساب خود انتخاب کنید
             </div>
-            <div className=" mt-6">
+            <div className="text-xs mt-6">
               <input
                 type="text"
                 placeholder="رمز عبور"

@@ -49,7 +49,7 @@ export const Signup = () => {
               <div className="flex justify-center pb-10">
                 <img src="./img/logo.png" alt="" />
               </div>
-              <div className="mb-12 justify-evenly flex">
+              <div className="text-xl mb-12 justify-evenly flex">
                 <Link to="/signup">
                   <button>ثبت نام</button>
                 </Link>
@@ -58,16 +58,16 @@ export const Signup = () => {
                   <button className="text-[#A5A5A5]">ورود</button>
                 </Link>
               </div>
-              <div className="text-right mb-8">
+              <div className="text-right text-sm mb-8 font-normal">
                 برای ثبت‌نام کافیه نام کاربری، ایمیل و یک رمز عبور وارد کنید
               </div>
-              <div className=" mt-6">
+              <div className="font-normal text-xs mt-6">
                 <div className="mb-6">
                   <input
                     type="text"
                     {...register("username")}
                     placeholder="نام کاربری"
-                    className="border rounded-2xl w-full text-right text-base  px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
+                    className="border rounded-2xl w-full text-right px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
                   />
                   {errors?.username?.message && (
                     <p className="text-red-700">{errors.username.message}</p>
@@ -78,7 +78,7 @@ export const Signup = () => {
                     type="text"
                     {...register("email", { required: true })}
                     placeholder="ایمیل"
-                    className="border text-right rounded-2xl w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
+                    className="border text-right rounded-2xl w-full px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
                   />
                   {errors?.email?.message && (
                     <p className="text-red-700">{errors.email.message}</p>
@@ -89,7 +89,7 @@ export const Signup = () => {
                     type="text"
                     {...register("password")}
                     placeholder="رمز عبور"
-                    className="border text-right rounded-2xl w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
+                    className="border text-right rounded-2xl w-full px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
                   />
                   {errors?.password?.message && (
                     <p className="text-red-700">{errors.password.message}</p>
@@ -100,14 +100,14 @@ export const Signup = () => {
                     type="text"
                     {...register("confirmPassword")}
                     placeholder="تکرار رمز عبور"
-                    className="border text-right rounded-2xl w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
+                    className="border text-right rounded-2xl w-full px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
                   />
                   {errors?.password?.message && (
                     <p className="text-red-700">{errors.password.message}</p>
                   )}
                 </div>
               </div>
-              <div className="text-center mt-6 flex border-solid rounded-2xl bg-[#EA5A69] w-[84px] mr-auto justify-center items-center px-[16px] py-[8px] ">
+              <div className="font-normal text-sm text-center mt-6 flex border-solid rounded-2xl bg-[#EA5A69] w-[84px] mr-auto justify-center items-center px-[16px] py-[8px] ">
                 <button type={"submit"}>ثبت نام</button>
               </div>
             </div>

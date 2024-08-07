@@ -29,7 +29,7 @@ export const Login = () => {
               <div className="flex justify-center pb-10">
                 <img src="./img/logo.png" alt="" />
               </div>
-              <div className="mb-12 justify-evenly flex">
+              <div className="text-xl mb-12 justify-evenly flex">
                 <Link to="/signup">
                   <button className="text-[#A5A5A5]">ثبت نام</button>
                 </Link>
@@ -38,32 +38,34 @@ export const Login = () => {
                   <button>ورود</button>
                 </Link>
               </div>
-              <div className="text-right mb-8">
+              <div className="text-right text-sm mb-8">
                 به کالج‌گرام خوش آمدید. برای ورود کافیه نام کاربری/ایمیل و رمز
                 عبور خود‌تون رو وارد کنید
               </div>
-              <div className=" mt-6">
+              <div className="text-xs mt-6">
                 <input
                   type="text"
                   {...register("email", { required: true })}
                   placeholder="نام کاربری یا ایمیل"
-                  className="border rounded-2xl w-full text-right text-base mb-6 px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
+                  className="border rounded-2xl w-full text-right mb-6 px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
                 />
                 <input
                   type="password"
                   {...register("password")}
                   placeholder="رمز عبور"
-                  className="border text-right rounded-2xl w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
+                  className="border text-right rounded-2xl w-full px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
                 />
-                <div className="text-right mt-6">
-                  <label htmlFor="savePass">من را به خاطر بسپار</label>
+                <div className="flex justify-end mt-6">
+                  <label htmlFor="savePass">
+                    <div className="pr-2">من را به خاطر بسپار</div>
+                  </label>
                   <input type="checkbox" name="" id="savePass" />
                 </div>
               </div>
               <div className="text-center mt-6 flex border-solid rounded-2xl bg-[#EA5A69] w-[84px] mr-auto justify-center items-center px-[16px] py-[8px] ">
                 <button type={"submit"}>ورود</button>
               </div>
-              <div className="flex flex-col text-right mt-12">
+              <div className="text-sm flex flex-col text-right mt-12">
                 <Link to="/forgotpass" className="mb-4">
                   فراموشی رمز عبور
                 </Link>
