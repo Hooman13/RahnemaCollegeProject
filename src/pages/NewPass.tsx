@@ -99,31 +99,35 @@ export const NewPass = () => {
                 لطفاً رمز جدیدی برای حساب خود انتخاب کنید
               </div>
               <div className="text-xs mt-6">
-                <input
-                  type="text"
-                  placeholder="رمز عبور"
-                  {...register("password")}
-                  value={formInput.password}
-                  onChange={({ target }) => {
-                    handleUserInput(target.name, target.value);
-                  }}
-                  className="border text-right rounded-2xl w-full text-base mb-6 px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
-                />
-                {errors?.password?.message && (
-                  <p className="text-red-700">{errors.password.message}</p>
-                )}
-                <input
-                  type="text"
-                  placeholder="تکرار رمز عبور"
-                  {...register("confirmPassword")}
-                  value={formInput.confirmPassword}
-                  onChange={({ target }) => {
-                    handleUserInput(target.name, target.value);
-                  }}
-                  onKeyUp={validatePassInputs}
-                  className="border text-right rounded-2xl w-full mb-6 text-base px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
-                />
-                <p className="text-red-700">{formError.confirmPassword}</p>
+                <div className="mb-6">
+                  <input
+                    type="text"
+                    placeholder="رمز عبور"
+                    {...register("password")}
+                    value={formInput.password}
+                    onChange={({ target }) => {
+                      handleUserInput(target.name, target.value);
+                    }}
+                    className="border text-right rounded-2xl w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
+                  />
+                  {errors?.password?.message && (
+                    <p className="text-red-700">{errors.password.message}</p>
+                  )}
+                </div>
+                <div className="mb-6">
+                  <input
+                    type="text"
+                    placeholder="تکرار رمز عبور"
+                    {...register("confirmPassword")}
+                    value={formInput.confirmPassword}
+                    onChange={({ target }) => {
+                      handleUserInput(target.name, target.value);
+                    }}
+                    onKeyUp={validatePassInputs}
+                    className="border text-right rounded-2xl w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
+                  />
+                  <p className="text-red-700">{formError.confirmPassword}</p>
+                </div>
               </div>
               <div className="flex items-center">
                 <div className="text-center flex border-solid rounded-2xl bg-[#EA5A69] w-[136px] h-[36px] text-sm justify-center items-center px-[8px] py-[16px] ">
