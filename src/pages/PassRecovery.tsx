@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
+import { EmailSent } from "./EmailSent";
 
 const FormSchema = z.object({
   // username: z
@@ -27,13 +29,22 @@ export const PassRecovery = () => {
     resolver: zodResolver(FormSchema),
   });
 
+  const navigate = useNavigate();
+  const handleEmailSent = () => {
+    navigate("/email-sent-page");
+  };
   const onSubmit = (data: IFormInput) => {
     // console.log(data);
     axios
       .post("http://37.32.5.72:3000/auth/send-reset", JSON.stringify(data), {
         headers: { "Content-Type": "application/json" },
       })
-      .then((response) => console.log(response))
+      .then((response) => {
+        // console.log(response)
+        if (response.status === 200) {
+          handleEmailSent();
+        }
+      })
       .catch((err) => console.log(err));
   };
 
