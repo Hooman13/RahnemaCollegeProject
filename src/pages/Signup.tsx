@@ -8,13 +8,13 @@ import axios from "axios";
 const FormSchema = z.object({
   username: z
     .string()
-    .min(3, "Username must not be lesser than 3 characters")
+    .min(3, "نام کاربری باید شامل حداقل ۳ حرف باشد")
     .regex(
       /^[a-zA-Z0-9_]+$/,
-      "The username must contain only letters, numbers and underscore (_)"
+      " نام کاربری باید فقط شامل حروف و عدد و آندرلاین باشد"
     ),
-  email: z.string().email("Invalid email."),
-  password: z.string().min(8, "Password must not be lesser than 8 characters"),
+  email: z.string().email("ایمیل وارد شده نامعتبر است"),
+  password: z.string().min(8, "رمزعبور باید حداقل شامل ۸ حرف باشد"),
   confirmPassword: z.string().min(8),
 });
 
@@ -64,7 +64,7 @@ export const Signup = () => {
     if (formInput.confirmPassword !== formInput.password) {
       setFormError({
         ...formError,
-        confirmPassword: "pass shoul be same",
+        confirmPassword: "تکرار رمزعبور با رمزعبور یکسان نیست",
       });
       return;
     }
@@ -136,7 +136,6 @@ export const Signup = () => {
                   {errors?.password?.message && (
                     <p className="text-red-700">{errors.password.message}</p>
                   )}
-                  {/* <p>{formError.password}</p> */}
                 </div>
                 <div className="mb-6">
                   <input
@@ -153,7 +152,7 @@ export const Signup = () => {
                   {errors?.password?.message && (
                     <p className="text-red-700">{errors.password.message}</p>
                   )}
-                  <p>{formError.confirmPassword}</p>
+                  <p className="text-red-700">{formError.confirmPassword}</p>
                 </div>
               </div>
               <div className="font-normal text-sm text-center mt-6 flex border-solid rounded-2xl bg-[#EA5A69] w-[84px] mr-auto justify-center items-center px-[16px] py-[8px] ">
