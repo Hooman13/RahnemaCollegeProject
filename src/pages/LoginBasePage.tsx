@@ -13,7 +13,7 @@ export const LoginBasePage = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/forgotpass" element={<PassRecovery />} />
-          <Route path="/newpass" element={<NewPass />} />
+          <Route path="/reset-password" element={<NewPass />} />
           <Route path="/profile" element={<Profile />} />
         </Routes>
       </BrowserRouter>
