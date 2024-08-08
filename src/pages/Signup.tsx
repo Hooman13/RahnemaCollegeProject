@@ -31,8 +31,13 @@ export const Signup = () => {
 
   const onSubmit = (data: IFormInput) => {
     // console.log(data);
-    axios
-      .post("http://37.32.5.72:3000/auth/signup", { data })
+    // axios
+    //   .post("http://37.32.5.72:3000/auth/signup", { data })
+    fetch("http://37.32.5.72:3000/auth/signup", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    })
       .then((response) => console.log(response))
       .catch((err) => console.log(err));
   };
@@ -42,24 +47,31 @@ export const Signup = () => {
     confirmPassword: "",
   });
   const [formError, setFormError] = useState({
-    password: "",
     confirmPassword: "",
   });
+  const handleUserInput = (name: string, value: string) => {
+    setFormInput({
+      ...formInput,
+      [name]: value,
+    });
+  };
 
   const validatePassInputs = (e: any) => {
     e.preventDefault();
-    let passError = {
-      email: "",
-      password: "",
+    let formError = {
       confirmPassword: "",
     };
     if (formInput.confirmPassword !== formInput.password) {
       setFormError({
-        ...passError,
+        ...formError,
         confirmPassword: "pass shoul be same",
       });
       return;
     }
+    setFormError(formError);
+    setFormInput((prev) => ({
+      ...prev,
+    }));
   };
 
   return (
@@ -109,33 +121,40 @@ export const Signup = () => {
                     <p className="text-red-700">{errors.email.message}</p>
                   )}
                 </div>
-                <form onSubmit={validatePassInputs}>
-                  <div className="mb-6">
-                    <input
-                      type="password"
-                      {...register("password")}
-                      value={formInput.password}
-                      placeholder="رمز عبور"
-                      onChange={({ target }) => {}}
-                      className="border text-right rounded-2xl w-full px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
-                    />
-                    {errors?.password?.message && (
-                      <p className="text-red-700">{errors.password.message}</p>
-                    )}
-                  </div>
-                  <div className="mb-6">
-                    <input
-                      type="confirmPassword"
-                      {...register("confirmPassword")}
-                      value={formInput.confirmPassword}
-                      placeholder="تکرار رمز عبور"
-                      className="border text-right rounded-2xl w-full px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
-                    />
-                    {errors?.password?.message && (
-                      <p className="text-red-700">{errors.password.message}</p>
-                    )}
-                  </div>
-                </form>
+
+                <div className="mb-6">
+                  <input
+                    type="password"
+                    {...register("password")}
+                    value={formInput.password}
+                    placeholder="رمز عبور"
+                    onChange={({ target }) => {
+                      handleUserInput(target.name, target.value);
+                    }}
+                    className="border text-right rounded-2xl w-full px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
+                  />
+                  {errors?.password?.message && (
+                    <p className="text-red-700">{errors.password.message}</p>
+                  )}
+                  {/* <p>{formError.password}</p> */}
+                </div>
+                <div className="mb-6">
+                  <input
+                    type="confirmPassword"
+                    {...register("confirmPassword")}
+                    value={formInput.confirmPassword}
+                    placeholder="تکرار رمز عبور"
+                    onChange={({ target }) => {
+                      handleUserInput(target.name, target.value);
+                    }}
+                    onKeyUp={validatePassInputs}
+                    className="border text-right rounded-2xl w-full px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
+                  />
+                  {errors?.password?.message && (
+                    <p className="text-red-700">{errors.password.message}</p>
+                  )}
+                  <p>{formError.confirmPassword}</p>
+                </div>
               </div>
               <div className="font-normal text-sm text-center mt-6 flex border-solid rounded-2xl bg-[#EA5A69] w-[84px] mr-auto justify-center items-center px-[16px] py-[8px] ">
                 <button type={"submit"}>ثبت نام</button>
