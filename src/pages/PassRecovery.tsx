@@ -31,7 +31,7 @@ export const PassRecovery = () => {
                   <button>ارسال لینک بازیابی رمز عبور</button>
                 </Link>
               </div>
-              <div className="flex pl-5">
+              <div className="flex pr-5">
                 <Link to="/login">
                   <button>انصراف</button>
                 </Link>
