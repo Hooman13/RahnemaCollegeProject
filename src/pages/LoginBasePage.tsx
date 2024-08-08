@@ -3,6 +3,7 @@ import { Login } from "./Login";
 import { NewPass } from "./NewPass";
 import { PassRecovery } from "./PassRecovery";
 import { Signup } from "./Signup";
+import { Profile } from "./Profile";
 
 export const LoginBasePage = () => {
   return (
@@ -13,6 +14,7 @@ export const LoginBasePage = () => {
           <Route path="/signup" element={<Signup />} />
           <Route path="/forgotpass" element={<PassRecovery />} />
           <Route path="/newpass" element={<NewPass />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
       </BrowserRouter>
     </>
