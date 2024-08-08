@@ -31,13 +31,15 @@ export const Signup = () => {
 
   const onSubmit = (data: IFormInput) => {
     // console.log(data);
-    // axios
-    //   .post("http://37.32.5.72:3000/auth/signup", { data })
-    fetch("http://37.32.5.72:3000/auth/signup", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    })
+    axios
+      .post("http://37.32.5.72:3000/auth/signup", JSON.stringify(data), {
+        headers: { "Content-Type": "application/json" },
+      })
+      // fetch("http://37.32.5.72:3000/auth/signup", {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify(data),
+      // })
       .then((response) => console.log(response))
       .catch((err) => console.log(err));
   };
