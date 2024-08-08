@@ -8,13 +8,13 @@ import axios from "axios";
 const FormSchema = z.object({
   username: z
     .string()
-    .min(3, "Username must not be lesser than 3 characters")
+    .min(3, "نام کاربری باید شامل حداقل ۳ حرف باشد")
     .regex(
       /^[a-zA-Z0-9_]+$/,
-      "The username must contain only letters, numbers and underscore (_)"
+      " نام کاربری باید فقط شامل حروف و عدد و آندرلاین باشد"
     ),
-  email: z.string().email("Invalid email."),
-  password: z.string().min(8, "Password must not be lesser than 8 characters"),
+  email: z.string().email("ایمیل وارد شده نامعتبر است"),
+  password: z.string().min(8, "رمزعبور باید حداقل شامل ۸ حرف باشد"),
   confirmPassword: z.string().min(8),
 });
 
@@ -40,6 +40,38 @@ export const Signup = () => {
     })
       .then((response) => console.log(response))
       .catch((err) => console.log(err));
+  };
+
+  const [formInput, setFormInput] = useState({
+    password: "",
+    confirmPassword: "",
+  });
+  const [formError, setFormError] = useState({
+    confirmPassword: "",
+  });
+  const handleUserInput = (name: string, value: string) => {
+    setFormInput({
+      ...formInput,
+      [name]: value,
+    });
+  };
+
+  const validatePassInputs = (e: any) => {
+    e.preventDefault();
+    let formError = {
+      confirmPassword: "",
+    };
+    if (formInput.confirmPassword !== formInput.password) {
+      setFormError({
+        ...formError,
+        confirmPassword: "تکرار رمزعبور با رمزعبور یکسان نیست",
+      });
+      return;
+    }
+    setFormError(formError);
+    setFormInput((prev) => ({
+      ...prev,
+    }));
   };
 
   return (
@@ -89,11 +121,16 @@ export const Signup = () => {
                     <p className="text-red-700">{errors.email.message}</p>
                   )}
                 </div>
+
                 <div className="mb-6">
                   <input
-                    type="text"
+                    type="password"
                     {...register("password")}
+                    value={formInput.password}
                     placeholder="رمز عبور"
+                    onChange={({ target }) => {
+                      handleUserInput(target.name, target.value);
+                    }}
                     className="border text-right rounded-2xl w-full px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
                   />
                   {errors?.password?.message && (
@@ -102,14 +139,20 @@ export const Signup = () => {
                 </div>
                 <div className="mb-6">
                   <input
-                    type="text"
+                    type="confirmPassword"
                     {...register("confirmPassword")}
+                    value={formInput.confirmPassword}
                     placeholder="تکرار رمز عبور"
+                    onChange={({ target }) => {
+                      handleUserInput(target.name, target.value);
+                    }}
+                    onKeyUp={validatePassInputs}
                     className="border text-right rounded-2xl w-full px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
                   />
                   {errors?.password?.message && (
                     <p className="text-red-700">{errors.password.message}</p>
                   )}
+                  <p className="text-red-700">{formError.confirmPassword}</p>
                 </div>
               </div>
               <div className="font-normal text-sm text-center mt-6 flex border-solid rounded-2xl bg-[#EA5A69] w-[84px] mr-auto justify-center items-center px-[16px] py-[8px] ">
