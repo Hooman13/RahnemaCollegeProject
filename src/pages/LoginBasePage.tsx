@@ -5,6 +5,7 @@ import { PassRecovery } from "./PassRecovery";
 import { Signup } from "./Signup";
 import { Profile } from "./Profile";
 import { EmailSent } from "./EmailSent";
+import { EditProfile } from "./EditProfile";
 
 export const LoginBasePage = () => {
   return (
@@ -17,6 +18,7 @@ export const LoginBasePage = () => {
           <Route path="/reset-password" element={<NewPass />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/email-sent-page" element={<EmailSent />} />
+          <Route path="/editpage" element={<EditProfile />} />
         </Routes>
       </BrowserRouter>
     </>

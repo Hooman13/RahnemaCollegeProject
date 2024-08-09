@@ -44,7 +44,7 @@ export const Profile = () => {
             <FontAwesomeIcon icon={faThumbTack} transform={{ rotate: 40 }} />
             صفحه من
           </Link>
-          <Link to="/forgotpass" className={`${styles.userMenuItem}`}>
+          <Link to="/editpage" className={`${styles.userMenuItem}`}>
             <FontAwesomeIcon icon={faBookmark} />
             ذخیره ها
           </Link>
