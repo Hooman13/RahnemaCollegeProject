@@ -4,6 +4,8 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { Login } from "./Login";
 
 const FormSchema = z.object({
   username: z
@@ -29,6 +31,11 @@ export const Signup = () => {
     resolver: zodResolver(FormSchema),
   });
 
+  const navigate = useNavigate();
+  const handleSignupSuccess = () => {
+    navigate("/login");
+  };
+
   const onSubmit = (data: IFormInput) => {
     // console.log(data);
     axios
@@ -40,7 +47,13 @@ export const Signup = () => {
       //   headers: { "Content-Type": "application/json" },
       //   body: JSON.stringify(data),
       // })
-      .then((response) => console.log(response))
+      .then((response) => {
+        console.log(response);
+        if (response.status === 201) {
+          <p>hale cheshate</p>;
+          handleSignupSuccess();
+        }
+      })
       .catch((err) => console.log(err));
   };
 
