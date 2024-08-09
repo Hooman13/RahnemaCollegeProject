@@ -8,7 +8,7 @@ const LOGIN_URL = "/auth/login";
 export const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  // const from = location.state?.from?.pathname || "/";
+  const from = location.state?.from?.pathname || "/";
   //@ts-ignore
 
   const { setAuth } = useAuth();
@@ -18,7 +18,6 @@ export const Login = () => {
   const [user, setUser] = useState("");
   const [pwd, setPwd] = useState("");
   const [errMsg, setErrMsg] = useState("");
-  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     (userRef as any).current.focus();
@@ -46,8 +45,8 @@ export const Login = () => {
       setUser("");
       setPwd("");
 
-      navigate("/profile");
       setAuth({ user, pwd, jwt });
+      navigate(from, { replace: true });
     } catch (err: any) {
       debugger;
       if (!err?.response) {
