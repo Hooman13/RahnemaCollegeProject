@@ -5,9 +5,10 @@ import { useForm } from "react-hook-form";
 import { any, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const FormSchema = z.object({
-  password: z.string().min(8, "رمزعبور باید حداقل شامل ۸ حرف باشد"),
+  newPassword: z.string().min(8, "رمزعبور باید حداقل شامل ۸ حرف باشد"),
   confirmPassword: z.string().min(8),
 });
 
@@ -15,15 +16,23 @@ type IFormInput = z.infer<typeof FormSchema>;
 
 export const NewPass = () => {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [newPassword, setnewPassword] = useState("");
+  // const [confirmPassword, setConfirmPassword] = useState("");
+  const [token, setToken] = useState("");
   const [serachParams] = useSearchParams();
   const paramSearch: any = serachParams.get("email");
-  const { token } = useParams();
+  const paramTokenSearch: any = serachParams.get("token");
+  // const { token } = useParams();
   useEffect(() => {
-    setEmail(paramSearch);
+    setToken(paramTokenSearch);
+    // setEmail(paramSearch);
     // console.log(email);
   }, []);
+
+  const navigate = useNavigate();
+  const handleSignupSuccess = () => {
+    navigate("/login");
+  };
 
   const {
     register,
@@ -34,22 +43,28 @@ export const NewPass = () => {
   });
 
   const onSubmit = (data: IFormInput) => {
-    // console.log(data);
     axios
-      .post("http://37.32.5.72:3000/auth/reset-pass", JSON.stringify(data), {
-        headers: { "Content-Type": "application/json" },
+      .post(
+        "http://37.32.5.72:3000/auth/reset-pass/" + `${token}`,
+        JSON.stringify(data),
+        {
+          headers: {
+            "Content-Type": "application/json",
+            // Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response);
+        if (response.status === 200) {
+          handleSignupSuccess();
+        }
       })
-      // fetch("http://37.32.5.72:3000/auth/reset-pass", {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify(data),
-      // })
-      .then((response) => console.log(response))
       .catch((err) => console.log(err));
   };
 
   const [formInput, setFormInput] = useState({
-    password: "",
+    newPassword: "",
     confirmPassword: "",
   });
   const [formError, setFormError] = useState({
@@ -67,7 +82,7 @@ export const NewPass = () => {
     let formError = {
       confirmPassword: "",
     };
-    if (formInput.confirmPassword !== formInput.password) {
+    if (formInput.confirmPassword !== formInput.newPassword) {
       setFormError({
         ...formError,
         confirmPassword: "تکرار رمزعبور با رمزعبور یکسان نیست",
@@ -103,15 +118,15 @@ export const NewPass = () => {
                   <input
                     type="text"
                     placeholder="رمز عبور"
-                    {...register("password")}
-                    value={formInput.password}
+                    {...register("newPassword")}
+                    value={formInput.newPassword}
                     onChange={({ target }) => {
                       handleUserInput(target.name, target.value);
                     }}
                     className="border text-right rounded-2xl w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
                   />
-                  {errors?.password?.message && (
-                    <p className="text-red-700">{errors.password.message}</p>
+                  {errors?.newPassword?.message && (
+                    <p className="text-red-700">{errors.newPassword.message}</p>
                   )}
                 </div>
                 <div className="mb-6">

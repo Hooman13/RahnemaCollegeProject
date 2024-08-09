@@ -50,7 +50,6 @@ export const Signup = () => {
       .then((response) => {
         console.log(response);
         if (response.status === 201) {
-          <p>hale cheshate</p>;
           handleSignupSuccess();
         }
       })
