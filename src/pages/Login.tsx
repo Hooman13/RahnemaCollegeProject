@@ -32,22 +32,23 @@ export const Login = () => {
     try {
       const response = await axios.post(
         LOGIN_URL,
-        JSON.stringify({ user, pwd }),
+        JSON.stringify({ username: user, password: pwd, rememberMe: false }),
         {
           headers: { "Content-Type": "application/json" },
           // withCredentials: true,
         }
       );
-
+      debugger;
       console.log(JSON.stringify(response?.data));
-      const jwt = response?.data?.jwt;
+      const jwt = response?.data;
       const roles = response?.data?.roles;
       setUser("");
       setPwd("");
       setSuccess(true);
-      navigate("/profile");
       setAuth({ user, pwd, jwt });
+      navigate("/profile");
     } catch (err: any) {
+      debugger;
       if (!err?.response) {
         setErrMsg("No Server Response");
       } else if (err.response?.status === 400) {
