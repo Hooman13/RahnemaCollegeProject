@@ -1,8 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
-
-import React, { useRef, useState, useEffect, useContext } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import axios from "../api/axios";
-import AuthContext from "../context/AuthContext";
+import useAuth from "../hooks/useAuth";
 
 const LOGIN_URL = "/auth/login";
 
@@ -10,7 +9,7 @@ export const Login = () => {
   const userRef = useRef(null);
   const errRef = useRef(null);
   //@ts-ignore
-  const { setAuth } = useContext(AuthContext);
+  const { setAuth } = useAuth();
 
   const [user, setUser] = useState("");
   const [pwd, setPwd] = useState("");
