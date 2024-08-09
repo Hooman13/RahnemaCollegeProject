@@ -151,9 +151,6 @@ export const Signup = () => {
                     onKeyUp={validatePassInputs}
                     className="border text-right rounded-2xl w-full px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
                   />
-                  {errors?.password?.message && (
-                    <p className="text-red-700">{errors.password.message}</p>
-                  )}
                   <p className="text-red-700">{formError.confirmPassword}</p>
                 </div>
               </div>
