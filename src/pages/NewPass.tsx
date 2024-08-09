@@ -116,7 +116,7 @@ export const NewPass = () => {
               <div className="text-xs mt-6">
                 <div className="mb-6">
                   <input
-                    type="text"
+                    type="password"
                     placeholder="رمز عبور"
                     {...register("newPassword")}
                     value={formInput.newPassword}
@@ -131,7 +131,7 @@ export const NewPass = () => {
                 </div>
                 <div className="mb-6">
                   <input
-                    type="text"
+                    type="password"
                     placeholder="تکرار رمز عبور"
                     {...register("confirmPassword")}
                     value={formInput.confirmPassword}
