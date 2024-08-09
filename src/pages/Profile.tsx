@@ -40,7 +40,7 @@ export const Profile = () => {
             </div>
             <span className="user-display-name">mahnaz</span>
           </div>
-          <Link to="/forgotpass" className={`${styles.userMenuItem}`}>
+          <Link to="/editpage" className={`${styles.userMenuItem}`}>
             <FontAwesomeIcon icon={faThumbTack} transform={{ rotate: 40 }} />
             صفحه من
           </Link>
@@ -48,25 +48,25 @@ export const Profile = () => {
             <FontAwesomeIcon icon={faBookmark} />
             ذخیره ها
           </Link>
-          <Link to="/forgotpass" className={`${styles.userMenuItem}`}>
+          <Link to="/editpage" className={`${styles.userMenuItem}`}>
             <FontAwesomeIcon icon={faCommentDots} />
             پیام ها
           </Link>
-          <Link to="/forgotpass" className={`${styles.userMenuItem}`}>
+          <Link to="/editpage" className={`${styles.userMenuItem}`}>
             <FontAwesomeIcon icon={faBell} />
             اعلانات
           </Link>
-          <Link to="/forgotpass" className={`${styles.userMenuItem}`}>
+          <Link to="/editpage" className={`${styles.userMenuItem}`}>
             <FontAwesomeIcon icon={faTag} />
             تگ شده ها
           </Link>
 
           <hr />
-          <Link to="/forgotpass" className={`${styles.userMenuItem}`}>
+          <Link to="/editpage" className={`${styles.userMenuItem}`}>
             <FontAwesomeIcon icon={faGripVertical} />
             اکسپلور
           </Link>
-          <Link to="/forgotpass" className={`${styles.userMenuItem}`}>
+          <Link to="/editpage" className={`${styles.userMenuItem}`}>
             <FontAwesomeIcon icon={faMagnifyingGlass} />
             جستجو
           </Link>
