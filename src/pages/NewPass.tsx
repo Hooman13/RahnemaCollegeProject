@@ -34,18 +34,18 @@ export const NewPass = () => {
   });
 
   const onSubmit = (data: IFormInput) => {
-    console.log(data);
-    // axios
-    //   .post("http://37.32.5.72:3000/auth/reset-pass", JSON.stringify(data), {
-    //     headers: { "Content-Type": "application/json" },
-    //   })
-    // fetch("http://37.32.5.72:3000/auth/reset-pass", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify(data),
-    // })
-    // .then((response) => console.log(response))
-    // .catch((err) => console.log(err));
+    // console.log(data);
+    axios
+      .post("http://37.32.5.72:3000/auth/reset-pass", JSON.stringify(data), {
+        headers: { "Content-Type": "application/json" },
+      })
+      // fetch("http://37.32.5.72:3000/auth/reset-pass", {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify(data),
+      // })
+      .then((response) => console.log(response))
+      .catch((err) => console.log(err));
   };
 
   const [formInput, setFormInput] = useState({
