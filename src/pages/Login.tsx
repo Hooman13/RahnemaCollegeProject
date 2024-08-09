@@ -17,6 +17,7 @@ export const Login = () => {
 
   const [user, setUser] = useState("");
   const [pwd, setPwd] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
   const [errMsg, setErrMsg] = useState("");
 
   useEffect(() => {
@@ -28,11 +29,16 @@ export const Login = () => {
   }, [user, pwd]);
 
   const handleSubmit = async (e: any) => {
+    debugger;
     e.preventDefault();
     try {
       const response = await axios.post(
         LOGIN_URL,
-        JSON.stringify({ username: user, password: pwd, rememberMe: false }),
+        JSON.stringify({
+          username: user,
+          password: pwd,
+          rememberMe: rememberMe,
+        }),
         {
           headers: { "Content-Type": "application/json" },
           // withCredentials: true,
@@ -50,13 +56,13 @@ export const Login = () => {
     } catch (err: any) {
       debugger;
       if (!err?.response) {
-        setErrMsg("No Server Response");
+        setErrMsg("سرور در دسترس نیست");
       } else if (err.response?.status === 400) {
-        setErrMsg("Missing Username or Password");
+        setErrMsg("نام کاربری یا رمز عبور وجود ندارد");
       } else if (err.response?.status === 401) {
-        setErrMsg("Unauthorized");
+        setErrMsg("نام کاربری یا رمز عبور اشتباه است");
       } else {
-        setErrMsg("Login Failed");
+        setErrMsg("خطا در ورود ");
       }
       (errRef as any).current.focus();
     }
@@ -72,7 +78,7 @@ export const Login = () => {
           <div className=" bg-white w-screen md:w-[485px] h-screen md:h-[695px] py-16 shadow-lg rounded-3xl mt-3 px-20 ">
             <p
               ref={errRef}
-              className={errMsg ? "errmsg" : "offscreen"}
+              className={errMsg ? "errmsg text-[#d74646]" : "offscreen"}
               aria-live="assertive"
             >
               {errMsg}
@@ -115,7 +121,12 @@ export const Login = () => {
                 className="border text-right rounded-2xl w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
               />
               <div className="text-rtl flex text-center justify-start mt-6">
-                <input type="checkbox" name="" id="savePass" />
+                <input
+                  type="checkbox"
+                  name=""
+                  onChange={(e) => setRememberMe(Boolean(e.target.value))}
+                  id="savePass"
+                />
                 <label htmlFor="savePass">
                   <div className="pr-2">من را به خاطر بسپار</div>
                 </label>
