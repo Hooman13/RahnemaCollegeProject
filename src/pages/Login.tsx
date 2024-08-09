@@ -1,12 +1,16 @@
 import { Link, useNavigate } from "react-router-dom";
 
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useContext } from "react";
 import axios from "../api/axios";
+import AuthContext from "../context/AuthContext";
+
 const LOGIN_URL = "/auth/login";
 
 export const Login = () => {
   const userRef = useRef(null);
   const errRef = useRef(null);
+  //@ts-ignore
+  const { setAuth } = useContext(AuthContext);
 
   const [user, setUser] = useState("");
   const [pwd, setPwd] = useState("");
@@ -34,18 +38,16 @@ export const Login = () => {
           // withCredentials: true,
         }
       );
-      debugger;
 
       console.log(JSON.stringify(response?.data));
-      const accessToken = response?.data?.accessToken;
+      const jwt = response?.data?.jwt;
       const roles = response?.data?.roles;
       setUser("");
       setPwd("");
       setSuccess(true);
       navigate("/profile");
+      setAuth({ user, pwd, jwt });
     } catch (err: any) {
-      debugger;
-
       if (!err?.response) {
         setErrMsg("No Server Response");
       } else if (err.response?.status === 400) {
