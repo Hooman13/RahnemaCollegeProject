@@ -1,4 +1,5 @@
 import styles from "./MyPage.module.css";
+import { Link } from "react-router-dom";
 export const MyPage = () => {
   return (
     <div className={`${styles.myPage}`}>
@@ -13,10 +14,11 @@ export const MyPage = () => {
         <p className="user-full-name">مهشید منزه</p>
         <p className="user-followers-details">13 دنبال کننده</p>
       </div>
-
-      <button type="button" className={`${styles.editProfileBtn}`}>
-        ویرایش پروفایل
-      </button>
+      <Link to="/editpage">
+        <button type="button" className={`${styles.editProfileBtn}`}>
+          ویرایش پروفایل
+        </button>
+      </Link>
 
       <hr />
     </div>

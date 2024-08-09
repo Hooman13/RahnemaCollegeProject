@@ -101,12 +101,12 @@ export const Signup = () => {
                 <img src="./img/logo.png" alt="" />
               </div>
               <div className="text-xl mb-12 justify-evenly flex">
-                <Link to="/signup">
-                  <button>ثبت نام</button>
-                </Link>
-                |
                 <Link to="/login">
                   <button className="text-[#A5A5A5]">ورود</button>
+                </Link>
+                |
+                <Link to="/signup">
+                  <button>ثبت نام</button>
                 </Link>
               </div>
               <div className="text-right text-sm mb-8 font-normal">
@@ -153,7 +153,7 @@ export const Signup = () => {
                 </div>
                 <div className="mb-6">
                   <input
-                    type="confirmPassword"
+                    type="password"
                     {...register("confirmPassword")}
                     value={formInput.confirmPassword}
                     placeholder="تکرار رمز عبور"
