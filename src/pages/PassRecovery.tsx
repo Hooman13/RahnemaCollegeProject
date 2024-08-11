@@ -66,12 +66,12 @@ export const PassRecovery = () => {
               <div className="text-sm text-right mb-8">
                 لطفاً ایمیل خودتون رو وارد کنید
               </div>
-              <div className="text-xs mt-6">
+              <div className="text-xs mt-6 mb-6">
                 <input
                   type="text"
                   {...register("email")}
                   placeholder="نام کاربری یا ایمیل"
-                  className="border rounded-2xl w-full text-right text-base mb-6 px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
+                  className="border rounded-2xl w-full text-right text-base  px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
                 />
                 {errors?.email?.message && (
                   <p className="text-red-700">{errors.email.message}</p>
