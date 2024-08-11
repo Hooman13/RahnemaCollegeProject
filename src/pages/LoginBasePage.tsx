@@ -19,12 +19,12 @@ export const LoginBasePage = () => {
           <Route path="/forgotpass" element={<PassRecovery />} />
           <Route path="/reset-password" element={<NewPass />} />
           <Route path="/email-sent-page" element={<EmailSent />} />
+          <Route path="/profile" element={<Profile />} />
 
           {/* Protected Routes */}
           <Route element={<RequireAuth />}>
             <Route path="/" element={<Profile />} />
             <Route path="/editpage" element={<EditProfile />} />
-            <Route path="/profile" element={<Profile />} />
           </Route>
         </Routes>
       </BrowserRouter>
