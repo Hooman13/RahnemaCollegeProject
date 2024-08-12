@@ -8,14 +8,15 @@ import axios from "axios";
 import { EmailSent } from "./EmailSent";
 
 const FormSchema = z.object({
-  // username: z
-  //   .string()
-  //   .min(3, "نام کاربری باید شامل حداقل ۳ حرف باشد")
-  //   .regex(
-  //     /^[a-zA-Z0-9_]+$/,
-  //     " نام کاربری باید فقط شامل حروف و عدد و آندرلاین باشد"
-  //   ),
-  email: z.string().email("ایمیل وارد شده نامعتبر است"),
+  username: z
+    .string()
+    .min(3, "نام کاربری باید شامل حداقل ۳ حرف باشد")
+    .regex(
+      /^[a-zA-Z0-9_]+$/,
+      " نام کاربری باید فقط شامل حروف و عدد و آندرلاین باشد"
+    )
+    .optional(),
+  email: z.string().email("ایمیل وارد شده نامعتبر است").optional(),
 });
 
 type IFormInput = z.infer<typeof FormSchema>;
@@ -70,6 +71,7 @@ export const PassRecovery = () => {
                 <input
                   type="text"
                   {...register("email")}
+                  {...register("username")}
                   placeholder="نام کاربری یا ایمیل"
                   className="border rounded-2xl w-full text-right text-base  px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
                 />
