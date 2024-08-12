@@ -16,9 +16,9 @@ import { MyPage } from "../components/MyPage";
 
 export const Profile = () => {
   return (
-    <div className="w-screen h-screen pt-16 bg-[#F5F5F5]">
+    <div className="w-screen h-screen pt-16 px-16   bg-[#F5F5F5]">
       {/* header */}
-      <div className="grid grid-cols-12 mx-16 mb-4">
+      <div className="grid grid-cols-12  mb-4">
         <div className="grid col-span-3 py-4 justify-items-center	">
           <button
             type="button"
@@ -33,9 +33,9 @@ export const Profile = () => {
         </div>
       </div>
       {/* main */}
-      <div className="grid grid-cols-12 mx-16">
+      <div className="grid grid-cols-12">
         {/* sideBar */}
-        <div className="h-screen w-[304px] col-span-3 bg-white border border-white rounded-t-[45px] justify-items-center	">
+        <div className="h-screen w-auto col-span-3 bg-white border border-white rounded-t-[45px] justify-items-center	">
           <div>
             <div className="w-[296px] items-center flex h-20 m-6 py-4 px-8">
               <img
