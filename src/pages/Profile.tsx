@@ -16,9 +16,9 @@ import { MyPage } from "../components/MyPage";
 
 export const Profile = () => {
   return (
-    <div className="w-screen h-screen pt-16 px-16   bg-[#F5F5F5]">
+    <div className="w-screen h-screen pt-16 px-16 bg-[#F5F5F5]">
       {/* header */}
-      <div className="grid grid-cols-12  mb-4">
+      <div className="grid grid-cols-12 mb-4">
         <div className="grid col-span-3 py-4 justify-items-center	">
           <button
             type="button"
@@ -90,7 +90,7 @@ export const Profile = () => {
             </Link>
           </div>
         </div>
-        <div className="bg-black grid col-span-9">
+        <div className="bg-black  mr-16 grid col-span-9">
           <MyPage />
         </div>
       </div>
