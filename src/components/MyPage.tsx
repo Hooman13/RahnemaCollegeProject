@@ -47,8 +47,11 @@ export const MyPage = () => {
           </div>
         </div>
         {/* posts place */}
-        <div className="mt-6 bg-black h-full border rounded-t-[45px]">
-          hello
+        <div className="flex justify-center mt-6 bg-inherit h-full border rounded-t-[45px]">
+          <div className="">
+            <div>هنوز هیچ پستی توی صفحه‌ات نذاشتی! بجنب تا دیر نشده</div>
+            <div></div>
+          </div>
         </div>
       </div>
     </>
