@@ -7,6 +7,7 @@ import { Profile } from "./Profile";
 import { EmailSent } from "./EmailSent";
 import { EditProfile } from "./EditProfile";
 import RequireAuth from "../components/RequireAuth";
+import { ErrorPage } from "./Error";
 
 export const LoginBasePage = () => {
   return (
@@ -19,6 +20,7 @@ export const LoginBasePage = () => {
           <Route path="/forgotpass" element={<PassRecovery />} />
           <Route path="/reset-password" element={<NewPass />} />
           <Route path="/email-sent-page" element={<EmailSent />} />
+          <Route path="/error" element={<ErrorPage />} />
 
           {/* Protected Routes */}
           <Route element={<RequireAuth />}>
