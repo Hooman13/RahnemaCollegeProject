@@ -1,9 +1,23 @@
-import { Link } from "react-router-dom";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
+import { Link } from "react-router-dom";
+import styles from "./Profile.module.css";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faThumbTack,
+  faBookmark,
+  faCommentDots,
+  faBell,
+  faTag,
+  faMagnifyingGlass,
+  faGripVertical,
+  faCirclePlus,
+} from "@fortawesome/free-solid-svg-icons";
+import { MyPage } from "../components/MyPage";
 
 const FormSchema = z.object({
   isPrivate: z.boolean(),
@@ -80,17 +94,26 @@ export const EditProfile = () => {
             style={{ backgroundImage: "url(./img/login-background.png)" }}
           >
             <div className="bg-white w-screen md:w-[485px] h-screen md:h-auto  py-16 shadow-lg rounded-3xl mt-3 px-20 ">
-              <div className="flex justify-center pb-10">
-                {/* <img src="./img/logo.png" alt="" /> */}
+              <div className="text-center text-xl justify-center font-bold mb-8">
+                ویرایش حساب
               </div>
-
+              <div className="flex justify-center mb-2">
+                <img
+                  className="border rounded-full  w-[90px] h-[90px] justify-center"
+                  src="./img/avatar.png"
+                  alt=""
+                />
+              </div>
+              <div className="flex justify-center mb-12">
+                <p className="text-sm font-medium">عکس پروفایل</p>
+              </div>
               <div className="font-normal text-xs mt-6">
                 <div className="mb-6">
                   <input
                     type="text"
                     {...register("fName")}
                     placeholder="نام"
-                    className="border rounded-2xl w-full text-right px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
+                    className="border h-9 rounded-2xl w-full text-right px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
                   />
                   {errors?.fName?.message && (
                     <p className="text-red-700">{errors.fName.message}</p>
@@ -101,7 +124,7 @@ export const EditProfile = () => {
                     type="text"
                     {...register("lName")}
                     placeholder="نام خانوادگی"
-                    className="border text-right rounded-2xl w-full px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
+                    className="border h-9 text-right rounded-2xl w-full px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
                   />
                   {errors?.lName?.message && (
                     <p className="text-red-700">{errors.lName.message}</p>
@@ -112,7 +135,7 @@ export const EditProfile = () => {
                     type="text"
                     {...register("email")}
                     placeholder="ایمیل"
-                    className="border text-right rounded-2xl w-full px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
+                    className="border h-9 text-right rounded-2xl w-full px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
                   />
                   {errors?.email?.message && (
                     <p className="text-red-700">{errors.email.message}</p>
@@ -127,7 +150,7 @@ export const EditProfile = () => {
                     onChange={({ target }) => {
                       handleUserInput(target.name, target.value);
                     }}
-                    className="border text-right rounded-2xl w-full px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
+                    className="border h-9 text-right rounded-2xl w-full px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
                   />
                   {errors?.password?.message && (
                     <p className="text-red-700">{errors.password.message}</p>
@@ -143,14 +166,14 @@ export const EditProfile = () => {
                     }}
                     onKeyUp={validatePassInputs}
                     placeholder="تکرار رمز عبور"
-                    className="border text-right rounded-2xl w-full px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
+                    className="border h-9 text-right rounded-2xl w-full px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
                   />
                   <p className="text-red-700">{formError.confirmPassword}</p>
                 </div>
               </div>
               <div>
-                <label className="flex justify-end items-center mb-6  text-sm   cursor-pointer">
-                  <span className="ms-3 rtl pr-6 text-sm font-medium ">
+                <label className="flex justify-start items-center mb-6  text-sm   cursor-pointer">
+                  <span className="ms-3 text-sm ml-2 font-medium ">
                     پیچ خصوصی باشه
                   </span>
                   <input
@@ -171,7 +194,7 @@ export const EditProfile = () => {
                   {...register("bio")}
                 />
               </div>
-              <div className="flex items-center text-sm text-center">
+              <div className="flex items-center justify-end text-sm text-center">
                 <div className="text-center mr-1 flex border-solid rounded-2xl bg-[#EA5A69] w-[102px] h-[36px] text-sm justify-center items-center px-[8px] py-[16px] ">
                   <button type={"submit"}>ثبت تغییرات</button>
                 </div>
