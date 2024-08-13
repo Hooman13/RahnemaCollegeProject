@@ -2,6 +2,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import React, { useRef, useState, useEffect } from "react";
 import axios from "../api/axios";
 import useAuth from "../hooks/useAuth";
+import Cookies from "js-cookie";
 
 const LOGIN_URL = "/auth/login";
 
@@ -29,7 +30,6 @@ export const Login = () => {
   }, [user, pwd]);
 
   const handleSubmit = async (e: any) => {
-    debugger;
     e.preventDefault();
     try {
       const response = await axios.post(
@@ -44,17 +44,15 @@ export const Login = () => {
           // withCredentials: true,
         }
       );
-      debugger;
       console.log(JSON.stringify(response?.data));
       const jwt = response?.data;
       const roles = response?.data?.roles;
       setUser("");
       setPwd("");
-
+      Cookies.set("token", jwt, { expires: 7 });
       setAuth({ user, pwd, jwt });
       navigate(from, { replace: true });
     } catch (err: any) {
-      debugger;
       if (!err?.response) {
         setErrMsg("سرور در دسترس نیست");
       } else if (err.response?.status === 400) {
