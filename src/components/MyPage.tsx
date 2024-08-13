@@ -1,6 +1,46 @@
 import styles from "./MyPage.module.css";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useEffect } from "react";
+import Cookies from "js-cookie";
+import axios from "../api/axios";
+import { boolean } from "zod";
+
 export const MyPage = () => {
+  const [user, setUser] = useState({
+    data: {
+      bio: "",
+      email: "",
+      fName: "",
+      imageUrl: "",
+      isPrivate: boolean,
+      lName: "",
+      username: "",
+    },
+  });
+  const [isUserUpdated, setIsUserUpdated] = useState(false);
+  const token = Cookies.get("token");
+  const getProfileData = async () => {
+    try {
+      const data: any = await axios.get(
+        "http://37.32.5.72:3000/auth/user-info",
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setUser(data);
+      setIsUserUpdated(false);
+    } catch (error) {
+      console.log({ error });
+    }
+  };
+  //
+  useEffect(() => {
+    getProfileData();
+  }, [token, isUserUpdated]);
   return (
     <>
       <div>
@@ -16,9 +56,9 @@ export const MyPage = () => {
               />
               <div className="grid grid-rows-4 h-[132px]">
                 <div className="user-display-name text-sm text-[#C19008]">
-                  @mahmz
+                  {user.data.username}
                 </div>
-                <div className="user-full-name text-xl">مهشید منزه</div>
+                <div className="user-full-name text-xl"> {user.data.fName}</div>
                 <div className="text-sm flex  ">
                   <div className="user-followers-details pl-2 text-[#C19008]">
                     13 دنبال کننده
