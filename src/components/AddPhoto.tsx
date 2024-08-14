@@ -1,3 +1,16 @@
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faThumbTack,
+  faBookmark,
+  faCommentDots,
+  faBell,
+  faTag,
+  faMagnifyingGlass,
+  faGripVertical,
+  faCirclePlus,
+} from "@fortawesome/free-solid-svg-icons";
+
 export const AddPhoto = () => {
   return (
     <>
@@ -40,10 +53,17 @@ export const AddPhoto = () => {
               <div className="flex justify-center mb-8">
                 <div className="rounded-full w-[90px] h-[90px] border-[#F7901E] border-2"></div>
               </div>
+
               {/* buttons */}
-              <div className="text-xl text-center">
-                لینک تغییر رمز عبور ارسال شد. برای تنظیم رمز جدید لطفاً
-                ایمیل‌تون رو چک کنید.
+              <div className="flex items-center justify-end text-sm">
+                <div className="flex pl-5">
+                  <Link to="/login">
+                    <button>پشیمون شدم</button>
+                  </Link>
+                </div>
+                <div className="text-center mr-1 flex border-solid rounded-2xl bg-[#EA5A69] w-[62px] h-[36px] text-sm justify-center items-center px-[8px] py-[16px] ">
+                  <button type={"submit"}>بعدی</button>
+                </div>
               </div>
             </div>
           </div>
