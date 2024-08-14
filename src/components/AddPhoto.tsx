@@ -13,6 +13,10 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 export const AddPhoto = () => {
+  const fileSelectedHandler = (event: any) => {
+    console.log(event.target.file[0]);
+  };
+
   return (
     <>
       <section>
@@ -53,11 +57,16 @@ export const AddPhoto = () => {
               </div>
               <div className="flex justify-center mb-8">
                 <div className="flex relative items-center justify-center  rounded-full w-[90px] h-[90px] border-[#F7901E] border-2">
-                  <div className="m-auto ">
+                  <div className="m-auto relative   ">
                     <FontAwesomeIcon
                       className="w-9 h-9"
                       icon={faCamera}
                       style={{ color: "#F7901E" }}
+                    />
+                    <input
+                      type="file"
+                      onChange={fileSelectedHandler}
+                      className="absolute top-0 right-0 left-0 bottom-0 opacity-0 cursor-pointer "
                     />
                   </div>
                   <div>
@@ -69,7 +78,6 @@ export const AddPhoto = () => {
                   </div>
                 </div>
               </div>
-
               {/* buttons */}
               <div className="flex items-center justify-end text-sm">
                 <div className="flex pl-5">
