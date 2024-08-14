@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import styles from "./Profile.module.css";
+import { useNavigate } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -48,6 +49,11 @@ export const EditProfile = () => {
     resolver: zodResolver(FormSchema),
   });
 
+  const navigate = useNavigate();
+  const handleProfileEdited = () => {
+    navigate("/");
+  };
+
   const onSubmit = (data: IFormInput) => {
     // console.log(data);
     axios
@@ -57,7 +63,11 @@ export const EditProfile = () => {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then((response) => console.log(response))
+      .then((response) => {
+        if (response.status === 200) {
+          handleProfileEdited();
+        }
+      })
       .catch((err) => console.log(err));
   };
 
@@ -75,7 +85,7 @@ export const EditProfile = () => {
   const [formError, setFormError] = useState({
     confirmPassword: "",
   });
-  const handleUserInput = (name: string, value: string) => {
+  const handleUserInput = (name: string, value?: string) => {
     setFormInput({
       ...formInput,
       [name]: value,

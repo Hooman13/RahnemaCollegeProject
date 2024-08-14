@@ -8,6 +8,7 @@ import { EmailSent } from "./EmailSent";
 import { EditProfile } from "./EditProfile";
 import RequireAuth from "../components/RequireAuth";
 import { ErrorPage } from "./Error";
+import { AddPhoto } from "../components/AddPhoto";
 
 export const LoginBasePage = () => {
   return (
@@ -20,8 +21,9 @@ export const LoginBasePage = () => {
           <Route path="/forgotpass" element={<PassRecovery />} />
           <Route path="/reset-password" element={<NewPass />} />
           <Route path="/email-sent-page" element={<EmailSent />} />
-          <Route path="/profile" element={<Profile />} />
+          {/* <Route path="/profile" element={<Profile />} /> */}
           <Route path="/error" element={<ErrorPage />} />
+          <Route path="/addphoto" element={<AddPhoto />} />
 
           {/* Protected Routes */}
           <Route element={<RequireAuth />}>

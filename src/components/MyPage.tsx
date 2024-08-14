@@ -58,7 +58,10 @@ export const MyPage = () => {
                 <div className="user-display-name text-sm text-[#C19008]">
                   {user.data.username}
                 </div>
-                <div className="user-full-name text-xl"> {user.data.fName}</div>
+                <div className="user-full-name text-xl">
+                  {" "}
+                  {user.data.fName} {user.data.lName}
+                </div>
                 <div className="text-sm flex  ">
                   <div className="user-followers-details pl-2 text-[#C19008]">
                     13 دنبال کننده
@@ -70,7 +73,7 @@ export const MyPage = () => {
                   |<div className="user-followers-details pr-2">13 پست</div>
                 </div>
                 <div className="user-followers-details w-[377px]">
-                  Lover, not a fighter, spreading ✌️all over the 🌎
+                  {user.data.bio}
                 </div>
               </div>
             </div>
