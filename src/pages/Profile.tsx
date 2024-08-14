@@ -1,3 +1,7 @@
+import React from "react";
+import { useState } from "react";
+import { useEffect } from "react";
+import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
 import styles from "./Profile.module.css";
 
@@ -13,8 +17,47 @@ import {
   faCirclePlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { MyPage } from "../components/MyPage";
+import axios from "../api/axios";
+import { boolean, string } from "zod";
 
 export const Profile = () => {
+  const [user, setUser] = useState({
+    data: {
+      bio: "",
+      email: "",
+      fName: "",
+      imageUrl: "",
+      isPrivate: boolean,
+      lName: "",
+      username: "",
+    },
+  });
+  const [isUserUpdated, setIsUserUpdated] = useState(false);
+  const token = Cookies.get("token");
+  const getProfileData = async () => {
+    try {
+      const data: any = await axios.get(
+        "http://37.32.5.72:3000/auth/user-info",
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setUser(data);
+      setIsUserUpdated(false);
+    } catch (error) {
+      console.log({ error });
+    }
+  };
+  //
+  useEffect(() => {
+    getProfileData();
+  }, [token, isUserUpdated]);
+  // console.log(user.data.username);
+  // console.log(user.data.email);
+  // console.log(user);
   return (
     <>
       <div className="w-screen h-full pt-16 px-16 bg-[#F5F5F5]">
@@ -22,7 +65,8 @@ export const Profile = () => {
         <div className="grid grid-cols-12 mb-4">
           <div className="grid col-span-3 py-4 justify-items-center	">
             <button
-              type="button"
+              type="submit"
+              // onClick={getProfileData}
               className="w-[232px] py-4 px-2 bg-[#EA5A69] rounded-3xl text-white"
             >
               <FontAwesomeIcon className="ml-2" icon={faCirclePlus} />
@@ -44,7 +88,7 @@ export const Profile = () => {
                   src="./img/avatar.png"
                   alt=""
                 />
-                <span className="px-4 py-3">mahnaz</span>
+                <span className="px-4 py-3">{user.data.username}</span>
               </div>
               <div className="w-auto items-center py-4 flex h-14 pr-9 px-8 hover:bg-[#F2F2F7] border-none rounded-2xl text-center">
                 <Link to="/editpage">
