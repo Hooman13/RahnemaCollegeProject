@@ -51,13 +51,12 @@ export const EditProfile = () => {
   const onSubmit = (data: IFormInput) => {
     // console.log(data);
     axios
-      .post(
-        "http://37.32.5.72:3000/edit-profile/" + `${token}`,
-        JSON.stringify(data),
-        {
-          headers: { "Content-Type": "application/json" },
-        }
-      )
+      .put("http://37.32.5.72:3000/edit-profile", JSON.stringify(data), {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((response) => console.log(response))
       .catch((err) => console.log(err));
   };
@@ -67,7 +66,7 @@ export const EditProfile = () => {
     email: "",
     fName: "",
     imageUrl: "",
-    isPrivate: boolean,
+    isPrivate: false,
     lName: "",
     username: "",
     password: "",
