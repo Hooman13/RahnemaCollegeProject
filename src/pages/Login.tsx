@@ -3,6 +3,7 @@ import React, { useRef, useState, useEffect } from "react";
 import axios from "../api/axios";
 import useAuth from "../hooks/useAuth";
 import Cookies from "js-cookie";
+import { Toast } from "../components/controles/toast";
 
 const LOGIN_URL = "/auth/login";
 
@@ -10,8 +11,8 @@ export const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
-  //@ts-ignore
 
+  //@ts-ignore
   const { setAuth } = useAuth();
   const userRef = useRef(null);
   const errRef = useRef(null);
@@ -21,6 +22,7 @@ export const Login = () => {
   const [rememberMe, setRememberMe] = useState(false);
   const [errMsg, setErrMsg] = useState("");
 
+  const [displayToast, setDispalyToast] = useState(false);
   useEffect(() => {
     (userRef as any).current.focus();
   }, []);
@@ -51,6 +53,7 @@ export const Login = () => {
       setPwd("");
       Cookies.set("token", jwt, { expires: 7 });
       setAuth({ user, pwd, jwt });
+      setDispalyToast(true);
       navigate(from, { replace: true });
     } catch (err: any) {
       if (!err?.response) {
@@ -68,6 +71,7 @@ export const Login = () => {
 
   return (
     <section>
+      {displayToast && <Toast type="success">ورود موفقیت آمیز</Toast>}
       <form onSubmit={handleSubmit}>
         <div
           className="frame5 w-screen h-screen bg-no-repeat bg-center bg-cover flex justify-center items-center"
