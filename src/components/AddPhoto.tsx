@@ -9,6 +9,7 @@ import {
   faMagnifyingGlass,
   faGripVertical,
   faCirclePlus,
+  faCamera,
 } from "@fortawesome/free-solid-svg-icons";
 
 export const AddPhoto = () => {
@@ -51,7 +52,22 @@ export const AddPhoto = () => {
                 <p>عکس‌های مورد نظرت رو آپلود کن:</p>
               </div>
               <div className="flex justify-center mb-8">
-                <div className="rounded-full w-[90px] h-[90px] border-[#F7901E] border-2"></div>
+                <div className="flex relative items-center justify-center  rounded-full w-[90px] h-[90px] border-[#F7901E] border-2">
+                  <div className="m-auto ">
+                    <FontAwesomeIcon
+                      className="w-9 h-9"
+                      icon={faCamera}
+                      style={{ color: "#F7901E" }}
+                    />
+                  </div>
+                  <div>
+                    <FontAwesomeIcon
+                      className="absolute top-[21px] right-[54px]"
+                      icon={faCirclePlus}
+                      style={{ color: "#F7901E" }}
+                    />
+                  </div>
+                </div>
               </div>
 
               {/* buttons */}

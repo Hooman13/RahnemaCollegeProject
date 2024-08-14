@@ -15,6 +15,7 @@ import {
   faMagnifyingGlass,
   faGripVertical,
   faCirclePlus,
+  faCamera,
 } from "@fortawesome/free-solid-svg-icons";
 import { MyPage } from "../components/MyPage";
 import axios from "../api/axios";
