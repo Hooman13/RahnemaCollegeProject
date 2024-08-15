@@ -68,15 +68,19 @@ export const Login = () => {
       navigate(from, { replace: true });
     } catch (err: any) {
       if (!err?.response) {
-        setErrMsg("سرور در دسترس نیست");
+        setToastMsg("سرور در دسترس نیست");
+        setToastType("danger");
+        setDispalyToast(true);
       } else if (err.response?.status === 400) {
         setErrMsg("نام کاربری یا رمز عبور وجود ندارد");
       } else if (err.response?.status === 401) {
         setErrMsg("نام کاربری یا رمز عبور اشتباه است");
       } else {
-        setErrMsg("خطا در ورود ");
+        setToastMsg("خطا در ورود ");
+        setToastType("danger");
+        setDispalyToast(true);
       }
-      setDispalyToast(true);
+
       (errRef as any).current.focus();
     }
   };
