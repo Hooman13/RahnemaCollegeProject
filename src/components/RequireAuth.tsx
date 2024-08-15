@@ -1,12 +1,11 @@
 import { useLocation, Navigate, Outlet } from "react-router-dom";
-import useAuth from "../hooks/useAuth";
+import Cookies from "js-cookie";
 
-const RequireAuth = () => {
-  //@ts-ignore
-  const { auth } = useAuth();
+const RequireAuth = () => {debugger
+  
   const location = useLocation();
-
-  return auth?.user ? (
+  const token = Cookies.get("token");
+  return token ? (
     <Outlet />
   ) : (
     <Navigate to="/login" state={{ from: location }} replace />
