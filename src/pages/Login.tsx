@@ -90,13 +90,6 @@ export const Login = () => {
           style={{ backgroundImage: "url(./img/login-background.png)" }}
         >
           <div className=" bg-white w-screen md:w-[485px] h-screen md:h-[695px] py-16 shadow-lg rounded-3xl mt-3 px-20 ">
-            <p
-              ref={errRef}
-              className={errMsg ? "errmsg text-[#d74646]" : "offscreen"}
-              aria-live="assertive"
-            >
-              {errMsg}
-            </p>
             <div className="flex justify-center pb-10">
               <img src="./img/logo.png" alt="" />
             </div>
@@ -134,6 +127,14 @@ export const Login = () => {
                 placeholder="رمز عبور"
                 className="border text-right rounded-2xl w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
               />
+              <p
+                ref={errRef}
+                className={errMsg ? "errmsg text-red-700" : "offscreen"}
+                aria-live="assertive"
+              >
+                {errMsg}
+              </p>
+
               <div className="text-rtl flex text-center justify-start mt-6">
                 <input
                   type="checkbox"
