@@ -3,7 +3,7 @@ import React, { useRef, useState, useEffect } from "react";
 import axios from "../api/axios";
 import useAuth from "../hooks/useAuth";
 import Cookies from "js-cookie";
-import { Toast } from "../components/controles/toast";
+import { ToastR } from "../components/controles/ToastR";
 
 const LOGIN_URL = "/auth/login";
 
@@ -23,6 +23,15 @@ export const Login = () => {
   const [errMsg, setErrMsg] = useState("");
 
   const [displayToast, setDispalyToast] = useState(false);
+  const [toastMsg, setToastMsg] = useState("");
+  const [toastType, setToastType] = useState("basic");
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setDispalyToast(false);
+    }, 3000);
+    return () => clearTimeout(timeoutId);
+  }, [displayToast]);
+
   useEffect(() => {
     (userRef as any).current.focus();
   }, []);
@@ -53,6 +62,8 @@ export const Login = () => {
       setPwd("");
       Cookies.set("token", jwt, { expires: 7 });
       setAuth({ user, pwd, jwt });
+      setToastMsg("ورود موفقیت آمیز");
+      setToastType("success");
       setDispalyToast(true);
       navigate(from, { replace: true });
     } catch (err: any) {
@@ -65,13 +76,14 @@ export const Login = () => {
       } else {
         setErrMsg("خطا در ورود ");
       }
+      setDispalyToast(true);
       (errRef as any).current.focus();
     }
   };
 
   return (
     <section>
-      {displayToast && <Toast type="success">ورود موفقیت آمیز</Toast>}
+      {displayToast && <ToastR type={toastType}>{toastMsg}</ToastR>}
       <form onSubmit={handleSubmit}>
         <div
           className="frame5 w-screen h-screen bg-no-repeat bg-center bg-cover flex justify-center items-center"
