@@ -54,10 +54,8 @@ export const Login = () => {
         JSON.stringify(requestBody),
         {
           headers: { "Content-Type": "application/json" },
-          // withCredentials: true,
         }
       );
-      console.log(JSON.stringify(response?.data));
       const jwt = response?.data;
       const roles = response?.data?.roles;
       setUser("");
