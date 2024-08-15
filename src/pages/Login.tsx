@@ -29,16 +29,29 @@ export const Login = () => {
     setErrMsg("");
   }, [user, pwd]);
 
+  const checkIfEmailInString = (text: string) => {
+    var re =
+      /(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/;
+    return re.test(text);
+  };
+
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
+      let requestBody = {
+        password: pwd,
+        rememberMe: rememberMe,
+      };
+
+      let emailKey = "email";
+      let userKey = "username";
+      requestBody = checkIfEmailInString(user)
+        ? { ...requestBody, [emailKey]: user }
+        : { ...requestBody, [userKey]: user };
+
       const response = await axios.post(
         LOGIN_URL,
-        JSON.stringify({
-          username: user,
-          password: pwd,
-          rememberMe: rememberMe,
-        }),
+        JSON.stringify(requestBody),
         {
           headers: { "Content-Type": "application/json" },
           // withCredentials: true,
