@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import Cookies from "js-cookie";
 import axios from "../api/axios";
 import { boolean } from "zod";
+import { PostsList } from "./PostList";
 
 export const MyPage = () => {
   const [user, setUser] = useState({
@@ -99,7 +100,9 @@ export const MyPage = () => {
         <div className="flex justify-center mt-6 bg-inherit h-full border rounded-t-[45px]">
           <div className="">
             <div>هنوز هیچ پستی توی صفحه‌ات نذاشتی! بجنب تا دیر نشده</div>
-            <div></div>
+            <div>
+              <PostsList />
+            </div>
           </div>
         </div>
       </div>
