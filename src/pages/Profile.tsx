@@ -15,15 +15,15 @@ export const Profile = () => {
         {/* header */}
         <div className="grid grid-cols-12 mb-4">
           <div className="grid col-span-3 py-4 justify-items-center	">
-            <Link to="/addphoto">
-            <button
-              type="submit"
-              // onClick={getProfileData}
-              className="w-[232px] py-4 px-2 bg-[#EA5A69] rounded-3xl text-white"
-            >
-              <FontAwesomeIcon className="ml-2" icon={faCirclePlus} />
-              ایجاد پست جدید
-            </button>
+            <Link to="/createpost">
+              <button
+                type="submit"
+                // onClick={getProfileData}
+                className="w-[232px] py-4 px-2 bg-[#EA5A69] rounded-3xl text-white"
+              >
+                <FontAwesomeIcon className="ml-2" icon={faCirclePlus} />
+                ایجاد پست جدید
+              </button>
             </Link>
           </div>
           <div className=" col-span-9 flex justify-end">
