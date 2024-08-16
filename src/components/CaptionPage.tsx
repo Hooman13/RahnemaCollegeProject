@@ -40,8 +40,8 @@ export const CaptionPage = () => {
   });
 
   const navigate = useNavigate();
-  const handleProfileEdited = () => {
-    navigate("");
+  const handleCaptionSent = () => {
+    navigate("/sendPost");
   };
 
   const onSubmit = (data: IFormInput) => {
@@ -55,7 +55,7 @@ export const CaptionPage = () => {
     //   })
     //   .then((response) => {
     //     // if (response.status === 200) {
-    //     //   handleProfileEdited();
+    //     //   handlecaptionSent();
     //     // }
     //   })
     //   .catch((err) => console.log(err));
