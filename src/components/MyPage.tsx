@@ -22,15 +22,12 @@ export const MyPage = () => {
   const token = Cookies.get("token");
   const getProfileData = async () => {
     try {
-      const data: any = await axios.get(
-        "http://37.32.5.72:3000/auth/user-info",
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const data: any = await axios.get("http://37.32.5.72:3000/user-info", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
       setUser(data);
       setIsUserUpdated(false);
     } catch (error) {

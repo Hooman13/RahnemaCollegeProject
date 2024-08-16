@@ -67,7 +67,7 @@ export const Login = () => {
           headers: { "Content-Type": "application/json" },
         }
       );
-      const jwt = response?.data;
+      const jwt = response?.data.token;
       const roles = response?.data?.roles;
       setUser("");
       setPwd("");

@@ -1,8 +1,7 @@
 import { useLocation, Navigate, Outlet } from "react-router-dom";
 import Cookies from "js-cookie";
 
-const RequireAuth = () => {debugger
-  
+const RequireAuth = () => {
   const location = useLocation();
   const token = Cookies.get("token");
   return token ? (
