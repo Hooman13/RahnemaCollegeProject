@@ -3,6 +3,7 @@ import { MyPage } from "../components/MyPage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import { ProfileSidebar } from "../components/ProfileSidebar";
+import { Link } from "react-router-dom";
 
 export const Profile = () => {
   // console.log(user.data.username);
@@ -14,6 +15,7 @@ export const Profile = () => {
         {/* header */}
         <div className="grid grid-cols-12 mb-4">
           <div className="grid col-span-3 py-4 justify-items-center	">
+            <Link to="/addphoto">
             <button
               type="submit"
               // onClick={getProfileData}
@@ -22,6 +24,7 @@ export const Profile = () => {
               <FontAwesomeIcon className="ml-2" icon={faCirclePlus} />
               ایجاد پست جدید
             </button>
+            </Link>
           </div>
           <div className=" col-span-9 flex justify-end">
             <img src="./img/logo.png" alt="" />
