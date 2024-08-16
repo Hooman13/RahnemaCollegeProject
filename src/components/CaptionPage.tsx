@@ -130,7 +130,7 @@ export const CaptionPage = () => {
                     <button>پشیمون شدم</button>
                   </Link>
                 </div>
-                <div className="text-center mr-1 flex border-solid rounded-2xl bg-[#EA5A69] w-[62px] h-[36px] text-sm justify-center items-center px-[8px] py-[16px] ">
+                <div className="text-white text-center mr-1 flex border-solid rounded-2xl bg-[#EA5A69] w-[62px] h-[36px] text-sm justify-center items-center px-[8px] py-[16px] ">
                   <button type={"submit"}>بعدی</button>
                 </div>
               </div>
