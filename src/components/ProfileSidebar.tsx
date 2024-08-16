@@ -82,7 +82,7 @@ export const ProfileSidebar: FunctionComponent = () => {
           </Link>
         </div>
         <div className="w-auto items-center py-4 flex h-14 pr-9 px-8 hover:bg-[#F2F2F7] border-none rounded-2xl text-center">
-          <Link to="/editpage">
+          <Link to="/tags">
             <FontAwesomeIcon className="ml-4" icon={faTag} />
             تگ‌شده‌ها
           </Link>
