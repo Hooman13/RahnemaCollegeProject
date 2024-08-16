@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Login } from "./Login";
+import { ToastR } from "../components/controles/ToastR";
 
 const FormSchema = z.object({
   username: z
@@ -23,6 +24,16 @@ const FormSchema = z.object({
 type IFormInput = z.infer<typeof FormSchema>;
 
 export const Signup = () => {
+  const [displayToast, setDispalyToast] = useState(false);
+  const [toastMsg, setToastMsg] = useState("");
+  const [toastType, setToastType] = useState("basic");
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setDispalyToast(false);
+    }, 3000);
+    return () => clearTimeout(timeoutId);
+  }, [displayToast]);
+
   const {
     register,
     handleSubmit,
@@ -50,10 +61,18 @@ export const Signup = () => {
       .then((response) => {
         console.log(response);
         if (response.status === 201) {
+          setToastMsg("ثبت نام شما با موفقیت انجام شد");
+          setToastType("success");
+          setDispalyToast(true);
           handleSignupSuccess();
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setToastMsg(" خطایی رخ داد " + err.message);
+        setToastType("danger");
+        setDispalyToast(true);
+        console.log(err);
+      });
   };
 
   const [formInput, setFormInput] = useState({
@@ -92,6 +111,7 @@ export const Signup = () => {
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
         <section>
+          {displayToast && <ToastR type={toastType}>{toastMsg}</ToastR>}
           <div
             className="frame5 w-screen h-screen bg-no-repeat bg-center bg-cover flex justify-center items-center"
             style={{ backgroundImage: "url(./img/login-background.png)" }}
