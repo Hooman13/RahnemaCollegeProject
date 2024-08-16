@@ -11,6 +11,7 @@ import { ErrorPage } from "./Error";
 import { AddPhoto } from "../components/AddPhoto";
 import { Saved } from "./Saved";
 import { Messages } from "./Messages";
+import { Tags } from "./Tags";
 import { Notifs } from "./Notifs";
 
 export const LoginBasePage = () => {
@@ -33,6 +34,7 @@ export const LoginBasePage = () => {
             <Route path="/profile" element={<Profile />} />
             <Route path="/saved" element={<Saved />} />
             <Route path="/messages" element={<Messages />} />
+            <Route path="/tags" element={<Tags />} />
             <Route path="/Notifs" element={<Notifs />} />
             <Route path="/editpage" element={<EditProfile />} />
           </Route>
