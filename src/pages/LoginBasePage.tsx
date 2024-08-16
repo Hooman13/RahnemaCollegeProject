@@ -16,6 +16,7 @@ import { Explore } from "./Explore";
 import { Tags } from "./Tags";
 import { Notifs } from "./Notifs";
 import { CaptionPage } from "../components/CaptionPage";
+import { SendPost } from "../components/SendPost";
 
 export const LoginBasePage = () => {
   return (
@@ -31,6 +32,7 @@ export const LoginBasePage = () => {
           <Route path="/error" element={<ErrorPage />} />
           <Route path="/addphoto" element={<AddPhoto />} />
           <Route path="/addcaption" element={<CaptionPage />} />
+          <Route path="/sendpost" element={<SendPost />} />
 
           {/* Protected Routes */}
           <Route element={<RequireAuth />}>
