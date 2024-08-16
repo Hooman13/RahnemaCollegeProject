@@ -16,6 +16,9 @@ export const MyPage = () => {
       isPrivate: boolean,
       lName: "",
       username: "",
+      followers: "",
+      following: "",
+      postCount: "",
     },
   });
   const [isUserUpdated, setIsUserUpdated] = useState(false);
@@ -61,13 +64,19 @@ export const MyPage = () => {
                 </div>
                 <div className="text-sm flex  ">
                   <div className="user-followers-details pl-2 text-[#C19008]">
-                    13 دنبال کننده
+                    {user.data?.followers}
+                    <span className="mx-1">دنبال کننده</span>
                   </div>
                   |
                   <div className="user-followers-details px-2 text-[#C19008]">
-                    13 دنبال شونده
+                    {user.data?.following}
+                    <span className="mx-1">دنبال شونده</span>
                   </div>
-                  |<div className="user-followers-details pr-2">13 پست</div>
+                  |
+                  <div className="user-followers-details pr-2">
+                    {user.data?.postCount}
+                    <span className="mx-1">پست</span>
+                  </div>
                 </div>
                 <div className="user-followers-details w-[377px]">
                   {user.data.bio}
