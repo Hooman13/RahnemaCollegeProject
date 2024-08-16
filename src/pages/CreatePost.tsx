@@ -39,17 +39,20 @@ export const CreatePost = () => {
     resolver: zodResolver(FormSchema),
   });
 
-  const onSubmit = (data: FormData) => {
-    console.log(data);
-    // console.log(file);
-    // if (typeof file === "undefined") return;
-    // const formData = new FormData();
-    // formData.append("file", file);
-    // formData.append("caption", formInput.caption);
+  const onSubmit = () => {
+    // debugger;
+    // console.log(data);
+    console.log(file);
+    if (typeof file === "undefined") return;
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("caption", formInput.caption);
+    // formData.append("mention", "hello");
+    // console.log(formData);
     // formData.append("mentions", formInput.mentions);
 
     axios
-      .post("http://37.32.5.72:3000/posts", data, {
+      .post("http://37.32.5.72:3000/posts", formData, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -78,9 +81,6 @@ export const CreatePost = () => {
   };
 
   // AddPhoto logic
-  // const fileSelectedHandler = (event: React.SyntheticEvent) => {
-  //   console.log(event.target.image.value);
-  // };
 
   const handleOnChangePhoto = (e: React.FormEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement & {
