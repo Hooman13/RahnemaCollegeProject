@@ -20,15 +20,16 @@ import {
 
 const FormSchema = z.object({
   images: z.string().optional(),
-  mention: z.string().optional(),
+  mentions: z.string().optional(),
   caption: z.string().optional(),
 });
 type FormData = z.infer<typeof FormSchema>;
 export const CreatePost = () => {
   const [showAddPhoto, setShowAddPhoto] = useState(true);
-  const [showCaptionPage, setShowCaptionPage] = useState(true);
-  const [showSendPost, setShowSendPost] = useState(true);
+  const [showCaptionPage, setShowCaptionPage] = useState(false);
+  const [showSendPost, setShowSendPost] = useState(false);
   const [file, setFile] = useState<File | undefined>();
+
   const token = Cookies.get("token");
   const {
     register,
@@ -40,30 +41,33 @@ export const CreatePost = () => {
 
   const onSubmit = (data: FormData) => {
     console.log(data);
-    console.log(file);
-    if (typeof file === undefined) return;
-    const formData = new FormData();
+    // console.log(file);
+    // if (typeof file === "undefined") return;
+    // const formData = new FormData();
     // formData.append("file", file);
+    // formData.append("caption", formInput.caption);
+    // formData.append("mentions", formInput.mentions);
 
-    // axios
-    //   .post("http://37.32.5.72:3000/", JSON.stringify(data), {
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       Authorization: `Bearer ${token}`,
-    //     },
-    //   })
-    //   .then((response) => {
-    //     // if (response.status === 200) {
-    //     //   handlecaptionSent();
-    //     // }
-    //   })
-    //   .catch((err) => console.log(err));
+    axios
+      .post("http://37.32.5.72:3000/posts", data, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        // if (response.status === 200) {
+        //   handlecaptionSent();
+        // }
+      })
+      .catch((err) => console.log(err));
   };
 
   const [formInput, setFormInput] = useState({
-    images: "",
+    // images: "",
     caption: "",
-    mention: ["", ","],
+    // mentions: "",
   });
 
   const handleUserInput = (name: string, value?: string) => {
@@ -158,7 +162,12 @@ export const CreatePost = () => {
                         </Link>
                       </div>
                       <div className="text-white text-center mr-1 flex border-solid rounded-2xl bg-[#EA5A69] w-[62px] h-[36px] text-sm justify-center items-center px-[8px] py-[16px] ">
-                        <button onClick={() => setShowAddPhoto(!showAddPhoto)}>
+                        <button
+                          onClick={() => {
+                            setShowAddPhoto(!showAddPhoto);
+                            setShowCaptionPage(!showCaptionPage);
+                          }}
+                        >
                           بعدی
                         </button>
                       </div>
@@ -221,7 +230,10 @@ export const CreatePost = () => {
                       </div>
                       <div className="text-white text-center mr-1 flex border-solid rounded-2xl bg-[#EA5A69] w-[62px] h-[36px] text-sm justify-center items-center px-[8px] py-[16px] ">
                         <button
-                          onClick={() => setShowCaptionPage(!showCaptionPage)}
+                          onClick={() => {
+                            setShowCaptionPage(!showCaptionPage);
+                            setShowSendPost(!showSendPost);
+                          }}
                         >
                           بعدی
                         </button>
@@ -269,11 +281,11 @@ export const CreatePost = () => {
                         <input
                           className="w-[320px] h-[32px] border solid border-[#17494D]/50 rounded-xl"
                           type="text"
-                          {...register("mention")}
-                          value={formInput.mention}
-                          onChange={({ target }) => {
-                            handleUserInput(target.name, target.value);
-                          }}
+                          // {...register("mentions")}
+                          // value={formInput.mentions}
+                          // onChange={({ target }) => {
+                          //   handleUserInput(target.name, target.value);
+                          // }}
                         />
                       </div>
                     </div>
