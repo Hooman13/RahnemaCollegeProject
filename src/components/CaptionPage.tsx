@@ -41,7 +41,7 @@ export const CaptionPage = () => {
 
   const navigate = useNavigate();
   const handleCaptionSent = () => {
-    navigate("/sendPost");
+    navigate("/sendpost");
   };
 
   const onSubmit = (data: IFormInput) => {
