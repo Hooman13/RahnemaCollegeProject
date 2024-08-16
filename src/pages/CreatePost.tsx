@@ -19,8 +19,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const FormSchema = z.object({
-  images: z.string().optional(),
-  mentions: z.string().optional(),
+  mentions: z.array(z.string()).optional(),
   caption: z.string().optional(),
 });
 type FormData = z.infer<typeof FormSchema>;
@@ -42,19 +41,29 @@ export const CreatePost = () => {
   const onSubmit = () => {
     // debugger;
     // console.log(data);
-    console.log(file);
+    // console.log(file);
+    let arr = ["mohammad12", "H00man13"];
+
     if (typeof file === "undefined") return;
     const formData = new FormData();
-    formData.append("file", file);
+    formData.append("imageUrls", file);
     formData.append("caption", formInput.caption);
-    // formData.append("mention", "hello");
+
+    for (var i = 0; i < arr.length; i++) {
+      formData.append("mentions", arr[i]);
+    }
+    // let data = {
+    //   caption: "this is a test from hooman",
+    //   mentions: ["mohammad12"],
+    // };
     // console.log(formData);
     // formData.append("mentions", formInput.mentions);
 
     axios
       .post("http://37.32.5.72:3000/posts", formData, {
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "multipart/form-data",
+          // "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
       })
@@ -70,7 +79,7 @@ export const CreatePost = () => {
   const [formInput, setFormInput] = useState({
     // images: "",
     caption: "",
-    // mentions: "",
+    mentions: "",
   });
 
   const handleUserInput = (name: string, value?: string) => {
