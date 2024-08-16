@@ -39,11 +39,6 @@ export const CaptionPage = () => {
     resolver: zodResolver(FormSchema),
   });
 
-  const navigate = useNavigate();
-  const handleCaptionSent = () => {
-    navigate("/sendpost");
-  };
-
   const onSubmit = (data: IFormInput) => {
     console.log(data);
     // axios

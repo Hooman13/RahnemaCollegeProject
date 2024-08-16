@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faThumbTack,
@@ -12,7 +13,32 @@ import {
   faCamera,
 } from "@fortawesome/free-solid-svg-icons";
 
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
+
+import Cookies from "js-cookie";
+import { CaptionPage } from "./CaptionPage";
+
+const FormSchema = z.object({
+  bio: z.string().optional(),
+});
+type IFormInput = z.infer<typeof FormSchema>;
+
 export const AddPhoto = () => {
+  const [showResults, setShowResults] = React.useState(false);
+  const onClick = () => setShowResults(true);
+
+  const token = Cookies.get("token");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IFormInput>({
+    resolver: zodResolver(FormSchema),
+  });
+
   const fileSelectedHandler = (event: any) => {
     console.log(event.target.file[0]);
   };
@@ -20,7 +46,7 @@ export const AddPhoto = () => {
   return (
     <>
       <section>
-        <form>
+        <form onSubmit={handleSubmit(onClick)}>
           <div
             className="frame5 w-screen h-screen bg-no-repeat bg-center bg-cover flex justify-center items-center"
             style={{ backgroundImage: "url(./img/login-background.png)" }}
@@ -86,9 +112,12 @@ export const AddPhoto = () => {
                   </Link>
                 </div>
                 <div className="text-white text-center mr-1 flex border-solid rounded-2xl bg-[#EA5A69] w-[62px] h-[36px] text-sm justify-center items-center px-[8px] py-[16px] ">
-                  <button type={"submit"}>بعدی</button>
+                  <button type={"submit"} onClick={onClick}>
+                    بعدی
+                  </button>
                 </div>
               </div>
+              {showResults ? <CaptionPage /> : null}
             </div>
           </div>
         </form>
