@@ -141,6 +141,8 @@ export const CreatePost = () => {
                           />
                           <input
                             type="file"
+                            accept="image/png,image/jpg"
+                            multiple
                             onChange={handleOnChangePhoto}
                             className="absolute top-0 right-0 left-0 bottom-0 opacity-0 cursor-pointer "
                           />
