@@ -19,25 +19,32 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const FormSchema = z.object({
+  images: z.string().optional(),
   mention: z.string().optional(),
   caption: z.string().optional(),
 });
-type IFormInput = z.infer<typeof FormSchema>;
+type FormData = z.infer<typeof FormSchema>;
 export const CreatePost = () => {
   const [showAddPhoto, setShowAddPhoto] = useState(true);
   const [showCaptionPage, setShowCaptionPage] = useState(true);
   const [showSendPost, setShowSendPost] = useState(true);
+  const [file, setFile] = useState<File | undefined>();
   const token = Cookies.get("token");
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IFormInput>({
+  } = useForm<FormData>({
     resolver: zodResolver(FormSchema),
   });
 
-  const onSubmit = (data: IFormInput) => {
+  const onSubmit = (data: FormData) => {
     console.log(data);
+    console.log(file);
+    if (typeof file === undefined) return;
+    const formData = new FormData();
+    // formData.append("file", file);
+
     // axios
     //   .post("http://37.32.5.72:3000/", JSON.stringify(data), {
     //     headers: {
@@ -54,8 +61,9 @@ export const CreatePost = () => {
   };
 
   const [formInput, setFormInput] = useState({
+    images: "",
     caption: "",
-    mention: "",
+    mention: ["", ","],
   });
 
   const handleUserInput = (name: string, value?: string) => {
@@ -66,10 +74,17 @@ export const CreatePost = () => {
   };
 
   // AddPhoto logic
-  const fileSelectedHandler = (event: any) => {
-    console.log(event.target.files[0]);
-  };
+  // const fileSelectedHandler = (event: React.SyntheticEvent) => {
+  //   console.log(event.target.image.value);
+  // };
 
+  const handleOnChangePhoto = (e: React.FormEvent<HTMLInputElement>) => {
+    const target = e.target as HTMLInputElement & {
+      files: FileList;
+    };
+    console.log("target", target.files);
+    setFile(target.files[0]);
+  };
   return (
     <>
       <section>
@@ -122,7 +137,7 @@ export const CreatePost = () => {
                           />
                           <input
                             type="file"
-                            onChange={fileSelectedHandler}
+                            onChange={handleOnChangePhoto}
                             className="absolute top-0 right-0 left-0 bottom-0 opacity-0 cursor-pointer "
                           />
                         </div>
