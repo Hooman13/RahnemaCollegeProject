@@ -17,6 +17,7 @@ import {
   faCirclePlus,
   faCamera,
 } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
 
 const FormSchema = z.object({
   mentions: z.array(z.string()).optional(),
@@ -37,11 +38,11 @@ export const CreatePost = () => {
   } = useForm<FormData>({
     resolver: zodResolver(FormSchema),
   });
-
+  const navigate = useNavigate();
+  const handlePostSent = () => {
+    navigate("/");
+  };
   const onSubmit = () => {
-    // debugger;
-    // console.log(data);
-    // console.log(file);
     let arr = ["mohammad12", "H00man13"];
 
     if (typeof file === "undefined") return;
@@ -69,9 +70,9 @@ export const CreatePost = () => {
       })
       .then((response) => {
         console.log(response);
-        // if (response.status === 200) {
-        //   handlecaptionSent();
-        // }
+        if (response.status === 201) {
+          handlePostSent();
+        }
       })
       .catch((err) => console.log(err));
   };
