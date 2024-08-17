@@ -15,6 +15,9 @@ import { Search } from "./Search";
 import { Explore } from "./Explore";
 import { Tags } from "./Tags";
 import { Notifs } from "./Notifs";
+import { CaptionPage } from "../components/CaptionPage";
+import { SendPost } from "../components/SendPost";
+import { CreatePost } from "./CreatePost";
 
 export const LoginBasePage = () => {
   return (
@@ -28,7 +31,10 @@ export const LoginBasePage = () => {
           <Route path="/reset-password" element={<NewPass />} />
           <Route path="/email-sent-page" element={<EmailSent />} />
           <Route path="/error" element={<ErrorPage />} />
-          <Route path="/addphoto" element={<AddPhoto />} />
+          {/* <Route path="/addphoto" element={<AddPhoto />} />
+          <Route path="/addcaption" element={<CaptionPage />} />
+          <Route path="/sendpost" element={<SendPost />} /> */}
+          <Route path="/createpost" element={<CreatePost />} />
 
           {/* Protected Routes */}
           <Route element={<RequireAuth />}>
@@ -36,7 +42,7 @@ export const LoginBasePage = () => {
             <Route path="/profile" element={<Profile />} />
             <Route path="/saved" element={<Saved />} />
             <Route path="/messages" element={<Messages />} />
-            <Route path="/search" element={<Search/>} />
+            <Route path="/search" element={<Search />} />
             <Route path="/explore" element={<Explore />} />
             <Route path="/tags" element={<Tags />} />
             <Route path="/Notifs" element={<Notifs />} />
