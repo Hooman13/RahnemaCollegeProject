@@ -18,6 +18,7 @@ import { Notifs } from "./Notifs";
 import { CaptionPage } from "../components/CaptionPage";
 import { SendPost } from "../components/SendPost";
 import { CreatePost } from "./CreatePost";
+import { PostPage } from "./PostPage";
 
 export const LoginBasePage = () => {
   return (
@@ -39,6 +40,7 @@ export const LoginBasePage = () => {
           {/* Protected Routes */}
           <Route element={<RequireAuth />}>
             <Route path="/" element={<Profile />} />
+            <Route path="/post/:id" element={<PostPage />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/saved" element={<Saved />} />
             <Route path="/messages" element={<Messages />} />

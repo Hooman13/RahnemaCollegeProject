@@ -31,10 +31,10 @@ export const Profile = () => {
           </div>
         </div>
         {/* main */}
-        <div className="grid grid-cols-12">
+        <div className="grid overflow-y-hidden	 grid-cols-12">
           {/* sideBar */}
           <ProfileSidebar />
-          <div className="mr-16 grid col-span-9">
+          <div className="mr-16 grid col-span-9 overflow-y-scroll	">
             <MyPage />
           </div>
         </div>

@@ -284,7 +284,7 @@ export const EditProfile = () => {
                   <button type={"submit"}>ثبت تغییرات</button>
                 </div>
                 <div className="pr-5">
-                  <Link to="/login">
+                  <Link to="/">
                     <button>پشیمون شدم</button>
                   </Link>
                 </div>
