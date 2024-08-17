@@ -280,7 +280,7 @@ export const EditProfile = () => {
                 />
               </div>
               <div className="flex items-center justify-end text-sm text-center">
-                <div className="text-center mr-1 flex border-solid rounded-2xl bg-[#EA5A69] w-[102px] h-[36px] text-sm justify-center items-center px-[8px] py-[16px] ">
+                <div className="text-center mr-1 flex border-solid  text-white rounded-2xl bg-[#EA5A69] w-[102px] h-[36px] text-sm justify-center items-center px-[8px] py-[16px] ">
                   <button type={"submit"}>ثبت تغییرات</button>
                 </div>
                 <div className="pr-5">

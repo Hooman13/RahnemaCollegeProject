@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -186,7 +186,7 @@ export const Signup = () => {
                   <p className="text-red-700">{formError.confirmPassword}</p>
                 </div>
               </div>
-              <div className="font-normal text-sm text-center mt-6 flex border-solid rounded-2xl bg-[#EA5A69] w-[84px] mr-auto justify-center items-center px-[16px] py-[8px] ">
+              <div className="font-normal text-sm text-center mt-6 flex border-solid rounded-2xl bg-[#EA5A69]  text-white w-[84px] mr-auto justify-center items-center px-[16px] py-[8px] ">
                 <button type={"submit"}>ثبت نام</button>
               </div>
             </div>
