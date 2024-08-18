@@ -80,7 +80,7 @@ export const PassRecovery = () => {
                 )}
               </div>
               <div className="flex items-center text-sm">
-                <div className="text-center mr-1 flex border-solid rounded-2xl bg-[#EA5A69] w-[181px] h-[36px] text-sm justify-center items-center px-[8px] py-[16px] ">
+                <div className="text-center mr-1  text-white flex border-solid rounded-2xl bg-[#EA5A69] w-[181px] h-[36px] text-sm justify-center items-center px-[8px] py-[16px] ">
                   <button type={"submit"}>ارسال لینک بازیابی رمز عبور</button>
                 </div>
                 <div className="flex pr-5">

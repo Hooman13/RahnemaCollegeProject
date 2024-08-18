@@ -145,7 +145,7 @@ export const NewPass = () => {
                 </div>
               </div>
               <div className="flex items-center">
-                <div className="text-center flex border-solid rounded-2xl bg-[#EA5A69] w-[136px] h-[36px] text-sm justify-center items-center px-[8px] py-[16px] ">
+                <div className="text-center  text-white flex border-solid rounded-2xl bg-[#EA5A69] w-[136px] h-[36px] text-sm justify-center items-center px-[8px] py-[16px] ">
                   <button type={"submit"}>ثبت رمز عبور جدید</button>
                 </div>
               </div>
