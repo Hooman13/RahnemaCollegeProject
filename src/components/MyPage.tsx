@@ -87,9 +87,19 @@ export const MyPage = () => {
                 alt=""
               />
               <div className="grid grid-rows-4 h-[132px]">
-                <div className="user-display-name text-sm text-[#C19008]">
+                <span className="user-display-name text-sm text-[#C19008]">
                   {user.username}
-                </div>
+                </span>
+                {!isMyProfile && (
+                <Link to="/editpage">
+                  <button
+                    type="button"
+                    className="w-sm py-4 px-2 bg-[#EA5A69] rounded-[100px] text-white"
+                  >
+                    دنبال کردن
+                  </button>
+                </Link>
+              )}
                 <div className="user-full-name text-xl">
                   {" "}
                   {user.fName} {user.lName}
