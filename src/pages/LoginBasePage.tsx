@@ -41,7 +41,7 @@ export const LoginBasePage = () => {
           <Route element={<RequireAuth />}>
             <Route path="/" element={<Profile />} />
             <Route path="/post/:id" element={<PostPage />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="/profile/:username?" element={<Profile />} />
             <Route path="/saved" element={<Saved />} />
             <Route path="/messages" element={<Messages />} />
             <Route path="/search" element={<Search />} />

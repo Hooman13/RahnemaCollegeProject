@@ -1,5 +1,5 @@
 import styles from "./MyPage.module.css";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
 import Cookies from "js-cookie";
@@ -22,11 +22,17 @@ export const MyPage = () => {
       postCount: "",
     },
   });
+  const { username } = useParams();
+
+  const userInfoEndpoint = username
+    ? `${username}`
+    : `user-info/`;
+
   const [isUserUpdated, setIsUserUpdated] = useState(false);
   const token = Cookies.get("token");
   const getProfileData = async () => {
     try {
-      const data: any = await axios.get("http://37.32.5.72:3000/user-info", {
+      const data: any = await axios.get(`http://37.32.5.72:3000/${userInfoEndpoint}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
