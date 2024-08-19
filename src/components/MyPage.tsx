@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useEffect } from "react";
 import Cookies from "js-cookie";
 import axios from "../api/axios";
-import { boolean } from "zod";
 import { PostsList } from "./PostList";
 
 export const MyPage = () => {
@@ -14,7 +13,7 @@ export const MyPage = () => {
       email: "",
       fName: "",
       imageUrl: "",
-      isPrivate: boolean,
+    isPrivate: false,
       lName: "",
       username: "",
       followers: "",
