@@ -1,7 +1,7 @@
 export const FollowerCard = () => {
   return (
     <>
-      <div className="grid grid-cols-6 justify-between items-center  h-14  text-xl text-center">
+      <div className="grid grid-cols-6 justify-between items-center  h-14  text-xl text-center mb-8">
         <div className="items-center col-span-4 flex justify-start w-[210px] h-14">
           <img
             className="border rounded-full ml-7 w-[56px] h-[56px]"
