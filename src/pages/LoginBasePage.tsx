@@ -19,6 +19,7 @@ import { CaptionPage } from "../components/CaptionPage";
 import { SendPost } from "../components/SendPost";
 import { CreatePost } from "./CreatePost";
 import { PostPage } from "./PostPage";
+import { FollowersList } from "./FollowersList";
 
 export const LoginBasePage = () => {
   return (
@@ -37,6 +38,8 @@ export const LoginBasePage = () => {
           <Route path="/sendpost" element={<SendPost />} /> */}
           {/* <Route path="/createpost" element={<CreatePost />} /> */}
           <Route path="*" element={<ErrorPage />} />
+
+          <Route path="/followerslist" element={<FollowersList />} />
 
           {/* Protected Routes */}
           <Route element={<RequireAuth />}>
