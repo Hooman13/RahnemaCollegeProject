@@ -222,9 +222,8 @@ export const CreatePost = () => {
                     <div className="flex justify-center mb-8">
                       <div className="text-right text-sm font-bold mb-6 ">
                         <p className="text-[#191919] pb-2">کپشن</p>
-                        <input
+                        <textarea
                           className="w-[320px] h-[88px] border solid border-[#17494D]/50 rounded-xl"
-                          type="text"
                           {...register("caption")}
                           value={formInput.caption}
                           onChange={({ target }) => {
