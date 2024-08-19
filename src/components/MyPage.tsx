@@ -7,46 +7,72 @@ import axios from "../api/axios";
 import { PostsList } from "./PostList";
 
 export const MyPage = () => {
-  const [user, setUser] = useState({
-    data: {
-      bio: "",
-      email: "",
-      fName: "",
-      imageUrl: "",
+  interface IUser {
+    bio: string;
+    email: string;
+    fName: string;
+    imageUrl: string;
+    isPrivate: boolean;
+    lName: string;
+    username: string;
+    followers: number;
+    postCount: number;
+    following: number;
+  }
+  const [user, setUser] = useState<IUser>({
+    bio: "",
+    email: "",
+    fName: "",
+    imageUrl: "",
     isPrivate: false,
-      lName: "",
-      username: "",
-      followers: "",
-      following: "",
-      postCount: "",
-    },
+    lName: "",
+    username: "",
+    followers: 0,
+    following: 0,
+    postCount: 0,
   });
   const { username } = useParams();
 
-  const userInfoEndpoint = username
-    ? `${username}`
-    : `user-info/`;
+  const userInfoEndpoint = username ? `${username}` : `user-info/`;
 
-  const [isUserUpdated, setIsUserUpdated] = useState(false);
+  const [isMyProfile, setIsMyProfile] = useState(false);
   const token = Cookies.get("token");
   const getProfileData = async () => {
     try {
-      const data: any = await axios.get(`http://37.32.5.72:3000/${userInfoEndpoint}`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setUser(data);
-      setIsUserUpdated(false);
+      const data: any = await axios
+        .get(`http://37.32.5.72:3000/${userInfoEndpoint}`, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          const userData = res.data;
+          setUser((prevState) => ({
+            ...prevState,
+            ...userData,
+          }));
+        });
     } catch (error) {
       console.log({ error });
     }
   };
-  //
+
+  const checkMyProfile = () => {
+    if (username === undefined || username === user.username) {
+      setIsMyProfile(true);
+    } else {
+      setIsMyProfile(false);
+    }
+  };
+
   useEffect(() => {
     getProfileData();
-  }, [token, isUserUpdated]);
+  }, []);
+  useEffect(() => {
+    checkMyProfile();
+  }, [user]);
+
   return (
     <>
       <div>
@@ -62,42 +88,44 @@ export const MyPage = () => {
               />
               <div className="grid grid-rows-4 h-[132px]">
                 <div className="user-display-name text-sm text-[#C19008]">
-                  {user.data.username}
+                  {user.username}
                 </div>
                 <div className="user-full-name text-xl">
                   {" "}
-                  {user.data.fName} {user.data.lName}
+                  {user.fName} {user.lName}
                 </div>
                 <div className="text-sm flex  ">
                   <div className="user-followers-details pl-2 text-[#C19008]">
-                    {user.data?.followers}
+                    {user?.followers}
                     <span className="mx-1">دنبال کننده</span>
                   </div>
                   |
                   <div className="user-followers-details px-2 text-[#C19008]">
-                    {user.data?.following}
+                    {user?.following}
                     <span className="mx-1">دنبال شونده</span>
                   </div>
                   |
                   <div className="user-followers-details pr-2">
-                    {user.data?.postCount}
+                    {user?.postCount}
                     <span className="mx-1">پست</span>
                   </div>
                 </div>
                 <div className="user-followers-details w-[377px]">
-                  {user.data.bio}
+                  {user.bio}
                 </div>
               </div>
             </div>
             <div className="flex items-center justify-items-end	">
-              <Link to="/editpage">
-                <button
-                  type="button"
-                  className="w-[197px] py-4 px-2 bg-[#EA5A69] rounded-3xl text-white "
-                >
-                  ویرایش پروفایل
-                </button>
-              </Link>
+              {isMyProfile && (
+                <Link to="/editpage">
+                  <button
+                    type="button"
+                    className="w-[197px] py-4 px-2 bg-[#EA5A69] rounded-3xl text-white "
+                  >
+                    ویرایش پروفایل
+                  </button>
+                </Link>
+              )}
             </div>
           </div>
         </div>
