@@ -1,13 +1,21 @@
+import { useEffect, useState } from "react";
 import { PostItem } from "./PostItem";
+import Axios from "axios";
 
 export const PostsList = () => {
   interface IPost {
     id: string;
     caption: string;
     imgUrl: string; //first image only
-  };
+  }
 
-  type posts = postType[];
+  type posts = IPost[];
+  const [posts, setPosts] = useState<posts>();
+
+  useEffect(() => {
+    //Acios get posts
+    // Axios.get()
+  }, []);
   const p: posts = [
     {
       id: "1",
@@ -43,7 +51,6 @@ export const PostsList = () => {
 
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-
       {p.map(function (item, index) {
         return (
           <PostItem
