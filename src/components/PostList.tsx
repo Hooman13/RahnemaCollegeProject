@@ -1,7 +1,7 @@
 import { PostItem } from "./PostItem";
 
 export const PostsList = () => {
-  type postType = {
+  interface IPost {
     id: string;
     caption: string;
     imgUrl: string; //first image only
