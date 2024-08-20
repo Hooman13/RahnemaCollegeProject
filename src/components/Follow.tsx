@@ -6,7 +6,7 @@ export const Follow = () => {
   console.log(token);
   const handleFollow = () => {
     axios
-      .patch(`http://37.32.5.72:3000/follow/` + "ehsan12", {
+      .patch(`http://37.32.5.72:3000/follow/ehsan12`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
