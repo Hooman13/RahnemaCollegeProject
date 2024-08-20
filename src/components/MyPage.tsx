@@ -32,11 +32,13 @@ export const MyPage = () => {
     postCount: 0,
   });
   const { username } = useParams();
+  const userName = Cookies.get("username");
 
-  const userInfoEndpoint = username ? `${username}` : `user-info/`;
+  const userInfoEndpoint = username ? `${username}` : userName;
 
   const [isMyProfile, setIsMyProfile] = useState(false);
   const token = Cookies.get("token");
+
   const getProfileData = async () => {
     try {
       const data: any = await axios
@@ -91,15 +93,15 @@ export const MyPage = () => {
                   {user.username}
                 </span>
                 {!isMyProfile && (
-                <Link to="/editpage">
-                  <button
-                    type="button"
-                    className="w-sm py-4 px-2 bg-[#EA5A69] rounded-[100px] text-white"
-                  >
-                    دنبال کردن
-                  </button>
-                </Link>
-              )}
+                  <Link to="/editpage">
+                    <button
+                      type="button"
+                      className="w-sm py-4 px-2 bg-[#EA5A69] rounded-[100px] text-white"
+                    >
+                      دنبال کردن
+                    </button>
+                  </Link>
+                )}
                 <div className="user-full-name text-xl">
                   {" "}
                   {user.fName} {user.lName}

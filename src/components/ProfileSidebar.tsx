@@ -28,9 +28,10 @@ export const ProfileSidebar: FunctionComponent = () => {
   });
   const [isUserUpdated, setIsUserUpdated] = useState(false);
   const token = Cookies.get("token");
+  const userName = Cookies.get("username");
   const getProfileData = async () => {
     try {
-      const data: any = await axios.get("http://37.32.5.72:3000/user-info", {
+      const data: any = await axios.get("http://37.32.5.72:3000/" + userName, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,

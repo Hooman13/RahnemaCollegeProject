@@ -72,6 +72,7 @@ export const Login = () => {
       setUser("");
       setPwd("");
       Cookies.set("token", jwt, { expires: 7 });
+      Cookies.set("username", user, { expires: 7 });
       setAuth({ user, pwd, jwt });
       setToastMsg("ورود موفقیت آمیز");
       setToastType("success");
