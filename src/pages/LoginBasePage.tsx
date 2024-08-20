@@ -20,6 +20,7 @@ import { SendPost } from "../components/SendPost";
 import { CreatePost } from "./CreatePost";
 import { PostPage } from "./PostPage";
 import { FollowersList } from "./FollowersList";
+import { Follow } from "../components/Follow";
 
 export const LoginBasePage = () => {
   return (
@@ -43,6 +44,7 @@ export const LoginBasePage = () => {
 
           {/* Protected Routes */}
           <Route element={<RequireAuth />}>
+            <Route path="/follow" element={<Follow />} />
             <Route path="/" element={<Profile />} />
             <Route path="/post/:id" element={<PostPage />} />
             <Route path="/profile/:username?" element={<Profile />} />
