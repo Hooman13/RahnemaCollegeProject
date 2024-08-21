@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { FunctionComponent, PropsWithChildren, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -18,13 +18,18 @@ import {
   faCamera,
 } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
-
+import { Button, Modal } from "flowbite-react";
 const FormSchema = z.object({
   mentions: z.array(z.string()).optional(),
   caption: z.string().optional(),
 });
 type FormData = z.infer<typeof FormSchema>;
-export const CreatePost = () => {
+
+interface IProps {
+  openModal: boolean;
+  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+}
+export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
   const [showAddPhoto, setShowAddPhoto] = useState(true);
   const [showCaptionPage, setShowCaptionPage] = useState(false);
   const [showSendPost, setShowSendPost] = useState(false);
@@ -101,229 +106,220 @@ export const CreatePost = () => {
   };
   return (
     <>
-      <section>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div
-            className="frame5 w-screen h-screen bg-no-repeat bg-center bg-cover flex justify-center items-center"
-            style={{ backgroundImage: "url(./img/login-background.png)" }}
-          >
-            <div className="bg-white w-screen md:w-[485px] h-screen md:h-auto  py-16 shadow-lg rounded-3xl mt-3 px-20 ">
+      <Modal show={openModal} onClose={() => setOpenModal(false)}>
+        <Modal.Body>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            {/* addphoto page start */}
+            {showAddPhoto && (
               <div>
-                {/* addphoto page start */}
-                {showAddPhoto && (
-                  <div>
-                    {/* The Graph */}
-                    <div className="flex-row flex justify-evenly px-4 py-6 ">
-                      <div className="grid grid-rows-2 justify-items-center">
-                        <div className=" border justify-items-center justify-center items-center  border-[#6F6F6F] rounded-full w-4 h-4">
-                          {/* <div className="flex items-center justify-center border m-auto   border-black rounded-full w-1 h-1 bg-black"></div> */}
-                        </div>
-                        <p className="grid text-[#6F6F6F] row-span-1 text-[10px] mt-1">
-                          تنظیمات
-                        </p>
-                      </div>
-                      <div className="grid grid-rows-2 justify-items-center">
-                        <div className=" border justify-items-center justify-center items-center   border-[#6F6F6F] rounded-full w-4 h-4">
-                          {/* <div className="flex items-center justify-center border m-auto   border-black rounded-full w-1 h-1 bg-black"></div> */}
-                        </div>
-                        <p className="grid text-[#6F6F6F] row-span-1 text-[10px] mt-1">
-                          متن
-                        </p>
-                      </div>
-                      <div className="grid grid-rows-2 justify-items-center">
-                        <div className="flex border justify-items-center justify-center items-center  border-black rounded-full w-4 h-4">
-                          <div className="flex items-center justify-center border m-auto   border-black rounded-full w-1 h-1 bg-black"></div>
-                        </div>
-                        <p className="grid row-span-1 text-[10px] mt-1">عکس</p>
-                      </div>
+                {/* The Graph */}
+                <div className="flex-row flex justify-evenly px-4 py-6 ">
+                  <div className="grid grid-rows-2 justify-items-center">
+                    <div className=" border justify-items-center justify-center items-center  border-[#6F6F6F] rounded-full w-4 h-4">
+                      {/* <div className="flex items-center justify-center border m-auto   border-black rounded-full w-1 h-1 bg-black"></div> */}
                     </div>
-                    {/* main */}
-                    <div className="text-center mt-8 text-base font-normal mb-8">
-                      <p>عکس‌های مورد نظرت رو آپلود کن:</p>
-                    </div>
-                    <div className="flex justify-center mb-8">
-                      <div className="flex relative items-center justify-center  rounded-full w-[90px] h-[90px] border-[#F7901E] border-2">
-                        <div className="m-auto relative   ">
-                          <FontAwesomeIcon
-                            className="w-9 h-9"
-                            icon={faCamera}
-                            style={{ color: "#F7901E" }}
-                          />
-                          <input
-                            type="file"
-                            accept="image/png,image/jpg"
-                            multiple
-                            onChange={handleOnChangePhoto}
-                            className="absolute top-0 right-0 left-0 bottom-0 opacity-0 cursor-pointer "
-                          />
-                        </div>
-                        <div>
-                          <FontAwesomeIcon
-                            className="absolute top-[21px] right-[54px]"
-                            icon={faCirclePlus}
-                            style={{ color: "#F7901E" }}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    {/* buttons */}
-                    <div className="flex items-center justify-end text-sm">
-                      <div className="flex pl-5">
-                        <Link to="/login">
-                          <button>پشیمون شدم</button>
-                        </Link>
-                      </div>
-                      <div className="text-white text-center mr-1 flex border-solid rounded-2xl bg-[#EA5A69] w-[62px] h-[36px] text-sm justify-center items-center px-[8px] py-[16px] ">
-                        <button
-                          onClick={() => {
-                            setShowAddPhoto(!showAddPhoto);
-                            setShowCaptionPage(!showCaptionPage);
-                          }}
-                        >
-                          بعدی
-                        </button>
-                      </div>
-                    </div>
-                    {/* addphoto page end */}
+                    <p className="grid text-[#6F6F6F] row-span-1 text-[10px] mt-1">
+                      تنظیمات
+                    </p>
                   </div>
-                )}
-                {/* caption page start */}
-                {showCaptionPage && (
-                  <div>
-                    {/* The Graph */}
-                    <div className="flex-row flex justify-evenly px-4 py-6 ">
-                      <div className="grid grid-rows-2 justify-items-center">
-                        <div className=" border justify-items-center justify-center items-center  border-[#6F6F6F] rounded-full w-4 h-4">
-                          {/* <div className="flex items-center justify-center border m-auto   border-black rounded-full w-1 h-1 bg-black"></div> */}
-                        </div>
-                        <p className="grid text-[#6F6F6F] row-span-1 text-[10px] mt-1">
-                          تنظیمات
-                        </p>
-                      </div>
-                      <div className="grid grid-rows-2 justify-items-center">
-                        <div className="flex border justify-items-center justify-center items-center  border-black rounded-full w-4 h-4">
-                          <div className="flex items-center justify-center border m-auto   border-black rounded-full w-1 h-1 bg-black"></div>
-                        </div>
-                        <p className="grid row-span-1 text-[10px] mt-1">متن</p>
-                      </div>
-                      <div className="grid grid-rows-2 justify-items-center">
-                        <div className=" border justify-items-center justify-center items-center   border-[#6F6F6F] rounded-full w-4 h-4">
-                          {/* <div className="flex items-center justify-center border m-auto   border-black rounded-full w-1 h-1 bg-black"></div> */}
-                        </div>
-                        <p className="grid text-[#6F6F6F] row-span-1 text-[10px] mt-1">
-                          عکس
-                        </p>
-                      </div>
+                  <div className="grid grid-rows-2 justify-items-center">
+                    <div className=" border justify-items-center justify-center items-center   border-[#6F6F6F] rounded-full w-4 h-4">
+                      {/* <div className="flex items-center justify-center border m-auto   border-black rounded-full w-1 h-1 bg-black"></div> */}
                     </div>
-                    {/* main */}
-                    <div className="text-center mt-8 text-base font-normal mb-8">
-                      <p>کپشن مورد نظرت رو بنویس:</p>
-                    </div>
-                    <div className="flex justify-center mb-8">
-                      <div className="text-right text-sm font-bold mb-6 ">
-                        <p className="text-[#191919] pb-2">کپشن</p>
-                        <textarea
-                          className="w-[320px] h-[88px] border solid border-[#17494D]/50 rounded-xl"
-                          {...register("caption")}
-                          value={formInput.caption}
-                          onChange={({ target }) => {
-                            handleUserInput(target.name, target.value);
-                          }}
-                        />
-                      </div>
-                    </div>
-                    {/* buttons */}
-                    <div className="flex items-center justify-end text-sm">
-                      <div className="flex pl-5">
-                        <Link to="/">
-                          <button>پشیمون شدم</button>
-                        </Link>
-                      </div>
-                      <div className="text-white text-center mr-1 flex border-solid rounded-2xl bg-[#EA5A69] w-[62px] h-[36px] text-sm justify-center items-center px-[8px] py-[16px] ">
-                        <button
-                          onClick={() => {
-                            setShowCaptionPage(!showCaptionPage);
-                            setShowSendPost(!showSendPost);
-                          }}
-                        >
-                          بعدی
-                        </button>
-                      </div>
-                    </div>
-                    {/* caption page end */}
+                    <p className="grid text-[#6F6F6F] row-span-1 text-[10px] mt-1">
+                      متن
+                    </p>
                   </div>
-                )}
-                {/* sendpost start */}
-                {showSendPost && (
-                  <div>
-                    {/* The Graph */}
-                    <div className="flex-row flex justify-evenly px-4 py-6 ">
-                      <div className="grid grid-rows-2 justify-items-center">
-                        <div className="flex border justify-items-center justify-center items-center  border-black rounded-full w-4 h-4">
-                          <div className="flex items-center justify-center border m-auto   border-black rounded-full w-1 h-1 bg-black"></div>
-                        </div>
-                        <p className="grid row-span-1 text-[10px] mt-1">
-                          تنظیمات
-                        </p>
-                      </div>
-                      <div className="grid grid-rows-2 justify-items-center">
-                        <div className=" border justify-items-center justify-center items-center  border-[#6F6F6F] rounded-full w-4 h-4">
-                          {/* <div className="flex items-center justify-center border m-auto   border-black rounded-full w-1 h-1 bg-black"></div> */}
-                        </div>
-                        <p className="grid text-[#6F6F6F] row-span-1 text-[10px] mt-1">
-                          متن
-                        </p>
-                      </div>
-                      <div className="grid grid-rows-2 justify-items-center">
-                        <div className=" border justify-items-center justify-center items-center   border-[#6F6F6F] rounded-full w-4 h-4">
-                          {/* <div className="flex items-center justify-center border m-auto   border-black rounded-full w-1 h-1 bg-black"></div> */}
-                        </div>
-                        <p className="grid text-[#6F6F6F] row-span-1 text-[10px] mt-1">
-                          عکس
-                        </p>
-                      </div>
+                  <div className="grid grid-rows-2 justify-items-center">
+                    <div className="flex border justify-items-center justify-center items-center  border-black rounded-full w-4 h-4">
+                      <div className="flex items-center justify-center border m-auto   border-black rounded-full w-1 h-1 bg-black"></div>
                     </div>
-                    {/* main */}
-                    <div className="text-center mt-8 text-base font-normal mb-8">
-                      <p>اینجا می‌تونی دوستانت رو منشن کنی:</p>
+                    <p className="grid row-span-1 text-[10px] mt-1">عکس</p>
+                  </div>
+                </div>
+                {/* main */}
+                <div className="text-center mt-8 text-base font-normal mb-8">
+                  <p>عکس‌های مورد نظرت رو آپلود کن:</p>
+                </div>
+                <div className="flex justify-center mb-8">
+                  <div className="flex relative items-center justify-center  rounded-full w-[90px] h-[90px] border-[#F7901E] border-2">
+                    <div className="m-auto relative   ">
+                      <FontAwesomeIcon
+                        className="w-9 h-9"
+                        icon={faCamera}
+                        style={{ color: "#F7901E" }}
+                      />
+                      <input
+                        type="file"
+                        accept="image/png,image/jpg"
+                        multiple
+                        onChange={handleOnChangePhoto}
+                        className="absolute top-0 right-0 left-0 bottom-0 opacity-0 cursor-pointer "
+                      />
                     </div>
-                    <div className="flex justify-center mb-8">
-                      <div className="text-right text-sm font-bold mb-6 ">
-                        <input
-                          className="w-[320px] h-[32px] border solid border-[#17494D]/50 rounded-xl"
-                          type="text"
-                          // {...register("mentions")}
-                          // value={formInput.mentions}
-                          // onChange={({ target }) => {
-                          //   handleUserInput(target.name, target.value);
-                          // }}
-                        />
-                      </div>
-                    </div>
-                    {/* buttons */}
-                    <div className="flex items-center justify-end text-sm">
-                      <div className="flex pl-5">
-                        <Link to="/">
-                          <button>پشیمون شدم</button>
-                        </Link>
-                      </div>
-                      <div className="text-white text-center mr-1 flex border-solid rounded-2xl bg-[#EA5A69] w-[137px] h-[36px] text-sm justify-center items-center px-[8px] py-[16px] ">
-                        <button
-                          // onClick={() => setShowSendPost(!showSendPost)}
-                          type={"submit"}
-                        >
-                          ثبت و انتشار پست
-                        </button>
-                      </div>
+                    <div>
+                      <FontAwesomeIcon
+                        className="absolute top-[21px] right-[54px]"
+                        icon={faCirclePlus}
+                        style={{ color: "#F7901E" }}
+                      />
                     </div>
                   </div>
-                )}
-                {/* sendpost end */}
+                </div>
+                {/* buttons */}
+                <div className="flex items-center justify-end text-sm">
+                  <div className="flex pl-5">
+                    <button onClick={() => setOpenModal(false)}>
+                      پشیمون شدم
+                    </button>
+                  </div>
+                  <div className="text-white text-center mr-1 flex border-solid rounded-2xl bg-[#EA5A69] w-[62px] h-[36px] text-sm justify-center items-center px-[8px] py-[16px] ">
+                    <button
+                      onClick={() => {
+                        setShowAddPhoto(!showAddPhoto);
+                        setShowCaptionPage(!showCaptionPage);
+                      }}
+                    >
+                      بعدی
+                    </button>
+                  </div>
+                </div>
+                {/* addphoto page end */}
               </div>
-            </div>
-          </div>
-        </form>
-      </section>
+            )}
+            {/* caption page start */}
+            {showCaptionPage && (
+              <div>
+                {/* The Graph */}
+                <div className="flex-row flex justify-evenly px-4 py-6 ">
+                  <div className="grid grid-rows-2 justify-items-center">
+                    <div className=" border justify-items-center justify-center items-center  border-[#6F6F6F] rounded-full w-4 h-4">
+                      {/* <div className="flex items-center justify-center border m-auto   border-black rounded-full w-1 h-1 bg-black"></div> */}
+                    </div>
+                    <p className="grid text-[#6F6F6F] row-span-1 text-[10px] mt-1">
+                      تنظیمات
+                    </p>
+                  </div>
+                  <div className="grid grid-rows-2 justify-items-center">
+                    <div className="flex border justify-items-center justify-center items-center  border-black rounded-full w-4 h-4">
+                      <div className="flex items-center justify-center border m-auto   border-black rounded-full w-1 h-1 bg-black"></div>
+                    </div>
+                    <p className="grid row-span-1 text-[10px] mt-1">متن</p>
+                  </div>
+                  <div className="grid grid-rows-2 justify-items-center">
+                    <div className=" border justify-items-center justify-center items-center   border-[#6F6F6F] rounded-full w-4 h-4">
+                      {/* <div className="flex items-center justify-center border m-auto   border-black rounded-full w-1 h-1 bg-black"></div> */}
+                    </div>
+                    <p className="grid text-[#6F6F6F] row-span-1 text-[10px] mt-1">
+                      عکس
+                    </p>
+                  </div>
+                </div>
+                {/* main */}
+                <div className="text-center mt-8 text-base font-normal mb-8">
+                  <p>کپشن مورد نظرت رو بنویس:</p>
+                </div>
+                <div className="flex justify-center mb-8">
+                  <div className="text-right text-sm font-bold mb-6 ">
+                    <p className="text-[#191919] pb-2">کپشن</p>
+                    <textarea
+                      className="w-[320px] h-[88px] border solid border-[#17494D]/50 rounded-xl"
+                      {...register("caption")}
+                      value={formInput.caption}
+                      onChange={({ target }) => {
+                        handleUserInput(target.name, target.value);
+                      }}
+                    />
+                  </div>
+                </div>
+                {/* buttons */}
+                <div className="flex items-center justify-end text-sm">
+                  <div className="flex pl-5">
+                    <button  onClick={() => setOpenModal(false)}>
+                      پشیمون شدم
+                    </button>
+                  </div>
+                  <div className="text-white text-center mr-1 flex border-solid rounded-2xl bg-[#EA5A69] w-[62px] h-[36px] text-sm justify-center items-center px-[8px] py-[16px] ">
+                    <button
+                      onClick={() => {
+                        setShowCaptionPage(!showCaptionPage);
+                        setShowSendPost(!showSendPost);
+                      }}
+                    >
+                      بعدی
+                    </button>
+                  </div>
+                </div>
+                {/* caption page end */}
+              </div>
+            )}
+            {/* sendpost start */}
+            {showSendPost && (
+              <div>
+                {/* The Graph */}
+                <div className="flex-row flex justify-evenly px-4 py-6 ">
+                  <div className="grid grid-rows-2 justify-items-center">
+                    <div className="flex border justify-items-center justify-center items-center  border-black rounded-full w-4 h-4">
+                      <div className="flex items-center justify-center border m-auto   border-black rounded-full w-1 h-1 bg-black"></div>
+                    </div>
+                    <p className="grid row-span-1 text-[10px] mt-1">تنظیمات</p>
+                  </div>
+                  <div className="grid grid-rows-2 justify-items-center">
+                    <div className=" border justify-items-center justify-center items-center  border-[#6F6F6F] rounded-full w-4 h-4">
+                      {/* <div className="flex items-center justify-center border m-auto   border-black rounded-full w-1 h-1 bg-black"></div> */}
+                    </div>
+                    <p className="grid text-[#6F6F6F] row-span-1 text-[10px] mt-1">
+                      متن
+                    </p>
+                  </div>
+                  <div className="grid grid-rows-2 justify-items-center">
+                    <div className=" border justify-items-center justify-center items-center   border-[#6F6F6F] rounded-full w-4 h-4">
+                      {/* <div className="flex items-center justify-center border m-auto   border-black rounded-full w-1 h-1 bg-black"></div> */}
+                    </div>
+                    <p className="grid text-[#6F6F6F] row-span-1 text-[10px] mt-1">
+                      عکس
+                    </p>
+                  </div>
+                </div>
+                {/* main */}
+                <div className="text-center mt-8 text-base font-normal mb-8">
+                  <p>اینجا می‌تونی دوستانت رو منشن کنی:</p>
+                </div>
+                <div className="flex justify-center mb-8">
+                  <div className="text-right text-sm font-bold mb-6 ">
+                    <input
+                      className="w-[320px] h-[32px] border solid border-[#17494D]/50 rounded-xl"
+                      type="text"
+                      // {...register("mentions")}
+                      // value={formInput.mentions}
+                      // onChange={({ target }) => {
+                      //   handleUserInput(target.name, target.value);
+                      // }}
+                    />
+                  </div>
+                </div>
+                {/* buttons */}
+                <div className="flex items-center justify-end text-sm">
+                  <div className="flex pl-5">
+                    <button onClick={() => setOpenModal(false)}>
+                      پشیمون شدم
+                    </button>
+                  </div>
+                  <div className="text-white text-center mr-1 flex border-solid rounded-2xl bg-[#EA5A69] w-[137px] h-[36px] text-sm justify-center items-center px-[8px] py-[16px] ">
+                    <button
+                      // onClick={() => setShowSendPost(!showSendPost)}
+                      type={"submit"}
+                    >
+                      ثبت و انتشار پست
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+            {/* sendpost end */}
+          </form>
+        </Modal.Body>
+      </Modal>
     </>
   );
 };
