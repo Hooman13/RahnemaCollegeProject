@@ -35,7 +35,6 @@ export const LoginBasePage = () => {
           {/* <Route path="/addphoto" element={<AddPhoto />} />
           <Route path="/addcaption" element={<CaptionPage />} />
           <Route path="/sendpost" element={<SendPost />} /> */}
-          <Route path="/createpost" element={<CreatePost />} />
           <Route path="*" element={<ErrorPage />} />
 
 
