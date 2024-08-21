@@ -8,19 +8,14 @@ import { EmailSent } from "./EmailSent";
 import { EditProfile } from "./EditProfile";
 import RequireAuth from "../components/RequireAuth";
 import { ErrorPage } from "./Error";
-import { AddPhoto } from "../components/AddPhoto";
 import { Saved } from "./Saved";
 import { Messages } from "./Messages";
 import { Search } from "./Search";
 import { Explore } from "./Explore";
 import { Tags } from "./Tags";
 import { Notifs } from "./Notifs";
-import { CaptionPage } from "../components/CaptionPage";
-import { SendPost } from "../components/SendPost";
-import { CreatePost } from "./CreatePost";
 import { PostPage } from "./PostPage";
 import { FollowersList } from "./FollowersList";
-import { Follow } from "../components/Follow";
 
 export const LoginBasePage = () => {
   return (
@@ -44,7 +39,6 @@ export const LoginBasePage = () => {
 
           {/* Protected Routes */}
           <Route element={<RequireAuth />}>
-            <Route path="/follow" element={<Follow />} />
             <Route path="/" element={<Profile />} />
             <Route path="/post/:id" element={<PostPage />} />
             <Route path="/profile/:username?" element={<Profile />} />
