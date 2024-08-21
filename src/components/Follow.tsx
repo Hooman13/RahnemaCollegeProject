@@ -3,7 +3,6 @@ import Cookies from "js-cookie";
 
 export const Follow = ({ user }: any) => {
   const token = Cookies.get("token");
-  console.log(token);
   const handleFollow = () => {
     // axios
     //   .patch(`http://37.32.5.72:3000/follow/` + user, {
