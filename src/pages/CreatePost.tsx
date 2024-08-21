@@ -20,7 +20,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { Button, Modal } from "flowbite-react";
 const FormSchema = z.object({
-  mentions: z.array(z.string()).optional(),
+  mentions: z.string().optional(),
   caption: z.string().optional(),
 });
 type FormData = z.infer<typeof FormSchema>;
@@ -34,6 +34,7 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
   const [showCaptionPage, setShowCaptionPage] = useState(false);
   const [showSendPost, setShowSendPost] = useState(false);
   const [file, setFile] = useState<File | undefined>();
+  const [photo, setPhoto] = useState<string | undefined>();
 
   const token = Cookies.get("token");
   const {
@@ -45,10 +46,11 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
   });
   const navigate = useNavigate();
   const handlePostSent = () => {
+    setOpenModal(false);
     navigate("/");
   };
   const onSubmit = () => {
-    let arr = ["mohammad12", "H00man13"];
+    let arr = formInput.mentions.split(" ");
 
     if (typeof file === "undefined") return;
     const formData = new FormData();
@@ -58,18 +60,11 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
     for (var i = 0; i < arr.length; i++) {
       formData.append("mentions", arr[i]);
     }
-    // let data = {
-    //   caption: "this is a test from hooman",
-    //   mentions: ["mohammad12"],
-    // };
-    // console.log(formData);
-    // formData.append("mentions", formInput.mentions);
 
     axios
       .post("http://37.32.5.72:3000/posts", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          // "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
       })
@@ -88,7 +83,7 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
     mentions: "",
   });
 
-  const handleUserInput = (name: string, value?: string) => {
+  const handleUserInput = (name: string, value?: string | string[]) => {
     setFormInput({
       ...formInput,
       [name]: value,
@@ -103,12 +98,14 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
     };
     console.log("target", target.files);
     setFile(target.files[0]);
+    //@ts-ignore
+    setPhoto(URL.createObjectURL(target.files[0]));
   };
   return (
     <>
       <Modal show={openModal} onClose={() => setOpenModal(false)}>
         <Modal.Body>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form className="rounded-3xl" onSubmit={handleSubmit(onSubmit)}>
             {/* addphoto page start */}
             {showAddPhoto && (
               <div>
@@ -164,6 +161,13 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                         style={{ color: "#F7901E" }}
                       />
                     </div>
+                  </div>
+                  <div className="mr-2">
+                    <img
+                      className="flex relative items-center justify-center  rounded-full w-[90px] h-[90px] border-[#F7901E] border-2"
+                      src={photo}
+                      alt=""
+                    />
                   </div>
                 </div>
                 {/* buttons */}
@@ -235,7 +239,7 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                 {/* buttons */}
                 <div className="flex items-center justify-end text-sm">
                   <div className="flex pl-5">
-                    <button  onClick={() => setOpenModal(false)}>
+                    <button onClick={() => setOpenModal(false)}>
                       پشیمون شدم
                     </button>
                   </div>
@@ -290,11 +294,11 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                     <input
                       className="w-[320px] h-[32px] border solid border-[#17494D]/50 rounded-xl"
                       type="text"
-                      // {...register("mentions")}
-                      // value={formInput.mentions}
-                      // onChange={({ target }) => {
-                      //   handleUserInput(target.name, target.value);
-                      // }}
+                      {...register("mentions")}
+                      value={formInput.mentions}
+                      onChange={({ target }) => {
+                        handleUserInput(target.name, target.value);
+                      }}
                     />
                   </div>
                 </div>
