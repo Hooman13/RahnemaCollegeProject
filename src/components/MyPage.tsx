@@ -6,6 +6,7 @@ import Cookies from "js-cookie";
 import axios from "../api/axios";
 import { PostsList } from "./PostList";
 import { Follow } from "./Follow";
+import { UnFollow } from "./UnFollow";
 
 export const MyPage = () => {
   interface IUser {
@@ -98,9 +99,12 @@ export const MyPage = () => {
                   <div className="user-full-name text-xl ml-4">
                     {user.fName} {user.lName}
                   </div>
-                  <div>{!isMyProfile && <Follow user={user.username} />}</div>
+                  <div className="ml-4">
+                    {!isMyProfile && <Follow user={user.username} />}
+                  </div>
+                  <div>{!isMyProfile && <UnFollow user={user.username} />}</div>
                 </div>
-                <div className="text-sm flex  ">
+                <div className="text-sm flex mt-2 ">
                   <div className="user-followers-details pl-2 text-[#C19008]">
                     {user?.followersCount}
                     <span className="mx-1">دنبال کننده</span>
