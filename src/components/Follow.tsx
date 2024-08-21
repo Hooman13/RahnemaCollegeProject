@@ -5,13 +5,20 @@ export const Follow = () => {
   const token = Cookies.get("token");
   console.log(token);
   const handleFollow = () => {
-    axios
-      .patch(`http://37.32.5.72:3000/follow/ehsan12`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      })
+    // axios
+    //   .patch(`http://37.32.5.72:3000/follow/ehsan12`, {
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       Authorization: `Bearer ${token}`,
+    //     },
+    //   })
+    fetch("http://37.32.5.72:3000/follow/vidili", {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((response) => {
         console.log(response);
       })
