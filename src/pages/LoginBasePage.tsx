@@ -16,6 +16,8 @@ import { Tags } from "./Tags";
 import { Notifs } from "./Notifs";
 import { PostPage } from "./PostPage";
 import { FollowersList } from "./FollowersList";
+import { Follow } from "../components/Follow";
+import { UnFollow } from "../components/UnFollow";
 
 export const LoginBasePage = () => {
   return (
@@ -49,6 +51,8 @@ export const LoginBasePage = () => {
             <Route path="/tags" element={<Tags />} />
             <Route path="/Notifs" element={<Notifs />} />
             <Route path="/editpage" element={<EditProfile />} />
+            <Route path="/follow" element={<Follow />} />
+            <Route path="/unfollow" element={<UnFollow />} />
           </Route>
         </Routes>
       </BrowserRouter>
