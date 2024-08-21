@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import Cookies from "js-cookie";
 import axios from "../api/axios";
 import { PostsList } from "./PostList";
+import { Follow } from "./Follow";
 
 export const MyPage = () => {
   interface IUser {
@@ -15,9 +16,9 @@ export const MyPage = () => {
     isPrivate: boolean;
     lName: string;
     username: string;
-    followers: number;
+    followersCount: number;
     postCount: number;
-    following: number;
+    followingsCount: number;
   }
   const [user, setUser] = useState<IUser>({
     bio: "",
@@ -27,8 +28,8 @@ export const MyPage = () => {
     isPrivate: false,
     lName: "",
     username: "",
-    followers: 0,
-    following: 0,
+    followersCount: 0,
+    followingsCount: 0,
     postCount: 0,
   });
   const { username } = useParams();
@@ -61,7 +62,8 @@ export const MyPage = () => {
   };
 
   const checkMyProfile = () => {
-    if (username === undefined || username === user.username) {
+    if (userName === user.username) {
+      // (username === undefined || username === user.username)
       setIsMyProfile(true);
     } else {
       setIsMyProfile(false);
@@ -92,28 +94,20 @@ export const MyPage = () => {
                 <span className="user-display-name text-sm text-[#C19008]">
                   {user.username}
                 </span>
-                {!isMyProfile && (
-                  <Link to="/editpage">
-                    <button
-                      type="button"
-                      className="w-sm py-4 px-2 bg-[#EA5A69] rounded-[100px] text-white"
-                    >
-                      دنبال کردن
-                    </button>
-                  </Link>
-                )}
-                <div className="user-full-name text-xl">
-                  {" "}
-                  {user.fName} {user.lName}
+                <div className="flex">
+                  <div className="user-full-name text-xl ml-4">
+                    {user.fName} {user.lName}
+                  </div>
+                  <div>{!isMyProfile && <Follow user={user.username} />}</div>
                 </div>
                 <div className="text-sm flex  ">
                   <div className="user-followers-details pl-2 text-[#C19008]">
-                    {user?.followers}
+                    {user?.followersCount}
                     <span className="mx-1">دنبال کننده</span>
                   </div>
                   |
                   <div className="user-followers-details px-2 text-[#C19008]">
-                    {user?.following}
+                    {user?.followingsCount}
                     <span className="mx-1">دنبال شونده</span>
                   </div>
                   |

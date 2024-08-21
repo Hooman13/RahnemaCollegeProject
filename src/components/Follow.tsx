@@ -1,18 +1,18 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-export const Follow = () => {
+export const Follow = ({ user }: any) => {
   const token = Cookies.get("token");
   console.log(token);
   const handleFollow = () => {
     // axios
-    //   .patch(`http://37.32.5.72:3000/follow/ehsan12`, {
+    //   .patch(`http://37.32.5.72:3000/follow/` + user, {
     //     headers: {
     //       "Content-Type": "application/json",
     //       Authorization: `Bearer ${token}`,
     //     },
     //   })
-    fetch("http://37.32.5.72:3000/follow/vidili", {
+    fetch("http://37.32.5.72:3000/follow/" + user, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -29,13 +29,13 @@ export const Follow = () => {
   return (
     <>
       <section>
-        <button onClick={handleFollow}>follow</button>
-        <div>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo velit
-          ipsa commodi magni, asperiores distinctio sunt. Excepturi ea vero
-          cumque alias, explicabo debitis beatae animi itaque qui libero
-          recusandae doloremque!
-        </div>
+        <button
+          onClick={handleFollow}
+          type="button"
+          className="text-sm font-semibold py-1 px-4 bg-[#EA5A69] rounded-[100px] text-white"
+        >
+          دنبال کردن
+        </button>
       </section>
     </>
   );
