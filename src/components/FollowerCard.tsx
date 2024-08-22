@@ -4,45 +4,8 @@ import { useEffect } from "react";
 import Cookies from "js-cookie";
 import axios from "../api/axios";
 
-export const FollowerCard = () => {
-  interface IUser {
-    imageUrl: string;
-    username: string;
-    followingsCount: number;
-  }
-  const [user, setUser] = useState<IUser>({
-    imageUrl: "",
-    username: "",
-    followingsCount: 0,
-  });
-  const { username } = useParams();
-  const token = Cookies.get("token");
-  const userName = Cookies.get("username");
-  const getFollowingsData = async () => {
-    try {
-      const data: any = await axios
-        .get("http://37.32.5.72:3000/" + userName + "/followings", {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((res) => {
-          const userData = res.data;
-          setUser((prevState) => ({
-            ...prevState,
-            ...userData,
-          }));
-        });
-    } catch (error) {
-      console.log({ error });
-    }
-  };
-
-  useEffect(() => {
-    getFollowingsData();
-  }, []);
-
+export const FollowerCard = (props: any) => {
+  const { user } = props;
   return (
     <>
       <div className="grid grid-cols-6 justify-between items-center  h-14  text-xl text-center mb-8">

@@ -56,11 +56,9 @@ export const FollowersList = () => {
                 دنبال شونده‌‌ها
               </div>
               <div className="overflow-y-scroll">
-                <FollowerCard />
-                <FollowerCard />
-                <FollowerCard />
-                <FollowerCard />
-                <FollowerCard />
+                {followingsData.map((user, index) => {
+                  return <FollowerCard user={user} />;
+                })}
               </div>
             </div>
           </div>
