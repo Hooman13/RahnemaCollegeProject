@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import Cookies from "js-cookie";
 import axios from "../api/axios";
 
-export const FollowerCard = (props: any) => {
+export const FollowingCard = (props: any) => {
   const { user } = props;
   return (
     <>
@@ -20,7 +20,7 @@ export const FollowerCard = (props: any) => {
               {user.username}
             </div>
             <div className="user-full-name text-xs h-6 font-normal ">
-              {user.followersCount}
+              {user.followingsCount}
             </div>
           </div>
         </div>
