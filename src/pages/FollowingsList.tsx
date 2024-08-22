@@ -15,14 +15,21 @@ export const FollowingsList: React.FC<IProps> = ({
   openModal,
   setOpenModal,
 }) => {
+  // interface IUser {
+  //   imageUrl: string;
+  //   username: string;
+  //   followingsCount: number;
+  // }
+  // interface IUsers extends Array<IUser> {}
+  // const [followingsData, setFollowingsData] = useState<IUsers>([]);
+  // const [followingsData, setFollowingsData] = useState([]);
   interface IUser {
-    imageUrl: string;
-    username: string;
-    followingsCount: number;
+    followedId?: string;
+    updatedAt?: string;
+    followingsCount?: number;
   }
   interface IUsers extends Array<IUser> {}
   const [followingsData, setFollowingsData] = useState<IUsers>([]);
-  // const [followingsData, setFollowingsData] = useState([]);
   const token = Cookies.get("token");
   const userName = Cookies.get("username");
   const getFollowingsData = async () => {
@@ -36,11 +43,12 @@ export const FollowingsList: React.FC<IProps> = ({
         })
         .then((res) => {
           const userData = res.data;
-          console.log(userData);
           setFollowingsData((prevState) => ({
             ...prevState,
             ...userData,
           }));
+          console.log(userData);
+          console.log(followingsData);
         });
     } catch (error) {
       console.log({ error });
@@ -62,9 +70,10 @@ export const FollowingsList: React.FC<IProps> = ({
                   دنبال شونده ها
                 </div>
                 <div className="overflow-y-scroll">
-                  {/* {followingsData.map((user, index) => {
+                  {/* {followingsData[0].followedId} */}
+                  {followingsData.map((user, index) => {
                     return <FollowerCard user={user} />;
-                  })} */}
+                  })}
                 </div>
                 <div className="flex items-center justify-end text-sm">
                   <div className="text-white text-center mr-1 flex border-solid rounded-2xl bg-[#EA5A69] w-[62px] h-[36px] text-sm justify-center items-center px-[8px] py-[16px] ">

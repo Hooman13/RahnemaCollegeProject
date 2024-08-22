@@ -36,12 +36,12 @@ export const FollowersList: React.FC<IProps> = ({
         })
         .then((res) => {
           const userData = res.data;
-          console.log(userData);
+          // console.log(userData);
           setFollowersData((prevState) => ({
             ...prevState,
             ...userData,
           }));
-          console.log(followersData);
+          // console.log(followersData);
         });
     } catch (error) {
       console.log({ error });
