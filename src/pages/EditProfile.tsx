@@ -157,7 +157,7 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
   return (
     <>
       <Modal show={openModal} onClose={() => setOpenModal(false)}>
-        <Modal.Body className="bg-white flex items-center justify-end w-[485px] h-screen md:h-auto rounded-3xl mt-3  ">
+        <Modal.Body className=" flex w-[500px] items-center justify-end  h-screen md:h-auto rounded-3xl mt-3  ">
           <form className="items-center" onSubmit={handleSubmit(onSubmit)}>
             <section>
               {/* <div className="bg-white w-screen md:w-[485px] h-screen md:h-auto  py-16 shadow-lg rounded-3xl mt-3 px-20 "> */}
