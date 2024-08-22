@@ -9,6 +9,7 @@ import { CreatePost } from "./CreatePost";
 
 export const Profile = () => {
   const [openModal, setOpenModal] = useState(false);
+
   // console.log(user.data.username);
   // console.log(user.data.email);
   // console.log(user);
@@ -19,14 +20,16 @@ export const Profile = () => {
         <div className="grid grid-cols-12 mb-4">
           <div className="grid col-span-3 py-4 justify-items-center	">
             {/* <Link to="/createpost"> */}
-              <button
-                onClick={()=>{setOpenModal(true)}}
-                // onClick={getProfileData}
-                className="w-[232px] py-4 px-2 bg-[#EA5A69] rounded-3xl text-white"
-              >
-                <FontAwesomeIcon className="ml-2" icon={faCirclePlus} />
-                ایجاد پست جدید
-              </button>
+            <button
+              onClick={() => {
+                setOpenModal(true);
+              }}
+              // onClick={getProfileData}
+              className="w-[232px] py-4 px-2 bg-[#EA5A69] rounded-3xl text-white"
+            >
+              <FontAwesomeIcon className="ml-2" icon={faCirclePlus} />
+              ایجاد پست جدید
+            </button>
             {/* </Link> */}
           </div>
           <div className=" col-span-9 flex justify-end">
@@ -42,10 +45,7 @@ export const Profile = () => {
           </div>
         </div>
       </div>
-          <CreatePost openModal={openModal} setOpenModal={setOpenModal}/>
-
-      
-
+      <CreatePost openModal={openModal} setOpenModal={setOpenModal} />
     </>
   );
 };

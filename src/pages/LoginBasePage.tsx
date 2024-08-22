@@ -37,7 +37,7 @@ export const LoginBasePage = () => {
           {/* <Route path="/createpost" element={<CreatePost />} /> */}
           <Route path="*" element={<ErrorPage />} />
 
-          <Route path="/followerslist" element={<FollowersList />} />
+          {/* <Route path="/followerslist" element={<FollowersList />} /> */}
 
           {/* Protected Routes */}
           <Route element={<RequireAuth />}>

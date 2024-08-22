@@ -1,4 +1,11 @@
-export const FollowerCard = () => {
+import { Link, useParams } from "react-router-dom";
+import { useState } from "react";
+import { useEffect } from "react";
+import Cookies from "js-cookie";
+import axios from "../api/axios";
+
+export const FollowerCard = (props: any) => {
+  const { user } = props;
   return (
     <>
       <div className="grid grid-cols-6 justify-between items-center  h-14  text-xl text-center mb-8">
@@ -10,10 +17,10 @@ export const FollowerCard = () => {
           />
           <div className="grid grid-rows-2 text-right">
             <div className="user-display-name text-sm h-6 font-bold">
-              متین دهقان
+              {user.username}
             </div>
             <div className="user-full-name text-xs h-6 font-normal ">
-              170 هزار دنبال‌کننده
+              {user.followingsCount}
             </div>
           </div>
         </div>

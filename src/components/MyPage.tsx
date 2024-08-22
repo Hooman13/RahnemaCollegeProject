@@ -7,6 +7,7 @@ import axios from "../api/axios";
 import { PostsList } from "./PostList";
 import { Follow } from "./Follow";
 import { UnFollow } from "./UnFollow";
+import { FollowersList } from "../pages/FollowersList";
 
 export const MyPage = () => {
   interface IUser {
@@ -34,6 +35,7 @@ export const MyPage = () => {
     postCount: 0,
   });
   const { username } = useParams();
+  const [openFollowingsModal, setOpenFollowingsModal] = useState(false);
   const userName = Cookies.get("username");
 
   const userInfoEndpoint = username ? `${username}` : userName;
@@ -112,7 +114,13 @@ export const MyPage = () => {
                   |
                   <div className="user-followers-details px-2 text-[#C19008]">
                     {user?.followingsCount}
-                    <span className="mx-1">دنبال شونده</span>
+                    <button
+                      onClick={() => {
+                        setOpenFollowingsModal(true);
+                      }}
+                    >
+                      <span className="mx-1">دنبال شونده</span>
+                    </button>
                   </div>
                   |
                   <div className="user-followers-details pr-2">
@@ -149,6 +157,10 @@ export const MyPage = () => {
           </div>
         </div>
       </div>
+      <FollowersList
+        openModal={openFollowingsModal}
+        setOpenModal={setOpenFollowingsModal}
+      />
     </>
   );
 };
