@@ -8,6 +8,7 @@ import { PostsList } from "./PostList";
 import { Follow } from "./Follow";
 import { UnFollow } from "./UnFollow";
 import { FollowersList } from "../pages/FollowersList";
+import { FollowingsList } from "../pages/FollowingsList";
 
 export const MyPage = () => {
   interface IUser {
@@ -36,6 +37,7 @@ export const MyPage = () => {
   });
   const { username } = useParams();
   const [openFollowingsModal, setOpenFollowingsModal] = useState(false);
+  const [openFollowersModal, setOpenFollowersModal] = useState(false);
   const userName = Cookies.get("username");
 
   const userInfoEndpoint = username ? `${username}` : userName;
@@ -109,7 +111,13 @@ export const MyPage = () => {
                 <div className="text-sm flex mt-2 ">
                   <div className="user-followers-details pl-2 text-[#C19008]">
                     {user?.followersCount}
-                    <span className="mx-1">دنبال کننده</span>
+                    <button
+                      onClick={() => {
+                        setOpenFollowersModal(true);
+                      }}
+                    >
+                      <span className="mx-1">دنبال کننده</span>
+                    </button>
                   </div>
                   |
                   <div className="user-followers-details px-2 text-[#C19008]">
@@ -158,6 +166,10 @@ export const MyPage = () => {
         </div>
       </div>
       <FollowersList
+        openModal={openFollowersModal}
+        setOpenModal={setOpenFollowersModal}
+      />
+      <FollowingsList
         openModal={openFollowingsModal}
         setOpenModal={setOpenFollowingsModal}
       />

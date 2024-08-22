@@ -11,24 +11,24 @@ interface IProps {
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const FollowersList: React.FC<IProps> = ({
+export const FollowingsList: React.FC<IProps> = ({
   openModal,
   setOpenModal,
 }) => {
   interface IUser {
     imageUrl: string;
     username: string;
-    followersCount: number;
+    followingsCount: number;
   }
   interface IUsers extends Array<IUser> {}
-  const [followersData, setFollowersData] = useState<IUsers>([]);
-
+  const [followingsData, setFollowingsData] = useState<IUsers>([]);
+  // const [followingsData, setFollowingsData] = useState([]);
   const token = Cookies.get("token");
   const userName = Cookies.get("username");
-  const getFollowersData = async () => {
+  const getFollowingsData = async () => {
     try {
       const data: any = await axios
-        .get("http://37.32.5.72:3000/" + userName + "/followers", {
+        .get("http://37.32.5.72:3000/" + userName + "/followings", {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
@@ -37,11 +37,11 @@ export const FollowersList: React.FC<IProps> = ({
         .then((res) => {
           const userData = res.data;
           console.log(userData);
-          setFollowersData((prevState) => ({
+          setFollowingsData((prevState) => ({
             ...prevState,
             ...userData,
           }));
-          console.log(followersData);
+          console.log(followingsData);
         });
     } catch (error) {
       console.log({ error });
@@ -49,7 +49,7 @@ export const FollowersList: React.FC<IProps> = ({
   };
 
   useEffect(() => {
-    getFollowersData();
+    getFollowingsData();
   }, []);
 
   return (
@@ -60,10 +60,10 @@ export const FollowersList: React.FC<IProps> = ({
             <form>
               <div className=" bg-white w-auto h-auto py-16 rounded-3xl mt-3 px-12 ">
                 <div className="flex justify-center pb-10 text-xl overflow-y-hidden font-bold text-[#191919]">
-                  دنبال کننده‌ها
+                  دنبال شونده ها
                 </div>
                 <div className="overflow-y-scroll">
-                  {followersData.map((user, index) => {
+                  {followingsData.map((user, index) => {
                     return <FollowerCard user={user} />;
                   })}
                 </div>
