@@ -63,9 +63,9 @@ export const FollowersList: React.FC<IProps> = ({
                   دنبال کننده‌ها
                 </div>
                 <div className="overflow-y-scroll">
-                  {followersData.map((user, index) => {
+                  {/* {followersData.map((user, index) => {
                     return <FollowerCard user={user} />;
-                  })}
+                  })} */}
                 </div>
                 <div className="flex items-center justify-end text-sm">
                   <div className="text-white text-center mr-1 flex border-solid rounded-2xl bg-[#EA5A69] w-[62px] h-[36px] text-sm justify-center items-center px-[8px] py-[16px] ">

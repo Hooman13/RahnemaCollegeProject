@@ -41,7 +41,6 @@ export const FollowingsList: React.FC<IProps> = ({
             ...prevState,
             ...userData,
           }));
-          console.log(followingsData);
         });
     } catch (error) {
       console.log({ error });
@@ -63,9 +62,9 @@ export const FollowingsList: React.FC<IProps> = ({
                   دنبال شونده ها
                 </div>
                 <div className="overflow-y-scroll">
-                  {followingsData.map((user, index) => {
+                  {/* {followingsData.map((user, index) => {
                     return <FollowerCard user={user} />;
-                  })}
+                  })} */}
                 </div>
                 <div className="flex items-center justify-end text-sm">
                   <div className="text-white text-center mr-1 flex border-solid rounded-2xl bg-[#EA5A69] w-[62px] h-[36px] text-sm justify-center items-center px-[8px] py-[16px] ">
