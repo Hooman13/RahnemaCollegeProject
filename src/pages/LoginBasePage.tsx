@@ -50,7 +50,7 @@ export const LoginBasePage = () => {
             <Route path="/explore" element={<Explore />} />
             <Route path="/tags" element={<Tags />} />
             <Route path="/Notifs" element={<Notifs />} />
-            <Route path="/editpage" element={<EditProfile />} />
+            {/* <Route path="/editpage" element={<EditProfile />} /> */}
             <Route path="/follow" element={<Follow />} />
             <Route path="/unfollow" element={<UnFollow />} />
           </Route>

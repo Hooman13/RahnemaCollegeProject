@@ -33,6 +33,7 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
   const [showAddPhoto, setShowAddPhoto] = useState(true);
   const [showCaptionPage, setShowCaptionPage] = useState(false);
   const [showSendPost, setShowSendPost] = useState(false);
+  const [showSelectedPhoto, setShowSelectedPhoto] = useState(false);
   const [file, setFile] = useState<File | undefined>();
   const [photo, setPhoto] = useState<string | undefined>();
 
@@ -100,6 +101,7 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
     setFile(target.files[0]);
     //@ts-ignore
     setPhoto(URL.createObjectURL(target.files[0]));
+    setShowSelectedPhoto(!showSelectedPhoto);
   };
   return (
     <>
@@ -162,13 +164,15 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                       />
                     </div>
                   </div>
-                  <div className="mr-2">
-                    <img
-                      className="flex relative items-center justify-center  rounded-full w-[90px] h-[90px] border-[#F7901E] border-2"
-                      src={photo}
-                      alt=""
-                    />
-                  </div>
+                  {showSelectedPhoto && (
+                    <div className="mr-2">
+                      <img
+                        className="flex relative items-center justify-center  rounded-3xl w-[90px] h-[90px] border-2"
+                        src={photo}
+                        alt=""
+                      />
+                    </div>
+                  )}
                 </div>
                 {/* buttons */}
                 <div className="flex items-center justify-end text-sm">
