@@ -9,6 +9,7 @@ import { Follow } from "./Follow";
 import { UnFollow } from "./UnFollow";
 import { FollowersList } from "../pages/FollowersList";
 import { FollowingsList } from "../pages/FollowingsList";
+import { EditProfile } from "../pages/EditProfile";
 
 export const MyPage = () => {
   interface IUser {
@@ -38,6 +39,7 @@ export const MyPage = () => {
   const { username } = useParams();
   const [openFollowingsModal, setOpenFollowingsModal] = useState(false);
   const [openFollowersModal, setOpenFollowersModal] = useState(false);
+  const [openEditProfilModal, setOpenEditProfilModal] = useState(false);
   const userName = Cookies.get("username");
 
   const userInfoEndpoint = username ? `${username}` : userName;
@@ -91,11 +93,11 @@ export const MyPage = () => {
           <div className="flex justify-between">
             <div className="flex items-center">
               <img
-                className="border rounded-full ml-8 w-[132px] h-[132px]"
+                className="border rounded-full w-[132px] h-[132px]"
                 src="./img/avatar.png"
                 alt=""
               />
-              <div className="grid grid-rows-4 h-[132px]">
+              <div className="grid grid-rows-4 h-[132px] mr-4">
                 <span className="user-display-name text-sm text-[#C19008]">
                   {user.username}
                 </span>
@@ -143,14 +145,15 @@ export const MyPage = () => {
             </div>
             <div className="flex items-center justify-items-end	">
               {isMyProfile && (
-                <Link to="/editpage">
-                  <button
-                    type="button"
-                    className="w-[197px] py-4 px-2 bg-[#EA5A69] rounded-3xl text-white "
-                  >
-                    ویرایش پروفایل
-                  </button>
-                </Link>
+                <button
+                  type="button"
+                  className="w-[197px] py-4 px-2 bg-[#EA5A69] rounded-3xl text-white "
+                  onClick={() => {
+                    setOpenEditProfilModal(true);
+                  }}
+                >
+                  ویرایش پروفایل
+                </button>
               )}
             </div>
           </div>
@@ -172,6 +175,10 @@ export const MyPage = () => {
       <FollowingsList
         openModal={openFollowingsModal}
         setOpenModal={setOpenFollowingsModal}
+      />
+      <EditProfile
+        openModal={openEditProfilModal}
+        setOpenModal={setOpenEditProfilModal}
       />
     </>
   );

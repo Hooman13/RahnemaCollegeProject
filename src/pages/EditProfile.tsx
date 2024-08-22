@@ -6,6 +6,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import styles from "./Profile.module.css";
 import { useNavigate } from "react-router-dom";
+import { Button, Modal } from "flowbite-react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -37,8 +38,11 @@ const FormSchema = z.object({
 });
 
 type IFormInput = z.infer<typeof FormSchema>;
-
-export const EditProfile = () => {
+interface IProps {
+  openModal: boolean;
+  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+}
+export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
   // update profile edits
   const token = Cookies.get("token");
   const {
@@ -152,13 +156,11 @@ export const EditProfile = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <section>
-          <div
-            className="frame5 w-screen h-screen bg-no-repeat bg-center bg-cover flex justify-center items-center"
-            style={{ backgroundImage: "url(./img/login-background.png)" }}
-          >
-            <div className="bg-white w-screen md:w-[485px] h-screen md:h-auto  py-16 shadow-lg rounded-3xl mt-3 px-20 ">
+      <Modal show={openModal} onClose={() => setOpenModal(false)}>
+        <Modal.Body className="bg-white flex items-center justify-end w-[485px] h-screen md:h-auto rounded-3xl mt-3  ">
+          <form className="items-center" onSubmit={handleSubmit(onSubmit)}>
+            <section>
+              {/* <div className="bg-white w-screen md:w-[485px] h-screen md:h-auto  py-16 shadow-lg rounded-3xl mt-3 px-20 "> */}
               <div className="text-center text-xl justify-center font-bold mb-8">
                 ویرایش حساب
               </div>
@@ -285,14 +287,17 @@ export const EditProfile = () => {
                 </div>
                 <div className="pr-5">
                   <Link to="/">
-                    <button>پشیمون شدم</button>
+                    <button onClick={() => setOpenModal(false)}>
+                      پشیمون شدم
+                    </button>
                   </Link>
                 </div>
               </div>
-            </div>
-          </div>
-        </section>
-      </form>
+              {/* </div> */}
+            </section>
+          </form>
+        </Modal.Body>
+      </Modal>
     </>
   );
 };
