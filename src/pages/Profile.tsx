@@ -1,41 +1,14 @@
-import styles from "./Profile.module.css";
+import { Header } from "../components/Header";
 import { MyPage } from "../components/MyPage";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import { ProfileSidebar } from "../components/ProfileSidebar";
-import { Link } from "react-router-dom";
-import { useState } from "react";
-import { CreatePost } from "./CreatePost";
 
 export const Profile = () => {
-  const [openModal, setOpenModal] = useState(false);
 
-  // console.log(user.data.username);
-  // console.log(user.data.email);
-  // console.log(user);
   return (
     <>
       <div className="w-screen h-full pt-16 px-16 bg-[#F5F5F5]">
         {/* header */}
-        <div className="grid grid-cols-12 mb-4">
-          <div className="grid col-span-3 py-4 justify-items-center	">
-            {/* <Link to="/createpost"> */}
-            <button
-              onClick={() => {
-                setOpenModal(true);
-              }}
-              // onClick={getProfileData}
-              className="w-[232px] py-4 px-2 bg-[#EA5A69] rounded-3xl text-white"
-            >
-              <FontAwesomeIcon className="ml-2" icon={faCirclePlus} />
-              ایجاد پست جدید
-            </button>
-            {/* </Link> */}
-          </div>
-          <div className=" col-span-9 flex justify-end">
-            <img src="./img/logo.png" alt="" />
-          </div>
-        </div>
+        <Header/>
         {/* main */}
         <div className="grid overflow-y-hidden	 grid-cols-12">
           {/* sideBar */}
@@ -45,7 +18,7 @@ export const Profile = () => {
           </div>
         </div>
       </div>
-      <CreatePost openModal={openModal} setOpenModal={setOpenModal} />
+      
     </>
   );
 };
