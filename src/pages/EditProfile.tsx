@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import styles from "./Profile.module.css";
 import { useNavigate } from "react-router-dom";
 import { Button, Modal } from "flowbite-react";
-
+import { ToastR } from "../components/controles/ToastR";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faThumbTack,
@@ -43,6 +43,17 @@ interface IProps {
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
+  // show toast after successfully profile edited
+  const [displayToast, setDispalyToast] = useState(false);
+  const [toastMsg, setToastMsg] = useState("");
+  const [toastType, setToastType] = useState("basic");
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setDispalyToast(false);
+    }, 3000);
+    return () => clearTimeout(timeoutId);
+  }, [displayToast]);
+
   // update profile edits
   const token = Cookies.get("token");
   const {
@@ -53,10 +64,10 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
     resolver: zodResolver(FormSchema),
   });
 
-  const navigate = useNavigate();
-  const handleProfileEdited = () => {
-    navigate("/");
-  };
+  // const navigate = useNavigate();
+  // const handleProfileEdited = () => {
+  //   navigate("/");
+  // };
 
   const onSubmit = (data: IFormInput) => {
     // console.log(data);
@@ -69,7 +80,12 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
       })
       .then((response) => {
         if (response.status === 200) {
-          handleProfileEdited();
+          setToastMsg("پروفایل با موفقیت ویرایش شد");
+          setToastType("success");
+          setDispalyToast(true);
+          setTimeout(() => {
+            setOpenModal(false);
+          }, 3000);
         }
       })
       .catch((err) => console.log(err));
@@ -158,6 +174,7 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
     <>
       <Modal show={openModal} onClose={() => setOpenModal(false)}>
         <Modal.Body className=" flex w-[500px] items-center justify-end  h-screen md:h-auto rounded-3xl mt-3  ">
+          {displayToast && <ToastR type={toastType}>{toastMsg}</ToastR>}
           <form className="items-center" onSubmit={handleSubmit(onSubmit)}>
             <section>
               {/* <div className="bg-white w-screen md:w-[485px] h-screen md:h-auto  py-16 shadow-lg rounded-3xl mt-3 px-20 "> */}
