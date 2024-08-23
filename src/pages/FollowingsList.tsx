@@ -23,11 +23,13 @@ export const FollowingsList: React.FC<IProps> = ({
   interface IUsers extends Array<IUser> {}
   const [followingsData, setFollowingsData] = useState<IUsers>([]);
   const token = Cookies.get("token");
+  const { username } = useParams();
   const userName = Cookies.get("username");
+  const userInfoEndpoint = username ? `${username}` : userName;
   const getFollowingsData = async () => {
     try {
       const data: any = await axios
-        .get("http://37.32.5.72:3000/" + userName + "/followings", {
+        .get("http://37.32.5.72:3000/" + userInfoEndpoint + "/followings", {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,

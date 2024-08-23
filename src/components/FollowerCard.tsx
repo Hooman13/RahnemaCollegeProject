@@ -42,7 +42,7 @@ export const FollowerCard: FunctionComponent<PropsWithChildren<IUsers>> = ({
             </div>
           </div>
         </div>
-        <div className="col-span-2 mr-4 items-end">
+        <div className="text-[#EA5A69] col-span-2 mr-4 items-end">
           <FontAwesomeIcon icon={faEllipsisVertical} />
         </div>
       </div>
