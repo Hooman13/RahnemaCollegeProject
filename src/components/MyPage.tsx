@@ -161,7 +161,6 @@ export const MyPage = () => {
         {/* posts place */}
         <div className="flex justify-center mt-6 bg-inherit h-full border rounded-t-[45px]">
           <div className="">
-            {/* <div>هنوز هیچ پستی توی صفحه‌ات نذاشتی! بجنب تا دیر نشده</div> */}
             <div>
               <PostsList />
             </div>
