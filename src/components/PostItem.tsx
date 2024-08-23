@@ -2,13 +2,11 @@ import { FunctionComponent, PropsWithChildren } from "react";
 import { Link } from "react-router-dom";
 interface IPostProps {
   id: string;
-  caption: string;
-  imgUrl: string; //first image only
+  imgUrl: string;
 }
 export const PostItem: FunctionComponent<PropsWithChildren<IPostProps>> = ({
   children,
   id,
-  caption,
   imgUrl,
 }) => {
   const postUrl = `/post/${id}`;
@@ -19,14 +17,12 @@ export const PostItem: FunctionComponent<PropsWithChildren<IPostProps>> = ({
     >
       <Link to={postUrl}>
         <img
-          className="h-auto max-w-full  rounded-3xl aspect-square object-cover transition-transform duration-300 transform hover:scale-105 peer"
+          className="h-48 max-w-full  rounded-t-lg aspect-square object-cover transition-transform duration-300 transform hover:scale-105 peer"
           src={imgUrl}
-          alt={caption}
+          alt=""
         />
       </Link>
-      <figcaption className="absolute px-4 text-sm text-white bottom-6 w-100">
-        <p>{caption}</p>
-      </figcaption>
+      <figcaption className="absolute px-4 text-sm text-white bottom-6 w-100"></figcaption>
     </figure>
   );
 };
