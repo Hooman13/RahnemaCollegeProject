@@ -11,8 +11,6 @@ export const PostsList: React.FC<PropsWithChildren<IPostListProps>> = ({
   username,
   children,
 }) => {
-
-
   const getUserPosts = () => {
     return Axios.get(`http://37.32.5.72:3000/posts/user/${username}`).then(
       (res) => {
@@ -63,7 +61,9 @@ export const PostsList: React.FC<PropsWithChildren<IPostListProps>> = ({
   }
 
   if (isError) {
-    {<ToastR type="danger">خطا در دریافت پست ها</ToastR>}
+    {
+      <ToastR type="danger">خطا در دریافت پست ها</ToastR>;
+    }
     return <h1>خطا:{error.message}</h1>;
   }
   return (

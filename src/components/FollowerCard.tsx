@@ -3,9 +3,27 @@ import { useState } from "react";
 import { useEffect } from "react";
 import Cookies from "js-cookie";
 import axios from "../api/axios";
-
-export const FollowerCard = (props: any) => {
-  const { user } = props;
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faThumbTack,
+  faBookmark,
+  faCommentDots,
+  faBell,
+  faTag,
+  faMagnifyingGlass,
+  faGripVertical,
+  faEllipsisVertical,
+} from "@fortawesome/free-solid-svg-icons";
+import { FunctionComponent, PropsWithChildren } from "react";
+interface IUsers {
+  username: string;
+  followersCount: number;
+}
+export const FollowerCard: FunctionComponent<PropsWithChildren<IUsers>> = ({
+  children,
+  username,
+  followersCount,
+}) => {
   return (
     <>
       <div className="grid grid-cols-6 justify-between items-center  h-14  text-xl text-center mb-8">
@@ -17,14 +35,16 @@ export const FollowerCard = (props: any) => {
           />
           <div className="grid grid-rows-2 text-right">
             <div className="user-display-name text-sm h-6 font-bold">
-              {user.username}
+              {username}
             </div>
             <div className="user-full-name text-xs h-6 font-normal ">
-              {user.followersCount}
+              <p>{followersCount} دنبال کننده</p>
             </div>
           </div>
         </div>
-        <div className="col-span-2 mr-4 items-end">. . .</div>
+        <div className="text-[#EA5A69] col-span-2 mr-4 items-end">
+          <FontAwesomeIcon icon={faEllipsisVertical} />
+        </div>
       </div>
     </>
   );

@@ -1,9 +1,9 @@
 import { FollowerCard } from "../components/FollowerCard";
-import { Link, useParams } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
 import Cookies from "js-cookie";
 import axios from "../api/axios";
+import { Link, useParams } from "react-router-dom";
 import { Button, Modal } from "flowbite-react";
 
 interface IProps {
@@ -16,19 +16,20 @@ export const FollowersList: React.FC<IProps> = ({
   setOpenModal,
 }) => {
   interface IUser {
-    imageUrl: string;
     username: string;
     followersCount: number;
+    imageUrl: string;
   }
   interface IUsers extends Array<IUser> {}
   const [followersData, setFollowersData] = useState<IUsers>([]);
-
+  const { username } = useParams();
   const token = Cookies.get("token");
   const userName = Cookies.get("username");
+  const followersEndpoint = username ? `${username}` : userName;
   const getFollowersData = async () => {
     try {
       const data: any = await axios
-        .get("http://37.32.5.72:3000/" + userName + "/followers", {
+        .get("http://37.32.5.72:3000/" + followersEndpoint + "/followers", {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
@@ -36,12 +37,14 @@ export const FollowersList: React.FC<IProps> = ({
         })
         .then((res) => {
           const userData = res.data;
-          console.log(userData);
+          const p = userData.followers;
+          // console.log(p);
           setFollowersData((prevState) => ({
             ...prevState,
-            ...userData,
+            ...p,
           }));
-          console.log(followersData);
+          // const nejat = Object.values(followersData);
+          // console.log(p);
         });
     } catch (error) {
       console.log({ error });
@@ -63,9 +66,15 @@ export const FollowersList: React.FC<IProps> = ({
                   دنبال کننده‌ها
                 </div>
                 <div className="overflow-y-scroll">
-                  {/* {followersData.map((user, index) => {
-                    return <FollowerCard user={user} />;
-                  })} */}
+                  {Object.values(followersData).map(function (user, index) {
+                    return (
+                      <FollowerCard
+                        username={user.username}
+                        followersCount={user.followersCount}
+                        key={index}
+                      ></FollowerCard>
+                    );
+                  })}
                 </div>
                 <div className="flex items-center justify-end text-sm">
                   <div className="text-white text-center mr-1 flex border-solid rounded-2xl bg-[#EA5A69] w-[62px] h-[36px] text-sm justify-center items-center px-[8px] py-[16px] ">
