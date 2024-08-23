@@ -42,8 +42,7 @@ export const PostsList = () => {
   ];
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-
+    <div className="grid grid-cols-2 md:grid-cols-3  gap-5">
       {p.map(function (item, index) {
         return (
           <PostItem
