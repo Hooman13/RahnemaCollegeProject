@@ -40,9 +40,9 @@ export const MyPage = () => {
   const [openFollowingsModal, setOpenFollowingsModal] = useState(false);
   const [openFollowersModal, setOpenFollowersModal] = useState(false);
   const [openEditProfilModal, setOpenEditProfilModal] = useState(false);
-  const userName = Cookies.get("username");
+  const cookieUsername = Cookies.get("username");
 
-  const userInfoEndpoint = username ? `${username}` : userName;
+  const profileUsername = username ? `${username}` : cookieUsername;
 
   const [isMyProfile, setIsMyProfile] = useState(false);
   const token = Cookies.get("token");
@@ -50,7 +50,7 @@ export const MyPage = () => {
   const getProfileData = async () => {
     try {
       const data: any = await axios
-        .get(`http://37.32.5.72:3000/${userInfoEndpoint}`, {
+        .get(`http://37.32.5.72:3000/${profileUsername}`, {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
@@ -69,7 +69,7 @@ export const MyPage = () => {
   };
 
   const checkMyProfile = () => {
-    if (userName === user.username) {
+    if (cookieUsername === user.username) {
       // (username === undefined || username === user.username)
       setIsMyProfile(true);
     } else {
@@ -161,9 +161,8 @@ export const MyPage = () => {
         {/* posts place */}
         <div className="flex justify-center mt-6 bg-inherit h-full border rounded-t-[45px]">
           <div className="">
-            {/* <div>هنوز هیچ پستی توی صفحه‌ات نذاشتی! بجنب تا دیر نشده</div> */}
             <div>
-              <PostsList />
+              <PostsList username={profileUsername} />
             </div>
           </div>
         </div>
