@@ -17,12 +17,12 @@ import {
 import { FunctionComponent, PropsWithChildren } from "react";
 interface IUsers {
   username: string;
-  followingsCount: number;
+  followersCount: number;
 }
 export const FollowerCard: FunctionComponent<PropsWithChildren<IUsers>> = ({
   children,
   username,
-  followingsCount,
+  followersCount,
 }) => {
   return (
     <>
@@ -38,7 +38,7 @@ export const FollowerCard: FunctionComponent<PropsWithChildren<IUsers>> = ({
               {username}
             </div>
             <div className="user-full-name text-xs h-6 font-normal ">
-              <p>{followingsCount} دنبال کننده</p>
+              <p>{followersCount} دنبال کننده</p>
             </div>
           </div>
         </div>

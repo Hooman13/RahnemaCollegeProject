@@ -17,13 +17,13 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 interface IUsers {
   username: string;
-  followingsCount: number;
+  followersCount: number;
 }
 
 export const FollowingCard: FunctionComponent<PropsWithChildren<IUsers>> = ({
   children,
   username,
-  followingsCount,
+  followersCount,
 }) => {
   return (
     <>
@@ -39,7 +39,7 @@ export const FollowingCard: FunctionComponent<PropsWithChildren<IUsers>> = ({
               {username}
             </div>
             <div className="user-full-name text-xs h-6 font-normal text-black">
-              <p>{followingsCount} دنبال کننده</p>
+              <p>{followersCount} دنبال کننده</p>
             </div>
           </div>
         </div>

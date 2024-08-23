@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import Cookies from "js-cookie";
 import axios from "../api/axios";
+import { Link, useParams } from "react-router-dom";
 import { Button, Modal } from "flowbite-react";
 
 interface IProps {
@@ -16,18 +17,19 @@ export const FollowersList: React.FC<IProps> = ({
 }) => {
   interface IUser {
     username: string;
-    followingsCount: number;
+    followersCount: number;
     imageUrl: string;
   }
   interface IUsers extends Array<IUser> {}
   const [followersData, setFollowersData] = useState<IUsers>([]);
-
+  const { username } = useParams();
   const token = Cookies.get("token");
   const userName = Cookies.get("username");
+  const followersEndpoint = username ? `${username}` : userName;
   const getFollowersData = async () => {
     try {
       const data: any = await axios
-        .get("http://37.32.5.72:3000/" + userName + "/followers", {
+        .get("http://37.32.5.72:3000/" + followersEndpoint + "/followers", {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
@@ -35,14 +37,14 @@ export const FollowersList: React.FC<IProps> = ({
         })
         .then((res) => {
           const userData = res.data;
-          const p = userData[0];
-          // console.log(userData);
+          const p = userData.followers;
+          // console.log(p);
           setFollowersData((prevState) => ({
             ...prevState,
             ...p,
           }));
           // const nejat = Object.values(followersData);
-          // console.log(nejat);
+          // console.log(p);
         });
     } catch (error) {
       console.log({ error });
@@ -68,7 +70,7 @@ export const FollowersList: React.FC<IProps> = ({
                     return (
                       <FollowerCard
                         username={user.username}
-                        followingsCount={user.followingsCount}
+                        followersCount={user.followersCount}
                         key={index}
                       ></FollowerCard>
                     );
