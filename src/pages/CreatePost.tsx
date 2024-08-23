@@ -19,6 +19,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { Button, Modal } from "flowbite-react";
+import { useEffect } from "react";
+import { ToastR } from "../components/controles/ToastR";
 const FormSchema = z.object({
   mentions: z.string().optional(),
   caption: z.string().optional(),
@@ -30,6 +32,18 @@ interface IProps {
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
+  // show toast after successfully profile edited
+  const [displayToast, setDispalyToast] = useState(false);
+  const [toastMsg, setToastMsg] = useState("");
+  const [toastType, setToastType] = useState("basic");
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setDispalyToast(false);
+    }, 3000);
+    return () => clearTimeout(timeoutId);
+  }, [displayToast]);
+
+  // create post
   const [showAddPhoto, setShowAddPhoto] = useState(true);
   const [showCaptionPage, setShowCaptionPage] = useState(false);
   const [showSendPost, setShowSendPost] = useState(false);
@@ -72,6 +86,12 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
       .then((response) => {
         console.log(response);
         if (response.status === 201) {
+          setToastMsg("پست با موفقیت ارسال شد");
+          setToastType("success");
+          setDispalyToast(true);
+          setTimeout(() => {
+            setOpenModal(false);
+          }, 3000);
           handlePostSent();
         }
       })
@@ -107,6 +127,7 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
     <>
       <Modal show={openModal} onClose={() => setOpenModal(false)}>
         <Modal.Body>
+          {displayToast && <ToastR type={toastType}>{toastMsg}</ToastR>}
           <form className="rounded-3xl" onSubmit={handleSubmit(onSubmit)}>
             {/* addphoto page start */}
             {showAddPhoto && (
