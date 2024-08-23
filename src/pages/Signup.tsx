@@ -53,11 +53,6 @@ export const Signup = () => {
       .post("http://37.32.5.72:3000/auth/signup", JSON.stringify(data), {
         headers: { "Content-Type": "application/json" },
       })
-      // fetch("http://37.32.5.72:3000/auth/signup", {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify(data),
-      // })
       .then((response) => {
         console.log(response);
         if (response.status === 201) {
