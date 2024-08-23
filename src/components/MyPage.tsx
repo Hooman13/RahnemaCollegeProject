@@ -162,7 +162,7 @@ export const MyPage = () => {
         <div className="flex justify-center mt-6 bg-inherit h-full border rounded-t-[45px]">
           <div className="">
             <div>
-              <PostsList />
+              <PostsList username={profileUsername} />
             </div>
           </div>
         </div>
