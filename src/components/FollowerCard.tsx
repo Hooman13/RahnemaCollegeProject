@@ -3,9 +3,16 @@ import { useState } from "react";
 import { useEffect } from "react";
 import Cookies from "js-cookie";
 import axios from "../api/axios";
-
-export const FollowerCard = (props: any) => {
-  const { user } = props;
+import { FunctionComponent, PropsWithChildren } from "react";
+interface IUsers {
+  followedId: string;
+  updatedAt: string;
+}
+export const FollowerCard: FunctionComponent<PropsWithChildren<IUsers>> = ({
+  children,
+  followedId,
+  updatedAt,
+}) => {
   return (
     <>
       <div className="grid grid-cols-6 justify-between items-center  h-14  text-xl text-center mb-8">
@@ -17,10 +24,10 @@ export const FollowerCard = (props: any) => {
           />
           <div className="grid grid-rows-2 text-right">
             <div className="user-display-name text-sm h-6 font-bold">
-              {user.username}
+              {followedId}
             </div>
             <div className="user-full-name text-xs h-6 font-normal ">
-              {user.followersCount}
+              {updatedAt}
             </div>
           </div>
         </div>

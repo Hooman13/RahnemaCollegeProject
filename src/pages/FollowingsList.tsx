@@ -1,4 +1,4 @@
-import { FollowerCard } from "../components/FollowerCard";
+import { FollowingCard } from "../components/FollowingCard";
 import { Link, useParams } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -24,10 +24,11 @@ export const FollowingsList: React.FC<IProps> = ({
   // const [followingsData, setFollowingsData] = useState<IUsers>([]);
   // const [followingsData, setFollowingsData] = useState([]);
   interface IUser {
-    followedId?: string;
-    updatedAt?: string;
-    followingsCount?: number;
+    followedId: string;
+    updatedAt: string;
+    followingsCount: number;
   }
+  // type IUsers = IUser[];
   interface IUsers extends Array<IUser> {}
   const [followingsData, setFollowingsData] = useState<IUsers>([]);
   const token = Cookies.get("token");
@@ -47,8 +48,10 @@ export const FollowingsList: React.FC<IProps> = ({
             ...prevState,
             ...userData,
           }));
-          console.log(userData);
-          console.log(followingsData);
+          // console.log(userData);
+          // console.log(followingsData);
+          const nejat = Object.values(followingsData);
+          // console.log(nejat);
         });
     } catch (error) {
       console.log({ error });
@@ -70,9 +73,14 @@ export const FollowingsList: React.FC<IProps> = ({
                   دنبال شونده ها
                 </div>
                 <div className="overflow-y-scroll">
-                  {/* {followingsData[0].followedId} */}
-                  {followingsData.map((user, index) => {
-                    return <FollowerCard user={user} />;
+                  {Object.values(followingsData).map(function (user, index) {
+                    return (
+                      <FollowingCard
+                        followedId={user.followedId}
+                        updatedAt={user.updatedAt}
+                        key={index}
+                      ></FollowingCard>
+                    );
                   })}
                 </div>
                 <div className="flex items-center justify-end text-sm">

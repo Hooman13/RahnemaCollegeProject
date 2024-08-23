@@ -1,5 +1,4 @@
 import { FollowerCard } from "../components/FollowerCard";
-import { Link, useParams } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
 import Cookies from "js-cookie";
@@ -16,9 +15,9 @@ export const FollowersList: React.FC<IProps> = ({
   setOpenModal,
 }) => {
   interface IUser {
-    imageUrl: string;
-    username: string;
-    followersCount: number;
+    followedId: string;
+    updatedAt: string;
+    followingsCount: number;
   }
   interface IUsers extends Array<IUser> {}
   const [followersData, setFollowersData] = useState<IUsers>([]);
@@ -66,6 +65,15 @@ export const FollowersList: React.FC<IProps> = ({
                   {/* {followersData.map((user, index) => {
                     return <FollowerCard user={user} />;
                   })} */}
+                  {Object.values(followersData).map(function (user, index) {
+                    return (
+                      <FollowerCard
+                        followedId={user.followedId}
+                        updatedAt={user.updatedAt}
+                        key={index}
+                      ></FollowerCard>
+                    );
+                  })}
                 </div>
                 <div className="flex items-center justify-end text-sm">
                   <div className="text-white text-center mr-1 flex border-solid rounded-2xl bg-[#EA5A69] w-[62px] h-[36px] text-sm justify-center items-center px-[8px] py-[16px] ">

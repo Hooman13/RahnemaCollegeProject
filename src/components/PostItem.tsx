@@ -11,10 +11,12 @@ export const PostItem: FunctionComponent<PropsWithChildren<IPostProps>> = ({
   caption,
   imgUrl,
 }) => {
-
-    const postUrl=`/post/${id}`
+  const postUrl = `/post/${id}`;
   return (
-    <figure id={id} className="relative max-w-sm cursor-pointer hover:shadow-lg">
+    <figure
+      id={id}
+      className="relative max-w-sm cursor-pointer hover:shadow-lg"
+    >
       <Link to={postUrl}>
         <img
           className="h-auto max-w-full  rounded-t-lg aspect-square object-cover transition-transform duration-300 transform hover:scale-105 peer"
@@ -23,9 +25,7 @@ export const PostItem: FunctionComponent<PropsWithChildren<IPostProps>> = ({
         />
       </Link>
       <figcaption className="absolute px-4 text-sm text-white bottom-6 w-100">
-        <p>
-         {caption}
-        </p>
+        <p>{caption}</p>
       </figcaption>
     </figure>
   );
