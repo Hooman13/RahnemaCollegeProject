@@ -51,7 +51,7 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
     navigate("/");
   };
   const onSubmit = () => {
-    let arr = formInput.mentions.split(" ");
+    let arr = formInput.mentions.replaceAll("@", "").split(" ");
 
     if (typeof file === "undefined") return;
     const formData = new FormData();
