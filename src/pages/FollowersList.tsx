@@ -15,9 +15,9 @@ export const FollowersList: React.FC<IProps> = ({
   setOpenModal,
 }) => {
   interface IUser {
-    followedId: string;
-    updatedAt: string;
-    followingsCount: number;
+    username: string;
+    followersCount: number;
+    imageUrl: string;
   }
   interface IUsers extends Array<IUser> {}
   const [followersData, setFollowersData] = useState<IUsers>([]);
@@ -40,7 +40,6 @@ export const FollowersList: React.FC<IProps> = ({
             ...prevState,
             ...userData,
           }));
-          // console.log(followersData);
         });
     } catch (error) {
       console.log({ error });
@@ -62,14 +61,11 @@ export const FollowersList: React.FC<IProps> = ({
                   دنبال کننده‌ها
                 </div>
                 <div className="overflow-y-scroll">
-                  {/* {followersData.map((user, index) => {
-                    return <FollowerCard user={user} />;
-                  })} */}
                   {Object.values(followersData).map(function (user, index) {
                     return (
                       <FollowerCard
-                        followedId={user.followedId}
-                        updatedAt={user.updatedAt}
+                        username={user.username}
+                        followersCount={user.followersCount}
                         key={index}
                       ></FollowerCard>
                     );

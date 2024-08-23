@@ -15,20 +15,11 @@ export const FollowingsList: React.FC<IProps> = ({
   openModal,
   setOpenModal,
 }) => {
-  // interface IUser {
-  //   imageUrl: string;
-  //   username: string;
-  //   followingsCount: number;
-  // }
-  // interface IUsers extends Array<IUser> {}
-  // const [followingsData, setFollowingsData] = useState<IUsers>([]);
-  // const [followingsData, setFollowingsData] = useState([]);
   interface IUser {
-    followedId: string;
-    updatedAt: string;
-    followingsCount: number;
+    username: string;
+    followersCount: number;
+    imageUrl: string;
   }
-  // type IUsers = IUser[];
   interface IUsers extends Array<IUser> {}
   const [followingsData, setFollowingsData] = useState<IUsers>([]);
   const token = Cookies.get("token");
@@ -48,8 +39,7 @@ export const FollowingsList: React.FC<IProps> = ({
             ...prevState,
             ...userData,
           }));
-          // console.log(userData);
-          // console.log(followingsData);
+          // its a test for convert obj of obj to arr of obj
           const nejat = Object.values(followingsData);
           // console.log(nejat);
         });
@@ -76,8 +66,8 @@ export const FollowingsList: React.FC<IProps> = ({
                   {Object.values(followingsData).map(function (user, index) {
                     return (
                       <FollowingCard
-                        followedId={user.followedId}
-                        updatedAt={user.updatedAt}
+                        username={user.username}
+                        followersCount={user.followersCount}
                         key={index}
                       ></FollowingCard>
                     );

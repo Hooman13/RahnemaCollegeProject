@@ -5,13 +5,13 @@ import Cookies from "js-cookie";
 import axios from "../api/axios";
 import { FunctionComponent, PropsWithChildren } from "react";
 interface IUsers {
-  followedId: string;
-  updatedAt: string;
+  username: string;
+  followersCount: number;
 }
 export const FollowerCard: FunctionComponent<PropsWithChildren<IUsers>> = ({
   children,
-  followedId,
-  updatedAt,
+  username,
+  followersCount,
 }) => {
   return (
     <>
@@ -24,10 +24,10 @@ export const FollowerCard: FunctionComponent<PropsWithChildren<IUsers>> = ({
           />
           <div className="grid grid-rows-2 text-right">
             <div className="user-display-name text-sm h-6 font-bold">
-              {followedId}
+              {username}
             </div>
             <div className="user-full-name text-xs h-6 font-normal ">
-              {updatedAt}
+              {followersCount}
             </div>
           </div>
         </div>
