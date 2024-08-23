@@ -26,7 +26,7 @@ export const UnFollow = ({ user }: any) => {
       },
     })
       .then((response) => {
-        setToastMsg(` با ${user} دوست شدی`);
+        setToastMsg(` با ${user} دوست نیستی دیگه`);
         setToastType("success");
         setDispalyToast(true);
         console.log(response);
