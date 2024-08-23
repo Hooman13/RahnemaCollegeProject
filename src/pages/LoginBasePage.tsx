@@ -18,6 +18,8 @@ import { PostPage } from "./PostPage";
 import { FollowersList } from "./FollowersList";
 import { Follow } from "../components/Follow";
 import { UnFollow } from "../components/UnFollow";
+import { Home } from "./Home";
+import { Main } from "../components/Main";
 
 export const LoginBasePage = () => {
   return (
@@ -31,6 +33,8 @@ export const LoginBasePage = () => {
           <Route path="/reset-password" element={<NewPass />} />
           <Route path="/email-sent-page" element={<EmailSent />} />
           <Route path="/error" element={<ErrorPage />} />
+          <Route path="/main" element={<Main/>} />
+          <Route path="/home" element={<Home/>} />
           {/* <Route path="/addphoto" element={<AddPhoto />} />
           <Route path="/addcaption" element={<CaptionPage />} />
           <Route path="/sendpost" element={<SendPost />} /> */}
