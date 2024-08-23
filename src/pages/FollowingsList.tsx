@@ -17,7 +17,7 @@ export const FollowingsList: React.FC<IProps> = ({
 }) => {
   interface IUser {
     username: string;
-    followersCount: number;
+    followingsCount: number;
     imageUrl: string;
   }
   interface IUsers extends Array<IUser> {}
@@ -35,13 +35,16 @@ export const FollowingsList: React.FC<IProps> = ({
         })
         .then((res) => {
           const userData = res.data;
+          const p = userData.followings;
+          // console.log(p);
+          // console.log(userData);
           setFollowingsData((prevState) => ({
             ...prevState,
-            ...userData,
+            ...p,
           }));
           // its a test for convert obj of obj to arr of obj
           const nejat = Object.values(followingsData);
-          // console.log(nejat);
+          console.log(nejat);
         });
     } catch (error) {
       console.log({ error });
@@ -67,7 +70,7 @@ export const FollowingsList: React.FC<IProps> = ({
                     return (
                       <FollowingCard
                         username={user.username}
-                        followersCount={user.followersCount}
+                        followingsCount={user.followingsCount}
                         key={index}
                       ></FollowingCard>
                     );

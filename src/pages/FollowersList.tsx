@@ -16,7 +16,7 @@ export const FollowersList: React.FC<IProps> = ({
 }) => {
   interface IUser {
     username: string;
-    followersCount: number;
+    followingsCount: number;
     imageUrl: string;
   }
   interface IUsers extends Array<IUser> {}
@@ -35,11 +35,14 @@ export const FollowersList: React.FC<IProps> = ({
         })
         .then((res) => {
           const userData = res.data;
+          const p = userData[0];
           // console.log(userData);
           setFollowersData((prevState) => ({
             ...prevState,
-            ...userData,
+            ...p,
           }));
+          // const nejat = Object.values(followersData);
+          // console.log(nejat);
         });
     } catch (error) {
       console.log({ error });
@@ -65,7 +68,7 @@ export const FollowersList: React.FC<IProps> = ({
                     return (
                       <FollowerCard
                         username={user.username}
-                        followersCount={user.followersCount}
+                        followingsCount={user.followingsCount}
                         key={index}
                       ></FollowerCard>
                     );

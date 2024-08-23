@@ -4,15 +4,26 @@ import { useEffect } from "react";
 import Cookies from "js-cookie";
 import axios from "../api/axios";
 import { FunctionComponent, PropsWithChildren } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faThumbTack,
+  faBookmark,
+  faCommentDots,
+  faBell,
+  faTag,
+  faMagnifyingGlass,
+  faGripVertical,
+  faEllipsisVertical,
+} from "@fortawesome/free-solid-svg-icons";
 interface IUsers {
   username: string;
-  followersCount: number;
+  followingsCount: number;
 }
 
 export const FollowingCard: FunctionComponent<PropsWithChildren<IUsers>> = ({
   children,
   username,
-  followersCount,
+  followingsCount,
 }) => {
   return (
     <>
@@ -27,12 +38,14 @@ export const FollowingCard: FunctionComponent<PropsWithChildren<IUsers>> = ({
             <div className="user-display-name text-sm h-6 font-bold">
               {username}
             </div>
-            <div className="user-full-name text-xs h-6 font-normal ">
-              {followersCount}
+            <div className="user-full-name text-xs h-6 font-normal text-black">
+              <p>{followingsCount} دنبال کننده</p>
             </div>
           </div>
         </div>
-        <div className="col-span-2 mr-4 items-end">. . .</div>
+        <div className="text-[#EA5A69] col-span-2 items-end">
+          <FontAwesomeIcon icon={faEllipsisVertical} />
+        </div>
       </div>
     </>
   );
