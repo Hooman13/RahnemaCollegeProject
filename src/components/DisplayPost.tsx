@@ -83,7 +83,7 @@ export const DisplayPost: React.FC = () => {
               >
                 <img
                   className="w-16 h-16 rounded-full ml-3"
-                  src={post.creator.imageUrl}
+                  src="../img/person.png"
                   alt={post.creator.username}
                 />
                 {post.creator.username}
@@ -103,7 +103,7 @@ export const DisplayPost: React.FC = () => {
           <div className="mb-14 h-56 sm:h-64 xl:h-80 2xl:h-96">
             <Carousel className="rounded-t-lg" dir="ltr">
               {post.imageInfos.map((item, index) => {
-                return <img key={index} src={"http://37.32.5.72/"+item.url} alt="image" />;
+                return <img key={index} src="../img/placeholder-image.jpg" alt="image" />;
               })}
             </Carousel>
           </div>
