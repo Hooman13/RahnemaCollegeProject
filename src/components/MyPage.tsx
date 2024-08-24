@@ -94,7 +94,7 @@ export const MyPage = () => {
             <div className="flex items-center">
               <img
                 className="border rounded-full w-[132px] h-[132px]"
-                src="./img/avatar.png"
+                src="../img/person.png"
                 alt=""
               />
               <div className="grid grid-rows-4 h-[132px] mr-4">
@@ -159,12 +159,8 @@ export const MyPage = () => {
           </div>
         </div>
         {/* posts place */}
-        <div className="flex justify-center mt-6 bg-inherit h-full border rounded-t-[45px]">
-          <div className="">
-            <div>
-              <PostsList username={profileUsername} />
-            </div>
-          </div>
+        <div className="mt-6 bg-inherit h-full border rounded-t-[45px]">
+          <PostsList username={profileUsername} />
         </div>
       </div>
       <FollowersList

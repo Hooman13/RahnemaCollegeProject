@@ -17,8 +17,8 @@ export const PostItem: FunctionComponent<PropsWithChildren<IPostProps>> = ({
     >
       <Link to={postUrl}>
         <img
-          className="h-48 max-w-full  rounded-t-lg aspect-square object-cover transition-transform duration-300 transform hover:scale-105 peer"
-          src={imgUrl}
+          className="h-72 w-full rounded-xl aspect-square object-cover transition-transform duration-300 transform hover:scale-105 peer"
+          src="../img/placeholder-image.jpg"
           alt=""
         />
       </Link>

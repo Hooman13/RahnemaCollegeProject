@@ -53,7 +53,7 @@ export const ProfileSidebar: FunctionComponent = () => {
         <div className="w-[296px] items-center flex h-20 m-6 py-4 px-8 ">
           <img
             className="border rounded-full w-12 h-12"
-            src="../img/avatar.png"
+            src="../img/person.png"
             alt=""
           />
           <span className="px-4 py-3">{user.data.username}</span>
