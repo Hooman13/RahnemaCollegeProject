@@ -30,7 +30,7 @@ export const FollowerCard: FunctionComponent<PropsWithChildren<IUsers>> = ({
         <div className="items-center col-span-4 flex justify-start w-[210px] h-14">
           <img
             className="border rounded-full ml-7 w-[56px] h-[56px]"
-            src="./img/avatar.png"
+            src="../img/person.png"
             alt=""
           />
           <div className="grid grid-rows-2 text-right">

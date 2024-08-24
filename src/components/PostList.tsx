@@ -67,9 +67,10 @@ export const PostsList: React.FC<PropsWithChildren<IPostListProps>> = ({
     return <h1>خطا:{error.message}</h1>;
   }
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+    <>
       {data?.length ? (
-        data.map(function (item: any, index: any) {
+    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+        {data.map(function (item: any, index: any) {
           return (
             <PostItem
               id={item.postId}
@@ -77,10 +78,12 @@ export const PostsList: React.FC<PropsWithChildren<IPostListProps>> = ({
               key={index}
             ></PostItem>
           );
-        })
+        })}
+        </div>
       ) : (
-        <div>هنوز هیچ پستی توی صفحه‌ات نذاشتی! بجنب تا دیر نشده</div>
+        <div className="flex flex-row min-h-screen justify-center items-center">هنوز هیچ پستی توی صفحه‌ات نذاشتی! بجنب تا دیر نشده</div>
       )}
-    </div>
+    
+    </>
   );
 };
