@@ -26,10 +26,12 @@ export const UnFollow = ({ user }: any) => {
       },
     })
       .then((response) => {
-        setToastMsg(` با ${user} دوست نیستی دیگه`);
-        setToastType("success");
-        setDispalyToast(true);
-        console.log(response);
+        if (response.status === 200) {
+          setToastMsg(` با ${user} دوست نیستی دیگه`);
+          setToastType("success");
+          setDispalyToast(true);
+          console.log(response);
+        }
       })
       .catch((err) => {
         console.log({ err });

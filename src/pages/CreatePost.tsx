@@ -65,15 +65,15 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
     navigate("/");
   };
   const onSubmit = () => {
-    let arr = formInput.mentions.replaceAll("@", "").split(" ");
-
     if (typeof file === "undefined") return;
     const formData = new FormData();
     formData.append("imageUrls", file);
     formData.append("caption", formInput.caption);
+    let arr = formInput.mentions.replaceAll("@", "").split(" ");
+    console.log(arr);
 
-    for (var i = 0; i < arr.length; i++) {
-      formData.append("mentions", arr[i]);
+    for (let i = 0; i < arr.length; i++) {
+      formData.append(`mentions[${i}]`, arr[i]);
     }
 
     axios
@@ -91,7 +91,7 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
           setDispalyToast(true);
           setTimeout(() => {
             setOpenModal(false);
-          }, 3000);
+          }, 2000);
           handlePostSent();
         }
       })
@@ -125,9 +125,9 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
   };
   return (
     <>
+      {displayToast && <ToastR type={toastType}>{toastMsg}</ToastR>}
       <Modal show={openModal} onClose={() => setOpenModal(false)}>
         <Modal.Body>
-          {displayToast && <ToastR type={toastType}>{toastMsg}</ToastR>}
           <form className="rounded-3xl" onSubmit={handleSubmit(onSubmit)}>
             {/* addphoto page start */}
             {showAddPhoto && (
