@@ -18,8 +18,8 @@ export const Header = () => {
           ایجاد پست جدید
         </button>
       </div>
-      <div className=" col-span-9 flex justify-end">
-        <img src="./img/logo.png" alt="" />
+      <div className="col-span-9 flex justify-end items-center">
+        <img className="w-[82px] h-[49px]" src="./img/logo.png" alt="" />
       </div>
       <CreatePost openModal={openModal} setOpenModal={setOpenModal} />
     </div>
