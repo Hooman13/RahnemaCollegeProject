@@ -69,21 +69,25 @@ export const PostsList: React.FC<PropsWithChildren<IPostListProps>> = ({
   return (
     <>
       {data?.length ? (
-    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-        {data.map(function (item: any, index: any) {
-          return (
-            <PostItem
-              id={item.postId}
-              imgUrl={`http://37.32.5.72/${item.imageInfo.url}`}
-              key={index}
-            ></PostItem>
-          );
-        })}
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+          {data.map(function (item: any, index: any) {
+            return (
+              <PostItem
+                id={item.postId}
+                imgUrl={`http://37.32.5.72${item.imageInfo.url.replace(
+                  "src",
+                  ""
+                )}`}
+                key={index}
+              ></PostItem>
+            );
+          })}
         </div>
       ) : (
-        <div className="flex flex-row min-h-screen justify-center items-center">هنوز هیچ پستی توی صفحه‌ات نذاشتی! بجنب تا دیر نشده</div>
+        <div className="flex flex-row min-h-screen justify-center items-center">
+          هنوز هیچ پستی توی صفحه‌ات نذاشتی! بجنب تا دیر نشده
+        </div>
       )}
-    
     </>
   );
 };

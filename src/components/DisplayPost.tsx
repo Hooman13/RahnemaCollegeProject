@@ -58,11 +58,11 @@ export const DisplayPost: React.FC = () => {
         setpost((prev) => ({
           ...prev,
           ...postData,
-        }))
+        }));
       });
     } catch (error) {
       console.log(error);
-      <ToastR type="danger"></ToastR>
+      <ToastR type="danger"></ToastR>;
     }
   };
 
@@ -103,7 +103,9 @@ export const DisplayPost: React.FC = () => {
           <div className="mb-14 h-56 sm:h-64 xl:h-80 2xl:h-96">
             <Carousel className="rounded-t-lg" dir="ltr">
               {post.imageInfos.map((item, index) => {
-                return <img key={index} src="../img/placeholder-image.jpg" alt="image" />;
+                const image = "http://37.32.5.72" + item.url.replace("src", "");
+                console.log(image);
+                return <img key={index} src={image} alt="image" />;
               })}
             </Carousel>
           </div>

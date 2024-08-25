@@ -44,7 +44,9 @@ export const Signup = () => {
 
   const navigate = useNavigate();
   const handleSignupSuccess = () => {
-    navigate("/login");
+    setTimeout(() => {
+      navigate("/login");
+    }, 1000);
   };
 
   const onSubmit = (data: IFormInput) => {

@@ -79,7 +79,7 @@ export const MyPage = () => {
 
   useEffect(() => {
     getProfileData();
-  }, []);
+  }, [profileUsername]);
   useEffect(() => {
     checkMyProfile();
   }, [user]);

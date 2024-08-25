@@ -37,14 +37,11 @@ export const FollowersList: React.FC<IProps> = ({
         })
         .then((res) => {
           const userData = res.data;
-          const p = userData.followers;
-          // console.log(p);
+          const followersList = userData.followers;
           setFollowersData((prevState) => ({
             ...prevState,
-            ...p,
+            ...followersList,
           }));
-          // const nejat = Object.values(followersData);
-          // console.log(p);
         });
     } catch (error) {
       console.log({ error });

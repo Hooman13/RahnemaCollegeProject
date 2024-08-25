@@ -32,10 +32,12 @@ export const Follow = ({ user }: any) => {
       },
     })
       .then((response) => {
-        setToastMsg(` با ${user} دوست شدی`);
-        setToastType("success");
-        setDispalyToast(true);
-        console.log(response);
+        if (response.status === 200) {
+          setToastMsg(` با ${user} دوست شدی`);
+          setToastType("success");
+          setDispalyToast(true);
+          console.log(response);
+        }
       })
       .catch((err) => {
         console.log({ err });

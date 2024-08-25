@@ -37,16 +37,11 @@ export const FollowingsList: React.FC<IProps> = ({
         })
         .then((res) => {
           const userData = res.data;
-          const p = userData.followings;
-          console.log(p);
-          // console.log(userData);
+          const followingsList = userData.followings;
           setFollowingsData((prevState) => ({
             ...prevState,
-            ...p,
+            ...followingsList,
           }));
-          // its a test for convert obj of obj to arr of obj
-          // const nejat = Object.values(followingsData);
-          // console.log(p);
         });
     } catch (error) {
       console.log({ error });

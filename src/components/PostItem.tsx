@@ -9,6 +9,7 @@ export const PostItem: FunctionComponent<PropsWithChildren<IPostProps>> = ({
   id,
   imgUrl,
 }) => {
+  const image = imgUrl.replace("src", "");
   const postUrl = `/post/${id}`;
   return (
     <figure
@@ -18,7 +19,7 @@ export const PostItem: FunctionComponent<PropsWithChildren<IPostProps>> = ({
       <Link to={postUrl}>
         <img
           className="h-72 w-full rounded-xl aspect-square object-cover transition-transform duration-300 transform hover:scale-105 peer"
-          src="../img/placeholder-image.jpg"
+          src={image}
           alt=""
         />
       </Link>
