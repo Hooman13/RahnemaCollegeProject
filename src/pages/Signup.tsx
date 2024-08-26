@@ -65,7 +65,7 @@ export const Signup = () => {
         }
       })
       .catch((err) => {
-        setToastMsg(" خطایی رخ داد " + err.message);
+        setToastMsg(" ایمیل وارد شده قبلا عضو کالج‌گرام شده است");
         setToastType("danger");
         setDispalyToast(true);
         console.log(err);
@@ -113,11 +113,11 @@ export const Signup = () => {
             className="frame5 w-screen h-screen bg-no-repeat bg-center bg-cover flex justify-center items-center"
             style={{ backgroundImage: "url(./img/login-background.png)" }}
           >
-            <div className=" bg-white w-screen md:w-[485px] h-screen md:h-auto  py-16 shadow-lg rounded-3xl mt-3 px-20 ">
-              <div className="flex justify-center pb-10">
+            <div className=" bg-white w-screen md:w-[485px] h-screen md:h-[590px]  py-10 shadow-lg rounded-3xl px-20 ">
+              <div className="flex justify-center pb-7">
                 <img src="./img/logo.png" alt="" />
               </div>
-              <div className="text-xl mb-12 justify-evenly flex">
+              <div className="text-xl mb-6 justify-evenly flex">
                 <Link to="/login">
                   <button className="text-[#A5A5A5]">ورود</button>
                 </Link>
@@ -133,6 +133,7 @@ export const Signup = () => {
                 <div className="mb-6">
                   <input
                     type="text"
+                    dir="ltr"
                     {...register("username")}
                     placeholder="نام کاربری"
                     className="border rounded-2xl w-full text-right px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
@@ -144,6 +145,7 @@ export const Signup = () => {
                 <div className="mb-6">
                   <input
                     type="text"
+                    dir="ltr"
                     {...register("email", { required: true })}
                     placeholder="ایمیل"
                     className="border text-right rounded-2xl w-full px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
@@ -156,6 +158,7 @@ export const Signup = () => {
                 <div className="mb-6">
                   <input
                     type="password"
+                    dir="ltr"
                     {...register("password")}
                     value={formInput.password}
                     placeholder="رمز عبور"
@@ -171,6 +174,7 @@ export const Signup = () => {
                 <div className="mb-6">
                   <input
                     type="password"
+                    dir="ltr"
                     {...register("confirmPassword")}
                     value={formInput.confirmPassword}
                     placeholder="تکرار رمز عبور"
@@ -183,8 +187,13 @@ export const Signup = () => {
                   <p className="text-red-700">{formError.confirmPassword}</p>
                 </div>
               </div>
-              <div className="font-normal text-sm text-center mt-6 flex border-solid rounded-2xl bg-[#EA5A69]  text-white w-[84px] mr-auto justify-center items-center px-[16px] py-[8px] ">
-                <button type={"submit"}>ثبت نام</button>
+              <div>
+                <button
+                  className="font-normal text-sm text-center mt-6 flex border-solid rounded-2xl bg-[#EA5A69]  text-white w-[84px] mr-auto justify-center items-center px-[16px] py-[8px] "
+                  type={"submit"}
+                >
+                  ثبت نام
+                </button>
               </div>
             </div>
           </div>
