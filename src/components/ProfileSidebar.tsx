@@ -49,7 +49,7 @@ export const ProfileSidebar: FunctionComponent = () => {
     getProfileData();
   }, [token, isUserUpdated]);
   return (
-    <div className="h-[878px] 2xl:h-[1000px] w-[296px] 2xl:w-[400px] col-span-3  bg-white border-[#A5A5A5] rounded-t-[45px] border-[1px] justify-items-center	">
+    <div className="h-full w-auto col-span-2 bg-white border border-white rounded-t-[45px] justify-items-center	">
       <div>
         <div className="w-[296px] 2xl:w-[350px] items-center flex h-auto m-6 py-4 px-8 ">
           <img

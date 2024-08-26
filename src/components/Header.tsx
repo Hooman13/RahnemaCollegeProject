@@ -7,12 +7,12 @@ export const Header = () => {
   const [openModal, setOpenModal] = useState(false);
   return (
     <div className="grid grid-cols-12 mb-4">
-      <div className="grid col-span-3 py-4 justify-items-center	">
+      <div className="grid col-span-2 pb-4 justify-items-center	">
         <button
           onClick={() => {
             setOpenModal(true);
           }}
-          className="w-[232px] py-4 px-2 bg-[#EA5A69] rounded-3xl text-white"
+          className="w-[200px] bg-[#EA5A69] rounded-3xl text-white"
         >
           <FontAwesomeIcon className="ml-2" icon={faCirclePlus} />
           ایجاد پست جدید
