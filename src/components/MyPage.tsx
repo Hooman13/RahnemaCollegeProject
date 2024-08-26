@@ -89,28 +89,30 @@ export const MyPage = () => {
       <div>
         {/* profile informations */}
         <div className="text-black border-b-2 border-[#CAC4D0] pb-6">
-          <h1 className="mb-8 text-xl">صفحه من</h1>
+          <h1 className="mb-8 text-2xl font-bold">صفحه من</h1>
           <div className="flex justify-between">
             <div className="flex items-center">
               <img
-                className="border rounded-full w-[132px] h-[132px]"
+                className="border rounded-full w-[147px] h-[147px]"
                 src="../img/person.png"
                 alt=""
               />
-              <div className="grid grid-rows-4 h-[132px] mr-4">
-                <span className="user-display-name text-sm text-[#C19008]">
-                  {user.username}
-                </span>
+              <div className="grid grid-rows-3 h-[147px] mr-4">
                 <div className="flex">
-                  <div className="user-full-name text-xl ml-4">
-                    {user.fName} {user.lName}
+                  <div className="user-full-name text-xl ml-4 text-[#191919]">
+                    <span className="text-base font-normal mr-4 ">
+                      {user.username}
+                    </span>
+                    <span className="text-2xl font-bold">
+                      {user.fName} {user.lName}
+                    </span>
                   </div>
                   <div className="ml-4">
                     {!isMyProfile && <Follow user={user.username} />}
                   </div>
                   <div>{!isMyProfile && <UnFollow user={user.username} />}</div>
                 </div>
-                <div className="text-sm flex mt-2 ">
+                <div className="text-lg font-normal flex mt-2 ">
                   <div className="user-followers-details pl-2 text-[#C19008]">
                     {user?.followersCount}
                     <button
@@ -138,7 +140,7 @@ export const MyPage = () => {
                     <span className="mx-1">پست</span>
                   </div>
                 </div>
-                <div className="user-followers-details w-[377px]">
+                <div className="user-followers-details text-base font-normal w-[377px] text-[#A5A5A5]">
                   {user.bio}
                 </div>
               </div>
@@ -147,7 +149,7 @@ export const MyPage = () => {
               {isMyProfile && (
                 <button
                   type="button"
-                  className="w-[197px] py-4 px-2 bg-[#EA5A69] rounded-3xl text-white "
+                  className="w-[197px] 2xl:w-[230px] py-4 px-2 bg-[#EA5A69] rounded-3xl text-white "
                   onClick={() => {
                     setOpenEditProfilModal(true);
                   }}
