@@ -88,18 +88,18 @@ export const MyPage = () => {
     <>
       <div>
         {/* profile informations */}
-        <div className="text-black border-b-2 border-[#CAC4D0] pb-6">
-          <h1 className="mb-8 text-2xl font-bold">صفحه من</h1>
-          <div className="flex justify-between">
+        <div className="fixed text-black border-b-2 z-50 border-[#CAC4D0] bg-[#F5F5F5]  w-screen pb-6">
+          <h1 className="mb-6 text-xl font-bold">صفحه من</h1>
+          <div className="flex">
             <div className="flex items-center">
               <img
-                className="border rounded-full w-[147px] h-[147px]"
+                className="border rounded-full w-[132px] h-[132px]"
                 src="../img/person.png"
                 alt=""
               />
-              <div className="grid grid-rows-3 h-[147px] mr-4">
+              <div className="grid grid-rows-3 h-[132px] mr-4">
                 <div className="flex">
-                  <div className="user-full-name text-xl ml-4 text-[#191919]">
+                  <div className="user-full-name text-lg ml-4 text-[#191919]">
                     <span className="text-base font-normal mr-4 ">
                       {user.username}
                     </span>
@@ -112,7 +112,7 @@ export const MyPage = () => {
                   </div>
                   <div>{!isMyProfile && <UnFollow user={user.username} />}</div>
                 </div>
-                <div className="text-lg font-normal flex mt-2 ">
+                <div className="text-base font-normal flex mt-1 ">
                   <div className="user-followers-details pl-2 text-[#C19008]">
                     {user?.followersCount}
                     <button
@@ -140,16 +140,16 @@ export const MyPage = () => {
                     <span className="mx-1">پست</span>
                   </div>
                 </div>
-                <div className="user-followers-details text-base font-normal w-[377px] text-[#A5A5A5]">
+                <div className="user-followers-details text-sm font-normal w-[377px] text-[#A5A5A5]">
                   {user.bio}
                 </div>
               </div>
             </div>
-            <div className="flex items-center justify-items-end	">
+            <div className="flex items-center mr-[250px]">
               {isMyProfile && (
                 <button
                   type="button"
-                  className="w-[197px] 2xl:w-[230px] py-4 px-2 bg-[#EA5A69] rounded-3xl text-white "
+                  className="text-sm px-10 py-2 w-auto bg-[#EA5A69] rounded-3xl text-white "
                   onClick={() => {
                     setOpenEditProfilModal(true);
                   }}
@@ -161,7 +161,7 @@ export const MyPage = () => {
           </div>
         </div>
         {/* posts place */}
-        <div className="mt-8 bg-inherit h-full">
+        <div className="mt-52 z-0 bg-inherit py-5">
           <PostsList username={profileUsername} />
         </div>
       </div>

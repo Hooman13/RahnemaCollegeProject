@@ -6,7 +6,7 @@ import { CreatePost } from "../pages/CreatePost";
 export const Header = () => {
   const [openModal, setOpenModal] = useState(false);
   return (
-    <div className="fixed grid grid-cols-12 mb-2 mr-7">
+    <div className="fixed bg-[#F5F5F5] z-50 grid grid-cols-12 w-screen pt-6 mr-5">
       <div className="grid col-span-2 pb-4 justify-items-center	">
         <button
           onClick={() => {
