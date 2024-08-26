@@ -69,7 +69,7 @@ export const PostsList: React.FC<PropsWithChildren<IPostListProps>> = ({
   return (
     <>
       {data?.length ? (
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-5 px-1">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-5 px-2">
           {data.map(function (item: any, index: any) {
             return (
               <PostItem
