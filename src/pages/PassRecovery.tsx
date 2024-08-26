@@ -8,14 +8,6 @@ import axios from "axios";
 import { EmailSent } from "./EmailSent";
 
 const FormSchema = z.object({
-  username: z
-    .string()
-    .min(3, "نام کاربری باید شامل حداقل ۳ حرف باشد")
-    .regex(
-      /^[a-zA-Z0-9_]+$/,
-      " نام کاربری باید فقط شامل حروف و عدد و آندرلاین باشد"
-    )
-    .optional(),
   email: z.string().email("ایمیل وارد شده نامعتبر است").optional(),
 });
 
@@ -70,9 +62,9 @@ export const PassRecovery = () => {
               <div className="text-xs mt-6 mb-6">
                 <input
                   type="text"
+                  dir="ltr"
                   {...register("email")}
-                  {...register("username")}
-                  placeholder="نام کاربری یا ایمیل"
+                  placeholder="ایمیل"
                   className="border rounded-2xl w-full text-right text-base  px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
                 />
                 {errors?.email?.message && (
@@ -80,8 +72,13 @@ export const PassRecovery = () => {
                 )}
               </div>
               <div className="flex items-center text-sm">
-                <div className="text-center mr-1  text-white flex border-solid rounded-2xl bg-[#EA5A69] w-[181px] h-[36px] text-sm justify-center items-center px-[8px] py-[16px] ">
-                  <button type={"submit"}>ارسال لینک بازیابی رمز عبور</button>
+                <div>
+                  <button
+                    className="text-center mr-1  text-white flex border-solid rounded-2xl bg-[#EA5A69] w-[181px] h-[36px] text-sm justify-center items-center px-[8px] py-[16px] "
+                    type={"submit"}
+                  >
+                    ارسال لینک بازیابی رمز عبور
+                  </button>
                 </div>
                 <div className="flex pr-5">
                   <Link to="/login">

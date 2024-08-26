@@ -6,6 +6,7 @@ import { any, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { ToastR } from "../components/controles/ToastR";
 
 const FormSchema = z.object({
   newPassword: z.string().min(8, "رمزعبور باید حداقل شامل ۸ حرف باشد"),
@@ -15,6 +16,18 @@ const FormSchema = z.object({
 type IFormInput = z.infer<typeof FormSchema>;
 
 export const NewPass = () => {
+  // toast handling
+  const [displayToast, setDispalyToast] = useState(false);
+  const [toastMsg, setToastMsg] = useState("");
+  const [toastType, setToastType] = useState("basic");
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setDispalyToast(false);
+    }, 3000);
+    return () => clearTimeout(timeoutId);
+  }, [displayToast]);
+
+  // reset pass logic
   const [email, setEmail] = useState("");
   const [newPassword, setnewPassword] = useState("");
   // const [confirmPassword, setConfirmPassword] = useState("");
@@ -57,7 +70,12 @@ export const NewPass = () => {
       .then((response) => {
         console.log(response);
         if (response.status === 200) {
-          handleSignupSuccess();
+          setToastMsg("تغییر رمز با موفقیت انجام شد");
+          setToastType("success");
+          setDispalyToast(true);
+          setTimeout(() => {
+            handleSignupSuccess();
+          }, 2000);
         }
       })
       .catch((err) => console.log(err));
@@ -98,6 +116,7 @@ export const NewPass = () => {
   return (
     <>
       <section>
+        {displayToast && <ToastR type={toastType}>{toastMsg}</ToastR>}
         <form onSubmit={handleSubmit(onSubmit)}>
           <div
             className="frame5 w-screen h-screen bg-no-repeat bg-center bg-cover flex justify-center items-center"
@@ -117,6 +136,7 @@ export const NewPass = () => {
                 <div className="mb-6">
                   <input
                     type="password"
+                    dir="ltr"
                     placeholder="رمز عبور"
                     {...register("newPassword")}
                     value={formInput.newPassword}
@@ -132,6 +152,7 @@ export const NewPass = () => {
                 <div className="mb-6">
                   <input
                     type="password"
+                    dir="ltr"
                     placeholder="تکرار رمز عبور"
                     {...register("confirmPassword")}
                     value={formInput.confirmPassword}
@@ -145,8 +166,13 @@ export const NewPass = () => {
                 </div>
               </div>
               <div className="flex items-center">
-                <div className="text-center  text-white flex border-solid rounded-2xl bg-[#EA5A69] w-[136px] h-[36px] text-sm justify-center items-center px-[8px] py-[16px] ">
-                  <button type={"submit"}>ثبت رمز عبور جدید</button>
+                <div>
+                  <button
+                    className="text-center  text-white flex border-solid rounded-2xl bg-[#EA5A69] w-[136px] h-[36px] text-sm justify-center items-center px-[8px] py-[16px] "
+                    type={"submit"}
+                  >
+                    ثبت رمز عبور جدید
+                  </button>
                 </div>
               </div>
             </div>
