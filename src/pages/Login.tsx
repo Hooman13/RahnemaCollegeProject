@@ -105,11 +105,11 @@ export const Login = () => {
           className="frame5 w-screen h-screen bg-no-repeat bg-center bg-cover flex justify-center items-center"
           style={{ backgroundImage: "url(./img/login-background.png)" }}
         >
-          <div className=" bg-white w-screen md:w-[485px] h-screen md:h-[695px] py-16 shadow-lg rounded-3xl mt-3 px-20 ">
-            <div className="flex justify-center pb-10">
+          <div className=" bg-white w-screen md:w-[485px] h-screen md:h-[590px] py-10 shadow-lg rounded-3xl px-20 ">
+            <div className="flex justify-center pb-7">
               <img src="./img/logo.png" alt="" />
             </div>
-            <div className="text-xl mb-12 justify-evenly flex">
+            <div className="text-xl mb-8 justify-evenly flex">
               <Link to="/login">
                 <button>ورود</button>
               </Link>
@@ -118,11 +118,11 @@ export const Login = () => {
                 <button className="text-[#A5A5A5]">ثبت نام</button>
               </Link>
             </div>
-            <div className="text-right text-sm mb-8">
+            <div className="text-right text-sm font-normal mb-6">
               به کالج‌گرام خوش آمدید. برای ورود کافیه نام کاربری/ایمیل و رمز
               عبور خود‌تون رو وارد کنید
             </div>
-            <div className=" mt-6">
+            <div className=" mt-4">
               <input
                 type="text"
                 id="username"
@@ -133,6 +133,7 @@ export const Login = () => {
                 required
                 placeholder="نام کاربری یا ایمیل"
                 className="border rounded-2xl w-full text-right text-base mb-6 px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
+                dir="ltr"
               />
               <input
                 type="password"
@@ -142,6 +143,7 @@ export const Login = () => {
                 required
                 placeholder="رمز عبور"
                 className="border text-right rounded-2xl w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
+                dir="ltr"
               />
               <p
                 ref={errRef}
@@ -163,10 +165,15 @@ export const Login = () => {
                 </label>
               </div>
             </div>
-            <div className="text-center mt-6 flex border-solid rounded-2xl  text-white bg-[#EA5A69] w-[84px] ml-auto mr-auto justify-center items-center px-[16px] py-[8px] ">
-              <button type="submit">ورود</button>
+            <div>
+              <button
+                className="text-center mt-6 flex border-solid rounded-2xl  text-white bg-[#EA5A69] w-[84px] ml-auto mr-auto justify-center items-center px-[16px] py-[8px] "
+                type="submit"
+              >
+                ورود
+              </button>
             </div>
-            <div className="text-sm flex flex-col text-right mt-12">
+            <div className="text-sm flex flex-col text-right mt-8">
               <Link to="/forgotpass" className="mb-4">
                 فراموشی رمز عبور
               </Link>
