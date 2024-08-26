@@ -59,56 +59,56 @@ export const ProfileSidebar: FunctionComponent = () => {
           />
           <span className="px-4 py-3">{user.data.username}</span>
         </div>
-        <div className="w-auto text-base 2xl:text-xl font-normal items-center py-4 flex h-auto pr-9 px-8 hover:bg-[#F5F5F5] border-none rounded-[75px] text-center">
-          <Link to="/profile">
+        <Link to="/profile">
+          <div className="w-auto text-base 2xl:text-xl font-normal items-center py-4 flex h-auto pr-9 px-8 hover:bg-[#F5F5F5] border-none rounded-[75px] text-center">
             <FontAwesomeIcon className="ml-4" icon={faThumbTack} />
             صفحه من
-          </Link>
-        </div>
-        <div className="w-auto text-base 2xl:text-xl font-normal items-center py-4 flex h-auto pr-9 px-8 hover:bg-[#F5F5F5] border-none rounded-[75px] text-center">
-          <Link to="/saved">
+          </div>
+        </Link>
+        <Link to="/saved">
+          <div className="w-auto text-base 2xl:text-xl font-normal items-center py-4 flex h-auto pr-9 px-8 hover:bg-[#F5F5F5] border-none rounded-[75px] text-center">
             <FontAwesomeIcon className="ml-4" icon={faBookmark} />
             ذخیره‌ها
-          </Link>
-        </div>
-        <div className="w-auto text-base 2xl:text-xl font-normal items-center py-4 flex h-auto pr-9 px-8 hover:bg-[#F5F5F5] border-none rounded-[75px] text-center">
-          <Link to="/messages">
+          </div>
+        </Link>
+        <Link to="/messages">
+          <div className="w-auto text-base 2xl:text-xl font-normal items-center py-4 flex h-auto pr-9 px-8 hover:bg-[#F5F5F5] border-none rounded-[75px] text-center">
             <FontAwesomeIcon className="ml-4" icon={faCommentDots} />
             پیام‌ها
-          </Link>
-        </div>
-        <div className="w-auto text-base 2xl:text-xl font-normal items-center py-4 flex h-auto pr-9 px-8 hover:bg-[#F5F5F5] border-none rounded-[75px] text-center">
-          <Link to="/notifs">
+          </div>
+        </Link>
+        <Link to="/notifs">
+          <div className="w-auto text-base 2xl:text-xl font-normal items-center py-4 flex h-auto pr-9 px-8 hover:bg-[#F5F5F5] border-none rounded-[75px] text-center">
             <FontAwesomeIcon className="ml-4" icon={faBell} />
             اعلانات
-          </Link>
-        </div>
-        <div className="w-auto text-base 2xl:text-xl font-normal items-center py-4 flex h-auto pr-9 px-8 hover:bg-[#F5F5F5] border-none rounded-[75px] text-center">
-          <Link to="/tags">
+          </div>
+        </Link>
+        <Link to="/tags">
+          <div className="w-auto text-base 2xl:text-xl font-normal items-center py-4 flex h-auto pr-9 px-8 hover:bg-[#F5F5F5] border-none rounded-[75px] text-center">
             <FontAwesomeIcon className="ml-4" icon={faTag} />
             تگ‌شده‌ها
-          </Link>
-        </div>
+          </div>
+        </Link>
       </div>
       <div className="border-t-2 m-6"></div>
-      <div className="w-auto text-base 2xl:text-xl font-normal items-center py-4 flex h-auto pr-9 px-8 hover:bg-[#F5F5F5] border-none rounded-[75px] text-center">
-        <Link to="/explore">
+      <Link to="/explore">
+        <div className="w-auto text-base 2xl:text-xl font-normal items-center py-4 flex h-auto pr-9 px-8 hover:bg-[#F5F5F5] border-none rounded-[75px] text-center">
           <FontAwesomeIcon className="ml-4" icon={faGripVertical} />
           اکسپلور
-        </Link>
-      </div>
-      <div className="w-auto text-base 2xl:text-xl font-normal items-center py-4 flex h-auto pr-9 px-8 hover:bg-[#F5F5F5] border-none rounded-[75px] text-center">
-        <Link to="/search">
+        </div>
+      </Link>
+      <Link to="/search">
+        <div className="w-auto text-base 2xl:text-xl font-normal items-center py-4 flex h-auto pr-9 px-8 hover:bg-[#F5F5F5] border-none rounded-[75px] text-center">
           <FontAwesomeIcon className="ml-4" icon={faMagnifyingGlass} />
           جستجو
-        </Link>
-      </div>
-      <div className="w-auto text-base 2xl:text-xl font-normal mt-[250px] flex h-auto pr-9 px-8 hover:bg-[#F5F5F5] border-none rounded-[75px] text-center">
-        <Link to="/search">
+        </div>
+      </Link>
+      <Link to="/search">
+        <div className="w-auto text-base 2xl:text-xl font-normal mt-[240px] flex py-4 h-auto pr-9 px-8 hover:bg-[#F5F5F5] border-none rounded-[75px] text-center">
           <FontAwesomeIcon className="ml-4" icon={faList} />
           بیشتر
-        </Link>
-      </div>
+        </div>
+      </Link>
     </div>
   );
 };
