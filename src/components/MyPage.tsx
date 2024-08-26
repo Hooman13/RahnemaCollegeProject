@@ -161,7 +161,7 @@ export const MyPage = () => {
           </div>
         </div>
         {/* posts place */}
-        <div className="mt-6 bg-inherit h-full border rounded-t-[45px]">
+        <div className="mt-8 bg-inherit h-full border rounded-t-[45px]">
           <PostsList username={profileUsername} />
         </div>
       </div>
