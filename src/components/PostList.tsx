@@ -69,7 +69,7 @@ export const PostsList: React.FC<PropsWithChildren<IPostListProps>> = ({
   return (
     <>
       {data?.length ? (
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-5 px-1">
           {data.map(function (item: any, index: any) {
             return (
               <PostItem
@@ -84,8 +84,10 @@ export const PostsList: React.FC<PropsWithChildren<IPostListProps>> = ({
           })}
         </div>
       ) : (
-        <div className="flex flex-row min-h-screen justify-center items-center">
-          هنوز هیچ پستی توی صفحه‌ات نذاشتی! بجنب تا دیر نشده
+        <div className="mt-8 bg-inherit h-full border border-[#CDCDCD] rounded-3xl">
+          <div className="flex flex-row min-h-screen justify-center items-center">
+            هنوز هیچ پستی توی صفحه‌ات نذاشتی! بجنب تا دیر نشده
+          </div>
         </div>
       )}
     </>
