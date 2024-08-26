@@ -49,7 +49,7 @@ export const ProfileSidebar: FunctionComponent = () => {
     getProfileData();
   }, [token, isUserUpdated]);
   return (
-    <div className="h-screen w-auto bg-white border text-sm border-white rounded-t-[30px] justify-items-center	">
+    <div className="fixed h-[530px] w-[220px] bg-white border text-sm border-white rounded-t-[30px] justify-items-center	">
       <div>
         <div className="w-[296px] 2xl:w-[350px] items-center flex h-auto mt-3 mr-6 py-2 ">
           <img
@@ -104,7 +104,7 @@ export const ProfileSidebar: FunctionComponent = () => {
         </div>
       </Link>
       <Link to="/search">
-        <div className="w-auto 2xl:text-xl font-normal mt-[240px] flex py-3 h-auto pr-9 hover:bg-[#F5F5F5] border-none rounded-[75px] text-center">
+        <div className="w-auto 2xl:text-xl font-normal flex py-3 h-auto pr-9 hover:bg-[#F5F5F5] border-none rounded-[75px] text-center">
           <FontAwesomeIcon className="ml-4" icon={faList} />
           بیشتر
         </div>

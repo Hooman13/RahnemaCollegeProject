@@ -9,7 +9,7 @@ export const Profile = () => {
         {/* header */}
         <Header />
         {/* main */}
-        <div className="grid overflow-y-hidden grid-cols-12">
+        <div className="grid mt-12 overflow-y-hidden grid-cols-12">
           {/* sideBar */}
           <div className="col-span-2">
             <ProfileSidebar />

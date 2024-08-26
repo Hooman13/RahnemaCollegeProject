@@ -6,16 +6,16 @@ import { CreatePost } from "../pages/CreatePost";
 export const Header = () => {
   const [openModal, setOpenModal] = useState(false);
   return (
-    <div className="grid grid-cols-12 mb-2">
+    <div className="fixed grid grid-cols-12 mb-2 mr-7">
       <div className="grid col-span-2 pb-4 justify-items-center	">
         <button
           onClick={() => {
             setOpenModal(true);
           }}
-          className="w-auto px-6 text-sm bg-[#EA5A69] rounded-3xl text-white"
+          className="w-auto px-10 text-sm bg-[#EA5A69] rounded-3xl text-white"
         >
           <FontAwesomeIcon className="ml-2" icon={faCirclePlus} />
-          ایجاد پست جدید
+          پست جدید
         </button>
       </div>
       <div className="col-span-10 flex justify-end items-center">
