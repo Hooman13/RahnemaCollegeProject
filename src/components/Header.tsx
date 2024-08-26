@@ -6,13 +6,13 @@ import { CreatePost } from "../pages/CreatePost";
 export const Header = () => {
   const [openModal, setOpenModal] = useState(false);
   return (
-    <div className="fixed bg-[#F5F5F5] z-50 grid grid-cols-12 w-screen pt-6 mr-5">
+    <div className="fixed bg-[#F5F5F5] z-50 grid grid-cols-12 w-screen pt-6 mr-2">
       <div className="grid col-span-2 pb-4 justify-items-center	">
         <button
           onClick={() => {
             setOpenModal(true);
           }}
-          className="w-auto px-10 text-sm bg-[#EA5A69] rounded-3xl text-white"
+          className="w-auto px-12 text-sm bg-[#EA5A69] rounded-3xl text-white"
         >
           <FontAwesomeIcon className="ml-2" icon={faCirclePlus} />
           پست جدید

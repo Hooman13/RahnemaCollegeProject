@@ -88,22 +88,22 @@ export const MyPage = () => {
     <>
       <div>
         {/* profile informations */}
-        <div className="fixed text-black border-b-2 z-50 border-[#CAC4D0] bg-[#F5F5F5]  w-screen pb-6">
-          <h1 className="mb-6 text-xl font-bold">صفحه من</h1>
+        <div className="fixed text-black border-b-2 z-50 border-[#CAC4D0] bg-[#F5F5F5]  w-screen pb-3">
+          <h1 className="mb-3 text-lg font-bold">صفحه من</h1>
           <div className="flex">
             <div className="flex items-center">
               <img
-                className="border rounded-full w-[132px] h-[132px]"
+                className="border rounded-full w-[105px] h-[105px]"
                 src="../img/person.png"
                 alt=""
               />
-              <div className="grid grid-rows-3 h-[132px] mr-4">
+              <div className="grid grid-rows-3 h-[105px] mr-4">
                 <div className="flex">
-                  <div className="user-full-name text-lg ml-4 text-[#191919]">
+                  <div className="user-full-name text-base ml-4 text-[#191919]">
                     <span className="text-base font-normal mr-4 ">
                       {user.username}
                     </span>
-                    <span className="text-2xl font-bold">
+                    <span className="text-xl font-bold">
                       {user.fName} {user.lName}
                     </span>
                   </div>
@@ -112,7 +112,7 @@ export const MyPage = () => {
                   </div>
                   <div>{!isMyProfile && <UnFollow user={user.username} />}</div>
                 </div>
-                <div className="text-base font-normal flex mt-1 ">
+                <div className="text-base font-normal flex ">
                   <div className="user-followers-details pl-2 text-[#C19008]">
                     {user?.followersCount}
                     <button
@@ -161,7 +161,7 @@ export const MyPage = () => {
           </div>
         </div>
         {/* posts place */}
-        <div className="mt-52 z-0 bg-inherit py-5">
+        <div className="mt-40 z-0 bg-inherit py-5">
           <PostsList username={profileUsername} />
         </div>
       </div>
