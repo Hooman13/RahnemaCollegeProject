@@ -11,8 +11,10 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { ToastR } from "./controles/ToastR";
 
-export const DisplayPost: React.FC = () => {
-  const { postId } = useParams();
+interface IProps {
+  postId: string;
+}
+export const DisplayPost: React.FC<IProps> = ({ postId }) => {
 
   interface IImage {
     imageId: string;
