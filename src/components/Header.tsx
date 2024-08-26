@@ -18,7 +18,7 @@ export const Header = () => {
           پست جدید
         </button>
       </div>
-      <div className="col-span-10 flex justify-end items-center">
+      <div className="col-span-10 mr-[900px] flex items-center">
         <img className="w-[82px] h-[49px]" src="./img/logo.png" alt="" />
       </div>
       <CreatePost openModal={openModal} setOpenModal={setOpenModal} />
