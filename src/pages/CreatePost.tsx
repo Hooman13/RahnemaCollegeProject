@@ -125,6 +125,8 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
     };
     console.log("target", target.files);
     setFile(target.files[0]);
+    console.log("file", file);
+
     //@ts-ignore
     setPhoto(URL.createObjectURL(target.files[0]));
     setShowSelectedPhoto(!showSelectedPhoto);
@@ -138,24 +140,20 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
         size={modalSize}
       >
         <Modal.Body>
-          <form className="rounded-3xl" onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             {/* addphoto page start */}
             {showAddPhoto && (
               <div>
                 {/* The Graph */}
-                <div className="flex-row flex justify-evenly px-4 py-6 ">
+                <div className="flex-row flex justify-evenly px-4 pt-4 ">
                   <div className="grid grid-rows-2 justify-items-center">
-                    <div className=" border justify-items-center justify-center items-center  border-[#6F6F6F] rounded-full w-4 h-4">
-                      {/* <div className="flex items-center justify-center border m-auto   border-black rounded-full w-1 h-1 bg-black"></div> */}
-                    </div>
+                    <div className=" border justify-items-center justify-center items-center  border-[#6F6F6F] rounded-full w-4 h-4"></div>
                     <p className="grid text-[#6F6F6F] row-span-1 text-[10px] mt-1">
                       تنظیمات
                     </p>
                   </div>
                   <div className="grid grid-rows-2 justify-items-center">
-                    <div className=" border justify-items-center justify-center items-center   border-[#6F6F6F] rounded-full w-4 h-4">
-                      {/* <div className="flex items-center justify-center border m-auto   border-black rounded-full w-1 h-1 bg-black"></div> */}
-                    </div>
+                    <div className=" border justify-items-center justify-center items-center   border-[#6F6F6F] rounded-full w-4 h-4"></div>
                     <p className="grid text-[#6F6F6F] row-span-1 text-[10px] mt-1">
                       متن
                     </p>
@@ -168,14 +166,14 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                   </div>
                 </div>
                 {/* main */}
-                <div className="text-center mt-8 text-base font-normal mb-8">
+                <div className="text-center mt-8 text-sm font-normal mb-4">
                   <p>عکس‌های مورد نظرت رو آپلود کن:</p>
                 </div>
                 <div className="flex justify-center mb-8">
-                  <div className="flex relative items-center justify-center  rounded-full w-[90px] h-[90px] border-[#F7901E] border-2">
+                  <div className="flex relative items-center justify-center  rounded-full w-[70px] h-[70px] border-[#F7901E] border-2">
                     <div className="m-auto relative   ">
                       <FontAwesomeIcon
-                        className="w-9 h-9"
+                        className="w-7 h-7"
                         icon={faCamera}
                         style={{ color: "#F7901E" }}
                       />
@@ -189,7 +187,7 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                     </div>
                     <div>
                       <FontAwesomeIcon
-                        className="absolute top-[21px] right-[54px]"
+                        className="absolute top-[15px] right-[40px]"
                         icon={faCirclePlus}
                         style={{ color: "#F7901E" }}
                       />
@@ -198,7 +196,7 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                   {showSelectedPhoto && (
                     <div className="mr-2">
                       <img
-                        className="flex relative items-center justify-center  rounded-3xl w-[90px] h-[90px] border-2"
+                        className="flex relative items-center justify-center  rounded-2xl w-[70px] h-[70px] border-2"
                         src={photo}
                         alt=""
                       />
