@@ -3,22 +3,20 @@ import { MyPage } from "../components/MyPage";
 import { ProfileSidebar } from "../components/ProfileSidebar";
 
 export const Profile = () => {
-
   return (
-    <>
-      <div className="w-screen h-full pt-16 px-16 bg-[#F5F5F5]">
-        {/* header */}
-        <Header/>
-        {/* main */}
-        <div className="grid overflow-y-hidden	 grid-cols-12">
-          {/* sideBar */}
+    <div className="w-screen  overflow-y-hidden px-7 bg-[#F5F5F5]">
+      {/* header */}
+      <Header />
+      {/* main */}
+      <div className="grid mt-16 overflow-y-hidden grid-cols-12">
+        {/* sideBar */}
+        <div className="col-span-2 pt-2">
           <ProfileSidebar />
-          <div className="mr-16 grid col-span-9 overflow-y-scroll	">
-            <MyPage />
-          </div>
+        </div>
+        <div className="mr-10 grid pt-2 col-span-10 overflow-y-scroll	">
+          <MyPage />
         </div>
       </div>
-      
-    </>
+    </div>
   );
 };

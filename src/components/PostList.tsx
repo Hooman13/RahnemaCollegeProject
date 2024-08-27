@@ -40,7 +40,7 @@ export const PostsList: React.FC<PropsWithChildren<IPostListProps>> = ({
               role="status"
               className="space-y-8 animate-pulse md:space-y-0 md:space-x-8 rtl:space-x-reverse md:flex md:items-center"
             >
-              <div className="flex items-center justify-center w-full h-48 bg-gray-300 rounded sm:w-96 dark:bg-gray-700">
+              <div className="flex items-center justify-center w-full h-36 bg-gray-300 rounded sm:w-96 dark:bg-gray-700">
                 <svg
                   className="w-10 h-10 text-gray-200 dark:text-gray-600"
                   aria-hidden="true"
@@ -69,7 +69,7 @@ export const PostsList: React.FC<PropsWithChildren<IPostListProps>> = ({
   return (
     <>
       {data?.length ? (
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-5 px-2">
           {data.map(function (item: any, index: any) {
             return (
               <PostItem
@@ -84,8 +84,10 @@ export const PostsList: React.FC<PropsWithChildren<IPostListProps>> = ({
           })}
         </div>
       ) : (
-        <div className="flex flex-row min-h-screen justify-center items-center">
-          هنوز هیچ پستی توی صفحه‌ات نذاشتی! بجنب تا دیر نشده
+        <div className="mt-8 bg-inherit h-full border border-[#CDCDCD] rounded-3xl">
+          <div className="flex flex-row min-h-screen justify-center items-center">
+            هنوز هیچ پستی توی صفحه‌ات نذاشتی! بجنب تا دیر نشده
+          </div>
         </div>
       )}
     </>

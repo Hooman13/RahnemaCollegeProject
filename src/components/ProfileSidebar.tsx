@@ -11,6 +11,7 @@ import {
   faTag,
   faMagnifyingGlass,
   faGripVertical,
+  faList,
 } from "@fortawesome/free-solid-svg-icons";
 import axios from "../api/axios";
 
@@ -48,60 +49,66 @@ export const ProfileSidebar: FunctionComponent = () => {
     getProfileData();
   }, [token, isUserUpdated]);
   return (
-    <div className="h-full w-auto col-span-3 bg-white border border-white rounded-t-[45px] justify-items-center	">
+    <div className="fixed h-[530px] w-[220px] bg-white border text-sm border-white rounded-t-[30px]">
       <div>
-        <div className="w-[296px] items-center flex h-20 m-6 py-4 px-8 ">
+        <div className="w-[296px] 2xl:w-[350px] items-center flex h-auto mt-3 mr-6 py-2 ">
           <img
-            className="border rounded-full w-12 h-12"
-            src="../img/person.png"
+            className="border rounded-full w-10 2xl:w-14 h-10 2xl:h-14"
+            src={user.data.imageUrl}
             alt=""
           />
-          <span className="px-4 py-3">{user.data.username}</span>
+          <span className="px-4">{user.data.username}</span>
         </div>
-        <div className="w-auto items-center py-4 flex h-14 pr-9 px-8 hover:bg-[#F2F2F7] border-none rounded-[75px] text-center">
-          <Link to="/profile">
+        <Link to="/profile">
+          <div className="w-auto  2xl:text-xl font-normal items-center py-3 flex h-auto pr-9 hover:bg-[#F5F5F5] border-none rounded-[75px] text-center">
             <FontAwesomeIcon className="ml-4" icon={faThumbTack} />
             صفحه من
-          </Link>
-        </div>
-        <div className="w-auto items-center py-4 flex h-14 pr-9 px-8 hover:bg-[#F2F2F7] border-none rounded-[75px] text-center">
-          <Link to="/saved">
+          </div>
+        </Link>
+        <Link to="/saved">
+          <div className="w-auto 2xl:text-xl font-normal items-center py-3 flex h-auto pr-9 hover:bg-[#F5F5F5] border-none rounded-[75px] text-center">
             <FontAwesomeIcon className="ml-4" icon={faBookmark} />
             ذخیره‌ها
-          </Link>
-        </div>
-        <div className="w-auto items-center py-4 flex h-14 pr-9 px-8 hover:bg-[#F2F2F7] border-none rounded-[75px] text-center">
-          <Link to="/messages">
+          </div>
+        </Link>
+        <Link to="/messages">
+          <div className="w-auto 2xl:text-xl font-normal items-center py-3 flex h-auto pr-9 hover:bg-[#F5F5F5] border-none rounded-[75px] text-center">
             <FontAwesomeIcon className="ml-4" icon={faCommentDots} />
             پیام‌ها
-          </Link>
-        </div>
-        <div className="w-auto items-center py-4 flex h-14 pr-9 px-8 hover:bg-[#F2F2F7] border-none rounded-[75px] text-center">
-          <Link to="/notifs">
+          </div>
+        </Link>
+        <Link to="/notifs">
+          <div className="w-auto 2xl:text-xl font-normal items-center py-3 flex h-auto pr-9 hover:bg-[#F5F5F5] border-none rounded-[75px] text-center">
             <FontAwesomeIcon className="ml-4" icon={faBell} />
             اعلانات
-          </Link>
-        </div>
-        <div className="w-auto items-center py-4 flex h-14 pr-9 px-8 hover:bg-[#F2F2F7] border-none rounded-[75px] text-center">
-          <Link to="/tags">
+          </div>
+        </Link>
+        <Link to="/tags">
+          <div className="w-auto 2xl:text-xl font-normal items-center py-3 flex h-auto pr-9 hover:bg-[#F5F5F5] border-none rounded-[75px] text-center">
             <FontAwesomeIcon className="ml-4" icon={faTag} />
             تگ‌شده‌ها
-          </Link>
-        </div>
+          </div>
+        </Link>
       </div>
-      <div className="border-t-2 m-6"></div>
-      <div className="w-auto items-center py-4 flex h-14 pr-9 px-8 hover:bg-[#F2F2F7] border-none rounded-[75px] text-center">
-        <Link to="/explore">
+      <div className="border-t-2 m-2"></div>
+      <Link to="/explore">
+        <div className="w-auto 2xl:text-xl font-normal items-center py-3 flex h-auto pr-9  hover:bg-[#F5F5F5] border-none rounded-[75px] text-center">
           <FontAwesomeIcon className="ml-4" icon={faGripVertical} />
           اکسپلور
-        </Link>
-      </div>
-      <div className="w-auto items-center py-4 flex h-14 pr-9 px-8 hover:bg-[#F2F2F7] border-none rounded-[75px] text-center">
-        <Link to="/search">
+        </div>
+      </Link>
+      <Link to="/search">
+        <div className="w-auto 2xl:text-xl font-normal items-center py-3 flex h-auto pr-9 hover:bg-[#F5F5F5] border-none rounded-[75px] text-center">
           <FontAwesomeIcon className="ml-4" icon={faMagnifyingGlass} />
           جستجو
-        </Link>
-      </div>
+        </div>
+      </Link>
+      <Link to="/search">
+        <div className="w-auto mt-20 2xl:text-xl font-normal py-3 flex h-auto pr-9 hover:bg-[#F5F5F5] border-none rounded-[75px] text-center">
+          <FontAwesomeIcon className="ml-4" icon={faList} />
+          بیشتر
+        </div>
+      </Link>
     </div>
   );
 };

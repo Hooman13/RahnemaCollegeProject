@@ -88,29 +88,31 @@ export const MyPage = () => {
     <>
       <div>
         {/* profile informations */}
-        <div className="text-black border-b-2 border-[#CAC4D0] pb-6">
-          <h1 className="mb-8 text-xl">صفحه من</h1>
-          <div className="flex justify-between">
+        <div className="fixed text-black border-b-2 z-50 border-[#CAC4D0] bg-[#F5F5F5]  w-screen pb-3">
+          <h1 className="mb-3 text-lg font-bold">صفحه من</h1>
+          <div className="flex">
             <div className="flex items-center">
               <img
-                className="border rounded-full w-[132px] h-[132px]"
+                className="border rounded-full w-[105px] h-[105px]"
                 src="../img/person.png"
                 alt=""
               />
-              <div className="grid grid-rows-4 h-[132px] mr-4">
-                <span className="user-display-name text-sm text-[#C19008]">
-                  {user.username}
-                </span>
+              <div className="grid grid-rows-3 h-[105px] mr-4">
                 <div className="flex">
-                  <div className="user-full-name text-xl ml-4">
-                    {user.fName} {user.lName}
+                  <div className="user-full-name text-base ml-4 text-[#191919]">
+                    <span className="text-base font-normal mr-4 ">
+                      {user.username}
+                    </span>
+                    <span className="text-xl font-bold">
+                      {user.fName} {user.lName}
+                    </span>
                   </div>
                   <div className="ml-4">
                     {!isMyProfile && <Follow user={user.username} />}
                   </div>
                   <div>{!isMyProfile && <UnFollow user={user.username} />}</div>
                 </div>
-                <div className="text-sm flex mt-2 ">
+                <div className="text-base font-normal flex ">
                   <div className="user-followers-details pl-2 text-[#C19008]">
                     {user?.followersCount}
                     <button
@@ -138,16 +140,16 @@ export const MyPage = () => {
                     <span className="mx-1">پست</span>
                   </div>
                 </div>
-                <div className="user-followers-details w-[377px]">
+                <div className="user-followers-details text-sm font-normal w-[377px] text-[#A5A5A5]">
                   {user.bio}
                 </div>
               </div>
             </div>
-            <div className="flex items-center justify-items-end	">
+            <div className="flex items-center mr-[250px]">
               {isMyProfile && (
                 <button
                   type="button"
-                  className="w-[197px] py-4 px-2 bg-[#EA5A69] rounded-3xl text-white "
+                  className="text-sm px-10 py-2 w-auto bg-[#EA5A69] rounded-3xl text-white "
                   onClick={() => {
                     setOpenEditProfilModal(true);
                   }}
@@ -159,7 +161,7 @@ export const MyPage = () => {
           </div>
         </div>
         {/* posts place */}
-        <div className="mt-6 bg-inherit h-full border rounded-t-[45px]">
+        <div className="mt-40 z-0 bg-inherit py-5">
           <PostsList username={profileUsername} />
         </div>
       </div>

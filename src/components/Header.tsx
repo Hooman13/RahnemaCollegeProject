@@ -6,20 +6,20 @@ import { CreatePost } from "../pages/CreatePost";
 export const Header = () => {
   const [openModal, setOpenModal] = useState(false);
   return (
-    <div className="grid grid-cols-12 mb-4">
-      <div className="grid col-span-3 py-4 justify-items-center	">
+    <div className="fixed bg-[#F5F5F5] z-50 grid grid-cols-12 w-screen pt-6 mr-2">
+      <div className="grid col-span-2 pb-4 justify-items-center	">
         <button
           onClick={() => {
             setOpenModal(true);
           }}
-          className="w-[232px] py-4 px-2 bg-[#EA5A69] rounded-3xl text-white"
+          className="w-auto px-12 text-sm bg-[#EA5A69] rounded-3xl text-white"
         >
           <FontAwesomeIcon className="ml-2" icon={faCirclePlus} />
-          ایجاد پست جدید
+          پست جدید
         </button>
       </div>
-      <div className=" col-span-9 flex justify-end">
-        <img src="./img/logo.png" alt="" />
+      <div className="col-span-10 mr-[900px] flex items-center">
+        <img className="w-[82px] h-[49px]" src="./img/logo.png" alt="" />
       </div>
       <CreatePost openModal={openModal} setOpenModal={setOpenModal} />
     </div>
