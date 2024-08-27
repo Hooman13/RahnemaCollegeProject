@@ -1,6 +1,6 @@
 import { PropsWithChildren, useEffect, useState } from "react";
 import { PostItem } from "./PostItem";
-import Axios from "axios";
+import { PostListApi } from "../api/axios";
 import { useQuery } from "@tanstack/react-query";
 import { ToastR } from "./controles/ToastR";
 
@@ -12,7 +12,7 @@ export const PostsList: React.FC<PropsWithChildren<IPostListProps>> = ({
   children,
 }) => {
   const getUserPosts = () => {
-    return Axios.get(`http://37.32.5.72:3000/posts/user/${username}`).then(
+    return PostListApi.get(`${username}`).then(
       (res) => {
         return res.data.posts;
       }

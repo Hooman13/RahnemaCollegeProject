@@ -13,7 +13,7 @@ import {
   faGripVertical,
   faList,
 } from "@fortawesome/free-solid-svg-icons";
-import axios from "../api/axios";
+import { UserInfoApi } from "../api/axios";
 
 export const ProfileSidebar: FunctionComponent = () => {
   const [user, setUser] = useState({
@@ -32,7 +32,7 @@ export const ProfileSidebar: FunctionComponent = () => {
   const userName = Cookies.get("username");
   const getProfileData = async () => {
     try {
-      const data: any = await axios.get("http://37.32.5.72:3000/" + userName, {
+      const data: any = await UserInfoApi.get(userName ?? "", {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -46,7 +46,9 @@ export const ProfileSidebar: FunctionComponent = () => {
   };
   //
   useEffect(() => {
-    getProfileData();
+    if (userName) {
+      getProfileData();
+    }
   }, [token, isUserUpdated]);
   return (
     <div className="fixed h-[530px] w-[220px] bg-white border text-sm border-white rounded-t-[30px]">

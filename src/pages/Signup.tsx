@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
+import { SignupApi } from "../api/axios";
 import { useNavigate } from "react-router-dom";
 import { Login } from "./Login";
 import { ToastR } from "../components/controles/ToastR";
@@ -51,8 +51,8 @@ export const Signup = () => {
 
   const onSubmit = (data: IFormInput) => {
     // console.log(data);
-    axios
-      .post("http://37.32.5.72:3000/auth/signup", JSON.stringify(data), {
+    
+    SignupApi.post("",JSON.stringify(data), {
         headers: { "Content-Type": "application/json" },
       })
       .then((response) => {

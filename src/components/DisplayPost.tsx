@@ -5,7 +5,7 @@ import {
 } from "@fortawesome/free-regular-svg-icons";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Axios from "axios";
+import { DisplayPostApi } from "../api/axios";
 import { Carousel, Badge } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
@@ -55,7 +55,7 @@ export const DisplayPost: React.FC<IProps> = ({ postId }) => {
 
   const getPostDetails = () => {
     try {
-      Axios.get(`http://37.32.5.72:3000/posts/${postId}`).then((res) => {
+      DisplayPostApi.get(`/${postId}`).then((res) => {
         const postData = res.data;
         setpost((prev) => ({
           ...prev,

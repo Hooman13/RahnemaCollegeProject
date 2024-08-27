@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
 import Cookies from "js-cookie";
-import axios from "../api/axios";
+import {UserInfoApi} from "../api/axios";
 import { PostsList } from "./PostList";
 import { Follow } from "./Follow";
 import { UnFollow } from "./UnFollow";
@@ -49,8 +49,7 @@ export const MyPage = () => {
 
   const getProfileData = async () => {
     try {
-      const data: any = await axios
-        .get(`http://37.32.5.72:3000/${profileUsername}`, {
+      const data: any = await UserInfoApi.get(`${profileUsername}`, {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
