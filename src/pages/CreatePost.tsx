@@ -2,7 +2,7 @@ import React, { FunctionComponent, PropsWithChildren, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CreatePostApi } from "../api/axios"
+import { CreatePostApi } from "../api/axios";
 import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -69,7 +69,7 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
     setIsLoading(true);
     if (typeof file === "undefined") return;
     const formData = new FormData();
-    formData.append("imageUrls", file);
+    formData.append("images", file);
     formData.append("caption", formInput.caption);
     let arr = formInput.mentions.replaceAll("@", "").split(" ");
     console.log(arr);
@@ -344,7 +344,9 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                       type={"submit"}
                     >
                       <span className="pl-3">ثبت و انتشار پست</span>
-                      {isLoading && <Spinner aria-label="send post" size="sm"></Spinner>}
+                      {isLoading && (
+                        <Spinner aria-label="send post" size="sm"></Spinner>
+                      )}
                     </button>
                   </div>
                 </div>

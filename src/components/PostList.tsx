@@ -3,6 +3,7 @@ import { PostItem } from "./PostItem";
 import { PostListApi } from "../api/axios";
 import { useQuery } from "@tanstack/react-query";
 import { ToastR } from "./controles/ToastR";
+import { env } from "process";
 
 interface IPostListProps {
   username: string | undefined;
@@ -12,11 +13,9 @@ export const PostsList: React.FC<PropsWithChildren<IPostListProps>> = ({
   children,
 }) => {
   const getUserPosts = () => {
-    return PostListApi.get(`${username}`).then(
-      (res) => {
-        return res.data.posts;
-      }
-    );
+    return PostListApi.get(`${username}`).then((res) => {
+      return res.data.posts;
+    });
   };
 
   const { data, isLoading, isError, error } = useQuery({
@@ -74,10 +73,7 @@ export const PostsList: React.FC<PropsWithChildren<IPostListProps>> = ({
             return (
               <PostItem
                 id={item.postId}
-                imgUrl={`http://37.32.5.72${item.imageInfo.url.replace(
-                  "src",
-                  ""
-                )}`}
+                imgUrl={process.env.REACT_APP_API_BASE_URL + item.imageInfo.url}
                 key={index}
               ></PostItem>
             );
