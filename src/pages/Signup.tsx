@@ -113,8 +113,8 @@ export const Signup = () => {
             className="frame5 w-screen h-screen bg-no-repeat bg-center bg-cover flex justify-center items-center"
             style={{ backgroundImage: "url(./img/login-background.png)" }}
           >
-            <div className=" bg-white w-screen md:w-[485px] h-screen md:h-[590px]  py-10 shadow-lg rounded-3xl px-20 ">
-              <div className="flex justify-center pb-7">
+            <div className=" bg-[#F5F5F5] w-screen md:w-[485px] h-screen md:h-auto  py-8 shadow-lg rounded-3xl px-20 ">
+              <div className="flex justify-center pb-5">
                 <img src="./img/logo.png" alt="" />
               </div>
               <div className="text-xl mb-6 justify-evenly flex">
@@ -126,11 +126,11 @@ export const Signup = () => {
                   <button>ثبت نام</button>
                 </Link>
               </div>
-              <div className="text-right text-sm mb-8 font-normal">
+              <div className="text-right text-sm mb-4 font-normal">
                 برای ثبت‌نام کافیه نام کاربری، ایمیل و یک رمز عبور وارد کنید
               </div>
-              <div className="font-normal text-xs mt-6">
-                <div className="mb-6">
+              <div className="font-normal text-xs">
+                <div className="mb-4">
                   <input
                     type="text"
                     dir="ltr"
@@ -142,7 +142,7 @@ export const Signup = () => {
                     <p className="text-red-700">{errors.username.message}</p>
                   )}
                 </div>
-                <div className="mb-6">
+                <div className="mb-4">
                   <input
                     type="text"
                     dir="ltr"
@@ -155,7 +155,7 @@ export const Signup = () => {
                   )}
                 </div>
 
-                <div className="mb-6">
+                <div className="mb-4">
                   <input
                     type="password"
                     dir="ltr"
@@ -171,7 +171,7 @@ export const Signup = () => {
                     <p className="text-red-700">{errors.password.message}</p>
                   )}
                 </div>
-                <div className="mb-6">
+                <div className="mb-4">
                   <input
                     type="password"
                     dir="ltr"
