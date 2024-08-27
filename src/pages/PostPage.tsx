@@ -2,8 +2,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import { ProfileSidebar } from "../components/ProfileSidebar";
 import { DisplayPost } from "../components/DisplayPost";
-export const PostPage = () => {
+import { useParams } from "react-router-dom";
 
+export const PostPage = () => {
+  const { postId } = useParams();
     return (
         <>
           <div className="w-screen h-full pt-16 px-16 bg-[#F5F5F5]">
@@ -28,7 +30,7 @@ export const PostPage = () => {
               {/* sideBar */}
               <ProfileSidebar />
               <div className="mr-16 grid col-span-9">
-<DisplayPost/> 
+                {postId && <DisplayPost postId={postId}/> }
               </div>
             </div>
           </div>

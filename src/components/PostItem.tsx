@@ -1,5 +1,5 @@
-import { FunctionComponent, PropsWithChildren } from "react";
-import { Link } from "react-router-dom";
+import { FunctionComponent, PropsWithChildren, useState } from "react";
+import { PostModal } from "./PostModal";
 interface IPostProps {
   id: string;
   imgUrl: string;
@@ -9,21 +9,30 @@ export const PostItem: FunctionComponent<PropsWithChildren<IPostProps>> = ({
   id,
   imgUrl,
 }) => {
+  const [openModal, setOpenModal] = useState(false);
   const image = imgUrl.replace("src", "");
-  const postUrl = `/post/${id}`;
+
   return (
-    <figure
-      id={id}
-      className="relative max-w-sm cursor-pointer hover:shadow-lg"
-    >
-      <Link to={postUrl}>
+    <>
+      <figure
+        onClick={() => setOpenModal(true)}
+        id={id}
+        className="relative max-w-sm cursor-pointer hover:shadow-lg"
+      >
         <img
           className="h-[304px] w-[304px] rounded-3xl aspect-square object-cover transition-transform duration-300 transform hover:scale-105 peer"
           src={image}
           alt=""
         />
-      </Link>
-      <figcaption className="absolute px-4 text-sm text-white bottom-6 w-100"></figcaption>
-    </figure>
+
+        <figcaption className="absolute px-4 text-sm text-white bottom-6 w-100"></figcaption>
+      </figure>
+      {openModal &&
+      <PostModal
+        postId={id}
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+      />}
+    </>
   );
 };
