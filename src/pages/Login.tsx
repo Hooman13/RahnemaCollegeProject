@@ -4,6 +4,7 @@ import axios from "../api/axios";
 import useAuth from "../hooks/useAuth";
 import Cookies from "js-cookie";
 import { ToastR } from "../components/controles/ToastR";
+import { Spinner } from "flowbite-react";
 
 const LOGIN_URL = "/auth/login";
 
@@ -25,6 +26,8 @@ export const Login = () => {
   const [displayToast, setDispalyToast] = useState(false);
   const [toastMsg, setToastMsg] = useState("");
   const [toastType, setToastType] = useState("basic");
+
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       setDispalyToast(false);
@@ -48,6 +51,7 @@ export const Login = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
       let requestBody = {
         password: pwd,
@@ -94,6 +98,8 @@ export const Login = () => {
       }
 
       (errRef as any).current.focus();
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -170,7 +176,11 @@ export const Login = () => {
                 className="text-center mt-6 flex border-solid rounded-2xl  text-white bg-[#EA5A69] w-[84px] ml-auto mr-auto justify-center items-center px-[16px] py-[8px] "
                 type="submit"
               >
-                ورود
+                
+                <span className="pl-3">ورود</span>
+                {isLoading && (
+                  <Spinner aria-label="Loading..." size="sm"></Spinner>
+                )}
               </button>
             </div>
             <div className="text-sm flex flex-col text-right mt-8">
