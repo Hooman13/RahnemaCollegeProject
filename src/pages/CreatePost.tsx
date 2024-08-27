@@ -18,7 +18,7 @@ import {
   faCamera,
 } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
-import { Button, Modal } from "flowbite-react";
+import { Button, Modal, Spinner } from "flowbite-react";
 import { useEffect } from "react";
 import { ToastR } from "../components/controles/ToastR";
 const FormSchema = z.object({
@@ -51,6 +51,7 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
   const [file, setFile] = useState<File | undefined>();
   const [photo, setPhoto] = useState<string | undefined>();
 
+  const [isLoading, setIsLoading] = useState(false);
   const token = Cookies.get("token");
   const {
     register,
@@ -65,6 +66,7 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
     navigate("/");
   };
   const onSubmit = () => {
+    setIsLoading(true);
     if (typeof file === "undefined") return;
     const formData = new FormData();
     formData.append("imageUrls", file);
@@ -95,7 +97,10 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
           handlePostSent();
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   const [formInput, setFormInput] = useState({
@@ -339,7 +344,8 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                       // onClick={() => setShowSendPost(!showSendPost)}
                       type={"submit"}
                     >
-                      ثبت و انتشار پست
+                      <span className="pl-3">ثبت و انتشار پست</span>
+                      {isLoading && <Spinner aria-label="send post" size="sm"></Spinner>}
                     </button>
                   </div>
                 </div>
