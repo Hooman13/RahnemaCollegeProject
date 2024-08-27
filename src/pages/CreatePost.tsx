@@ -50,7 +50,8 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
   const [showSelectedPhoto, setShowSelectedPhoto] = useState(false);
   const [file, setFile] = useState<File | undefined>();
   const [photo, setPhoto] = useState<string | undefined>();
-  const [modalSize, setModalSize] = useState<string>("lg");
+  // const [modalSize, setModalSize] = useState<string>("lg");
+  const modalSize = "md";
 
   const [isLoading, setIsLoading] = useState(false);
   const token = Cookies.get("token");
@@ -132,7 +133,6 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
     <>
       {displayToast && <ToastR type={toastType}>{toastMsg}</ToastR>}
       <Modal
-        defaultValue="5xl"
         show={openModal}
         onClose={() => setOpenModal(false)}
         size={modalSize}
