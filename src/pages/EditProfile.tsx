@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
+import { EditProfileApi } from "../api/axios";
 import { Link } from "react-router-dom";
 import styles from "./Profile.module.css";
 import { useNavigate } from "react-router-dom";
@@ -71,8 +71,8 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
 
   const onSubmit = (data: IFormInput) => {
     // console.log(data);
-    axios
-      .put("http://37.32.5.72:3000/edit-profile", JSON.stringify(data), {
+    EditProfileApi
+      .put("", JSON.stringify(data), {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,

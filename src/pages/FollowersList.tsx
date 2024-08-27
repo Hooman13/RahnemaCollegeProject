@@ -2,7 +2,7 @@ import { FollowerCard } from "../components/FollowerCard";
 import { useState } from "react";
 import { useEffect } from "react";
 import Cookies from "js-cookie";
-import axios from "../api/axios";
+import {BaseApi} from "../api/axios";
 import { Link, useParams } from "react-router-dom";
 import { Button, Modal } from "flowbite-react";
 
@@ -28,8 +28,8 @@ export const FollowersList: React.FC<IProps> = ({
   const followersEndpoint = username ? `${username}` : userName;
   const getFollowersData = async () => {
     try {
-      const data: any = await axios
-        .get("http://37.32.5.72:3000/" + followersEndpoint + "/followers", {
+      const data: any = await BaseApi
+        .get( followersEndpoint + "/followers", {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,

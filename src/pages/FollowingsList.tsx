@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
 import Cookies from "js-cookie";
-import axios from "../api/axios";
+import {BaseApi} from "../api/axios";
 import { Button, Modal } from "flowbite-react";
 
 interface IProps {
@@ -28,8 +28,8 @@ export const FollowingsList: React.FC<IProps> = ({
   const userInfoEndpoint = username ? `${username}` : userName;
   const getFollowingsData = async () => {
     try {
-      const data: any = await axios
-        .get("http://37.32.5.72:3000/" + userInfoEndpoint + "/followings", {
+      const data: any = await BaseApi
+        .get(userInfoEndpoint + "/followings", {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,

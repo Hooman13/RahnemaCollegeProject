@@ -1,11 +1,9 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import React, { useRef, useState, useEffect } from "react";
-import axios from "../api/axios";
+import { LoginApi } from "../api/axios";
 import useAuth from "../hooks/useAuth";
 import Cookies from "js-cookie";
 import { ToastR } from "../components/controles/ToastR";
-
-const LOGIN_URL = "/auth/login";
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -59,14 +57,10 @@ export const Login = () => {
       requestBody = checkIfEmailInString(user)
         ? { ...requestBody, [emailKey]: user }
         : { ...requestBody, [userKey]: user };
-
-      const response = await axios.post(
-        LOGIN_URL,
-        JSON.stringify(requestBody),
-        {
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+        
+      const response = await LoginApi.post("",JSON.stringify(requestBody), {
+        headers: { "Content-Type": "application/json" },
+      });
       const jwt = response?.data.token;
       const roles = response?.data?.roles;
       setUser("");
