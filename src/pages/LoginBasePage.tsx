@@ -43,7 +43,7 @@ export const LoginBasePage = () => {
 
           {/* Protected Routes */}
           <Route element={<RequireAuth />}>
-            <Route path="/" element={<Profile />} />
+            <Route path="/" element={<Explore />} />
             <Route path="/post/:postId" element={<PostPage />} />
             <Route path="/profile/:username?" element={<Profile />} />
             <Route path="/saved" element={<Saved />} />
