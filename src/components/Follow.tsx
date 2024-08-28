@@ -24,7 +24,7 @@ export const Follow = ({ user }: any) => {
     //       Authorization: `Bearer ${token}`,
     //     },
     //   })
-    fetch("http://37.32.5.72:3000/follow/" + user, {
+    fetch("https://clgram.liara.run/follow/" + user, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
