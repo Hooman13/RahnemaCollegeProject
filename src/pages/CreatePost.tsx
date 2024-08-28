@@ -73,7 +73,10 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
     const formData = new FormData();
     formData.append("images", file);
     formData.append("caption", formInput.caption);
-    let arr = formInput.mentions.replaceAll("@", "").split(" ");
+    let arr = formInput.mentions
+      .replaceAll("@", "")
+      .split(" ")
+      .filter((m) => m !== "");
     console.log(arr);
 
     for (let i = 0; i < arr.length; i++) {
