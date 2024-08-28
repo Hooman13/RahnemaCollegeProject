@@ -1,6 +1,5 @@
 import {
   faBookmark,
-  faHeart,
   faComment,
 } from "@fortawesome/free-regular-svg-icons";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
@@ -10,12 +9,12 @@ import { Carousel, Badge } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { ToastR } from "./controles/ToastR";
+import { PostLike } from "./PostLike";
 
 interface IProps {
   postId: string;
 }
 export const DisplayPost: React.FC<IProps> = ({ postId }) => {
-
   interface IImage {
     imageId: string;
     url: string;
@@ -134,13 +133,10 @@ export const DisplayPost: React.FC<IProps> = ({ postId }) => {
 
         <div className="flex flex-row-reverse items-center h-14 pt-4 mb-8 font-medium text-[#EA5A69]">
           <div className="flex-none w-9 gap-2 ">
-            <FontAwesomeIcon icon={faBookmark} />
+              <FontAwesomeIcon icon={faBookmark} />
             <div>{post.bookMarkCount}</div>
           </div>
-          <div className="flex-none w-9 gap-2">
-            <FontAwesomeIcon icon={faHeart} />
-            <div>{post.likeCount}</div>
-          </div>
+          <PostLike postId={postId} likeCount={post.likeCount}/>
           <div className="flex-none w-9 gap-2">
             <FontAwesomeIcon icon={faComment} />
             <div>{post.commentsCount}</div>
