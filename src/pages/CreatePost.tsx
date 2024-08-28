@@ -333,6 +333,7 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                       onChange={({ target }) => {
                         handleUserInput(target.name, target.value);
                       }}
+                      dir="ltr"
                     />
                   </div>
                 </div>
