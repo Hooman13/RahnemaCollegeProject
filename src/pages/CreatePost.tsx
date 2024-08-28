@@ -350,7 +350,7 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                       // onClick={() => setShowSendPost(!showSendPost)}
                       type={"submit"}
                     >
-                      <span className="pl-3">ثبت و انتشار پست</span>
+                      {!isLoading && <span className="">ثبت و انتشار پست</span>}
                       {isLoading && (
                         <Spinner aria-label="send post" size="sm"></Spinner>
                       )}
