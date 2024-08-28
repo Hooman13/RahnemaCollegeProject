@@ -99,11 +99,11 @@ export const MyPage = () => {
               <div className="grid grid-rows-3 h-[105px] mr-4">
                 <div className="flex">
                   <div className="user-full-name text-base ml-4 text-[#191919]">
-                    <span className="text-base font-normal mr-4 ">
-                      {user.username}
-                    </span>
                     <span className="text-xl font-bold">
                       {user.fName} {user.lName}
+                    </span>
+                    <span className="text-base font-normal mr-4 ">
+                      {user.username}@
                     </span>
                   </div>
                   <div className="ml-4">
