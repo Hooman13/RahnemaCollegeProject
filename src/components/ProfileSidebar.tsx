@@ -1,7 +1,7 @@
 import { FunctionComponent, PropsWithChildren } from "react";
 import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faThumbTack,
@@ -12,6 +12,7 @@ import {
   faMagnifyingGlass,
   faGripVertical,
   faList,
+  faArrowRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
 import { UserInfoApi } from "../api/axios";
 
@@ -30,6 +31,13 @@ export const ProfileSidebar: FunctionComponent = () => {
   const [isUserUpdated, setIsUserUpdated] = useState(false);
   const token = Cookies.get("token");
   const userName = Cookies.get("username");
+
+  const navigate = useNavigate();
+  const logout = () => {
+    Cookies.remove("token");
+    Cookies.remove("username");
+    navigate("/login");
+  };
   const getProfileData = async () => {
     try {
       const data: any = await UserInfoApi.get(userName ?? "", {
@@ -105,6 +113,16 @@ export const ProfileSidebar: FunctionComponent = () => {
           جستجو
         </div>
       </Link>
+      <button
+        onClick={() => {
+          logout();
+        }}
+      >
+        <div className="w-auto 2xl:text-xl font-normal items-center py-3 flex h-auto pr-9 hover:bg-[#F5F5F5] border-none rounded-[75px] text-center">
+          <FontAwesomeIcon className="ml-4" icon={faArrowRightFromBracket} />
+          خروج
+        </div>
+      </button>
       <Link to="/search">
         <div className="w-auto mt-20 2xl:text-xl font-normal py-3 flex h-auto pr-9 hover:bg-[#F5F5F5] border-none rounded-[75px] text-center">
           <FontAwesomeIcon className="ml-4" icon={faList} />
