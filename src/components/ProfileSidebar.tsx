@@ -113,16 +113,18 @@ export const ProfileSidebar: FunctionComponent = () => {
           جستجو
         </div>
       </Link>
-      <button
-        onClick={() => {
-          logout();
-        }}
-      >
-        <div className="w-auto 2xl:text-xl font-normal items-center py-3 flex h-auto pr-9 hover:bg-[#F5F5F5] border-none rounded-[75px] text-center">
-          <FontAwesomeIcon className="ml-4" icon={faArrowRightFromBracket} />
-          خروج
-        </div>
-      </button>
+      <div className="w-auto 2xl:text-xl font-normal items-center py-3 flex h-auto pr-9 hover:bg-[#F5F5F5] border-none rounded-[75px] text-center">
+        <button
+          onClick={() => {
+            logout();
+          }}
+        >
+          <div>
+            <FontAwesomeIcon className="ml-4" icon={faArrowRightFromBracket} />
+            خروج
+          </div>
+        </button>
+      </div>
       <Link to="/search">
         <div className="w-auto mt-20 2xl:text-xl font-normal py-3 flex h-auto pr-9 hover:bg-[#F5F5F5] border-none rounded-[75px] text-center">
           <FontAwesomeIcon className="ml-4" icon={faList} />
