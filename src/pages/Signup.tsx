@@ -29,7 +29,7 @@ export const Signup = () => {
   const [toastMsg, setToastMsg] = useState("");
   const [toastType, setToastType] = useState("basic");
 
-  const [isLoading,setIsLoading]=useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       setDispalyToast(false);
@@ -53,12 +53,12 @@ export const Signup = () => {
   };
 
   const onSubmit = (data: IFormInput) => {
-    setIsLoading(true)
+    setIsLoading(true);
     // console.log(data);
-    
-    SignupApi.post("",JSON.stringify(data), {
-        headers: { "Content-Type": "application/json" },
-      })
+
+    SignupApi.post("", JSON.stringify(data), {
+      headers: { "Content-Type": "application/json" },
+    })
       .then((response) => {
         console.log(response);
         if (response.status === 201) {
@@ -73,9 +73,10 @@ export const Signup = () => {
         setToastType("danger");
         setDispalyToast(true);
         console.log(err);
-      }).finally(()=>{
-        setIsLoading(false);
       })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   const [formInput, setFormInput] = useState({
@@ -198,8 +199,10 @@ export const Signup = () => {
                   className="font-normal text-sm text-center mt-6 flex border-solid rounded-2xl bg-[#EA5A69]  text-white w-[84px] mr-auto justify-center items-center px-[16px] py-[8px] "
                   type={"submit"}
                 >
-                  <span className="pl-3">ثبت نام</span>
-                  {isLoading && <Spinner aria-label="signup..." size="sm"></Spinner>}
+                  {!isLoading && <span>ثبت نام</span>}
+                  {isLoading && (
+                    <Spinner aria-label="signup..." size="sm"></Spinner>
+                  )}
                 </button>
               </div>
             </div>
