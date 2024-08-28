@@ -75,7 +75,9 @@ export const Login = () => {
       setToastMsg("ورود موفقیت آمیز");
       setToastType("success");
       setDispalyToast(true);
-      navigate(from, { replace: true });
+      setTimeout(() => {
+        navigate(from, { replace: true });
+      }, 2000);
     } catch (err: any) {
       if (!err?.response) {
         setToastMsg("سرور در دسترس نیست");
