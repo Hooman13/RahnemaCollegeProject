@@ -35,7 +35,7 @@ export const PostsList: React.FC<PropsWithChildren<IPostListProps>> = ({
       <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
         {skeletonArray.map((item, index) => {
           return (
-            <div
+            <div key={index}
               role="status"
               className="space-y-8 animate-pulse md:space-y-0 md:space-x-8 rtl:space-x-reverse md:flex md:items-center"
             >
