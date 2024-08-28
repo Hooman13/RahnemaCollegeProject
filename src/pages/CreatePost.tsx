@@ -213,8 +213,9 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                       پشیمون شدم
                     </button>
                   </div>
-                  <div className="text-white text-center mr-1 flex border-solid rounded-2xl bg-[#EA5A69] w-[62px] h-[36px] text-sm justify-center items-center px-[8px] py-[16px] ">
+                  <div>
                     <button
+                      className="text-white text-center mr-1 flex border-solid rounded-2xl bg-[#EA5A69] w-[62px] h-[36px] text-sm justify-center items-center px-[8px] py-[16px] "
                       onClick={() => {
                         setShowAddPhoto(!showAddPhoto);
                         setShowCaptionPage(!showCaptionPage);
@@ -342,8 +343,9 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                       پشیمون شدم
                     </button>
                   </div>
-                  <div className="text-white text-center mr-1 flex border-solid rounded-2xl bg-[#EA5A69] w-[137px] h-[36px] text-sm justify-center items-center px-[8px] py-[16px] ">
+                  <div>
                     <button
+                      className="text-white text-center mr-1 flex border-solid rounded-2xl bg-[#EA5A69] w-[137px] h-[36px] text-sm justify-center items-center px-[8px] py-[16px] "
                       // onClick={() => setShowSendPost(!showSendPost)}
                       type={"submit"}
                     >
