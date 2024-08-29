@@ -54,6 +54,9 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
     return () => clearTimeout(timeoutId);
   }, [displayToast]);
 
+  // modalSize
+  const modalSize = "md";
+
   // update profile edits
   const token = Cookies.get("token");
   const {
@@ -71,13 +74,12 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
 
   const onSubmit = (data: IFormInput) => {
     // console.log(data);
-    EditProfileApi
-      .put("", JSON.stringify(data), {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      })
+    EditProfileApi.put("", JSON.stringify(data), {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((response) => {
         if (response.status === 200) {
           setToastMsg("پروفایل با موفقیت ویرایش شد");
@@ -172,27 +174,31 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
 
   return (
     <>
-      <Modal show={openModal} onClose={() => setOpenModal(false)}>
-        <Modal.Body className=" flex w-[500px] items-center justify-end  h-screen md:h-auto rounded-3xl mt-3  ">
+      <Modal
+        size={modalSize}
+        show={openModal}
+        onClose={() => setOpenModal(false)}
+      >
+        <Modal.Body className=" flex w-auto items-center justify-center  h-auto md:h-auto rounded-3xl   ">
           {displayToast && <ToastR type={toastType}>{toastMsg}</ToastR>}
           <form className="items-center" onSubmit={handleSubmit(onSubmit)}>
             <section>
               {/* <div className="bg-white w-screen md:w-[485px] h-screen md:h-auto  py-16 shadow-lg rounded-3xl mt-3 px-20 "> */}
-              <div className="text-center text-xl justify-center font-bold mb-8">
+              <div className="text-center text-lg justify-center font-bold mb-4">
                 ویرایش حساب
               </div>
-              <div className="flex justify-center mb-2">
+              <div className="flex justify-center">
                 <img
-                  className="border rounded-full  w-[90px] h-[90px] justify-center"
+                  className="border rounded-full  w-[70px] h-[70px] justify-center"
                   src="./img/avatar.png"
                   alt=""
                 />
               </div>
-              <div className="flex justify-center mb-12">
+              <div className="flex justify-center">
                 <p className="text-sm font-medium">عکس پروفایل</p>
               </div>
-              <div className="font-normal text-xs mt-6">
-                <div className="mb-6">
+              <div className="font-normal text-xs mt-4">
+                <div className="mb-4">
                   <input
                     type="text"
                     {...register("fName")}
@@ -208,7 +214,7 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                     <p className="text-red-700">{errors.fName.message}</p>
                   )}
                 </div>
-                <div className="mb-6">
+                <div className="mb-4">
                   <input
                     type="text"
                     {...register("lName")}
@@ -224,7 +230,7 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                     <p className="text-red-700">{errors.lName.message}</p>
                   )}
                 </div>
-                <div className="mb-6">
+                <div className="mb-4">
                   <input
                     type="text"
                     {...register("email")}
@@ -240,7 +246,7 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                     <p className="text-red-700">{errors.email.message}</p>
                   )}
                 </div>
-                <div className="mb-6">
+                <div className="mb-4  ">
                   <input
                     type="password"
                     {...register("password")}
@@ -255,7 +261,7 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                     <p className="text-red-700">{errors.password.message}</p>
                   )}
                 </div>
-                <div className="mb-6">
+                <div className="mb-4">
                   <input
                     type="password"
                     {...register("confirmPassword")}
