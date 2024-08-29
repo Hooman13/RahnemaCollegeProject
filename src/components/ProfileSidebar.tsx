@@ -59,7 +59,7 @@ export const ProfileSidebar: FunctionComponent = () => {
     }
   }, [token, isUserUpdated]);
   return (
-    <div className="fixed h-[530px] w-[220px] bg-white border text-sm border-white rounded-t-[30px]">
+    <div className="fixed h-screen w-[220px] bg-white border text-sm border-white rounded-t-[30px]">
       <div>
         <div className="w-[296px] 2xl:w-[350px] items-center flex h-auto mt-3 mr-6 py-2 ">
           <img
@@ -113,18 +113,20 @@ export const ProfileSidebar: FunctionComponent = () => {
           جستجو
         </div>
       </Link>
-      <button
-        onClick={() => {
-          logout();
-        }}
-      >
-        <div className="w-auto 2xl:text-xl font-normal items-center py-3 flex h-auto pr-9 hover:bg-[#F5F5F5] border-none rounded-[75px] text-center">
-          <FontAwesomeIcon className="ml-4" icon={faArrowRightFromBracket} />
-          خروج
-        </div>
-      </button>
+      <div className="w-auto 2xl:text-xl font-normal items-center py-3 flex h-auto pr-9 hover:bg-[#F5F5F5] border-none rounded-[75px] text-center">
+        <button
+          onClick={() => {
+            logout();
+          }}
+        >
+          <div>
+            <FontAwesomeIcon className="ml-4" icon={faArrowRightFromBracket} />
+            خروج
+          </div>
+        </button>
+      </div>
       <Link to="/search">
-        <div className="w-auto mt-20 2xl:text-xl font-normal py-3 flex h-auto pr-9 hover:bg-[#F5F5F5] border-none rounded-[75px] text-center">
+        <div className="w-auto mt-14 2xl:text-xl font-normal py-3 flex h-auto pr-9 hover:bg-[#F5F5F5] border-none rounded-[75px] text-center">
           <FontAwesomeIcon className="ml-4" icon={faList} />
           بیشتر
         </div>

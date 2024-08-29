@@ -61,8 +61,8 @@ export const Login = () => {
       requestBody = checkIfEmailInString(user)
         ? { ...requestBody, [emailKey]: user }
         : { ...requestBody, [userKey]: user };
-        
-      const response = await LoginApi.post("",JSON.stringify(requestBody), {
+
+      const response = await LoginApi.post("", JSON.stringify(requestBody), {
         headers: { "Content-Type": "application/json" },
       });
       const jwt = response?.data.token;
@@ -172,8 +172,7 @@ export const Login = () => {
                 className="text-center mt-6 flex border-solid rounded-2xl  text-white bg-[#EA5A69] w-[84px] ml-auto mr-auto justify-center items-center px-[16px] py-[8px] "
                 type="submit"
               >
-                
-                <span className="pl-3">ورود</span>
+                {!isLoading && <span>ورود</span>}
                 {isLoading && (
                   <Spinner aria-label="Loading..." size="sm"></Spinner>
                 )}

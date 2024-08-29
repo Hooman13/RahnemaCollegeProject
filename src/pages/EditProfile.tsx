@@ -54,6 +54,9 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
     return () => clearTimeout(timeoutId);
   }, [displayToast]);
 
+  // modalSize
+  const modalSize = "md";
+
   // update profile edits
   const token = Cookies.get("token");
   const {
@@ -71,13 +74,12 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
 
   const onSubmit = (data: IFormInput) => {
     // console.log(data);
-    EditProfileApi
-      .put("", JSON.stringify(data), {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      })
+    EditProfileApi.put("", JSON.stringify(data), {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((response) => {
         if (response.status === 200) {
           setToastMsg("پروفایل با موفقیت ویرایش شد");
@@ -172,27 +174,31 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
 
   return (
     <>
-      <Modal show={openModal} onClose={() => setOpenModal(false)}>
-        <Modal.Body className=" flex w-[500px] items-center justify-end  h-screen md:h-auto rounded-3xl mt-3  ">
+      <Modal
+        size={modalSize}
+        show={openModal}
+        onClose={() => setOpenModal(false)}
+      >
+        <Modal.Body className=" flex w-auto items-center justify-center  h-auto md:h-auto rounded-3xl   ">
           {displayToast && <ToastR type={toastType}>{toastMsg}</ToastR>}
           <form className="items-center" onSubmit={handleSubmit(onSubmit)}>
             <section>
               {/* <div className="bg-white w-screen md:w-[485px] h-screen md:h-auto  py-16 shadow-lg rounded-3xl mt-3 px-20 "> */}
-              <div className="text-center text-xl justify-center font-bold mb-8">
+              <div className="text-center text-md justify-center font-bold mb-3">
                 ویرایش حساب
               </div>
-              <div className="flex justify-center mb-2">
+              <div className="flex justify-center">
                 <img
-                  className="border rounded-full  w-[90px] h-[90px] justify-center"
+                  className="border rounded-full  w-[70px] h-[70px] justify-center"
                   src="./img/avatar.png"
                   alt=""
                 />
               </div>
-              <div className="flex justify-center mb-12">
+              <div className="flex justify-center">
                 <p className="text-sm font-medium">عکس پروفایل</p>
               </div>
-              <div className="font-normal text-xs mt-6">
-                <div className="mb-6">
+              <div className="font-normal text-xs mt-3">
+                <div className="mb-3">
                   <input
                     type="text"
                     {...register("fName")}
@@ -202,13 +208,13 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                     }}
                     // value={user.data.fName}
                     placeholder="نام"
-                    className="border h-9 rounded-2xl w-full text-right px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
+                    className="border rounded-2xl w-full text-right px-2 py-[2px] focus:outline-none focus:ring-0 focus:border-gray-600"
                   />
                   {errors?.fName?.message && (
                     <p className="text-red-700">{errors.fName.message}</p>
                   )}
                 </div>
-                <div className="mb-6">
+                <div className="mb-3">
                   <input
                     type="text"
                     {...register("lName")}
@@ -218,13 +224,13 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                     }}
                     // value={user.data.lName}
                     placeholder="نام خانوادگی"
-                    className="border h-9 text-right rounded-2xl w-full px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
+                    className="border text-right rounded-2xl w-full px-2 py-[2px] focus:outline-none focus:ring-0 focus:border-gray-600"
                   />
                   {errors?.lName?.message && (
                     <p className="text-red-700">{errors.lName.message}</p>
                   )}
                 </div>
-                <div className="mb-6">
+                <div className="mb-3">
                   <input
                     type="text"
                     {...register("email")}
@@ -234,13 +240,13 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                     }}
                     // value={user.data.email}
                     placeholder="ایمیل"
-                    className="border h-9 text-right rounded-2xl w-full px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
+                    className="border text-right rounded-2xl w-full px-2 py-[2px] focus:outline-none focus:ring-0 focus:border-gray-600"
                   />
                   {errors?.email?.message && (
                     <p className="text-red-700">{errors.email.message}</p>
                   )}
                 </div>
-                <div className="mb-6">
+                <div className="mb-3  ">
                   <input
                     type="password"
                     {...register("password")}
@@ -249,13 +255,13 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                     onChange={({ target }) => {
                       handleUserInput(target.name, target.value);
                     }}
-                    className="border h-9 text-right rounded-2xl w-full px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
+                    className="border text-right rounded-2xl w-full px-2 py-[2px] focus:outline-none focus:ring-0 focus:border-gray-600"
                   />
                   {errors?.password?.message && (
                     <p className="text-red-700">{errors.password.message}</p>
                   )}
                 </div>
-                <div className="mb-6">
+                <div className="mb-3">
                   <input
                     type="password"
                     {...register("confirmPassword")}
@@ -265,14 +271,14 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                     }}
                     onKeyUp={validatePassInputs}
                     placeholder="تکرار رمز عبور"
-                    className="border h-9 text-right rounded-2xl w-full px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
+                    className="border text-right rounded-2xl w-full px-2 py-[2px] focus:outline-none focus:ring-0 focus:border-gray-600"
                   />
                   <p className="text-red-700">{formError.confirmPassword}</p>
                 </div>
               </div>
               <div>
-                <label className="flex justify-start items-center mb-6  text-sm   cursor-pointer">
-                  <span className="ms-3 text-sm ml-2 font-medium ">
+                <label className="flex justify-start items-center mb-2  text-sm   cursor-pointer">
+                  <span className="ms-3 text-xs ml-2 font-medium ">
                     پیچ خصوصی باشه
                   </span>
                   <input
@@ -285,10 +291,10 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                   <div className="relative w-11 h-6 bg-gray-200 border-[0.5px] peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-white dark:peer-focus:ring-white rounded-full peer dark:bg-white peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
                 </label>
               </div>
-              <div className="text-right text-base mb-6 ">
+              <div className="text-right text-sm mb-4 ">
                 <p className="text-[#17494D] pb-2">بایو</p>
                 <input
-                  className="w-[320px] h-[88px] border solid border-[#17494D]/50 rounded-xl"
+                  className="w-[320px] h-[68px] border solid border-[#17494D]/50 rounded-xl"
                   type="text"
                   {...register("bio")}
                   value={formInput.bio}
