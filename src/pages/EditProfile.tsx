@@ -183,16 +183,19 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
           {displayToast && <ToastR type={toastType}>{toastMsg}</ToastR>}
           <form className="items-center" onSubmit={handleSubmit(onSubmit)}>
             <section>
-              {/* <div className="bg-white w-screen md:w-[485px] h-screen md:h-auto  py-16 shadow-lg rounded-3xl mt-3 px-20 "> */}
               <div className="text-center text-sm justify-center font-bold mb-3">
                 ویرایش حساب
               </div>
-              <div className="flex justify-center">
-                <img
-                  className="border rounded-full  w-[60px] h-[60px] justify-center"
-                  src="./img/avatar.png"
-                  alt=""
-                />
+              <div className="w-full flex items-center justify-center mb-1">
+                <div className="flex relative items-center justify-center  rounded-full w-[65px] h-[65px] border-[#F7901E] border-2">
+                  <input
+                    type="file"
+                    accept="image/png,image/jpg"
+                    multiple
+                    // onChange={handleOnChangePhoto}
+                    className="absolute top-0 right-0 left-0 bottom-0 opacity-0 cursor-pointer "
+                  />
+                </div>
               </div>
               <div className="flex justify-center">
                 <p className="text-xs font-medium">عکس پروفایل</p>
