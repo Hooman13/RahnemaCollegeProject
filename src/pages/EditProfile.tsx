@@ -60,6 +60,7 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
   // show selected photos
   const [selectedImages, setSelectedImages] = useState([{}]);
   const [photo, setPhoto] = useState<string | undefined>();
+  const [file, setFile] = useState<File | undefined>();
 
   // update profile edits
   const token = Cookies.get("token");
@@ -180,15 +181,8 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
     const target = e.target as HTMLInputElement & {
       files: FileList;
     };
-
-    const selectedPhotos = target.files;
-    const selectedPhotosArray = Array.from(selectedPhotos);
-    console.log(selectedPhotosArray);
-    const imagesArray = selectedPhotosArray.map((file) => {
-      return URL.createObjectURL(file);
-    });
-    console.log(imagesArray);
-    setSelectedImages(imagesArray);
+    setFile(target.files[0]);
+    setPhoto(URL.createObjectURL(target.files[0]));
   };
 
   return (
@@ -210,19 +204,18 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                   <input
                     type="file"
                     accept="image/png,image/jpg"
-                    multiple
                     onChange={handleOnChangePhoto}
-                    className="absolute top-0 right-0 left-0 bottom-0 opacity-0 cursor-pointer "
+                    className="absolute top-0 right-0 left-0 bottom-0 opacity-0 cursor-pointer z-50 "
                   />
-                  {/* { && (
-                    <div className="mr-2">
+                  {file && (
+                    <div className="z-0">
                       <img
-                        className="flex relative items-center justify-center  rounded-2xl w-[70px] h-[70px] border-2"
+                        className="flex relative items-center justify-center  rounded-full w-[60px] h-[60px] border-2"
                         src={photo}
                         alt=""
                       />
                     </div>
-                  )} */}
+                  )}
                 </div>
               </div>
               <div className="flex justify-center">
