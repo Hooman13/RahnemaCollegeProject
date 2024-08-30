@@ -8,6 +8,7 @@ import { Button, Modal } from "flowbite-react";
 import { ToastR } from "../components/controles/ToastR";
 import { useEffect } from "react";
 import Cookies from "js-cookie";
+import { UserInfoApi } from "../api/axios";
 
 const FormSchema = z.object({
   isPrivate: z.boolean(),
@@ -129,43 +130,41 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
 
   // use last update for fields
 
-  // const [user, setUser] = useState({
-  //   data: {
-  //     bio: "",
-  //     email: "",
-  //     fName: "",
-  //     imageUrl: "",
-  //     isPrivate: boolean,
-  //     lName: "",
-  //     username: "",
-  //   },
-  // });
-  // const [isUserUpdated, setIsUserUpdated] = useState(false);
+  const [user, setUser] = useState({
+    data: {
+      bio: "",
+      email: "",
+      fName: "",
+      imageUrl: "",
+      isPrivate: false,
+      lName: "",
+      username: "",
+    },
+  });
+  const [isUserUpdated, setIsUserUpdated] = useState(false);
+  const userName = Cookies.get("username");
   // const token = Cookies.get("token");
-  // const getProfileData = async () => {
-  //   try {
-  //     const data: any = await axios.get(
-  //       "http://37.32.5.72:3000/auth/user-info",
-  //       {
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       }
-  //     );
-  //     setUser(data);
-  //     setIsUserUpdated(false);
-  //   } catch (error) {
-  //     console.log({ error });
-  //   }
-  // };
-  // //
-  // useEffect(() => {
-  //   getProfileData();
-  // }, [token, isUserUpdated]);
-  // // console.log(user.data.username);
-  // // console.log(user.data.email);
-  // // console.log(user);
+  const getProfileData = async () => {
+    try {
+      const data: any = await UserInfoApi.get(userName ?? "", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setUser(data);
+      setIsUserUpdated(false);
+    } catch (error) {
+      console.log({ error });
+    }
+  };
+  //
+  useEffect(() => {
+    getProfileData();
+  }, [token, isUserUpdated]);
+  console.log(user.data.username);
+  console.log(user.data.email);
+  console.log(user);
 
   const handleOnChangePhoto = (e: React.FormEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement & {
@@ -221,11 +220,11 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                   <input
                     type="text"
                     {...register("fName")}
-                    value={formInput.fName}
+                    // value={formInput.fName}
+                    value={user.data.fName}
                     onChange={({ target }) => {
                       handleUserInput(target.name, target.value);
                     }}
-                    // value={user.data.fName}
                     placeholder="نام"
                     className="text-sm border rounded-2xl w-full text-right px-2 py-[2px] focus:outline-none focus:ring-0 focus:border-gray-600"
                   />
