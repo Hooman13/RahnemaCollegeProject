@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
 import Cookies from "js-cookie";
-import {UserInfoApi} from "../api/axios";
+import { UserInfoApi } from "../api/axios";
 import { PostsList } from "./PostList";
 import { Follow } from "./Follow";
 import { UnFollow } from "./UnFollow";
@@ -16,7 +16,7 @@ export const MyPage = () => {
     bio: string;
     email: string;
     fName: string;
-    imageUrl: string;
+    image: string;
     isPrivate: boolean;
     lName: string;
     username: string;
@@ -28,7 +28,7 @@ export const MyPage = () => {
     bio: "",
     email: "",
     fName: "",
-    imageUrl: "",
+    image: "",
     isPrivate: false,
     lName: "",
     username: "",
@@ -50,18 +50,17 @@ export const MyPage = () => {
   const getProfileData = async () => {
     try {
       const data: any = await UserInfoApi.get(`${profileUsername}`, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((res) => {
-          const userData = res.data;
-          setUser((prevState) => ({
-            ...prevState,
-            ...userData,
-          }));
-        });
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }).then((res) => {
+        const userData = res.data;
+        setUser((prevState) => ({
+          ...prevState,
+          ...userData,
+        }));
+      });
     } catch (error) {
       console.log({ error });
     }
@@ -93,7 +92,7 @@ export const MyPage = () => {
             <div className="flex items-center">
               <img
                 className="border rounded-full w-[105px] h-[105px]"
-                src="../img/person.png"
+                src={user.image}
                 alt=""
               />
               <div className="grid grid-rows-3 h-[105px] mr-4">
