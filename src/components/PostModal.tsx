@@ -16,13 +16,20 @@ export const PostModal: React.FC<IProps> = ({
   const postUrl = `/post/${postId}`;
   return (
     <>
-      <Modal dismissible show={openModal} onClose={() => setOpenModal(false)}>
-        <Modal.Header>
-          <Link to={postUrl}>
-            <FontAwesomeIcon icon={faMaximize} />
-          </Link>
-        </Modal.Header>
+      <Modal
+        dismissible
+        show={openModal}
+        onClose={() => setOpenModal(false)}
+        size="3xl"
+      >
         <Modal.Body>
+          <Link to={postUrl}>
+            <FontAwesomeIcon
+              icon={faMaximize}
+              className="text-[#EA5A69] text-2xl p-1"
+
+            />
+          </Link>
           <DisplayPost postId={postId} />
         </Modal.Body>
       </Modal>
