@@ -223,6 +223,15 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                               src={image}
                               alt=""
                             />
+                            <button
+                              onClick={() =>
+                                setSelectedImages(
+                                  selectedImages.filter((e) => e !== image)
+                                )
+                              }
+                            >
+                              ()
+                            </button>
                           </div>
                         );
                       })}
