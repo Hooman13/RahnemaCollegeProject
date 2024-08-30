@@ -4,25 +4,10 @@ import { array, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { EditProfileApi } from "../api/axios";
 import { Link } from "react-router-dom";
-import styles from "./Profile.module.css";
-import { useNavigate } from "react-router-dom";
 import { Button, Modal } from "flowbite-react";
 import { ToastR } from "../components/controles/ToastR";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faThumbTack,
-  faBookmark,
-  faCommentDots,
-  faBell,
-  faTag,
-  faMagnifyingGlass,
-  faGripVertical,
-  faCirclePlus,
-} from "@fortawesome/free-solid-svg-icons";
-import { MyPage } from "../components/MyPage";
 import { useEffect } from "react";
 import Cookies from "js-cookie";
-import { boolean, string } from "zod";
 
 const FormSchema = z.object({
   isPrivate: z.boolean(),
@@ -71,11 +56,6 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
   } = useForm<IFormInput>({
     resolver: zodResolver(FormSchema),
   });
-
-  // const navigate = useNavigate();
-  // const handleProfileEdited = () => {
-  //   navigate("/");
-  // };
 
   const onSubmit = (data: IFormInput) => {
     // console.log(data);
