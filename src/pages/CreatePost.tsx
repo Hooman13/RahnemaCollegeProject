@@ -65,7 +65,7 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
   const navigate = useNavigate();
   const handlePostSent = () => {
     setOpenModal(false);
-    navigate("/");
+    navigate("/profile");
   };
   const onSubmit = () => {
     setIsLoading(true);
