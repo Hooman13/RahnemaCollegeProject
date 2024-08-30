@@ -143,6 +143,7 @@ export const DisplayPost: React.FC<IProps> = ({ postId }) => {
             <div>{post.commentsCount}</div>
           </div>
         </div>
+        </div>
       </article>
     </>
   );
