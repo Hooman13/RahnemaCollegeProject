@@ -16,7 +16,7 @@ export const MyPage = () => {
     bio: string;
     email: string;
     fName: string;
-    image: string;
+    imageUrl: string;
     isPrivate: boolean;
     lName: string;
     username: string;
@@ -28,7 +28,7 @@ export const MyPage = () => {
     bio: "",
     email: "",
     fName: "",
-    image: "",
+    imageUrl: "",
     isPrivate: false,
     lName: "",
     username: "",
@@ -92,7 +92,7 @@ export const MyPage = () => {
             <div className="flex items-center">
               <img
                 className="border rounded-full w-[105px] h-[105px]"
-                src={user.image}
+                src={user.imageUrl}
                 alt=""
               />
               <div className="grid grid-rows-3 h-[105px] mr-4">
