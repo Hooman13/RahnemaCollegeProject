@@ -324,8 +324,13 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                 />
               </div>
               <div className="flex items-center justify-end text-sm text-center">
-                <div className="text-center mr-1 flex border-solid  text-white rounded-2xl bg-[#EA5A69] h-7 text-xs font-semibold justify-center items-center px-8 py-[16px] ">
-                  <button type={"submit"}>ثبت تغییرات</button>
+                <div>
+                  <button
+                    className="text-center mr-1 flex border-solid  text-white rounded-2xl bg-[#EA5A69] h-7 text-xs font-semibold justify-center items-center px-8 py-[16px] "
+                    type={"submit"}
+                  >
+                    ثبت تغییرات
+                  </button>
                 </div>
                 <div className="pr-5 text-xs font-semibold ">
                   <Link to="/">
