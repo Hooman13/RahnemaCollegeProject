@@ -22,7 +22,7 @@ const FormSchema = z.object({
   confirmPassword: z.string().min(8).optional(),
 });
 
-type IFormInput = z.infer<typeof FormSchema>;
+type FormData = z.infer<typeof FormSchema>;
 interface IProps {
   openModal: boolean;
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -53,13 +53,23 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IFormInput>({
+  } = useForm<FormData>({
     resolver: zodResolver(FormSchema),
   });
 
-  const onSubmit = (data: IFormInput) => {
+  const onSubmit = () => {
     // console.log(data);
-    EditProfileApi.put("", JSON.stringify(data), {
+    if (typeof file === "undefined") return;
+    const formData = new FormData();
+    formData.append("image", file);
+    formData.append("fName", formInput.fName);
+    formData.append("lName", formInput.lName);
+    formData.append("bio", formInput.bio);
+    formData.append("email", formInput.email);
+    formData.append("password", formInput.password);
+    formData.append("confirmPassword", formInput.confirmPassword);
+
+    EditProfileApi.put("", formData, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -162,6 +172,7 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
       files: FileList;
     };
     setFile(target.files[0]);
+    console.log("file", target.files[0]);
     setPhoto(URL.createObjectURL(target.files[0]));
   };
 
