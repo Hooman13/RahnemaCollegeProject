@@ -9,6 +9,7 @@ import { Carousel, Badge } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { ToastR } from "./controles/ToastR";
+import { PostBookmark } from "./PostBookmark";
 import { PostLike } from "./PostLike";
 
 interface IProps {
@@ -132,10 +133,7 @@ export const DisplayPost: React.FC<IProps> = ({ postId }) => {
         </div>
 
         <div className="flex flex-row-reverse items-center h-14 pt-4 mb-8 font-medium text-[#EA5A69]">
-          <div className="flex-none w-9 gap-2 ">
-              <FontAwesomeIcon icon={faBookmark} />
-            <div>{post.bookMarkCount}</div>
-          </div>
+          <PostBookmark postId={postId} bookMarkCount={post.bookMarkCount}/>
           <PostLike postId={postId} likeCount={post.likeCount}/>
           <div className="flex-none w-9 gap-2">
             <FontAwesomeIcon icon={faComment} />
