@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { array, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { EditProfileApi } from "../api/axios";
 import { Link } from "react-router-dom";
@@ -56,6 +56,10 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
 
   // modalSize
   const modalSize = "md";
+
+  // show selected photos
+  const [selectedImages, setSelectedImages] = useState([{}]);
+  const [photo, setPhoto] = useState<string | undefined>();
 
   // update profile edits
   const token = Cookies.get("token");
@@ -172,6 +176,21 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
   // // console.log(user.data.email);
   // // console.log(user);
 
+  const handleOnChangePhoto = (e: React.FormEvent<HTMLInputElement>) => {
+    const target = e.target as HTMLInputElement & {
+      files: FileList;
+    };
+
+    const selectedPhotos = target.files;
+    const selectedPhotosArray = Array.from(selectedPhotos);
+    console.log(selectedPhotosArray);
+    const imagesArray = selectedPhotosArray.map((file) => {
+      return URL.createObjectURL(file);
+    });
+    console.log(imagesArray);
+    setSelectedImages(imagesArray);
+  };
+
   return (
     <>
       <Modal
@@ -192,9 +211,18 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                     type="file"
                     accept="image/png,image/jpg"
                     multiple
-                    // onChange={handleOnChangePhoto}
+                    onChange={handleOnChangePhoto}
                     className="absolute top-0 right-0 left-0 bottom-0 opacity-0 cursor-pointer "
                   />
+                  {/* { && (
+                    <div className="mr-2">
+                      <img
+                        className="flex relative items-center justify-center  rounded-2xl w-[70px] h-[70px] border-2"
+                        src={photo}
+                        alt=""
+                      />
+                    </div>
+                  )} */}
                 </div>
               </div>
               <div className="flex justify-center">
