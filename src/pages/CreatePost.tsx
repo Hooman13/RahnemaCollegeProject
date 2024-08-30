@@ -47,9 +47,7 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
   const [showAddPhoto, setShowAddPhoto] = useState(true);
   const [showCaptionPage, setShowCaptionPage] = useState(false);
   const [showSendPost, setShowSendPost] = useState(false);
-  const [showSelectedPhoto, setShowSelectedPhoto] = useState(false);
   const [files, setFiles] = useState<File[] | undefined>();
-  const [photo, setPhoto] = useState<string | undefined>();
   const [selectedImages, setSelectedImages] = useState<string[]>();
   // const [modalSize, setModalSize] = useState<string>("lg");
   const modalSize = "md";
@@ -72,14 +70,9 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
     setIsLoading(true);
     if (typeof files === "undefined") return;
     const formData = new FormData();
-    // for (let i = 0; i < selectedImages.length; i++) {
-    //   formData.append("images", selectedImages[i]);
-    // }
     for (let i = 0; i < files.length; i++) {
       formData.append("images", files[i]);
     }
-
-    // formData.append("images", selectedImages);
     formData.append("caption", formInput.caption);
     let arr = formInput.mentions
       .replaceAll("@", "")
@@ -129,19 +122,6 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
   };
 
   // AddPhoto logic
-
-  // const handleOnChangePhoto = (e: React.FormEvent<HTMLInputElement>) => {
-  //   const target = e.target as HTMLInputElement & {
-  //     files: FileList;
-  //   };
-  //   console.log("target", target.files);
-  //   setFile(target.files[0]);
-  //   console.log("file", file);
-
-  //   //@ts-ignore
-  //   setPhoto(URL.createObjectURL(target.files[0]));
-  //   setShowSelectedPhoto(!showSelectedPhoto);
-  // };
 
   const handleOnChangePhoto = (e: React.FormEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement & {
