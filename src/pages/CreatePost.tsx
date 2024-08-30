@@ -1,6 +1,6 @@
 import React, { FunctionComponent, PropsWithChildren, useState } from "react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { string, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CreatePostApi } from "../api/axios";
 import Cookies from "js-cookie";
@@ -16,6 +16,7 @@ import {
   faGripVertical,
   faCirclePlus,
   faCamera,
+  faCircleXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { Button, Modal, Spinner } from "flowbite-react";
@@ -47,9 +48,8 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
   const [showAddPhoto, setShowAddPhoto] = useState(true);
   const [showCaptionPage, setShowCaptionPage] = useState(false);
   const [showSendPost, setShowSendPost] = useState(false);
-  const [showSelectedPhoto, setShowSelectedPhoto] = useState(false);
-  const [file, setFile] = useState<File | undefined>();
-  const [photo, setPhoto] = useState<string | undefined>();
+  const [files, setFiles] = useState<File[] | undefined>();
+  const [selectedImages, setSelectedImages] = useState<string[]>();
   // const [modalSize, setModalSize] = useState<string>("lg");
   const modalSize = "md";
 
@@ -65,13 +65,15 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
   const navigate = useNavigate();
   const handlePostSent = () => {
     setOpenModal(false);
-    navigate("/");
+    navigate("/profile");
   };
   const onSubmit = () => {
     setIsLoading(true);
-    if (typeof file === "undefined") return;
+    if (typeof files === "undefined") return;
     const formData = new FormData();
-    formData.append("images", file);
+    for (let i = 0; i < files.length; i++) {
+      formData.append("images", files[i]);
+    }
     formData.append("caption", formInput.caption);
     let arr = formInput.mentions
       .replaceAll("@", "")
@@ -126,14 +128,18 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
     const target = e.target as HTMLInputElement & {
       files: FileList;
     };
-    console.log("target", target.files);
-    setFile(target.files[0]);
-    console.log("file", file);
 
-    //@ts-ignore
-    setPhoto(URL.createObjectURL(target.files[0]));
-    setShowSelectedPhoto(!showSelectedPhoto);
+    const selectedPhotos = target.files;
+    const selectedPhotosArray = Array.from(selectedPhotos);
+    setFiles(selectedPhotosArray);
+    console.log(selectedPhotosArray);
+    const imagesArray = selectedPhotosArray.map((file) => {
+      return URL.createObjectURL(file);
+    });
+    console.log(imagesArray);
+    setSelectedImages(imagesArray);
   };
+
   return (
     <>
       {displayToast && <ToastR type={toastType}>{toastMsg}</ToastR>}
@@ -196,15 +202,33 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                       />
                     </div>
                   </div>
-                  {showSelectedPhoto && (
-                    <div className="mr-2">
-                      <img
-                        className="flex relative items-center justify-center  rounded-2xl w-[70px] h-[70px] border-2"
-                        src={photo}
-                        alt=""
-                      />
-                    </div>
-                  )}
+                  <div className="grid grid-cols-3">
+                    {selectedImages &&
+                      selectedImages.map((image, index) => {
+                        return (
+                          <div key={image} className="relative mr-2">
+                            <img
+                              className="flex relative items-center justify-center  rounded-2xl w-[70px] h-[70px] border-2"
+                              src={image}
+                              alt=""
+                            />
+                            <button
+                              onClick={() =>
+                                setSelectedImages(
+                                  selectedImages.filter((e) => e !== image)
+                                )
+                              }
+                            >
+                              <FontAwesomeIcon
+                                className="absolute top-[-7px] right-[58px]"
+                                icon={faCircleXmark}
+                                style={{ color: "#F7901E" }}
+                              />
+                            </button>
+                          </div>
+                        );
+                      })}
+                  </div>
                 </div>
                 {/* buttons */}
                 <div className="flex items-center justify-end text-sm">

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { array, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { EditProfileApi } from "../api/axios";
 import { Link } from "react-router-dom";
@@ -56,6 +56,11 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
 
   // modalSize
   const modalSize = "md";
+
+  // show selected photos
+  const [selectedImages, setSelectedImages] = useState([{}]);
+  const [photo, setPhoto] = useState<string | undefined>();
+  const [file, setFile] = useState<File | undefined>();
 
   // update profile edits
   const token = Cookies.get("token");
@@ -172,6 +177,14 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
   // // console.log(user.data.email);
   // // console.log(user);
 
+  const handleOnChangePhoto = (e: React.FormEvent<HTMLInputElement>) => {
+    const target = e.target as HTMLInputElement & {
+      files: FileList;
+    };
+    setFile(target.files[0]);
+    setPhoto(URL.createObjectURL(target.files[0]));
+  };
+
   return (
     <>
       <Modal
@@ -179,25 +192,36 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
         show={openModal}
         onClose={() => setOpenModal(false)}
       >
-        <Modal.Body className=" flex w-auto items-center justify-center  h-auto md:h-auto rounded-3xl   ">
+        <Modal.Body className=" flex w-auto items-center justify-center py-7 rounded-3xl   ">
           {displayToast && <ToastR type={toastType}>{toastMsg}</ToastR>}
           <form className="items-center" onSubmit={handleSubmit(onSubmit)}>
             <section>
-              {/* <div className="bg-white w-screen md:w-[485px] h-screen md:h-auto  py-16 shadow-lg rounded-3xl mt-3 px-20 "> */}
-              <div className="text-center text-md justify-center font-bold mb-3">
+              <div className="text-center text-sm justify-center font-bold mb-3">
                 ویرایش حساب
               </div>
-              <div className="flex justify-center">
-                <img
-                  className="border rounded-full  w-[70px] h-[70px] justify-center"
-                  src="./img/avatar.png"
-                  alt=""
-                />
+              <div className="w-full flex items-center justify-center mb-1">
+                <div className="flex relative items-center justify-center  rounded-full w-[65px] h-[65px] border-[#F7901E] border-2">
+                  <input
+                    type="file"
+                    accept="image/png,image/jpg"
+                    onChange={handleOnChangePhoto}
+                    className="absolute top-0 right-0 left-0 bottom-0 opacity-0 cursor-pointer z-50 "
+                  />
+                  {file && (
+                    <div className="z-0">
+                      <img
+                        className="flex relative items-center justify-center  rounded-full w-[60px] h-[60px] border-2"
+                        src={photo}
+                        alt=""
+                      />
+                    </div>
+                  )}
+                </div>
               </div>
               <div className="flex justify-center">
-                <p className="text-sm font-medium">عکس پروفایل</p>
+                <p className="text-xs font-medium">عکس پروفایل</p>
               </div>
-              <div className="font-normal text-xs mt-3">
+              <div className="mt-3">
                 <div className="mb-3">
                   <input
                     type="text"
@@ -208,7 +232,7 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                     }}
                     // value={user.data.fName}
                     placeholder="نام"
-                    className="border rounded-2xl w-full text-right px-2 py-[2px] focus:outline-none focus:ring-0 focus:border-gray-600"
+                    className="text-sm border rounded-2xl w-full text-right px-2 py-[2px] focus:outline-none focus:ring-0 focus:border-gray-600"
                   />
                   {errors?.fName?.message && (
                     <p className="text-red-700">{errors.fName.message}</p>
@@ -224,7 +248,7 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                     }}
                     // value={user.data.lName}
                     placeholder="نام خانوادگی"
-                    className="border text-right rounded-2xl w-full px-2 py-[2px] focus:outline-none focus:ring-0 focus:border-gray-600"
+                    className="text-sm border text-right rounded-2xl w-full px-2 py-[2px] focus:outline-none focus:ring-0 focus:border-gray-600"
                   />
                   {errors?.lName?.message && (
                     <p className="text-red-700">{errors.lName.message}</p>
@@ -240,7 +264,7 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                     }}
                     // value={user.data.email}
                     placeholder="ایمیل"
-                    className="border text-right rounded-2xl w-full px-2 py-[2px] focus:outline-none focus:ring-0 focus:border-gray-600"
+                    className="text-sm border text-right rounded-2xl w-full px-2 py-[2px] focus:outline-none focus:ring-0 focus:border-gray-600"
                   />
                   {errors?.email?.message && (
                     <p className="text-red-700">{errors.email.message}</p>
@@ -255,7 +279,7 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                     onChange={({ target }) => {
                       handleUserInput(target.name, target.value);
                     }}
-                    className="border text-right rounded-2xl w-full px-2 py-[2px] focus:outline-none focus:ring-0 focus:border-gray-600"
+                    className="text-sm border text-right rounded-2xl w-full px-2 py-[2px] focus:outline-none focus:ring-0 focus:border-gray-600"
                   />
                   {errors?.password?.message && (
                     <p className="text-red-700">{errors.password.message}</p>
@@ -271,7 +295,7 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                     }}
                     onKeyUp={validatePassInputs}
                     placeholder="تکرار رمز عبور"
-                    className="border text-right rounded-2xl w-full px-2 py-[2px] focus:outline-none focus:ring-0 focus:border-gray-600"
+                    className="text-sm border text-right rounded-2xl w-full px-2 py-[2px] focus:outline-none focus:ring-0 focus:border-gray-600"
                   />
                   <p className="text-red-700">{formError.confirmPassword}</p>
                 </div>
@@ -291,8 +315,8 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                   <div className="relative w-11 h-6 bg-gray-200 border-[0.5px] peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-white dark:peer-focus:ring-white rounded-full peer dark:bg-white peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
                 </label>
               </div>
-              <div className="text-right text-sm mb-4 ">
-                <p className="text-[#17494D] pb-2">بایو</p>
+              <div className="text-right text-xs mb-3 ">
+                <p className="text-[#17494D] pb-3">بایو</p>
                 <input
                   className="w-[320px] h-[68px] border solid border-[#17494D]/50 rounded-xl"
                   type="text"
@@ -305,10 +329,10 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                 />
               </div>
               <div className="flex items-center justify-end text-sm text-center">
-                <div className="text-center mr-1 flex border-solid  text-white rounded-2xl bg-[#EA5A69] w-[102px] h-[36px] text-sm justify-center items-center px-[8px] py-[16px] ">
+                <div className="text-center mr-1 flex border-solid  text-white rounded-2xl bg-[#EA5A69] h-7 text-xs font-semibold justify-center items-center px-8 py-[16px] ">
                   <button type={"submit"}>ثبت تغییرات</button>
                 </div>
-                <div className="pr-5">
+                <div className="pr-5 text-xs font-semibold ">
                   <Link to="/">
                     <button onClick={() => setOpenModal(false)}>
                       پشیمون شدم
