@@ -48,7 +48,7 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
   const [showCaptionPage, setShowCaptionPage] = useState(false);
   const [showSendPost, setShowSendPost] = useState(false);
   const [showSelectedPhoto, setShowSelectedPhoto] = useState(false);
-  const [file, setFile] = useState<File | undefined>();
+  const [files, setFiles] = useState<File[] | undefined>();
   const [photo, setPhoto] = useState<string | undefined>();
   const [selectedImages, setSelectedImages] = useState<string[]>();
   // const [modalSize, setModalSize] = useState<string>("lg");
@@ -70,11 +70,15 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
   };
   const onSubmit = () => {
     setIsLoading(true);
-    if (typeof selectedImages === "undefined") return;
+    if (typeof files === "undefined") return;
     const formData = new FormData();
-    for (let i = 0; i < selectedImages.length; i++) {
-      formData.append(`images[${i}]`, selectedImages[i]);
+    // for (let i = 0; i < selectedImages.length; i++) {
+    //   formData.append("images", selectedImages[i]);
+    // }
+    for (let i = 0; i < files.length; i++) {
+      formData.append("images", files[i]);
     }
+
     // formData.append("images", selectedImages);
     formData.append("caption", formInput.caption);
     let arr = formInput.mentions
@@ -146,6 +150,7 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
 
     const selectedPhotos = target.files;
     const selectedPhotosArray = Array.from(selectedPhotos);
+    setFiles(selectedPhotosArray);
     console.log(selectedPhotosArray);
     const imagesArray = selectedPhotosArray.map((file) => {
       return URL.createObjectURL(file);
