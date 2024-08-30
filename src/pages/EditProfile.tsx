@@ -4,25 +4,10 @@ import { array, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { EditProfileApi } from "../api/axios";
 import { Link } from "react-router-dom";
-import styles from "./Profile.module.css";
-import { useNavigate } from "react-router-dom";
 import { Button, Modal } from "flowbite-react";
 import { ToastR } from "../components/controles/ToastR";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faThumbTack,
-  faBookmark,
-  faCommentDots,
-  faBell,
-  faTag,
-  faMagnifyingGlass,
-  faGripVertical,
-  faCirclePlus,
-} from "@fortawesome/free-solid-svg-icons";
-import { MyPage } from "../components/MyPage";
 import { useEffect } from "react";
 import Cookies from "js-cookie";
-import { boolean, string } from "zod";
 
 const FormSchema = z.object({
   isPrivate: z.boolean(),
@@ -37,7 +22,7 @@ const FormSchema = z.object({
   confirmPassword: z.string().min(8).optional(),
 });
 
-type IFormInput = z.infer<typeof FormSchema>;
+type FormData = z.infer<typeof FormSchema>;
 interface IProps {
   openModal: boolean;
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -68,20 +53,25 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IFormInput>({
+  } = useForm<FormData>({
     resolver: zodResolver(FormSchema),
   });
 
-  // const navigate = useNavigate();
-  // const handleProfileEdited = () => {
-  //   navigate("/");
-  // };
-
-  const onSubmit = (data: IFormInput) => {
+  const onSubmit = () => {
     // console.log(data);
-    EditProfileApi.put("", JSON.stringify(data), {
+    if (typeof file === "undefined") return;
+    const formData = new FormData();
+    formData.append("image", file);
+    formData.append("fName", formInput.fName);
+    formData.append("lName", formInput.lName);
+    formData.append("bio", formInput.bio);
+    formData.append("email", formInput.email);
+    formData.append("password", formInput.password);
+    formData.append("confirmPassword", formInput.confirmPassword);
+
+    EditProfileApi.put("", formData, {
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${token}`,
       },
     })
@@ -181,7 +171,12 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
     const target = e.target as HTMLInputElement & {
       files: FileList;
     };
-    setFile(target.files[0]);
+    const selectedPhotos = target.files;
+    const selectedPhotosArray = Array.from(selectedPhotos);
+    setFile(selectedPhotosArray[0]);
+    console.log(target.files);
+    console.log("file", target.files[0]);
+    console.log("fileee", file);
     setPhoto(URL.createObjectURL(target.files[0]));
   };
 
