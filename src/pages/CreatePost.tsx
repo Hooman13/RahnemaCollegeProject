@@ -1,6 +1,6 @@
 import React, { FunctionComponent, PropsWithChildren, useState } from "react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { string, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CreatePostApi } from "../api/axios";
 import Cookies from "js-cookie";
@@ -50,6 +50,7 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
   const [showSelectedPhoto, setShowSelectedPhoto] = useState(false);
   const [file, setFile] = useState<File | undefined>();
   const [photo, setPhoto] = useState<string | undefined>();
+  const [selectedImages, setSelectedImages] = useState<string[]>();
   // const [modalSize, setModalSize] = useState<string>("lg");
   const modalSize = "md";
 
@@ -122,18 +123,34 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
 
   // AddPhoto logic
 
+  // const handleOnChangePhoto = (e: React.FormEvent<HTMLInputElement>) => {
+  //   const target = e.target as HTMLInputElement & {
+  //     files: FileList;
+  //   };
+  //   console.log("target", target.files);
+  //   setFile(target.files[0]);
+  //   console.log("file", file);
+
+  //   //@ts-ignore
+  //   setPhoto(URL.createObjectURL(target.files[0]));
+  //   setShowSelectedPhoto(!showSelectedPhoto);
+  // };
+
   const handleOnChangePhoto = (e: React.FormEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement & {
       files: FileList;
     };
-    console.log("target", target.files);
-    setFile(target.files[0]);
-    console.log("file", file);
 
-    //@ts-ignore
-    setPhoto(URL.createObjectURL(target.files[0]));
-    setShowSelectedPhoto(!showSelectedPhoto);
+    const selectedPhotos = target.files;
+    const selectedPhotosArray = Array.from(selectedPhotos);
+    console.log(selectedPhotosArray);
+    const imagesArray = selectedPhotosArray.map((file) => {
+      return URL.createObjectURL(file);
+    });
+    console.log(imagesArray);
+    setSelectedImages(imagesArray);
   };
+
   return (
     <>
       {displayToast && <ToastR type={toastType}>{toastMsg}</ToastR>}
@@ -196,15 +213,20 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                       />
                     </div>
                   </div>
-                  {showSelectedPhoto && (
-                    <div className="mr-2">
-                      <img
-                        className="flex relative items-center justify-center  rounded-2xl w-[70px] h-[70px] border-2"
-                        src={photo}
-                        alt=""
-                      />
-                    </div>
-                  )}
+                  <div>
+                    {selectedImages &&
+                      selectedImages.map((image, index) => {
+                        return (
+                          <div key={image} className="mr-2">
+                            <img
+                              className="flex relative items-center justify-center  rounded-2xl w-[70px] h-[70px] border-2"
+                              src={image}
+                              alt=""
+                            />
+                          </div>
+                        );
+                      })}
+                  </div>
                 </div>
                 {/* buttons */}
                 <div className="flex items-center justify-end text-sm">
