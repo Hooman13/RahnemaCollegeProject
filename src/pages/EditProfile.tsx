@@ -71,7 +71,7 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
 
     EditProfileApi.put("", formData, {
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${token}`,
       },
     })
