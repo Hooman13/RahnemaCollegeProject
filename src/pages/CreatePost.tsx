@@ -16,6 +16,7 @@ import {
   faGripVertical,
   faCirclePlus,
   faCamera,
+  faCircleXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { Button, Modal, Spinner } from "flowbite-react";
@@ -201,11 +202,11 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                       />
                     </div>
                   </div>
-                  <div>
+                  <div className="grid grid-cols-3">
                     {selectedImages &&
                       selectedImages.map((image, index) => {
                         return (
-                          <div key={image} className="mr-2">
+                          <div key={image} className="relative mr-2">
                             <img
                               className="flex relative items-center justify-center  rounded-2xl w-[70px] h-[70px] border-2"
                               src={image}
@@ -218,7 +219,11 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                                 )
                               }
                             >
-                              ()
+                              <FontAwesomeIcon
+                                className="absolute top-[-7px] right-[58px]"
+                                icon={faCircleXmark}
+                                style={{ color: "#F7901E" }}
+                              />
                             </button>
                           </div>
                         );
