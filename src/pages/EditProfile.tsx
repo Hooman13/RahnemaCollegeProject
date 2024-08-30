@@ -171,8 +171,12 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
     const target = e.target as HTMLInputElement & {
       files: FileList;
     };
-    setFile(target.files[0]);
+    const selectedPhotos = target.files;
+    const selectedPhotosArray = Array.from(selectedPhotos);
+    setFile(selectedPhotosArray[0]);
+    console.log(target.files);
     console.log("file", target.files[0]);
+    console.log("fileee", file);
     setPhoto(URL.createObjectURL(target.files[0]));
   };
 
