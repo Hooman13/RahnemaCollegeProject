@@ -70,9 +70,12 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
   };
   const onSubmit = () => {
     setIsLoading(true);
-    if (typeof file === "undefined") return;
+    if (typeof selectedImages === "undefined") return;
     const formData = new FormData();
-    formData.append("images", file);
+    for (let i = 0; i < selectedImages.length; i++) {
+      formData.append(`images[${i}]`, selectedImages[i]);
+    }
+    // formData.append("images", selectedImages);
     formData.append("caption", formInput.caption);
     let arr = formInput.mentions
       .replaceAll("@", "")
