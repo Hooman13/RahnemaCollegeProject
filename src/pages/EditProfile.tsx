@@ -19,8 +19,8 @@ const FormSchema = z.object({
   password: z
     .string()
     .min(8, "Password must not be lesser than 8 characters")
-    .optional(),
-  confirmPassword: z.string().min(8).optional(),
+    .nullable(),
+  confirmPassword: z.string().min(8).nullable(),
 });
 
 type FormData = z.infer<typeof FormSchema>;
@@ -57,6 +57,51 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
   } = useForm<FormData>({
     resolver: zodResolver(FormSchema),
   });
+  const [user, setUser] = useState({
+    data: {
+      bio: "",
+      email: "",
+      fName: "",
+      imageUrl: "",
+      isPrivate: false,
+      lName: "",
+      username: "",
+    },
+  });
+  const [isUserUpdated, setIsUserUpdated] = useState(false);
+  const userName = Cookies.get("username");
+  // const token = Cookies.get("token");
+  const getProfileData = async () => {
+    try {
+      const data: any = await UserInfoApi.get(userName ?? "", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setUser(data);
+      setIsUserUpdated(false);
+    } catch (error) {
+      console.log({ error });
+    }
+  };
+  //
+  useEffect(() => {
+    getProfileData();
+  }, [token, isUserUpdated]);
+
+  useEffect(() => {
+    if (user) {
+      setFormInput({
+        ...formInput,
+        imageUrl: user.data.imageUrl,
+        fName: user.data.fName,
+        lName: user.data.lName,
+        email: user.data.email,
+        bio: user.data.bio,
+      });
+    }
+  }, [user]);
 
   const onSubmit = () => {
     // console.log(data);
@@ -130,42 +175,6 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
 
   // use last update for fields
 
-  const [user, setUser] = useState({
-    data: {
-      bio: "",
-      email: "",
-      fName: "",
-      imageUrl: "",
-      isPrivate: false,
-      lName: "",
-      username: "",
-    },
-  });
-  const [isUserUpdated, setIsUserUpdated] = useState(false);
-  const userName = Cookies.get("username");
-  // const token = Cookies.get("token");
-  const getProfileData = async () => {
-    try {
-      const data: any = await UserInfoApi.get(userName ?? "", {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setUser(data);
-      setIsUserUpdated(false);
-    } catch (error) {
-      console.log({ error });
-    }
-  };
-  //
-  useEffect(() => {
-    getProfileData();
-  }, [token, isUserUpdated]);
-  console.log(user.data.username);
-  console.log(user.data.email);
-  console.log(user);
-
   const handleOnChangePhoto = (e: React.FormEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement & {
       files: FileList;
@@ -173,9 +182,9 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
     const selectedPhotos = target.files;
     const selectedPhotosArray = Array.from(selectedPhotos);
     setFile(selectedPhotosArray[0]);
-    console.log(target.files);
-    console.log("file", target.files[0]);
-    console.log("fileee", file);
+    // console.log(target.files);
+    // console.log("file", target.files[0]);
+    // console.log("fileee", file);
     setPhoto(URL.createObjectURL(target.files[0]));
   };
 
@@ -201,6 +210,15 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                     onChange={handleOnChangePhoto}
                     className="absolute top-0 right-0 left-0 bottom-0 opacity-0 cursor-pointer z-50 "
                   />
+                  {!file && (
+                    <div className="z-0">
+                      <img
+                        className="flex relative items-center justify-center  rounded-full w-[60px] h-[60px] border-2"
+                        src={`http://37.32.5.72${formInput.imageUrl}`}
+                        alt=""
+                      />
+                    </div>
+                  )}
                   {file && (
                     <div className="z-0">
                       <img
@@ -220,8 +238,11 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                   <input
                     type="text"
                     {...register("fName")}
-                    // value={formInput.fName}
-                    value={user.data.fName}
+                    value={formInput.fName}
+                    // value={user.data.fName}
+                    // onClick={() => {
+                    //   setValue("fName", `${user.data.fName}`);
+                    // }}
                     onChange={({ target }) => {
                       handleUserInput(target.name, target.value);
                     }}
@@ -237,6 +258,9 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                     type="text"
                     {...register("lName")}
                     value={formInput.lName}
+                    // onClick={() => {
+                    //   setValue("lName", `${user.data.lName}`);
+                    // }}
                     onChange={({ target }) => {
                       handleUserInput(target.name, target.value);
                     }}
@@ -253,6 +277,9 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                     type="text"
                     {...register("email")}
                     value={formInput.email}
+                    // onClick={() => {
+                    //   setValue("email", `${user.data.email}`);
+                    // }}
                     onChange={({ target }) => {
                       handleUserInput(target.name, target.value);
                     }}
@@ -269,6 +296,9 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                     type="password"
                     {...register("password")}
                     value={formInput.password}
+                    // onClick={() => {
+                    //   setValue("password", `${user.data.password}`);
+                    // }}
                     placeholder="رمز عبور جدید"
                     onChange={({ target }) => {
                       handleUserInput(target.name, target.value);
@@ -284,6 +314,9 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                     type="password"
                     {...register("confirmPassword")}
                     value={formInput.confirmPassword}
+                    // onClick={() => {
+                    //   setValue("fName", `${user.data.fName}`);
+                    // }}
                     onChange={({ target }) => {
                       handleUserInput(target.name, target.value);
                     }}
@@ -316,6 +349,9 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                   type="text"
                   {...register("bio")}
                   value={formInput.bio}
+                  // onClick={() => {
+                  //   setValue("bio", `${user.data.bio}`);
+                  // }}
                   onChange={({ target }) => {
                     handleUserInput(target.name, target.value);
                   }}
@@ -332,7 +368,7 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                   </button>
                 </div>
                 <div className="pr-5 text-xs font-semibold ">
-                  <Link to="/">
+                  <Link to="/profile">
                     <button onClick={() => setOpenModal(false)}>
                       پشیمون شدم
                     </button>
