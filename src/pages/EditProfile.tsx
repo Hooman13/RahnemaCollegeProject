@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { array, z } from "zod";
+import { array, string, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { EditProfileApi } from "../api/axios";
 import { Link } from "react-router-dom";
@@ -19,8 +19,8 @@ const FormSchema = z.object({
   password: z
     .string()
     .min(8, "Password must not be lesser than 8 characters")
-    .nullable(),
-  confirmPassword: z.string().min(8).nullable(),
+    .optional(),
+  confirmPassword: z.string().min(8).optional(),
 });
 
 type FormData = z.infer<typeof FormSchema>;
@@ -66,6 +66,8 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
       isPrivate: false,
       lName: "",
       username: "",
+      password: "",
+      confirmPassword: "",
     },
   });
   const [isUserUpdated, setIsUserUpdated] = useState(false);
@@ -94,11 +96,12 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
     if (user) {
       setFormInput({
         ...formInput,
-        imageUrl: user.data.imageUrl,
         fName: user.data.fName,
         lName: user.data.lName,
         email: user.data.email,
         bio: user.data.bio,
+        password: user.data.password,
+        confirmPassword: user.data.confirmPassword,
       });
     }
   }, [user]);
@@ -138,7 +141,6 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
     bio: "",
     email: "",
     fName: "",
-    imageUrl: "",
     isPrivate: false,
     lName: "",
     username: "",
@@ -182,9 +184,6 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
     const selectedPhotos = target.files;
     const selectedPhotosArray = Array.from(selectedPhotos);
     setFile(selectedPhotosArray[0]);
-    // console.log(target.files);
-    // console.log("file", target.files[0]);
-    // console.log("fileee", file);
     setPhoto(URL.createObjectURL(target.files[0]));
   };
 
@@ -214,7 +213,7 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                     <div className="z-0">
                       <img
                         className="flex relative items-center justify-center  rounded-full w-[60px] h-[60px] border-2"
-                        src={`http://37.32.5.72${formInput.imageUrl}`}
+                        src={`http://37.32.5.72${user.data.imageUrl}`}
                         alt=""
                       />
                     </div>
@@ -239,10 +238,6 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                     type="text"
                     {...register("fName")}
                     value={formInput.fName}
-                    // value={user.data.fName}
-                    // onClick={() => {
-                    //   setValue("fName", `${user.data.fName}`);
-                    // }}
                     onChange={({ target }) => {
                       handleUserInput(target.name, target.value);
                     }}
@@ -258,13 +253,9 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                     type="text"
                     {...register("lName")}
                     value={formInput.lName}
-                    // onClick={() => {
-                    //   setValue("lName", `${user.data.lName}`);
-                    // }}
                     onChange={({ target }) => {
                       handleUserInput(target.name, target.value);
                     }}
-                    // value={user.data.lName}
                     placeholder="نام خانوادگی"
                     className="text-sm border text-right rounded-2xl w-full px-2 py-[2px] focus:outline-none focus:ring-0 focus:border-gray-600"
                   />
@@ -277,13 +268,9 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                     type="text"
                     {...register("email")}
                     value={formInput.email}
-                    // onClick={() => {
-                    //   setValue("email", `${user.data.email}`);
-                    // }}
                     onChange={({ target }) => {
                       handleUserInput(target.name, target.value);
                     }}
-                    // value={user.data.email}
                     placeholder="ایمیل"
                     className="text-sm border text-right rounded-2xl w-full px-2 py-[2px] focus:outline-none focus:ring-0 focus:border-gray-600"
                   />
@@ -294,8 +281,7 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                 <div className="mb-3  ">
                   <input
                     type="password"
-                    {...register("password")}
-                    value={formInput.password}
+                    // {...register("password")}
                     // onClick={() => {
                     //   setValue("password", `${user.data.password}`);
                     // }}
@@ -312,11 +298,7 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                 <div className="mb-3">
                   <input
                     type="password"
-                    {...register("confirmPassword")}
-                    value={formInput.confirmPassword}
-                    // onClick={() => {
-                    //   setValue("fName", `${user.data.fName}`);
-                    // }}
+                    // {...register("confirmPassword")}
                     onChange={({ target }) => {
                       handleUserInput(target.name, target.value);
                     }}
@@ -349,13 +331,9 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                   type="text"
                   {...register("bio")}
                   value={formInput.bio}
-                  // onClick={() => {
-                  //   setValue("bio", `${user.data.bio}`);
-                  // }}
                   onChange={({ target }) => {
                     handleUserInput(target.name, target.value);
                   }}
-                  // value={user.data.bio}
                 />
               </div>
               <div className="flex items-center justify-end text-sm text-center">
