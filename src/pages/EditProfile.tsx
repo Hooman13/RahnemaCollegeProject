@@ -131,7 +131,7 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
           setDispalyToast(true);
           setTimeout(() => {
             setOpenModal(false);
-          }, 3000);
+          }, 1000);
         }
       })
       .catch((err) => console.log(err));
