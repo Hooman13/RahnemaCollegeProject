@@ -145,7 +145,7 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
     lName: "",
     username: "",
     password: "",
-    confirmPassword: "",
+    confirmPassword: "  ",
   });
   const [formError, setFormError] = useState({
     confirmPassword: "",
@@ -281,7 +281,8 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                 <div className="mb-3  ">
                   <input
                     type="password"
-                    // {...register("password")}
+                    {...register("password")}
+                    value={formInput.password}
                     // onClick={() => {
                     //   setValue("password", `${user.data.password}`);
                     // }}
@@ -298,7 +299,8 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                 <div className="mb-3">
                   <input
                     type="password"
-                    // {...register("confirmPassword")}
+                    {...register("confirmPassword")}
+                    value={formInput.confirmPassword}
                     onChange={({ target }) => {
                       handleUserInput(target.name, target.value);
                     }}
