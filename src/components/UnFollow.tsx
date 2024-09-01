@@ -18,7 +18,7 @@ export const UnFollow = ({ user }: any) => {
 
   const token = Cookies.get("token");
   const handleUnFollow = () => {
-    fetch("https://clgram.liara.run/unfollow/" + user, {
+    fetch("http://37.32.5.72:3000/unfollow/" + user, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
