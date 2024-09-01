@@ -73,7 +73,7 @@ export const PostsList: React.FC<PropsWithChildren<IPostListProps>> = ({
             return (
               <PostItem
                 id={item.postId}
-                imgUrl={process.env.REACT_APP_API_BASE_URL + item.imageInfo.url}
+                imgUrl={process.env.REACT_APP_IMAGE_URL + item.imageInfo.url}
                 key={index}
               ></PostItem>
             );
