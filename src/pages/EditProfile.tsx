@@ -130,8 +130,11 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
           setToastType("success");
           setDispalyToast(true);
           setTimeout(() => {
+            window.location.reload();
+          }, 1);
+          setTimeout(() => {
             setOpenModal(false);
-          }, 1000);
+          }, 2000);
         }
       })
       .catch((err) => console.log(err));
@@ -145,7 +148,7 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
     lName: "",
     username: "",
     password: "",
-    confirmPassword: "  ",
+    confirmPassword: "",
   });
   const [formError, setFormError] = useState({
     confirmPassword: "",
