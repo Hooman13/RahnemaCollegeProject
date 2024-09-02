@@ -16,11 +16,10 @@ const FormSchema = z.object({
   fName: z.string().optional(),
   lName: z.string().optional(),
   email: z.string().email("Invalid email.").optional(),
-  password: z
-    .string()
-    .min(8, "Password must not be lesser than 8 characters")
-    .optional(),
-  confirmPassword: z.string().min(8).optional(),
+  password: z.optional(
+    z.string().min(8, "Password must not be lesser than 8 characters")
+  ),
+  confirmPassword: z.optional(z.string().min(8)),
 });
 
 type FormData = z.infer<typeof FormSchema>;
@@ -46,7 +45,7 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
   // show selected photos
   const [selectedImages, setSelectedImages] = useState([{}]);
   const [photo, setPhoto] = useState<string | undefined>();
-  const [file, setFile] = useState<File | undefined>();
+  const [file, setFile] = useState<File>();
 
   // update profile edits
   const token = Cookies.get("token");
@@ -66,8 +65,6 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
       isPrivate: false,
       lName: "",
       username: "",
-      password: "",
-      confirmPassword: "",
     },
   });
   const [isUserUpdated, setIsUserUpdated] = useState(false);
@@ -100,17 +97,14 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
         lName: user.data.lName,
         email: user.data.email,
         bio: user.data.bio,
-        password: user.data.password,
-        confirmPassword: user.data.confirmPassword,
       });
     }
   }, [user]);
 
   const onSubmit = () => {
     // console.log(data);
-    if (typeof file === "undefined") return;
     const formData = new FormData();
-    formData.append("image", file);
+    if (typeof file !== "undefined") formData.append("image", file);
     formData.append("fName", formInput.fName);
     formData.append("lName", formInput.lName);
     formData.append("bio", formInput.bio);
@@ -139,7 +133,16 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
       })
       .catch((err) => console.log(err));
   };
-
+  interface formInput {
+    bio: string | undefined;
+    email: string | undefined;
+    fName: string | undefined;
+    isPrivate: boolean;
+    lName: string | undefined;
+    username: string | undefined;
+    password: string | undefined;
+    confirmPassword: string | undefined;
+  }
   const [formInput, setFormInput] = useState({
     bio: "",
     email: "",
@@ -331,9 +334,8 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
               </div>
               <div className="text-right text-xs mb-3 ">
                 <p className="text-[#17494D] pb-3">بایو</p>
-                <input
+                <textarea
                   className="w-[320px] h-[68px] border solid border-[#17494D]/50 rounded-xl"
-                  type="text"
                   {...register("bio")}
                   value={formInput.bio}
                   onChange={({ target }) => {
