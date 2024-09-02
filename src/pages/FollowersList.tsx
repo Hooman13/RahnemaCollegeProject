@@ -2,7 +2,7 @@ import { FollowerCard } from "../components/FollowerCard";
 import { useState } from "react";
 import { useEffect } from "react";
 import Cookies from "js-cookie";
-import {BaseApi} from "../api/axios";
+import { BaseApi } from "../api/axios";
 import { Link, useParams } from "react-router-dom";
 import { Button, Modal } from "flowbite-react";
 
@@ -28,21 +28,19 @@ export const FollowersList: React.FC<IProps> = ({
   const followersEndpoint = username ? `${username}` : userName;
   const getFollowersData = async () => {
     try {
-      const data: any = await BaseApi
-        .get( followersEndpoint + "/followers", {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((res) => {
-          const userData = res.data;
-          const followersList = userData.followers;
-          setFollowersData((prevState) => ({
-            ...prevState,
-            ...followersList,
-          }));
-        });
+      const data: any = await BaseApi.get(followersEndpoint + "/followers", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }).then((res) => {
+        const userData = res.data;
+        const followersList = userData.followers;
+        setFollowersData((prevState) => ({
+          ...prevState,
+          ...followersList,
+        }));
+      });
     } catch (error) {
       console.log({ error });
     }
@@ -68,6 +66,7 @@ export const FollowersList: React.FC<IProps> = ({
                       <FollowerCard
                         username={user.username}
                         followersCount={user.followersCount}
+                        imageUrl={user.imageUrl}
                         key={index}
                       ></FollowerCard>
                     );
