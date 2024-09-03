@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { array, z } from "zod";
+import { array, string, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { EditProfileApi } from "../api/axios";
 import { Link } from "react-router-dom";
@@ -8,6 +8,7 @@ import { Button, Modal } from "flowbite-react";
 import { ToastR } from "../components/controles/ToastR";
 import { useEffect } from "react";
 import Cookies from "js-cookie";
+import { UserInfoApi } from "../api/axios";
 
 const FormSchema = z.object({
   isPrivate: z.boolean(),
@@ -15,11 +16,10 @@ const FormSchema = z.object({
   fName: z.string().optional(),
   lName: z.string().optional(),
   email: z.string().email("Invalid email.").optional(),
-  password: z
-    .string()
-    .min(8, "Password must not be lesser than 8 characters")
-    .optional(),
-  confirmPassword: z.string().min(8).optional(),
+  password: z.optional(
+    z.string().min(8, "Password must not be lesser than 8 characters")
+  ),
+  confirmPassword: z.optional(z.string().min(8)),
 });
 
 type FormData = z.infer<typeof FormSchema>;
@@ -45,7 +45,7 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
   // show selected photos
   const [selectedImages, setSelectedImages] = useState([{}]);
   const [photo, setPhoto] = useState<string | undefined>();
-  const [file, setFile] = useState<File | undefined>();
+  const [file, setFile] = useState<File>();
 
   // update profile edits
   const token = Cookies.get("token");
@@ -56,12 +56,55 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
   } = useForm<FormData>({
     resolver: zodResolver(FormSchema),
   });
+  const [user, setUser] = useState({
+    data: {
+      bio: "",
+      email: "",
+      fName: "",
+      imageUrl: "",
+      isPrivate: false,
+      lName: "",
+      username: "",
+    },
+  });
+  const [isUserUpdated, setIsUserUpdated] = useState(false);
+  const userName = Cookies.get("username");
+  // const token = Cookies.get("token");
+  const getProfileData = async () => {
+    try {
+      const data: any = await UserInfoApi.get(userName ?? "", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setUser(data);
+      setIsUserUpdated(false);
+    } catch (error) {
+      console.log({ error });
+    }
+  };
+  //
+  useEffect(() => {
+    getProfileData();
+  }, [token, isUserUpdated]);
+
+  useEffect(() => {
+    if (user) {
+      setFormInput({
+        ...formInput,
+        fName: user.data.fName,
+        lName: user.data.lName,
+        email: user.data.email,
+        bio: user.data.bio,
+      });
+    }
+  }, [user]);
 
   const onSubmit = () => {
     // console.log(data);
-    if (typeof file === "undefined") return;
     const formData = new FormData();
-    formData.append("image", file);
+    if (typeof file !== "undefined") formData.append("image", file);
     formData.append("fName", formInput.fName);
     formData.append("lName", formInput.lName);
     formData.append("bio", formInput.bio);
@@ -81,18 +124,29 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
           setToastType("success");
           setDispalyToast(true);
           setTimeout(() => {
+            window.location.reload();
+          }, 1);
+          setTimeout(() => {
             setOpenModal(false);
-          }, 3000);
+          }, 2000);
         }
       })
       .catch((err) => console.log(err));
   };
-
+  interface formInput {
+    bio: string | undefined;
+    email: string | undefined;
+    fName: string | undefined;
+    isPrivate: boolean;
+    lName: string | undefined;
+    username: string | undefined;
+    password: string | undefined;
+    confirmPassword: string | undefined;
+  }
   const [formInput, setFormInput] = useState({
     bio: "",
     email: "",
     fName: "",
-    imageUrl: "",
     isPrivate: false,
     lName: "",
     username: "",
@@ -129,44 +183,6 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
 
   // use last update for fields
 
-  // const [user, setUser] = useState({
-  //   data: {
-  //     bio: "",
-  //     email: "",
-  //     fName: "",
-  //     imageUrl: "",
-  //     isPrivate: boolean,
-  //     lName: "",
-  //     username: "",
-  //   },
-  // });
-  // const [isUserUpdated, setIsUserUpdated] = useState(false);
-  // const token = Cookies.get("token");
-  // const getProfileData = async () => {
-  //   try {
-  //     const data: any = await axios.get(
-  //       "http://37.32.5.72:3000/auth/user-info",
-  //       {
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       }
-  //     );
-  //     setUser(data);
-  //     setIsUserUpdated(false);
-  //   } catch (error) {
-  //     console.log({ error });
-  //   }
-  // };
-  // //
-  // useEffect(() => {
-  //   getProfileData();
-  // }, [token, isUserUpdated]);
-  // // console.log(user.data.username);
-  // // console.log(user.data.email);
-  // // console.log(user);
-
   const handleOnChangePhoto = (e: React.FormEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement & {
       files: FileList;
@@ -174,9 +190,6 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
     const selectedPhotos = target.files;
     const selectedPhotosArray = Array.from(selectedPhotos);
     setFile(selectedPhotosArray[0]);
-    console.log(target.files);
-    console.log("file", target.files[0]);
-    console.log("fileee", file);
     setPhoto(URL.createObjectURL(target.files[0]));
   };
 
@@ -202,6 +215,15 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                     onChange={handleOnChangePhoto}
                     className="absolute top-0 right-0 left-0 bottom-0 opacity-0 cursor-pointer z-50 "
                   />
+                  {!file && (
+                    <div className="z-0">
+                      <img
+                        className="flex relative items-center justify-center  rounded-full w-[60px] h-[60px] border-2"
+                        src={`http://37.32.5.72${user.data.imageUrl}`}
+                        alt=""
+                      />
+                    </div>
+                  )}
                   {file && (
                     <div className="z-0">
                       <img
@@ -225,7 +247,6 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                     onChange={({ target }) => {
                       handleUserInput(target.name, target.value);
                     }}
-                    // value={user.data.fName}
                     placeholder="نام"
                     className="text-sm border rounded-2xl w-full text-right px-2 py-[2px] focus:outline-none focus:ring-0 focus:border-gray-600"
                   />
@@ -241,7 +262,6 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                     onChange={({ target }) => {
                       handleUserInput(target.name, target.value);
                     }}
-                    // value={user.data.lName}
                     placeholder="نام خانوادگی"
                     className="text-sm border text-right rounded-2xl w-full px-2 py-[2px] focus:outline-none focus:ring-0 focus:border-gray-600"
                   />
@@ -257,7 +277,6 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                     onChange={({ target }) => {
                       handleUserInput(target.name, target.value);
                     }}
-                    // value={user.data.email}
                     placeholder="ایمیل"
                     className="text-sm border text-right rounded-2xl w-full px-2 py-[2px] focus:outline-none focus:ring-0 focus:border-gray-600"
                   />
@@ -270,6 +289,9 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                     type="password"
                     {...register("password")}
                     value={formInput.password}
+                    // onClick={() => {
+                    //   setValue("password", `${user.data.password}`);
+                    // }}
                     placeholder="رمز عبور جدید"
                     onChange={({ target }) => {
                       handleUserInput(target.name, target.value);
@@ -312,23 +334,26 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
               </div>
               <div className="text-right text-xs mb-3 ">
                 <p className="text-[#17494D] pb-3">بایو</p>
-                <input
+                <textarea
                   className="w-[320px] h-[68px] border solid border-[#17494D]/50 rounded-xl"
-                  type="text"
                   {...register("bio")}
                   value={formInput.bio}
                   onChange={({ target }) => {
                     handleUserInput(target.name, target.value);
                   }}
-                  // value={user.data.bio}
                 />
               </div>
               <div className="flex items-center justify-end text-sm text-center">
-                <div className="text-center mr-1 flex border-solid  text-white rounded-2xl bg-[#EA5A69] h-7 text-xs font-semibold justify-center items-center px-8 py-[16px] ">
-                  <button type={"submit"}>ثبت تغییرات</button>
+                <div>
+                  <button
+                    className="text-center mr-1 flex border-solid  text-white rounded-2xl bg-[#EA5A69] h-7 text-xs font-semibold justify-center items-center px-8 py-[16px] "
+                    type={"submit"}
+                  >
+                    ثبت تغییرات
+                  </button>
                 </div>
                 <div className="pr-5 text-xs font-semibold ">
-                  <Link to="/">
+                  <Link to="/profile">
                     <button onClick={() => setOpenModal(false)}>
                       پشیمون شدم
                     </button>
