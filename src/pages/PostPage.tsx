@@ -17,7 +17,7 @@ export const PostPage = () => {
           <div className="col-span-2 pt-2">
             <ProfileSidebar />
           </div>
-          <div className="mr-60 grid col-span-9">
+          <div className="mr-12 grid col-span-9">
             {postId && <DisplayPost postId={postId} />}
           </div>
         </div>
