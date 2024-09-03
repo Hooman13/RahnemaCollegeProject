@@ -11,6 +11,7 @@ import { Link, useParams } from "react-router-dom";
 import { ToastR } from "./controles/ToastR";
 import { PostBookmark } from "./PostBookmark";
 import { PostLike } from "./PostLike";
+import { Comments } from "./Comments";
 
 interface IProps {
   postId: string;
@@ -143,6 +144,7 @@ export const DisplayPost: React.FC<IProps> = ({ postId }) => {
             <div>{post.commentsCount}</div>
           </div>
         </div>
+        <Comments postId={postId}/>
         </div>
       </article>
     </>
