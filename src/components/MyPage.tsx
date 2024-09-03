@@ -92,7 +92,11 @@ export const MyPage = () => {
             <div className="flex items-center">
               <img
                 className="border rounded-full w-[105px] h-[105px]"
-                src={process.env.REACT_APP_IMAGE_URL+user.imageUrl}
+                src={
+                  user.imageUrl
+                    ? process.env.REACT_APP_IMAGE_URL + user.imageUrl
+                    : "../img/person.png"
+                }
                 alt=""
               />
               <div className="grid grid-rows-3 h-[105px] mr-4">
