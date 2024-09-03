@@ -66,7 +66,11 @@ export const FollowingsList: React.FC<IProps> = ({
                       <FollowingCard
                         username={user.username}
                         followersCount={user.followersCount}
-                        imageUrl={user.imageUrl}
+                        imageUrl={
+                          user.imageUrl
+                            ? process.env.REACT_APP_IMAGE_URL + user.imageUrl
+                            : "../img/person.png"
+                        }
                         key={index}
                       ></FollowingCard>
                     );
