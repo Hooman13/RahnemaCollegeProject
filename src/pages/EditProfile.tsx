@@ -9,6 +9,7 @@ import { ToastR } from "../components/controles/ToastR";
 import { useEffect } from "react";
 import Cookies from "js-cookie";
 import { UserInfoApi } from "../api/axios";
+import { Spinner } from "flowbite-react";
 
 const FormSchema = z.object({
   isPrivate: z.boolean(),
@@ -47,6 +48,7 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
   const [selectedImages, setSelectedImages] = useState([{}]);
   const [photo, setPhoto] = useState<string | undefined>();
   const [file, setFile] = useState<File>();
+  const [isLoading, setIsLoading] = useState(false);
 
   // update profile edits
   const token = Cookies.get("token");
@@ -103,6 +105,7 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
   }, [user]);
 
   const onSubmit = () => {
+    setIsLoading(true);
     // console.log(data);
     const formData = new FormData();
     if (typeof file !== "undefined") formData.append("image", file);
@@ -132,7 +135,10 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
           }, 2000);
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
   interface formInput {
     bio: string | undefined;
@@ -350,7 +356,10 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                     className="text-center mr-1 flex border-solid  text-white rounded-2xl bg-[#EA5A69] h-7 text-xs font-semibold justify-center items-center px-8 py-[16px] "
                     type={"submit"}
                   >
-                    ثبت تغییرات
+                    {!isLoading && <span>ثبت تغییرات</span>}
+                    {isLoading && (
+                      <Spinner aria-label="edit..." size="sm"></Spinner>
+                    )}
                   </button>
                 </div>
                 <div className="pr-5 text-xs font-semibold ">
