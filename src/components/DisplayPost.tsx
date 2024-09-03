@@ -106,7 +106,10 @@ export const DisplayPost: React.FC<IProps> = ({ postId }) => {
                   <img
                     className="w-12 h-12 rounded-full ml-3"
                     src={
-                      process.env.REACT_APP_IMAGE_URL + post.creator.imageUrl
+                      post.creator.imageUrl
+                        ? process.env.REACT_APP_IMAGE_URL +
+                          post.creator.imageUrl
+                        : "../img/person.png"
                     }
                     alt={post.creator.username}
                   />
