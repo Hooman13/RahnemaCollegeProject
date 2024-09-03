@@ -17,12 +17,14 @@ import {
 interface IUsers {
   username: string;
   followersCount: number;
+  imageUrl: string;
 }
 
 export const FollowingCard: FunctionComponent<PropsWithChildren<IUsers>> = ({
   children,
   username,
   followersCount,
+  imageUrl,
 }) => {
   return (
     <>
@@ -30,7 +32,7 @@ export const FollowingCard: FunctionComponent<PropsWithChildren<IUsers>> = ({
         <div className="items-center col-span-4 flex justify-start w-[210px] h-14">
           <img
             className="border rounded-full ml-7 w-[56px] h-[56px]"
-            src="../img/person.png"
+            src={`http://37.32.5.72${imageUrl}`}
             alt=""
           />
           <div className="grid grid-rows-2 text-right">
