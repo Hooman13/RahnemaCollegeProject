@@ -7,13 +7,6 @@ import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faThumbTack,
-  faBookmark,
-  faCommentDots,
-  faBell,
-  faTag,
-  faMagnifyingGlass,
-  faGripVertical,
   faCirclePlus,
   faCamera,
   faCircleXmark,
@@ -97,6 +90,9 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
           setToastMsg("پست با موفقیت ارسال شد");
           setToastType("success");
           setDispalyToast(true);
+          setTimeout(() => {
+            window.location.reload();
+          }, 1);
           setTimeout(() => {
             setOpenModal(false);
           }, 2000);
