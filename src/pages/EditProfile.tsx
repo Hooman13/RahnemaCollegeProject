@@ -13,12 +13,13 @@ import { UserInfoApi } from "../api/axios";
 const FormSchema = z.object({
   isPrivate: z.boolean(),
   bio: z.string().optional(),
-  fName: z.string().optional(),
-  lName: z.string().optional(),
-  email: z.string().email("Invalid email.").optional(),
-  password: z.optional(
-    z.string().min(8, "Password must not be lesser than 8 characters")
-  ),
+  fName: z.string().min(3, "نام باید شامل حداقل ۳ حرف باشد").optional(),
+  lName: z
+    .string()
+    .min(3, "نام خانوادگی باید شامل حداقل ۳ حرف باشد")
+    .optional(),
+  email: z.string().email("ایمیل وارد شده نامعتبر است").optional(),
+  password: z.optional(z.string().min(8, "رمزعبور باید حداقل شامل ۸ حرف باشد")),
   confirmPassword: z.optional(z.string().min(8)),
 });
 
