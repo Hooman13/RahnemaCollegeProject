@@ -1,37 +1,65 @@
 import { Header } from "../components/Header";
 import { ProfileSidebar } from "../components/ProfileSidebar";
 import { Link, useParams } from "react-router-dom";
-import { FollowingCard } from "../components/FollowingCard";
+import { MentionCard } from "../components/MentionCard";
 import { useState } from "react";
 import { useEffect } from "react";
 import Cookies from "js-cookie";
 import { BaseApi } from "../api/axios";
-import { Button, Modal } from "flowbite-react";
 export const Notifs = () => {
-  interface IUser {
+  interface IUsers {
     username: string;
-    followersCount: number;
+    fName: string;
+    lName: string;
     imageUrl: string;
   }
-  interface IUsers extends Array<IUser> {}
-  const [followingsData, setFollowingsData] = useState<IUsers>([]);
+  interface IPost {
+    postId: string;
+    imageUrl: string;
+  }
+  interface IMention {
+    user: IUsers;
+    createdAt: string;
+    isSeen: boolean;
+    post: IPost;
+  }
+  interface ILike {
+    user: IUsers;
+    createdAt: string;
+    isSeen: boolean;
+    post: IPost;
+  }
+  interface IacceptedFollow {
+    user: IUsers;
+    createdAt: string;
+    isSeen: boolean;
+  }
+  interface INotif {
+    acceptedFollow: IacceptedFollow;
+    like: ILike;
+    mention: IMention;
+  }
+  interface INotifs extends Array<INotif> {}
+  // interface IMentions extends Array<IMention> {}
+  // interface IacceptedFollows extends Array<IacceptedFollow> {}
+  // interface ILikes extends Array<ILike> {}
+  const [notifs, setNotifs] = useState<INotifs>([]);
   const token = Cookies.get("token");
   const { username } = useParams();
   const userName = Cookies.get("username");
   const userInfoEndpoint = username ? `${username}` : userName;
-  const getFollowingsData = async () => {
+  const getNotifs = async () => {
     try {
-      const data: any = await BaseApi.get(userInfoEndpoint + "/followings", {
+      const data: any = await BaseApi.get("/notif", {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
       }).then((res) => {
-        const userData = res.data;
-        const followingsList = userData.followings;
-        setFollowingsData((prevState) => ({
+        const userNotifs = res.data.notifs;
+        setNotifs((prevState) => ({
           ...prevState,
-          ...followingsList,
+          ...userNotifs,
         }));
       });
     } catch (error) {
@@ -40,7 +68,7 @@ export const Notifs = () => {
   };
 
   useEffect(() => {
-    getFollowingsData();
+    getNotifs();
   }, []);
   return (
     <>
@@ -65,18 +93,15 @@ export const Notifs = () => {
               </Link>
             </div>
             <div className="overflow-y-scroll">
-              {Object.values(followingsData).map(function (user, index) {
+              {Object.values(notifs).map(function (user, index) {
                 return (
-                  <FollowingCard
-                    username={user.username}
-                    followersCount={user.followersCount}
-                    imageUrl={
-                      user.imageUrl
-                        ? process.env.REACT_APP_IMAGE_URL + user.imageUrl
-                        : "../img/person.png"
-                    }
+                  <MentionCard
+                    user={user.mention.user}
+                    createdAt={user.mention.createdAt}
+                    isSeen={user.mention.isSeen}
+                    post={user.mention.post}
                     key={index}
-                  ></FollowingCard>
+                  ></MentionCard>
                 );
               })}
             </div>
