@@ -64,7 +64,11 @@ export const ProfileSidebar: FunctionComponent = () => {
         <div className="w-[296px] 2xl:w-[350px] items-center flex h-auto mt-3 mr-6 py-2 ">
           <img
             className="border rounded-full w-10 2xl:w-14 h-10 2xl:h-14"
-            src={process.env.REACT_APP_IMAGE_URL + user.data.imageUrl}
+            src={
+              user.data.imageUrl
+                ? process.env.REACT_APP_IMAGE_URL + user.data.imageUrl
+                : "../img/person.png"
+            }
             alt=""
           />
           <span className="px-4">{user.data.username}</span>
