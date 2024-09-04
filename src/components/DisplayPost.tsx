@@ -1,7 +1,4 @@
-import {
-  faBookmark,
-  faComment,
-} from "@fortawesome/free-regular-svg-icons";
+import { faBookmark, faComment } from "@fortawesome/free-regular-svg-icons";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { DisplayPostApi } from "../api/axios";
@@ -83,8 +80,15 @@ export const DisplayPost: React.FC<IProps> = ({ postId }) => {
                 {post.imageInfos.map((item, index) => {
                   const image =
                     "http://37.32.5.72" + item.url.replace("src", "");
-                  
-                  return <img key={index} src={image} alt="image" className="rounded-3xl"/>;
+
+                  return (
+                    <img
+                      key={index}
+                      src={image}
+                      alt="image"
+                      className="rounded-3xl"
+                    />
+                  );
                 })}
               </Carousel>
             </div>
@@ -101,7 +105,12 @@ export const DisplayPost: React.FC<IProps> = ({ postId }) => {
                 >
                   <img
                     className="w-12 h-12 rounded-full ml-3"
-                    src="../img/person.png"
+                    src={
+                      post.creator.imageUrl
+                        ? process.env.REACT_APP_IMAGE_URL +
+                          post.creator.imageUrl
+                        : "../img/person.png"
+                    }
                     alt={post.creator.username}
                   />
                   {post.creator.username}
@@ -111,7 +120,7 @@ export const DisplayPost: React.FC<IProps> = ({ postId }) => {
                 type="button"
                 className="w-auto py-2 px-4 bg-[#EA5A69] rounded-3xl text-white "
               >
-                <FontAwesomeIcon icon={faPen} className="ml-2"/>
+                <FontAwesomeIcon icon={faPen} className="ml-2" />
                 <span className="font-medium text-sm"></span>
                 ویرایش پست
               </button>
@@ -136,15 +145,15 @@ export const DisplayPost: React.FC<IProps> = ({ postId }) => {
             })}
           </div>
 
-        <div className="flex flex-row-reverse items-center h-14 pt-4 mb-8 font-medium text-[#EA5A69]">
-          <PostBookmark postId={postId} bookMarkCount={post.bookMarkCount}/>
-          <PostLike postId={postId} likeCount={post.likeCount}/>
-          <div className="flex-none w-9 gap-2">
-            <FontAwesomeIcon icon={faComment} />
-            <div>{post.commentsCount}</div>
+          <div className="flex flex-row-reverse items-center h-14 pt-4 mb-8 font-medium text-[#EA5A69]">
+            <PostBookmark postId={postId} bookMarkCount={post.bookMarkCount} />
+            <PostLike postId={postId} likeCount={post.likeCount} />
+            <div className="flex-none w-9 gap-2">
+              <FontAwesomeIcon icon={faComment} />
+              <div>{post.commentsCount}</div>
+            </div>
           </div>
-        </div>
-        <Comments postId={postId}/>
+          <Comments postId={postId} />
         </div>
       </article>
     </>
