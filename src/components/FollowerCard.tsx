@@ -25,7 +25,7 @@ export const FollowerCard: FunctionComponent<PropsWithChildren<IUsers>> = ({
           <button onClick={() => visitProfile()}>
             <img
               className="border rounded-full ml-7 w-[56px] h-[56px]"
-              src={`http://37.32.5.72${imageUrl}`}
+              src={imageUrl}
               alt=""
             />
           </button>
