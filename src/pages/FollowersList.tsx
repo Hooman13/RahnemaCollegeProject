@@ -29,7 +29,7 @@ export const FollowersList: React.FC<IProps> = ({
   const getFollowersData = async () => {
     try {
       const data: any = await BaseApi.get(
-        followersEndpoint + "/user-relation/followers",
+        "/user-relations/followers/" + followersEndpoint,
         {
           headers: {
             "Content-Type": "application/json",
