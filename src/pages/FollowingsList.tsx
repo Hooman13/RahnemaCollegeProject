@@ -28,12 +28,15 @@ export const FollowingsList: React.FC<IProps> = ({
   const userInfoEndpoint = username ? `${username}` : userName;
   const getFollowingsData = async () => {
     try {
-      const data: any = await BaseApi.get(userInfoEndpoint + "/followings", {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }).then((res) => {
+      const data: any = await BaseApi.get(
+        userInfoEndpoint + "/user-relation/followings",
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      ).then((res) => {
         const userData = res.data;
         const followingsList = userData.followings;
         setFollowingsData((prevState) => ({
