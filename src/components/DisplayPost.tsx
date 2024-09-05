@@ -9,6 +9,7 @@ import { ToastR } from "./controles/ToastR";
 import { PostBookmark } from "./PostBookmark";
 import { PostLike } from "./PostLike";
 import { Comments } from "./Comments";
+import { PostComment } from "./PostComment";
 
 interface IProps {
   postId: string;
@@ -148,10 +149,7 @@ export const DisplayPost: React.FC<IProps> = ({ postId }) => {
           <div className="flex flex-row-reverse items-center h-14 pt-4 mb-8 font-medium text-[#EA5A69]">
             <PostBookmark postId={postId} bookMarkCount={post.bookMarkCount} />
             <PostLike postId={postId} likeCount={post.likeCount} />
-            <div className="flex-none w-9 gap-2">
-              <FontAwesomeIcon icon={faComment} />
-              <div>{post.commentsCount}</div>
-            </div>
+            <PostComment postId={postId} commentCount={post.commentsCount} />
           </div>
           <Comments postId={postId} />
         </div>
