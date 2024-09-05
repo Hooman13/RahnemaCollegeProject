@@ -12,7 +12,11 @@ module.exports = {
     fontFamily: {
       sans: ["IRANSansX"],
     },
-    extend: {},
+    extend: {
+      fontSize: {  
+        'xs-5':  '0.5rem' /* 8px */,
+      },
+    },
   },
   plugins: [
     flowbite.plugin(),
