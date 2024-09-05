@@ -23,6 +23,11 @@ export const DisplayPost: React.FC<IProps> = ({ postId }) => {
     username: string;
     imageUrl: string;
   }
+  interface IMentions {
+    postId: string;
+    mentionedId: string;
+    image: string;
+  }
   interface Ipost {
     postId: string;
     caption: string;
@@ -34,6 +39,7 @@ export const DisplayPost: React.FC<IProps> = ({ postId }) => {
     likeCount: number;
     commentsCount: number;
     bookMarkCount: number;
+    mentions: IMentions[];
   }
 
   const [post, setpost] = useState<Ipost>({
@@ -50,6 +56,7 @@ export const DisplayPost: React.FC<IProps> = ({ postId }) => {
     likeCount: 0,
     commentsCount: 0,
     bookMarkCount: 0,
+    mentions: [],
   });
 
   const getPostDetails = () => {
@@ -137,11 +144,13 @@ export const DisplayPost: React.FC<IProps> = ({ postId }) => {
             {post.caption}
           </p>
           <div className="flex flex-wrap gap-2">
-            {post.tags.map((item, index) => {
+            {post.mentions.map((item, index) => {
               return (
-                <Badge key={index} size="sm" href="#" color="info">
-                  {item}
-                </Badge>
+                <Link to={"/profile/" + item.mentionedId}>
+                  <Badge key={index} size="sm" color="info">
+                    {item.mentionedId}
+                  </Badge>
+                </Link>
               );
             })}
           </div>
