@@ -1,5 +1,5 @@
 import axios from "axios";
-const BASE_URL= process.env.REACT_APP_API_BASE_URL;
+const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 export const BaseApi = axios.create({
   baseURL: BASE_URL,
 });
@@ -29,9 +29,9 @@ export const FollowApi = axios.create({
 });
 
 export const EditProfileApi = axios.create({
-  baseURL: BASE_URL + "edit-profile",
+  baseURL: BASE_URL + "dashboard/edit-profile",
 });
 
 export const UserInfoApi = axios.create({
-  baseURL: BASE_URL,
+  baseURL: BASE_URL + "dashboard/profile-info",
 });
