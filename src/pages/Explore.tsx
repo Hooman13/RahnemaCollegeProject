@@ -12,12 +12,10 @@ export const Explore = () => {
         <div className="col-span-2 pt-2">
           <ProfileSidebar />
         </div>
-        <div className="mr-10 grid pt-2 col-span-10 overflow-y-scroll	">
-          
-          <div className="mt-8 bg-inherit h-full border border-[#CDCDCD] rounded-3xl">
-            <div className="flex  min-h-screen justify-center items-center">
-                <ExploreList/>
-            </div>
+        <div className="mr-10 grid pt-2 col-span-10 overflow-y-hidden	">
+          <p className="text-xl font-semibold">اکسپلور</p>
+          <div className="overflow-y-scroll bg-inherit  flex h-screen justify-center items-center">
+            <ExploreList />
           </div>
         </div>
       </div>
