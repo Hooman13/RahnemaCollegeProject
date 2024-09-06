@@ -162,7 +162,7 @@ export const DisplayPost: React.FC<IProps> = ({ postId }) => {
           <div className="flex flex-row-reverse items-center h-14 pt-4 mb-8 font-medium text-[#EA5A69]">
             <PostBookmark postId={postId} bookMarkCount={post.bookMarkCount} isBookMarked={post.isBookMarked} type="post"/>
             <PostLike postId={postId} likeCount={post.likeCount} isLiked={post.isLiked} type="post"/>
-            <PostComment postId={postId} commentCount={post.commentsCount} />
+            <PostComment postId={postId} commentCount={post.commentsCount} type="post"/>
           </div>
           <Comments postId={postId} />
         </div>
