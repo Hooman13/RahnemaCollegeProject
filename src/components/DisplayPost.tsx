@@ -150,7 +150,12 @@ export const DisplayPost: React.FC<IProps> = ({ postId }) => {
             className="text-xs font-normal
          text-neutral-800 dark:text-gray-400"
           >
-            <time title="February 8th, 2022">دو ماه پیش</time>
+            <time title={post.createdAt}>
+              {post.createdAt &&
+                moment(post.createdAt, "YYYY/MM/DD")
+                  .locale("fa")
+                  .format("MM/DD HH:mm")}
+            </time>
           </p>
           <p className="text-sm font-normal text-neutral-800 my-4">
             {post.caption}
