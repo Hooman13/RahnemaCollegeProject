@@ -12,6 +12,8 @@ import { AcceptedFollowNotifCard } from "../components/AcceptedFollowNotifCard";
 import { FollowedByNotifCard } from "../components/FollowedByNotifCard";
 import { IncommingReqNotifCard } from "../components/IncommingReqNotifCard";
 import { FLikeNotifCard } from "../components/FLikeNotifCard";
+import { FreindFoCard } from "../components/FreindFoCard";
+import { CommentNotifCard } from "../components/CommentNotifCard";
 export const FriendsNotif = () => {
   interface IUsers {
     username: string;
@@ -27,6 +29,7 @@ export const FriendsNotif = () => {
   interface IPost {
     postId: string;
     imageUrl: string;
+    CommentContent: string;
   }
   interface IComment {
     type: string;
@@ -100,38 +103,23 @@ export const FriendsNotif = () => {
           );
         case "follow":
           return (
-            <MentionCard
+            <FreindFoCard
+              user={notif.user}
+              createdAt={notif.createdAt}
+              isSeen={notif.isSeen}
+              friendUser={notif.friendUser}
+              followState={notif.followState}
+            />
+          );
+        case "comment":
+          return (
+            <CommentNotifCard
               user={notif.user}
               createdAt={notif.createdAt}
               isSeen={notif.isSeen}
               post={notif.post}
             />
           );
-        // case "accepedFollow":
-        //   return (
-        //     <AcceptedFollowNotifCard
-        //       user={notif.user}
-        //       createdAt={notif.createdAt}
-        //       isSeen={notif.isSeen}
-        //     />
-        //   );
-        // case "followedBy":
-        //   return (
-        //     <FollowedByNotifCard
-        //       user={notif.user}
-        //       createdAt={notif.createdAt}
-        //       isSeen={notif.isSeen}
-        //       followState={notif.followState}
-        //     />
-        //   );
-        // case "incommingReq":
-        //   return (
-        //     <IncommingReqNotifCard
-        //       user={notif.user}
-        //       createdAt={notif.createdAt}
-        //       isSeen={notif.isSeen}
-        //     />
-        //   );
         default:
           return null;
       }
