@@ -19,6 +19,7 @@ import { FollowersList } from "./FollowersList";
 import { Follow } from "../components/Follow";
 import { UnFollow } from "../components/UnFollow";
 import { Home } from "./Home";
+import { FriendsNotif } from "./FriendsNotif";
 
 export const LoginBasePage = () => {
   return (
@@ -52,6 +53,7 @@ export const LoginBasePage = () => {
             <Route path="/explore" element={<Explore />} />
             <Route path="/tags" element={<Tags />} />
             <Route path="/Notifs" element={<Notifs />} />
+            <Route path="/friends-notifs" element={<FriendsNotif />} />
           </Route>
         </Routes>
       </BrowserRouter>

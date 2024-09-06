@@ -2,8 +2,6 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
 import { FunctionComponent, PropsWithChildren } from "react";
-import { Follow } from "./Follow";
-import { DeleteFollowReq } from "./DeleteFollowReq";
 
 interface IUsers {
   username: string;
@@ -11,16 +9,20 @@ interface IUsers {
   lName: string;
   imageUrl: string;
 }
-interface IFollowedBy {
+interface ILike {
   user: IUsers;
   createdAt: string;
   isSeen: boolean;
-  followState: string;
+  postId: string;
 }
 
-export const FollowedByNotifCard: FunctionComponent<
-  PropsWithChildren<IFollowedBy>
-> = ({ children, user, createdAt, isSeen, followState }) => {
+export const FLikeNotifCard: FunctionComponent<PropsWithChildren<ILike>> = ({
+  children,
+  user,
+  createdAt,
+  isSeen,
+  postId,
+}) => {
   const navigate = useNavigate();
   const visitProfile = () => {
     navigate(`/profile/${user?.username}`);
@@ -47,26 +49,14 @@ export const FollowedByNotifCard: FunctionComponent<
             <div className="row-span-1 flex text-sm h-6 font-medium">
               <div>
                 {user.fName && user.lName
-                  ? `${user.fName} ${user.lName}  دنبالت کرد `
-                  : `${user.username} دنبالت کرد`}
+                  ? `${user.fName} ${user.lName} این عکس رو لایک کرده`
+                  : `${user.username} این عکس رو لایک کرده`}
               </div>
+              {/* <p>این عکس رو لایک کرده</p> */}
             </div>
             <div className="text-xs h-6 font-normal ">
               <p>{createdAt} در تاریخ</p>
             </div>
-          </div>
-          <div className="mr-20">
-            {followState === "notFollowed" ? (
-              <button>
-                <Follow user={user.username} />
-              </button>
-            ) : followState === "requested" ? (
-              <button>
-                <DeleteFollowReq user={user.username} />
-              </button>
-            ) : (
-              ""
-            )}
           </div>
         </div>
       </div>

@@ -1,6 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
 import { FunctionComponent, PropsWithChildren } from "react";
 import { Follow } from "./Follow";
 import { DeleteFollowReq } from "./DeleteFollowReq";
@@ -11,16 +9,27 @@ interface IUsers {
   lName: string;
   imageUrl: string;
 }
-interface IFollowedBy {
+interface FUser {
+  username: string;
+  fName: string;
+  lName: string;
+}
+interface IFollow {
   user: IUsers;
+  friendUser: FUser;
+  followState: string;
   createdAt: string;
   isSeen: boolean;
-  followState: string;
 }
 
-export const FollowedByNotifCard: FunctionComponent<
-  PropsWithChildren<IFollowedBy>
-> = ({ children, user, createdAt, isSeen, followState }) => {
+export const FreindFoCard: FunctionComponent<PropsWithChildren<IFollow>> = ({
+  children,
+  user,
+  createdAt,
+  friendUser,
+  isSeen,
+  followState,
+}) => {
   const navigate = useNavigate();
   const visitProfile = () => {
     navigate(`/profile/${user?.username}`);
@@ -47,8 +56,8 @@ export const FollowedByNotifCard: FunctionComponent<
             <div className="row-span-1 flex text-sm h-6 font-medium">
               <div>
                 {user.fName && user.lName
-                  ? `${user.fName} ${user.lName}  دنبالت کرد `
-                  : `${user.username} دنبالت کرد`}
+                  ? `${user.fName} ${user.lName} ${friendUser.fName} ${friendUser.lName} را دنبال کرد `
+                  : `${user.username} ${friendUser.fName} ${friendUser.lName} را دنبال کرد`}
               </div>
             </div>
             <div className="text-xs h-6 font-normal ">
