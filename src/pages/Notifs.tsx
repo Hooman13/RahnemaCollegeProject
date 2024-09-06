@@ -149,8 +149,6 @@ export const Notifs = () => {
             </div>
             <div className="overflow-y-scroll">
               {Object.values(notifs).map(function (notif, index) {
-                console.log(notif);
-
                 return notifsType(notif);
               })}
             </div>
