@@ -141,11 +141,13 @@ export const FriendsNotif = () => {
             <h1 className="text-xl font-medium mb-8">اعلانات</h1>
             <div className="text-md font-normal mb-16 justify-start flex">
               <Link to="/notifs">
-                <button className="text-[#A5A5A5] ml-10">اعلانات من </button>
+                <button className="ml-10">اعلانات من </button>
               </Link>
               |
               <Link to="/friends-notifs">
-                <button className="mr-10">اعلانات دوستان من</button>
+                <button className="text-[#A5A5A5] mr-10">
+                  اعلانات دوستان من
+                </button>
               </Link>
             </div>
             <div className="overflow-y-scroll">
