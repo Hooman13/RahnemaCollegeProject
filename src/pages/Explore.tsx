@@ -14,7 +14,7 @@ export const Explore = () => {
         </div>
         <div className="mr-10 grid pt-2 col-span-10 overflow-y-hidden	">
           <p className="text-xl font-semibold">اکسپلور</p>
-          <div className="overflow-y-scroll bg-inherit  flex h-screen justify-center items-center">
+          <div className="overflow-y-scroll bg-inherit  flex h-screen justify-center">
             <ExploreList />
           </div>
         </div>

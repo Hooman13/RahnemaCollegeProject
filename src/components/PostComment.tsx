@@ -10,8 +10,13 @@ import { ToastR } from "./controles/ToastR";
 interface IProps {
   postId: string;
   commentCount: number;
+  type: "post" | "explore";
 }
-export const PostComment: React.FC<IProps> = ({ postId, commentCount }) => {
+export const PostComment: React.FC<IProps> = ({
+  postId,
+  commentCount,
+  type,
+}) => {
   useEffect(() => {}, [postId, commentCount]);
   const [isLoading, setIsLoading] = useState(false);
   const [isCommented, setIsCommented] = useState(false);
@@ -25,11 +30,7 @@ export const PostComment: React.FC<IProps> = ({ postId, commentCount }) => {
     <div className="flex-none w-9 gap-2 relative">
       {displayToast && <ToastR type={toastType}>{toastMsg}</ToastR>}
 
-      <button
-        onClick={() => {
-          
-        }}
-      >
+      <button onClick={() => {}}>
         {isLoading && <Spinner size="sm" className="absolute"></Spinner>}
         {isCommented ? (
           <FontAwesomeIcon icon={solidComment} />
@@ -38,7 +39,9 @@ export const PostComment: React.FC<IProps> = ({ postId, commentCount }) => {
         )}
       </button>
 
-      <div>{commentCount}</div>
+      <span className={type == "post" ? "block" : "inline-block mr-2"}>
+        {commentCount}
+      </span>
     </div>
   );
 };

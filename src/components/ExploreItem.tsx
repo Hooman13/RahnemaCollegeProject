@@ -46,10 +46,10 @@ export const ExploreItem: React.FC<IProps> = ({
         />
 
         <figcaption className="bottom-6 w-100">
-          <div className="flex flex-row items-center py-4 px-6 text-xs text-zinc-900">
-            <PostComment postId={postId} commentCount={commentCount} />
+          <div className="flex flex-row gap-1 items-center py-4 px-6 text-md text-zinc-900">
+            <PostComment postId={postId} commentCount={commentCount} type="explore" />
             <PostLike postId={postId} likeCount={likeCount} isLiked={isLiked} type="explore" />
-            <PostBookmark postId={postId} bookMarkCount={bookmarkCount} isBookMarked={isBookmarked} type="post"/>
+            <PostBookmark postId={postId} bookMarkCount={bookmarkCount} isBookMarked={isBookmarked} type="explore"/>
           </div>
           <div className="py-4 px-4">
             <UserAvatar username={userName} fullname={userFName} imgUrl={userAvatar} followersCount={userFollowersCount}/>

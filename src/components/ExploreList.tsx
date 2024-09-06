@@ -1,83 +1,34 @@
 import { useEffect, useState } from "react";
-import { PostListApi } from "../api/axios";
+import { BaseApi } from "../api/axios";
 import { useQuery } from "@tanstack/react-query";
 import { ToastR } from "./controles/ToastR";
 import { ExploreItem } from "./ExploreItem";
 import { ExploreItemSkeleton } from "./ExploreItemSkeleton";
+import Cookies from "js-cookie";
 
 export const ExploreList = () => {
-  const posts = [
-    {
-      postId: "1c191f39-9a98-4c71-aacb-216a0f08398a",
-      creator: {
-        imageUrl: "/images/4fa0a26a-0347-481d-b710-4fbae56c7d9a.jpeg",
-        username: "mostafa11",
-        fullname: "مصطفی حسینی",
-        followersCount: 12,
-      },
-      postImage: "/images/539001e7-8a8b-4c3b-b99f-91b9cea6c5db.jpeg",
-      commentCount: 23,
-      isLiked: true,
-      likeCount: 12,
-      isBookmarked: false,
-      bookmarkCount: 32,
-    },
-    {
-      postId: "1c191f39-9a98-4c71-aacb-216a0f08398a",
-      creator: {
-        imageUrl: "/images/4fa0a26a-0347-481d-b710-4fbae56c7d9a.jpeg",
-        username: "mostafa11",
-        fullname: "مصطفی حسینی",
-        followersCount: 12,
-      },
-      postImage: "/images/539001e7-8a8b-4c3b-b99f-91b9cea6c5db.jpeg",
-      commentCount: 23,
-      isLiked: true,
-      likeCount: 12,
-      isBookmarked: false,
-      bookmarkCount: 32,
-    },
-    {
-      postId: "1c191f39-9a98-4c71-aacb-216a0f08398a",
-      creator: {
-        imageUrl: "/images/4fa0a26a-0347-481d-b710-4fbae56c7d9a.jpeg",
-        username: "mostafa11",
-        fullname: "مصطفی حسینی",
-        followersCount: 12,
-      },
-      postImage: "/images/539001e7-8a8b-4c3b-b99f-91b9cea6c5db.jpeg",
-      commentCount: 23,
-      isLiked: true,
-      likeCount: 12,
-      isBookmarked: false,
-      bookmarkCount: 32,
-    },
-  ];
+  const token = Cookies.get("token");
   const getPosts = () => {
-    return PostListApi.get(`mostafa`).then((res) => {
-      return posts;
+    return BaseApi.get("/dashboard/explore", {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      return res.data;
     });
   };
   const { data, isLoading, isError, error } = useQuery({
-    queryKey: [`explore-`],
+    queryKey: ["explore"],
     queryFn: getPosts,
   });
 
-  //   useEffect(() => {
-  //     if (username) {
-  //         getPosts();
-  //     }
-  //   }, [username]);
-
-  const followingsCount = 2;
   const skeletonArray = new Array(9).fill("");
   if (isLoading) {
     return (
       <div className="grid grid-cols-2 md:grid-cols-3 gap-5 px-2">
         {skeletonArray.map((item, index) => {
-          return (
-            <ExploreItemSkeleton key={index}/>
-          );
+          return <ExploreItemSkeleton key={index} />;
         })}
       </div>
     );
@@ -90,7 +41,7 @@ export const ExploreList = () => {
     return <h1>خطا:{error.message}</h1>;
   }
 
-  if (!followingsCount)
+  if (data.length==0)
     return (
       <div className="flex-row items-end text-center">
         <div className="mb-8 text-4xl font-bold">
@@ -129,7 +80,7 @@ export const ExploreList = () => {
                 isBookmarked={item.isBookmarked}
                 isLiked={item.isLiked}
                 likeCount={item.likeCount}
-                userFollowersCount={item.userFollowersCount}
+                userFollowersCount={item.creator.followersCount}
               ></ExploreItem>
             );
           })}
