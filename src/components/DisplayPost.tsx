@@ -11,7 +11,7 @@ import { PostLike } from "./PostLike";
 import { Comments } from "./Comments";
 import { PostComment } from "./PostComment";
 import Cookies from "js-cookie";
-
+import moment from "jalali-moment";
 interface IProps {
   postId: string;
 }
