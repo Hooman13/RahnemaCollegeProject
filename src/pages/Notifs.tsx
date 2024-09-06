@@ -146,7 +146,7 @@ export const Notifs = () => {
 
   return (
     <>
-      <div className="w-screen  overflow-y-hidden px-7 bg-[#F5F5F5]">
+      <div className="w-screen min-h-screen  overflow-y-hidden px-7 bg-[#F5F5F5]">
         {/* header */}
         <Header />
         {/* main */}
@@ -158,7 +158,7 @@ export const Notifs = () => {
           <div className="mr-10 grid pt-2 col-span-10 overflow-y-scroll	">
             <h1 className="text-xl font-medium mb-8">اعلانات</h1>
             <div className="text-md font-normal mb-16 justify-start flex">
-              <Link to="/my-notifs">
+              <Link to="/notifs">
                 <button className="text-[#A5A5A5] ml-10">اعلانات من </button>
               </Link>
               |
