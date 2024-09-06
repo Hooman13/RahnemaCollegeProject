@@ -10,6 +10,7 @@ import { PostBookmark } from "./PostBookmark";
 import { PostLike } from "./PostLike";
 import { Comments } from "./Comments";
 import { PostComment } from "./PostComment";
+import Cookies from "js-cookie";
 
 interface IProps {
   postId: string;
@@ -39,9 +40,9 @@ export const DisplayPost: React.FC<IProps> = ({ postId }) => {
     likeCount: number;
     commentsCount: number;
     bookMarkCount: number;
-    isLiked:boolean;
+    isLiked: boolean;
     mentions: IMentions[];
-    isBookMarked:boolean;
+    isBookMarked: boolean;
   }
 
   const [post, setpost] = useState<Ipost>({
@@ -58,9 +59,9 @@ export const DisplayPost: React.FC<IProps> = ({ postId }) => {
     likeCount: 0,
     commentsCount: 0,
     bookMarkCount: 0,
-    isLiked:false,
+    isLiked: false,
     mentions: [],
-    isBookMarked:false,
+    isBookMarked: false,
   });
 
   const getPostDetails = () => {
@@ -128,14 +129,16 @@ export const DisplayPost: React.FC<IProps> = ({ postId }) => {
                   {post.creator.username}
                 </Link>
               </div>
-              <button
-                type="button"
-                className="w-auto py-2 px-4 bg-[#EA5A69] rounded-3xl text-white "
-              >
-                <FontAwesomeIcon icon={faPen} className="ml-2" />
-                <span className="font-medium text-sm"></span>
-                ویرایش پست
-              </button>
+              {post.creator.username == Cookies.get("username") && (
+                <button
+                  type="button"
+                  className="w-auto py-2 px-4 bg-[#EA5A69] rounded-3xl text-white "
+                >
+                  <FontAwesomeIcon icon={faPen} className="ml-2" />
+                  <span className="font-medium text-sm"></span>
+                  ویرایش پست
+                </button>
+              )}
             </address>
           </header>
           <p
@@ -160,9 +163,23 @@ export const DisplayPost: React.FC<IProps> = ({ postId }) => {
           </div>
 
           <div className="flex flex-row-reverse items-center h-14 pt-4 mb-8 font-medium text-[#EA5A69]">
-            <PostBookmark postId={postId} bookMarkCount={post.bookMarkCount} isBookMarked={post.isBookMarked} type="post"/>
-            <PostLike postId={postId} likeCount={post.likeCount} isLiked={post.isLiked} type="post"/>
-            <PostComment postId={postId} commentCount={post.commentsCount} type="post"/>
+            <PostBookmark
+              postId={postId}
+              bookMarkCount={post.bookMarkCount}
+              isBookMarked={post.isBookMarked}
+              type="post"
+            />
+            <PostLike
+              postId={postId}
+              likeCount={post.likeCount}
+              isLiked={post.isLiked}
+              type="post"
+            />
+            <PostComment
+              postId={postId}
+              commentCount={post.commentsCount}
+              type="post"
+            />
           </div>
           <Comments postId={postId} />
         </div>
