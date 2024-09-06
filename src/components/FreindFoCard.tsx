@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { FunctionComponent, PropsWithChildren } from "react";
 import { Follow } from "./Follow";
+import { DeleteFollowReq } from "./DeleteFollowReq";
 
 interface IUsers {
   username: string;
@@ -68,8 +69,12 @@ export const FreindFoCard: FunctionComponent<PropsWithChildren<IFollow>> = ({
               <button>
                 <Follow user={user.username} />
               </button>
+            ) : followState === "requested" ? (
+              <button>
+                <DeleteFollowReq user={user.username} />
+              </button>
             ) : (
-              <button>فالو شده</button>
+              ""
             )}
           </div>
         </div>

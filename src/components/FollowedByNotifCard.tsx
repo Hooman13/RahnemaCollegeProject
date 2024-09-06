@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
 import { FunctionComponent, PropsWithChildren } from "react";
 import { Follow } from "./Follow";
+import { DeleteFollowReq } from "./DeleteFollowReq";
 
 interface IUsers {
   username: string;
@@ -55,9 +56,17 @@ export const FollowedByNotifCard: FunctionComponent<
             </div>
           </div>
           <div className="mr-20">
-            <button>
-              <Follow user={user.username} />
-            </button>
+            {followState === "notFollowed" ? (
+              <button>
+                <Follow user={user.username} />
+              </button>
+            ) : followState === "requested" ? (
+              <button>
+                <DeleteFollowReq user={user.username} />
+              </button>
+            ) : (
+              ""
+            )}
           </div>
         </div>
       </div>
