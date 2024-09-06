@@ -11,7 +11,7 @@ import { PostLike } from "./PostLike";
 import { Comments } from "./Comments";
 import { PostComment } from "./PostComment";
 import Cookies from "js-cookie";
-
+import moment from "jalali-moment";
 interface IProps {
   postId: string;
 }
@@ -97,15 +97,13 @@ export const DisplayPost: React.FC<IProps> = ({ postId }) => {
             <div className="mb-14 h-56 sm:h-64 xl:h-80 2xl:h-96 bg-slate-500 rounded-3xl">
               <Carousel className="rounded-t-lg" dir="ltr">
                 {post.imageInfos.map((item, index) => {
-                  const image =
-                    "http://37.32.5.72" + item.url.replace("src", "");
-
+                  const image = process.env.REACT_APP_IMAGE_URL + item.url;
                   return (
                     <img
                       key={index}
                       src={image}
                       alt="image"
-                      className="rounded-3xl"
+                      className="rounded-3xl h-full w-auto"
                     />
                   );
                 })}
@@ -151,7 +149,12 @@ export const DisplayPost: React.FC<IProps> = ({ postId }) => {
             className="text-xs font-normal
          text-neutral-800 dark:text-gray-400"
           >
-            <time title="February 8th, 2022">دو ماه پیش</time>
+            <time title={post.createdAt}>
+              {post.createdAt &&
+                moment(post.createdAt, "YYYY/MM/DD")
+                  .locale("fa")
+                  .format("MM/DD HH:mm")}
+            </time>
           </p>
           <p className="text-sm font-normal text-neutral-800 my-4">
             {post.caption}
