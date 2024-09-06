@@ -4,7 +4,7 @@ import { PostListApi } from "../api/axios";
 import { useQuery } from "@tanstack/react-query";
 import { ToastR } from "./controles/ToastR";
 import { env } from "process";
-
+import Cookies from "js-cookie";
 interface IPostListProps {
   username: string | undefined;
 }
@@ -12,8 +12,14 @@ export const PostsList: React.FC<PropsWithChildren<IPostListProps>> = ({
   username,
   children,
 }) => {
+  const token = Cookies.get("token");
   const getUserPosts = () => {
-    return PostListApi.get(`${username}`).then((res) => {
+    return PostListApi.get(`${username}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
       return res.data.posts;
     });
   };
@@ -35,7 +41,8 @@ export const PostsList: React.FC<PropsWithChildren<IPostListProps>> = ({
       <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
         {skeletonArray.map((item, index) => {
           return (
-            <div key={index}
+            <div
+              key={index}
               role="status"
               className="space-y-8 animate-pulse md:space-y-0 md:space-x-8 rtl:space-x-reverse md:flex md:items-center"
             >

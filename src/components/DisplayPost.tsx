@@ -63,10 +63,16 @@ export const DisplayPost: React.FC<IProps> = ({ postId }) => {
     mentions: [],
     isBookMarked: false,
   });
+  const token = Cookies.get("token");
 
   const getPostDetails = () => {
     try {
-      DisplayPostApi.get(`/${postId}`).then((res) => {
+      DisplayPostApi.get(`/${postId}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }).then((res) => {
         const postData = res.data;
         setpost((prev) => ({
           ...prev,
