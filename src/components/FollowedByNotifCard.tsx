@@ -9,15 +9,16 @@ interface IUsers {
   lName: string;
   imageUrl: string;
 }
-interface IacceptedFollow {
+interface IFollowedBy {
   user: IUsers;
   createdAt: string;
   isSeen: boolean;
+  followState: string;
 }
 
-export const AcceptedFollowNotifCard: FunctionComponent<
-  PropsWithChildren<IacceptedFollow>
-> = ({ children, user, createdAt, isSeen }) => {
+export const FollowedByNotifCard: FunctionComponent<
+  PropsWithChildren<IFollowedBy>
+> = ({ children, user, createdAt, isSeen, followState }) => {
   const navigate = useNavigate();
   const visitProfile = () => {
     navigate(`/profile/${user?.username}`);
@@ -42,9 +43,11 @@ export const AcceptedFollowNotifCard: FunctionComponent<
           </div>
           <div className="grid grid-rows-2 text-right">
             <div className="row-span-1 flex text-sm h-6 font-medium">
-              {user.fName && user.lName
-                ? `${user.fName} ${user.lName}  درخواست دوستی‌ات رو قبول کرد`
-                : `${user.username}  درخواست دوستی‌ات رو قبول کرد`}
+              <div>
+                {user.fName && user.lName
+                  ? `${user.fName} ${user.lName}  دنبالت کرد `
+                  : `${user.username} دنبالت کرد`}
+              </div>
             </div>
             <div className="text-xs h-6 font-normal ">
               <p>{createdAt} در تاریخ</p>

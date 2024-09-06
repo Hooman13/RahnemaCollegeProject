@@ -9,6 +9,7 @@ import { BaseApi } from "../api/axios";
 import { any, object } from "zod";
 import { LikeNotifCard } from "../components/LikeNotifCard";
 import { AcceptedFollowNotifCard } from "../components/AcceptedFollowNotifCard";
+import { FollowedByNotifCard } from "../components/FollowedByNotifCard";
 export const Notifs = () => {
   interface IUsers {
     username: string;
@@ -40,7 +41,7 @@ export const Notifs = () => {
     createdAt: string;
     isSeen: boolean;
   }
-  interface FollowedBy {
+  interface IFollowedBy {
     type: string;
     user: IUsers;
     createdAt: string;
@@ -58,7 +59,7 @@ export const Notifs = () => {
     like?: ILike;
     mention?: IMention;
     incommingReq?: IncommingReq;
-    followedBy?: FollowedBy;
+    followedBy?: IFollowedBy;
   }
   interface INotifs extends Array<INotif> {}
   const [notifs, setNotifs] = useState<INotifs>([]);
@@ -117,6 +118,15 @@ export const Notifs = () => {
               user={notif.user}
               createdAt={notif.createdAt}
               isSeen={notif.isSeen}
+            />
+          );
+        case "followedBy":
+          return (
+            <FollowedByNotifCard
+              user={notif.user}
+              createdAt={notif.createdAt}
+              isSeen={notif.isSeen}
+              followState={notif.followState}
             />
           );
         default:
