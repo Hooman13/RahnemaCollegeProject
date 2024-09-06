@@ -48,12 +48,15 @@ export const LikeNotifCard: FunctionComponent<PropsWithChildren<ILike>> = ({
             />
           </button>
           <div className="grid grid-rows-2 text-right">
-            <div className="user-display-name text-sm h-6 font-bold">
-              {user.fName}
+            <div className="row-span-1 flex text-sm h-6 font-bold">
+              <div>
+                {user.fName} {user.lName}
+              </div>
+              <p>این پست رو لایک کرده</p>
             </div>
-            <div className="user-full-name text-xs h-6 font-normal ">
+            {/* <div className="user-full-name text-xs h-6 font-normal ">
               <p>{createdAt} در تاریخ</p>
-            </div>
+            </div> */}
           </div>
         </div>
         <div className="text-[#EA5A69] col-span-2 mr-4 items-end">

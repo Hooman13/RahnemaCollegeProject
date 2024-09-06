@@ -90,33 +90,33 @@ export const Notifs = () => {
   }, []);
 
   // swich case
-  const notifsType = (notif: any, user: any) => {
+  const notifsType = (notif: any) => {
     {
       switch (notif.type) {
         case "like":
           return (
             <LikeNotifCard
-              user={user.user}
-              createdAt={user.createdAt}
-              isSeen={user.isSeen}
-              post={user.post}
+              user={notif.user}
+              createdAt={notif.createdAt}
+              isSeen={notif.isSeen}
+              post={notif.post}
             />
           );
         case "mention":
           return (
             <MentionCard
-              user={user.user}
-              createdAt={user.createdAt}
-              isSeen={user.isSeen}
-              post={user.post}
+              user={notif.user}
+              createdAt={notif.createdAt}
+              isSeen={notif.isSeen}
+              post={notif.post}
             />
           );
-        case "acceptedFollow":
+        case "accepedFollow":
           return (
             <AcceptedFollowNotifCard
-              user={user.user}
-              createdAt={user.createdAt}
-              isSeen={user.isSeen}
+              user={notif.user}
+              createdAt={notif.createdAt}
+              isSeen={notif.isSeen}
             />
           );
         default:
@@ -148,10 +148,10 @@ export const Notifs = () => {
               </Link>
             </div>
             <div className="overflow-y-scroll">
-              {Object.values(notifs).map(function (user, index) {
-                console.log(notifs[0]);
+              {Object.values(notifs).map(function (notif, index) {
+                console.log(notif);
 
-                return notifsType(notifs[0], user);
+                return notifsType(notif);
               })}
             </div>
           </div>
