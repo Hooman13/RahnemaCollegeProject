@@ -98,8 +98,7 @@ export const DisplayPost: React.FC<IProps> = ({ postId }) => {
               <Carousel className="rounded-t-lg" dir="ltr">
                 {post.imageInfos.map((item, index) => {
                   const image =
-                    "http://37.32.5.72" + item.url.replace("src", "");
-
+                    process.env.REACT_APP_IMAGE_URL + item.url
                   return (
                     <img
                       key={index}
