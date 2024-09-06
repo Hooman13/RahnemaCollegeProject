@@ -11,6 +11,7 @@ import { LikeNotifCard } from "../components/LikeNotifCard";
 import { AcceptedFollowNotifCard } from "../components/AcceptedFollowNotifCard";
 import { FollowedByNotifCard } from "../components/FollowedByNotifCard";
 import { IncommingReqNotifCard } from "../components/IncommingReqNotifCard";
+import { FLikeNotifCard } from "../components/FLikeNotifCard";
 export const FriendsNotif = () => {
   interface IUsers {
     username: string;
@@ -18,11 +19,16 @@ export const FriendsNotif = () => {
     lName: string;
     imageUrl: string;
   }
+  interface FUser {
+    username: string;
+    fName: string;
+    lName: string;
+  }
   interface IPost {
     postId: string;
     imageUrl: string;
   }
-  interface IMention {
+  interface IComment {
     type: string;
     user: IUsers;
     createdAt: string;
@@ -34,33 +40,21 @@ export const FriendsNotif = () => {
     user: IUsers;
     createdAt: string;
     isSeen: boolean;
-    post: IPost;
+    postId: string;
   }
-  interface IacceptedFollow {
+  interface IFollow {
     type: string;
     user: IUsers;
-    createdAt: string;
-    isSeen: boolean;
-  }
-  interface IFollowedBy {
-    type: string;
-    user: IUsers;
-    createdAt: string;
-    isSeen: boolean;
+    friendUser: FUser;
     followState: string;
-  }
-  interface IncommingReq {
-    type: string;
-    user: IUsers;
     createdAt: string;
     isSeen: boolean;
   }
+
   interface INotif {
-    acceptedFollow?: IacceptedFollow;
+    follow?: IFollow;
     like?: ILike;
-    mention?: IMention;
-    incommingReq?: IncommingReq;
-    followedBy?: IFollowedBy;
+    comment?: IComment;
   }
   interface INotifs extends Array<INotif> {}
   const [notifs, setNotifs] = useState<INotifs>([]);
@@ -97,14 +91,14 @@ export const FriendsNotif = () => {
       switch (notif.type) {
         case "like":
           return (
-            <LikeNotifCard
+            <FLikeNotifCard
               user={notif.user}
               createdAt={notif.createdAt}
               isSeen={notif.isSeen}
-              post={notif.post}
+              postId={notif.postId}
             />
           );
-        case "mention":
+        case "follow":
           return (
             <MentionCard
               user={notif.user}
@@ -113,31 +107,31 @@ export const FriendsNotif = () => {
               post={notif.post}
             />
           );
-        case "accepedFollow":
-          return (
-            <AcceptedFollowNotifCard
-              user={notif.user}
-              createdAt={notif.createdAt}
-              isSeen={notif.isSeen}
-            />
-          );
-        case "followedBy":
-          return (
-            <FollowedByNotifCard
-              user={notif.user}
-              createdAt={notif.createdAt}
-              isSeen={notif.isSeen}
-              followState={notif.followState}
-            />
-          );
-        case "incommingReq":
-          return (
-            <IncommingReqNotifCard
-              user={notif.user}
-              createdAt={notif.createdAt}
-              isSeen={notif.isSeen}
-            />
-          );
+        // case "accepedFollow":
+        //   return (
+        //     <AcceptedFollowNotifCard
+        //       user={notif.user}
+        //       createdAt={notif.createdAt}
+        //       isSeen={notif.isSeen}
+        //     />
+        //   );
+        // case "followedBy":
+        //   return (
+        //     <FollowedByNotifCard
+        //       user={notif.user}
+        //       createdAt={notif.createdAt}
+        //       isSeen={notif.isSeen}
+        //       followState={notif.followState}
+        //     />
+        //   );
+        // case "incommingReq":
+        //   return (
+        //     <IncommingReqNotifCard
+        //       user={notif.user}
+        //       createdAt={notif.createdAt}
+        //       isSeen={notif.isSeen}
+        //     />
+        //   );
         default:
           return null;
       }
