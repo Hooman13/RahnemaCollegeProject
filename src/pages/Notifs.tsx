@@ -10,6 +10,7 @@ import { any, object } from "zod";
 import { LikeNotifCard } from "../components/LikeNotifCard";
 import { AcceptedFollowNotifCard } from "../components/AcceptedFollowNotifCard";
 import { FollowedByNotifCard } from "../components/FollowedByNotifCard";
+import { IncommingReqNotifCard } from "../components/IncommingReqNotifCard";
 export const Notifs = () => {
   interface IUsers {
     username: string;
@@ -127,6 +128,14 @@ export const Notifs = () => {
               createdAt={notif.createdAt}
               isSeen={notif.isSeen}
               followState={notif.followState}
+            />
+          );
+        case "incommingReq":
+          return (
+            <IncommingReqNotifCard
+              user={notif.user}
+              createdAt={notif.createdAt}
+              isSeen={notif.isSeen}
             />
           );
         default:
