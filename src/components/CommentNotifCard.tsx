@@ -2,29 +2,32 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
 import { FunctionComponent, PropsWithChildren } from "react";
-import { Follow } from "./Follow";
-import { DeleteFollowReq } from "./DeleteFollowReq";
 
 interface IUsers {
   username: string;
   fName: string;
   lName: string;
-  imageUrl: string;
 }
-interface IFollowedBy {
+interface IPost {
+  postId: string;
+  imageUrl: string;
+  CommentContent: string;
+}
+interface IComment {
   user: IUsers;
   createdAt: string;
   isSeen: boolean;
-  followState: string;
+  post: IPost;
 }
 
-export const FollowedByNotifCard: FunctionComponent<
-  PropsWithChildren<IFollowedBy>
-> = ({ children, user, createdAt, isSeen, followState }) => {
+export const CommentNotifCard: FunctionComponent<
+  PropsWithChildren<IComment>
+> = ({ children, user, createdAt, isSeen, post }) => {
   const navigate = useNavigate();
   const visitProfile = () => {
     navigate(`/profile/${user?.username}`);
   };
+  console.log(post);
 
   return (
     <>
@@ -35,8 +38,8 @@ export const FollowedByNotifCard: FunctionComponent<
               <img
                 className="border rounded-full ml-7 w-[56px] h-[56px]"
                 src={
-                  user.imageUrl
-                    ? process.env.REACT_APP_IMAGE_URL + user.imageUrl
+                  post.imageUrl
+                    ? process.env.REACT_APP_IMAGE_URL + post.imageUrl
                     : "../img/person.png"
                 }
                 alt=""
@@ -47,26 +50,16 @@ export const FollowedByNotifCard: FunctionComponent<
             <div className="row-span-1 flex text-sm h-6 font-medium">
               <div>
                 {user.fName && user.lName
-                  ? `${user.fName} ${user.lName}  دنبالت کرد `
-                  : `${user.username} دنبالت کرد`}
+                  ? `${user.fName} ${user.lName} برای اونیکی عکس کامنت گذاشته`
+                  : `${user.username} برای اونیکی عکس کامنت گذاشته`}
               </div>
+            </div>
+            <div className="text-xs h-6 font-normal ">
+              {post.CommentContent}
             </div>
             <div className="text-xs h-6 font-normal ">
               <p>{createdAt} در تاریخ</p>
             </div>
-          </div>
-          <div className="mr-20">
-            {followState === "notFollowed" ? (
-              <button>
-                <Follow user={user.username} />
-              </button>
-            ) : followState === "requested" ? (
-              <button>
-                <DeleteFollowReq user={user.username} />
-              </button>
-            ) : (
-              ""
-            )}
           </div>
         </div>
       </div>
