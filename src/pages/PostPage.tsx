@@ -8,7 +8,7 @@ export const PostPage = () => {
   const { postId } = useParams();
   return (
     <>
-      <div className="w-screen  overflow-y-hidden px-7 bg-[#F5F5F5]">
+      <div className="w-screen min-h-screen  overflow-y-hidden px-7 bg-[#F5F5F5]">
         {/* header */}
         <Header />
         {/* main */}
@@ -17,7 +17,7 @@ export const PostPage = () => {
           <div className="col-span-2 pt-2">
             <ProfileSidebar />
           </div>
-          <div className="mr-12 grid col-span-9">
+          <div className="mr-10 grid pt-2 col-span-10 overflow-y-scroll">
             {postId && <DisplayPost postId={postId} />}
           </div>
         </div>

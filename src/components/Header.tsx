@@ -21,7 +21,7 @@ export const Header = () => {
         </button>
       </div>
       <div className="col-span-10 mr-[900px] flex items-center">
-        <img className="w-[82px] h-[49px]" src="./img/logo.png" alt="" />
+        <img className="w-[82px] h-[49px]" src="../img/logo.png" alt="" />
       </div>
       <CreatePost openModal={openModal} setOpenModal={setOpenModal} />
     </div>
