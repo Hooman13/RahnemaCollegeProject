@@ -8,7 +8,7 @@ interface IUser {
   user: string;
 }
 
-export const Follow: React.FC<PropsWithChildren<IUser>> = ({
+export const DeleteFollowReq: React.FC<PropsWithChildren<IUser>> = ({
   user,
   children,
 }) => {
@@ -23,7 +23,7 @@ export const Follow: React.FC<PropsWithChildren<IUser>> = ({
     return () => clearTimeout(timeoutId);
   }, [displayToast]);
   const token = Cookies.get("token");
-  const handleFollow = () => {
+  const handleDeleteFollow = () => {
     // axios
     //   .patch(`http://37.32.5.72:3000/follow/` + user, {
     //     headers: {
@@ -32,7 +32,7 @@ export const Follow: React.FC<PropsWithChildren<IUser>> = ({
     //     },
     //   })
     fetch("http://37.32.5.72:3000/user-relations/follow/" + user + "/req", {
-      method: "POST",
+      method: "DELETE",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -40,7 +40,7 @@ export const Follow: React.FC<PropsWithChildren<IUser>> = ({
     })
       .then((response) => {
         if (response.status === 200) {
-          setToastMsg(`درخواست دوستیت برای ${user} ارسال شد`);
+          setToastMsg(`درخواست دوستیت برای ${user} حذف شد`);
           setToastType("success");
           setDispalyToast(true);
           // changeButton()
@@ -55,11 +55,11 @@ export const Follow: React.FC<PropsWithChildren<IUser>> = ({
       <section>
         {displayToast && <ToastR type={toastType}>{toastMsg}</ToastR>}
         <button
-          onClick={handleFollow}
+          onClick={handleDeleteFollow}
           type="button"
           className="text-sm font-semibold py-1 px-4 bg-[#EA5A69] rounded-[100px] text-white"
         >
-          دنبال کردن
+          حذف درخواست
         </button>
       </section>
     </>

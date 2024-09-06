@@ -8,10 +8,11 @@ interface IUser {
   user: string;
 }
 
-export const Follow: React.FC<PropsWithChildren<IUser>> = ({
+export const AcceptFollowReq: React.FC<PropsWithChildren<IUser>> = ({
   user,
   children,
 }) => {
+  const [followAccepted, setFollowAccepted] = useState(true);
   // show toast after successfully follow someone
   const [displayToast, setDispalyToast] = useState(false);
   const [toastMsg, setToastMsg] = useState("");
@@ -23,7 +24,7 @@ export const Follow: React.FC<PropsWithChildren<IUser>> = ({
     return () => clearTimeout(timeoutId);
   }, [displayToast]);
   const token = Cookies.get("token");
-  const handleFollow = () => {
+  const handleDeleteFollow = () => {
     // axios
     //   .patch(`http://37.32.5.72:3000/follow/` + user, {
     //     headers: {
@@ -31,7 +32,7 @@ export const Follow: React.FC<PropsWithChildren<IUser>> = ({
     //       Authorization: `Bearer ${token}`,
     //     },
     //   })
-    fetch("http://37.32.5.72:3000/user-relations/follow/" + user + "/req", {
+    fetch("http://37.32.5.72:3000/user-relations/follow/" + user, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -40,9 +41,10 @@ export const Follow: React.FC<PropsWithChildren<IUser>> = ({
     })
       .then((response) => {
         if (response.status === 200) {
-          setToastMsg(`درخواست دوستیت برای ${user} ارسال شد`);
+          setToastMsg(`درخواست دوستی ${user} رو قبول کردی`);
           setToastType("success");
           setDispalyToast(true);
+          setFollowAccepted(false);
           // changeButton()
         }
       })
@@ -54,13 +56,15 @@ export const Follow: React.FC<PropsWithChildren<IUser>> = ({
     <>
       <section>
         {displayToast && <ToastR type={toastType}>{toastMsg}</ToastR>}
-        <button
-          onClick={handleFollow}
-          type="button"
-          className="text-sm font-semibold py-1 px-4 bg-[#EA5A69] rounded-[100px] text-white"
-        >
-          دنبال کردن
-        </button>
+        {followAccepted && (
+          <button
+            onClick={handleDeleteFollow}
+            type="button"
+            className="text-sm font-semibold py-1 px-4 bg-[#EA5A69] rounded-[100px] text-white"
+          >
+            قبوله
+          </button>
+        )}
       </section>
     </>
   );

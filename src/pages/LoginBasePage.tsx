@@ -32,7 +32,7 @@ export const LoginBasePage = () => {
           <Route path="/reset-password" element={<NewPass />} />
           <Route path="/email-sent-page" element={<EmailSent />} />
           <Route path="/error" element={<ErrorPage />} />
-          <Route path="/home" element={<Home/>} />
+          <Route path="/home" element={<Home />} />
           {/* <Route path="/addphoto" element={<AddPhoto />} />
           <Route path="/addcaption" element={<CaptionPage />} />
           <Route path="/sendpost" element={<SendPost />} /> */}
@@ -52,9 +52,6 @@ export const LoginBasePage = () => {
             <Route path="/explore" element={<Explore />} />
             <Route path="/tags" element={<Tags />} />
             <Route path="/Notifs" element={<Notifs />} />
-            {/* <Route path="/editpage" element={<EditProfile />} /> */}
-            <Route path="/follow" element={<Follow />} />
-            <Route path="/unfollow" element={<UnFollow />} />
           </Route>
         </Routes>
       </BrowserRouter>

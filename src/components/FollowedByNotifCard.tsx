@@ -56,7 +56,7 @@ export const FollowedByNotifCard: FunctionComponent<
           </div>
           <div className="mr-20">
             <button>
-              <Follow />
+              <Follow user={user.username} />
             </button>
           </div>
         </div>

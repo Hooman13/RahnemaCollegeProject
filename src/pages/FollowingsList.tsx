@@ -43,6 +43,7 @@ export const FollowingsList: React.FC<IProps> = ({
           ...prevState,
           ...followingsList,
         }));
+        console.log("followings", followingsList);
       });
     } catch (error) {
       console.log({ error });

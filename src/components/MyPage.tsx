@@ -10,6 +10,7 @@ import { UnFollow } from "./UnFollow";
 import { FollowersList } from "../pages/FollowersList";
 import { FollowingsList } from "../pages/FollowingsList";
 import { EditProfile } from "../pages/EditProfile";
+import { DeleteFollowReq } from "./DeleteFollowReq";
 
 export const MyPage = () => {
   interface IUser {
@@ -112,7 +113,9 @@ export const MyPage = () => {
                   <div className="ml-4">
                     {!isMyProfile && <Follow user={user.username} />}
                   </div>
-                  <div>{!isMyProfile && <UnFollow user={user.username} />}</div>
+                  <div>
+                    {!isMyProfile && <DeleteFollowReq user={user.username} />}
+                  </div>
                 </div>
                 <div className="text-base font-normal flex ">
                   <div className="user-followers-details pl-2 text-[#C19008]">
