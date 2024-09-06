@@ -11,7 +11,7 @@ interface IUsers {
 interface IPost {
   postId: string;
   imageUrl: string;
-  CommentContent: string;
+  commentContent: string;
 }
 interface IComment {
   user: IUsers;
@@ -31,8 +31,8 @@ export const CommentNotifCard: FunctionComponent<
 
   return (
     <>
-      <div className="flex justify-between items-center  h-14  text-xl text-center mb-8">
-        <div className="items-center flex justify-start h-14">
+      <div className="flex justify-between items-center  text-xl text-center mb-8">
+        <div className="items-center flex justify-start">
           <div>
             <button onClick={() => visitProfile()}>
               <img
@@ -55,7 +55,7 @@ export const CommentNotifCard: FunctionComponent<
               </div>
             </div>
             <div className="text-xs h-6 font-normal ">
-              {post.CommentContent}
+              {post.commentContent}
             </div>
             <div className="text-xs h-6 font-normal ">
               <p>{createdAt} در تاریخ</p>
