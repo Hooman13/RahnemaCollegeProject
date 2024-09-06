@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
 import { FunctionComponent, PropsWithChildren } from "react";
+import { Follow } from "./Follow";
 
 interface IUsers {
   username: string;
@@ -52,6 +53,11 @@ export const FollowedByNotifCard: FunctionComponent<
             <div className="text-xs h-6 font-normal ">
               <p>{createdAt} در تاریخ</p>
             </div>
+          </div>
+          <div className="mr-20">
+            <button>
+              <Follow />
+            </button>
           </div>
         </div>
       </div>
