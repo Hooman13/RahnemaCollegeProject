@@ -39,6 +39,7 @@ export const DisplayPost: React.FC<IProps> = ({ postId }) => {
     likeCount: number;
     commentsCount: number;
     bookMarkCount: number;
+    isLiked:boolean;
     mentions: IMentions[];
   }
 
@@ -56,6 +57,7 @@ export const DisplayPost: React.FC<IProps> = ({ postId }) => {
     likeCount: 0,
     commentsCount: 0,
     bookMarkCount: 0,
+    isLiked:false,
     mentions: [],
   });
 
@@ -157,7 +159,7 @@ export const DisplayPost: React.FC<IProps> = ({ postId }) => {
 
           <div className="flex flex-row-reverse items-center h-14 pt-4 mb-8 font-medium text-[#EA5A69]">
             <PostBookmark postId={postId} bookMarkCount={post.bookMarkCount} />
-            <PostLike postId={postId} likeCount={post.likeCount} />
+            <PostLike postId={postId} likeCount={post.likeCount} isLiked={post.isLiked} type="post"/>
             <PostComment postId={postId} commentCount={post.commentsCount} />
           </div>
           <Comments postId={postId} />

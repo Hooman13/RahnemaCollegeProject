@@ -10,12 +10,32 @@ import { ToastR } from "./controles/ToastR";
 interface IProps {
   postId: string;
   likeCount: number;
+  isLiked: boolean;
+  type: "post" | "explore";
 }
-export const PostLike: React.FC<IProps> = ({ postId, likeCount }) => {
-  useEffect(() => {}, [postId, likeCount]);
+export const PostLike: React.FC<IProps> = ({
+  postId,
+  likeCount,
+  isLiked,
+  type,
+}) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [isLiked, setIsLiked] = useState(false);
   const token = Cookies.get("token");
+  interface ILike {
+    likeCount: number;
+    isLiked: boolean;
+  }
+  const [like, setLike] = useState<ILike>({
+    likeCount: likeCount,
+    isLiked: isLiked,
+  });
+
+  useEffect(() => {
+    setLike((prevState) => ({
+      ...prevState,
+      ...{ likeCount, isLiked },
+    }));
+  }, [likeCount, isLiked]);
 
   const [displayToast, setDispalyToast] = useState(false);
   const [toastMsg, setToastMsg] = useState("");
@@ -34,7 +54,14 @@ export const PostLike: React.FC<IProps> = ({ postId, likeCount }) => {
       }
     )
       .then((res) => {
-        setIsLiked(res.data.message == "liked post" ? true : false);
+        const isLiked_result = res.data.message == "liked post";
+        const likeCount_result = res.data.likeCount;
+
+        setLike((prevState) => ({
+          ...prevState,
+          likeCount: likeCount_result,
+          isLiked: isLiked_result,
+        }));
       })
       .catch((e) => {
         setToastMsg("خطا در لایک");
@@ -55,14 +82,15 @@ export const PostLike: React.FC<IProps> = ({ postId, likeCount }) => {
         }}
       >
         {isLoading && <Spinner size="sm" className="absolute"></Spinner>}
-        {isLiked ? (
+        {like.isLiked ? (
           <FontAwesomeIcon icon={solidHeart} />
         ) : (
           <FontAwesomeIcon icon={faHeart} />
         )}
       </button>
-
-      <div>{likeCount}</div>
+      <span className={type == "post" ? "block" : "inline-block mr-2"}>
+        {like.likeCount}
+      </span>
     </div>
   );
 };
