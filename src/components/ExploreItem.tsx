@@ -48,7 +48,7 @@ export const ExploreItem: React.FC<IProps> = ({
         <figcaption className="bottom-6 w-100">
           <div className="flex flex-row items-center py-4 px-6 text-xs text-zinc-900">
             <PostComment postId={postId} commentCount={commentCount} />
-            <PostLike postId={postId} likeCount={likeCount} />
+            <PostLike postId={postId} likeCount={likeCount} isLiked={isLiked} type="explore" />
             <PostBookmark postId={postId} bookMarkCount={bookmarkCount} />
           </div>
           <div className="py-4 px-4">
