@@ -10,12 +10,33 @@ import { ToastR } from "./controles/ToastR";
 interface IProps {
   postId: string;
   bookMarkCount: number;
+  isBookMarked: boolean;
+  type: "post" | "explore";
 }
-export const PostBookmark: React.FC<IProps> = ({ postId, bookMarkCount }) => {
-  useEffect(() => {}, [postId, bookMarkCount]);
+export const PostBookmark: React.FC<IProps> = ({
+  postId,
+  bookMarkCount,
+  isBookMarked,
+  type,
+}) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [isLiked, setIsLiked] = useState(false);
   const token = Cookies.get("token");
+  interface IBookmark {
+    bookMarkCount: number;
+    isBookMarked: boolean;
+  }
+  const [bookmark, setBookmark] = useState<IBookmark>({
+    bookMarkCount: bookMarkCount,
+    isBookMarked: isBookMarked,
+  });
+
+  useEffect(() => {
+    setBookmark((prev) => ({
+      ...prev,
+      bookMarkCount,
+      isBookMarked,
+    }));
+  }, [bookMarkCount, isBookMarked]);
 
   const [displayToast, setDispalyToast] = useState(false);
   const [toastMsg, setToastMsg] = useState("");
@@ -34,10 +55,16 @@ export const PostBookmark: React.FC<IProps> = ({ postId, bookMarkCount }) => {
       }
     )
       .then((res) => {
-        setIsLiked(res.data.message == "bookmarked post" ? true : false);
+        const isBookmard_res = res.data.message == "bookmarked post";
+        const bookMarkCount_res = res.data.bookmarkCount;
+        setBookmark((prev) => ({
+          ...prev,
+          bookMarkCount: bookMarkCount_res,
+          isBookMarked: isBookmard_res,
+        }));
       })
       .catch((e) => {
-        setToastMsg("خطا در لایک");
+        setToastMsg("خطا در بوکمارک پست ، دوباره تلاش کنید");
         setToastType("danger");
         setDispalyToast(true);
       })
@@ -45,7 +72,6 @@ export const PostBookmark: React.FC<IProps> = ({ postId, bookMarkCount }) => {
         setIsLoading(false);
       });
   };
-
   return (
     <div className="flex-none w-9 gap-2 relative">
       {displayToast && <ToastR type={toastType}>{toastMsg}</ToastR>}
@@ -56,14 +82,16 @@ export const PostBookmark: React.FC<IProps> = ({ postId, bookMarkCount }) => {
         }}
       >
         {isLoading && <Spinner size="sm" className="absolute"></Spinner>}
-        {isLiked ? (
+        {bookmark.isBookMarked ? (
           <FontAwesomeIcon icon={solidBookmark} />
         ) : (
           <FontAwesomeIcon icon={faBookmark} />
         )}
       </button>
 
-      <div>{bookMarkCount}</div>
+      <span className={type == "post" ? "block" : "inline-block mr-2"}>
+        {bookmark.bookMarkCount}
+      </span>
     </div>
   );
 };

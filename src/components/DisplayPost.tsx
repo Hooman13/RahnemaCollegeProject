@@ -41,6 +41,7 @@ export const DisplayPost: React.FC<IProps> = ({ postId }) => {
     bookMarkCount: number;
     isLiked:boolean;
     mentions: IMentions[];
+    isBookMarked:boolean;
   }
 
   const [post, setpost] = useState<Ipost>({
@@ -59,6 +60,7 @@ export const DisplayPost: React.FC<IProps> = ({ postId }) => {
     bookMarkCount: 0,
     isLiked:false,
     mentions: [],
+    isBookMarked:false,
   });
 
   const getPostDetails = () => {
@@ -158,7 +160,7 @@ export const DisplayPost: React.FC<IProps> = ({ postId }) => {
           </div>
 
           <div className="flex flex-row-reverse items-center h-14 pt-4 mb-8 font-medium text-[#EA5A69]">
-            <PostBookmark postId={postId} bookMarkCount={post.bookMarkCount} />
+            <PostBookmark postId={postId} bookMarkCount={post.bookMarkCount} isBookMarked={post.isBookMarked} type="post"/>
             <PostLike postId={postId} likeCount={post.likeCount} isLiked={post.isLiked} type="post"/>
             <PostComment postId={postId} commentCount={post.commentsCount} />
           </div>
