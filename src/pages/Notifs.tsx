@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import Cookies from "js-cookie";
 import { BaseApi } from "../api/axios";
+import { any, object } from "zod";
 export const Notifs = () => {
   interface IUsers {
     username: string;
@@ -43,9 +44,6 @@ export const Notifs = () => {
     mention?: IMention;
   }
   interface INotifs extends Array<INotif> {}
-  // interface IMentions extends Array<IMention> {}
-  // interface IacceptedFollows extends Array<IacceptedFollow> {}
-  // interface ILikes extends Array<ILike> {}
   const [notifs, setNotifs] = useState<INotifs>([]);
   const token = Cookies.get("token");
   const { username } = useParams();
@@ -73,6 +71,30 @@ export const Notifs = () => {
   useEffect(() => {
     getNotifs();
   }, []);
+
+  // swich case
+  const notifsType = (notif: any, user: any) => {
+    {
+      switch (notif.type) {
+        // case "like":
+        //   return <LikeCard />;
+        case "like":
+          return (
+            <MentionCard
+              user={user.user}
+              createdAt={user.createdAt}
+              isSeen={user.isSeen}
+              post={user.post}
+            />
+          );
+        // case "acceptedFollow":
+        //   return <AcceptedFollowCard />;
+        default:
+          return null;
+      }
+    }
+  };
+
   return (
     <>
       <div className="w-screen  overflow-y-hidden px-7 bg-[#F5F5F5]">
@@ -97,15 +119,9 @@ export const Notifs = () => {
             </div>
             <div className="overflow-y-scroll">
               {Object.values(notifs).map(function (user, index) {
-                return (
-                  <MentionCard
-                    user={user.mention?.user}
-                    createdAt={user.mention?.createdAt}
-                    isSeen={user.mention?.isSeen}
-                    post={user.mention?.post}
-                    key={index}
-                  ></MentionCard>
-                );
+                console.log(notifs[0]);
+
+                return notifsType(notifs[0], user);
               })}
             </div>
           </div>

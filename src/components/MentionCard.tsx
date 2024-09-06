@@ -13,10 +13,10 @@ interface IPost {
   imageUrl: string;
 }
 interface IMention {
-  user?: IUsers;
-  createdAt?: string;
-  isSeen?: boolean;
-  post?: IPost;
+  user: IUsers;
+  createdAt: string;
+  isSeen: boolean;
+  post: IPost;
 }
 
 export const MentionCard: FunctionComponent<PropsWithChildren<IMention>> = ({
@@ -30,6 +30,7 @@ export const MentionCard: FunctionComponent<PropsWithChildren<IMention>> = ({
   const visitProfile = () => {
     navigate(`/profile/${user?.username}`);
   };
+  console.log(post);
 
   return (
     <>
@@ -38,14 +39,14 @@ export const MentionCard: FunctionComponent<PropsWithChildren<IMention>> = ({
           <button onClick={() => visitProfile()}>
             <img
               className="border rounded-full ml-7 w-[56px] h-[56px]"
-              src={post?.imageUrl}
+              src={post.imageUrl}
               // src="../img/person.png"
               alt=""
             />
           </button>
           <div className="grid grid-rows-2 text-right">
             <div className="user-display-name text-sm h-6 font-bold">
-              {user?.fName}
+              {user.fName}
             </div>
             <div className="user-full-name text-xs h-6 font-normal ">
               <p>{createdAt} در تاریخ</p>
