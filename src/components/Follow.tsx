@@ -24,8 +24,8 @@ export const Follow = ({ user }: any) => {
     //       Authorization: `Bearer ${token}`,
     //     },
     //   })
-    fetch("http://37.32.5.72:3000/user-relation/follow/" + user + "/req", {
-      method: "PATCH",
+    fetch("http://37.32.5.72:3000/user-relations/follow/" + user + "/req", {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -33,10 +33,10 @@ export const Follow = ({ user }: any) => {
     })
       .then((response) => {
         if (response.status === 200) {
-          setToastMsg(` با ${user} دوست شدی`);
+          setToastMsg(`درخواست دوستیت برای ${user} ارسال شد`);
           setToastType("success");
           setDispalyToast(true);
-          console.log(response);
+          // changeButton()
         }
       })
       .catch((err) => {
