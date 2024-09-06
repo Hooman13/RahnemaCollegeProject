@@ -97,8 +97,7 @@ export const DisplayPost: React.FC<IProps> = ({ postId }) => {
             <div className="mb-14 h-56 sm:h-64 xl:h-80 2xl:h-96 bg-slate-500 rounded-3xl">
               <Carousel className="rounded-t-lg" dir="ltr">
                 {post.imageInfos.map((item, index) => {
-                  const image =
-                    process.env.REACT_APP_IMAGE_URL + item.url
+                  const image = process.env.REACT_APP_IMAGE_URL + item.url;
                   return (
                     <img
                       key={index}
