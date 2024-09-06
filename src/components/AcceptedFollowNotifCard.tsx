@@ -25,8 +25,8 @@ export const AcceptedFollowNotifCard: FunctionComponent<
 
   return (
     <>
-      <div className="flex justify-between items-center  h-14  text-xl text-center mb-8">
-        <div className="items-center flex justify-start h-14">
+      <div className="flex justify-between items-center text-xl text-center mb-8">
+        <div className="items-center flex justify-start">
           <div>
             <button onClick={() => visitProfile()}>
               <img
