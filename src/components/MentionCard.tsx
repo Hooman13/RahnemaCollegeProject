@@ -51,7 +51,9 @@ export const MentionCard: FunctionComponent<PropsWithChildren<IMention>> = ({
           </div>
           <div className="grid grid-rows-2 text-right">
             <div className="row-span-1 flex text-sm h-6 font-medium">
-              {user.fName} {user.lName} توی اون یکی عکس تگت کرد
+              {user.fName && user.lName
+                ? `${user.fName} ${user.lName} توی اون یکی عکس تگت کرد`
+                : `${user.username} توی اون یکی عکس تگت کرد`}
             </div>
             <div className="text-xs h-6 font-normal ">
               <p>{createdAt} در تاریخ</p>

@@ -52,7 +52,9 @@ export const LikeNotifCard: FunctionComponent<PropsWithChildren<ILike>> = ({
           <div className="grid grid-rows-2 text-right">
             <div className="row-span-1 flex text-sm h-6 font-medium">
               <div>
-                {user.fName} {user.lName} این عکس رو لایک کرده
+                {user.fName && user.lName
+                  ? `${user.fName} ${user.lName} این عکس رو لایک کرده`
+                  : `${user.username} این عکس رو لایک کرده`}
               </div>
               {/* <p>این عکس رو لایک کرده</p> */}
             </div>
