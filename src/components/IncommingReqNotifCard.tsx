@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
 import { FunctionComponent, PropsWithChildren } from "react";
+import { DeleteFollowReq } from "./DeleteFollowReq";
 
 interface IUsers {
   username: string;
@@ -51,6 +52,9 @@ export const IncommingReqNotifCard: FunctionComponent<
             <div className="text-xs h-6 font-normal ">
               <p>{createdAt} در تاریخ</p>
             </div>
+          </div>
+          <div className="mr-20">
+            <DeleteFollowReq user={user.username} />
           </div>
         </div>
       </div>
