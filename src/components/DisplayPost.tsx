@@ -104,7 +104,7 @@ export const DisplayPost: React.FC<IProps> = ({ postId }) => {
                       key={index}
                       src={image}
                       alt="image"
-                      className="rounded-3xl"
+                      className="rounded-3xl object-cover"
                     />
                   );
                 })}
