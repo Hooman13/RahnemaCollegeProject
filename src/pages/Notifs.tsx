@@ -18,26 +18,29 @@ export const Notifs = () => {
     imageUrl: string;
   }
   interface IMention {
+    type: string;
     user: IUsers;
     createdAt: string;
     isSeen: boolean;
     post: IPost;
   }
   interface ILike {
+    type: string;
     user: IUsers;
     createdAt: string;
     isSeen: boolean;
     post: IPost;
   }
   interface IacceptedFollow {
+    type: string;
     user: IUsers;
     createdAt: string;
     isSeen: boolean;
   }
   interface INotif {
-    acceptedFollow: IacceptedFollow;
-    like: ILike;
-    mention: IMention;
+    acceptedFollow?: IacceptedFollow;
+    like?: ILike;
+    mention?: IMention;
   }
   interface INotifs extends Array<INotif> {}
   // interface IMentions extends Array<IMention> {}
@@ -50,7 +53,7 @@ export const Notifs = () => {
   const userInfoEndpoint = username ? `${username}` : userName;
   const getNotifs = async () => {
     try {
-      const data: any = await BaseApi.get("/notif", {
+      const data: any = await BaseApi.get("/dashboard/notif", {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -96,10 +99,10 @@ export const Notifs = () => {
               {Object.values(notifs).map(function (user, index) {
                 return (
                   <MentionCard
-                    user={user.mention.user}
-                    createdAt={user.mention.createdAt}
-                    isSeen={user.mention.isSeen}
-                    post={user.mention.post}
+                    user={user.mention?.user}
+                    createdAt={user.mention?.createdAt}
+                    isSeen={user.mention?.isSeen}
+                    post={user.mention?.post}
                     key={index}
                   ></MentionCard>
                 );
