@@ -7,6 +7,8 @@ import { useEffect } from "react";
 import Cookies from "js-cookie";
 import { BaseApi } from "../api/axios";
 import { any, object } from "zod";
+import { LikeNotifCard } from "../components/LikeNotifCard";
+import { AcceptedFollowNotifCard } from "../components/AcceptedFollowNotifCard";
 export const Notifs = () => {
   interface IUsers {
     username: string;
@@ -38,10 +40,25 @@ export const Notifs = () => {
     createdAt: string;
     isSeen: boolean;
   }
+  interface FollowedBy {
+    type: string;
+    user: IUsers;
+    createdAt: string;
+    isSeen: boolean;
+    followState: string;
+  }
+  interface IncommingReq {
+    type: string;
+    user: IUsers;
+    createdAt: string;
+    isSeen: boolean;
+  }
   interface INotif {
     acceptedFollow?: IacceptedFollow;
     like?: ILike;
     mention?: IMention;
+    incommingReq?: IncommingReq;
+    followedBy?: FollowedBy;
   }
   interface INotifs extends Array<INotif> {}
   const [notifs, setNotifs] = useState<INotifs>([]);
@@ -76,9 +93,16 @@ export const Notifs = () => {
   const notifsType = (notif: any, user: any) => {
     {
       switch (notif.type) {
-        // case "like":
-        //   return <LikeCard />;
         case "like":
+          return (
+            <LikeNotifCard
+              user={user.user}
+              createdAt={user.createdAt}
+              isSeen={user.isSeen}
+              post={user.post}
+            />
+          );
+        case "mention":
           return (
             <MentionCard
               user={user.user}
@@ -87,8 +111,14 @@ export const Notifs = () => {
               post={user.post}
             />
           );
-        // case "acceptedFollow":
-        //   return <AcceptedFollowCard />;
+        case "acceptedFollow":
+          return (
+            <AcceptedFollowNotifCard
+              user={user.user}
+              createdAt={user.createdAt}
+              isSeen={user.isSeen}
+            />
+          );
         default:
           return null;
       }
