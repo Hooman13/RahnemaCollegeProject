@@ -12,6 +12,7 @@ export const AcceptFollowReq: React.FC<PropsWithChildren<IUser>> = ({
   user,
   children,
 }) => {
+  const [followAccepted, setFollowAccepted] = useState(true);
   // show toast after successfully follow someone
   const [displayToast, setDispalyToast] = useState(false);
   const [toastMsg, setToastMsg] = useState("");
@@ -43,6 +44,7 @@ export const AcceptFollowReq: React.FC<PropsWithChildren<IUser>> = ({
           setToastMsg(`درخواست دوستی ${user} رو قبول کردی`);
           setToastType("success");
           setDispalyToast(true);
+          setFollowAccepted(false);
           // changeButton()
         }
       })
@@ -54,13 +56,15 @@ export const AcceptFollowReq: React.FC<PropsWithChildren<IUser>> = ({
     <>
       <section>
         {displayToast && <ToastR type={toastType}>{toastMsg}</ToastR>}
-        <button
-          onClick={handleDeleteFollow}
-          type="button"
-          className="text-sm font-semibold py-1 px-4 bg-[#EA5A69] rounded-[100px] text-white"
-        >
-          قبوله
-        </button>
+        {followAccepted && (
+          <button
+            onClick={handleDeleteFollow}
+            type="button"
+            className="text-sm font-semibold py-1 px-4 bg-[#EA5A69] rounded-[100px] text-white"
+          >
+            قبوله
+          </button>
+        )}
       </section>
     </>
   );
