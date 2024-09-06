@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
 import { FunctionComponent, PropsWithChildren } from "react";
 import { DeleteFollowReq } from "./DeleteFollowReq";
+import { AcceptFollowReq } from "./AcceptFollowReq";
 
 interface IUsers {
   username: string;
@@ -54,7 +55,7 @@ export const IncommingReqNotifCard: FunctionComponent<
             </div>
           </div>
           <div className="mr-20">
-            <DeleteFollowReq user={user.username} />
+            <AcceptFollowReq user={user.username} />
           </div>
         </div>
       </div>
