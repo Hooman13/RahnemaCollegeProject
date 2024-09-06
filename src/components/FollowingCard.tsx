@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { FunctionComponent, PropsWithChildren } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
+import { RemoveFollowing } from "./RemoveFollowing";
 interface IUsers {
   username: string;
   followersCount: number;
@@ -39,8 +40,8 @@ export const FollowingCard: FunctionComponent<PropsWithChildren<IUsers>> = ({
             </div>
           </div>
         </div>
-        <div className="text-[#EA5A69] col-span-2 items-end">
-          <FontAwesomeIcon icon={faEllipsisVertical} />
+        <div>
+          <RemoveFollowing user={username} />
         </div>
       </div>
     </>
