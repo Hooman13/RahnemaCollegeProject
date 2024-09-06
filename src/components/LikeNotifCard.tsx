@@ -34,33 +34,32 @@ export const LikeNotifCard: FunctionComponent<PropsWithChildren<ILike>> = ({
 
   return (
     <>
-      <div className="grid grid-cols-6 justify-between items-center  h-14  text-xl text-center mb-8">
-        <div className="items-center col-span-4 flex justify-start w-[210px] h-14">
-          <button onClick={() => visitProfile()}>
-            <img
-              className="border rounded-full ml-7 w-[56px] h-[56px]"
-              src={
-                post.imageUrl
-                  ? process.env.REACT_APP_IMAGE_URL + post.imageUrl
-                  : "../img/person.png"
-              }
-              alt=""
-            />
-          </button>
-          <div className="grid grid-rows-2 text-right">
-            <div className="row-span-1 flex text-sm h-6 font-bold">
-              <div>
-                {user.fName} {user.lName}
-              </div>
-              <p>این پست رو لایک کرده</p>
-            </div>
-            {/* <div className="user-full-name text-xs h-6 font-normal ">
-              <p>{createdAt} در تاریخ</p>
-            </div> */}
+      <div className="flex justify-between items-center  h-14  text-xl text-center mb-8">
+        <div className="items-center flex justify-start h-14">
+          <div>
+            <button onClick={() => visitProfile()}>
+              <img
+                className="border rounded-full ml-7 w-[56px] h-[56px]"
+                src={
+                  post.imageUrl
+                    ? process.env.REACT_APP_IMAGE_URL + post.imageUrl
+                    : "../img/person.png"
+                }
+                alt=""
+              />
+            </button>
           </div>
-        </div>
-        <div className="text-[#EA5A69] col-span-2 mr-4 items-end">
-          <FontAwesomeIcon icon={faEllipsisVertical} />
+          <div className="grid grid-rows-2 text-right">
+            <div className="row-span-1 flex text-sm h-6 font-medium">
+              <div>
+                {user.fName} {user.lName} این عکس رو لایک کرده
+              </div>
+              {/* <p>این عکس رو لایک کرده</p> */}
+            </div>
+            <div className="text-xs h-6 font-normal ">
+              <p>{createdAt} در تاریخ</p>
+            </div>
+          </div>
         </div>
       </div>
     </>
