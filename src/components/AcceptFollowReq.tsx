@@ -33,7 +33,7 @@ export const AcceptFollowReq: React.FC<PropsWithChildren<IUser>> = ({
     //     },
     //   })
     fetch("http://37.32.5.72:3000/user-relations/follow/" + user, {
-      method: "DELETE",
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,

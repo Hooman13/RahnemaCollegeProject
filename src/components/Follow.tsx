@@ -1,10 +1,17 @@
 import axios from "axios";
 import Cookies from "js-cookie";
-import React, { useState } from "react";
+import React, { useState, PropsWithChildren } from "react";
 import { useEffect } from "react";
 import { ToastR } from "../components/controles/ToastR";
 
-export const Follow = ({ user }: any) => {
+interface IUser {
+  user: string;
+}
+
+export const Follow: React.FC<PropsWithChildren<IUser>> = ({
+  user,
+  children,
+}) => {
   // show toast after successfully follow someone
   const [displayToast, setDispalyToast] = useState(false);
   const [toastMsg, setToastMsg] = useState("");
