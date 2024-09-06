@@ -33,7 +33,7 @@ export const CommentsItem: React.FC<IProps> = ({
           {username}
         </Link>
         <div className="basis-1/6 grow text-[10px] font-bold text-neutral-400">
-          {moment(createdAt, "YYYY/MM/DD").locale("fa").format("MM/DD H:m")}
+          {moment(createdAt, "YYYY/MM/DD").locale("fa").format("MM/DD HH:mm")}
         </div>
         <div className="basis-1/6 grow-0 text-xs font-black text-red-400">
           <button onClick={() => {}}>
