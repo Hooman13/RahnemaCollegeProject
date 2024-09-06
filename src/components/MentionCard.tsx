@@ -34,27 +34,29 @@ export const MentionCard: FunctionComponent<PropsWithChildren<IMention>> = ({
 
   return (
     <>
-      <div className="grid grid-cols-6 justify-between items-center  h-14  text-xl text-center mb-8">
-        <div className="items-center col-span-4 flex justify-start w-[210px] h-14">
-          <button onClick={() => visitProfile()}>
-            <img
-              className="border rounded-full ml-7 w-[56px] h-[56px]"
-              src={post.imageUrl}
-              // src="../img/person.png"
-              alt=""
-            />
-          </button>
+      <div className="flex justify-between items-center  h-14  text-xl text-center mb-8">
+        <div className="items-center flex justify-start h-14">
+          <div>
+            <button onClick={() => visitProfile()}>
+              <img
+                className="border rounded-full ml-7 w-[56px] h-[56px]"
+                src={
+                  post.imageUrl
+                    ? process.env.REACT_APP_IMAGE_URL + post.imageUrl
+                    : "../img/person.png"
+                }
+                alt=""
+              />
+            </button>
+          </div>
           <div className="grid grid-rows-2 text-right">
-            <div className="user-display-name text-sm h-6 font-bold">
-              {user.fName}
+            <div className="row-span-1 flex text-sm h-6 font-medium">
+              {user.fName} {user.lName} توی اون یکی عکس تگت کرد
             </div>
-            <div className="user-full-name text-xs h-6 font-normal ">
+            <div className="text-xs h-6 font-normal ">
               <p>{createdAt} در تاریخ</p>
             </div>
           </div>
-        </div>
-        <div className="text-[#EA5A69] col-span-2 mr-4 items-end">
-          <FontAwesomeIcon icon={faEllipsisVertical} />
         </div>
       </div>
     </>
