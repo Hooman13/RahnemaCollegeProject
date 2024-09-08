@@ -64,7 +64,7 @@ export const ProfileSidebar: FunctionComponent = () => {
         <div>
           <div className="items-center flex h-auto mt-3 mr-6 py-2 ">
             <img
-              className="border rounded-full w-10 2xl:w-14 h-10 2xl:h-14"
+              className="border rounded-full w-10 2xl:w-14 h-10 2xl:h-14 mt-3"
               src={
                 user.data.imageUrl
                   ? process.env.REACT_APP_IMAGE_URL + user.data.imageUrl
