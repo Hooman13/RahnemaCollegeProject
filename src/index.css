@@ -73,3 +73,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html,
+body {
+  @apply bg-[#F5F5F5];
+}
