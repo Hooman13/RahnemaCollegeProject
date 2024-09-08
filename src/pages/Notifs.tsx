@@ -1,16 +1,14 @@
-import { Header } from "../components/Header";
-import { ProfileSidebar } from "../components/ProfileSidebar";
 import { Link, useParams } from "react-router-dom";
 import { MentionCard } from "../components/MentionCard";
 import { useState } from "react";
 import { useEffect } from "react";
 import Cookies from "js-cookie";
 import { BaseApi } from "../api/axios";
-import { any, object } from "zod";
 import { LikeNotifCard } from "../components/LikeNotifCard";
 import { AcceptedFollowNotifCard } from "../components/AcceptedFollowNotifCard";
 import { FollowedByNotifCard } from "../components/FollowedByNotifCard";
 import { IncommingReqNotifCard } from "../components/IncommingReqNotifCard";
+import { PagesLayout } from "./PagesLayout";
 export const Notifs = () => {
   interface IUsers {
     username: string;
@@ -145,37 +143,24 @@ export const Notifs = () => {
   };
 
   return (
-    <>
-      <div className="w-screen min-h-screen  overflow-y-hidden px-7 bg-[#F5F5F5]">
-        {/* header */}
-        <Header />
-        {/* main */}
-        <div className="grid mt-16 overflow-y-hidden grid-cols-12">
-          {/* sideBar */}
-          <div className="col-span-2 pt-2">
-            <ProfileSidebar />
-          </div>
-          <div className="mr-10 grid pt-2 col-span-10 overflow-y-scroll	">
-            <h1 className="text-xl font-medium mb-8">اعلانات</h1>
-            <div className="text-md font-normal mb-16 justify-start flex">
-              <Link to="/notifs">
-                <button className=" ml-10">اعلانات من </button>
-              </Link>
-              |
-              <Link to="/friends-notifs">
-                <button className="text-[#A5A5A5] mr-10">
-                  اعلانات دوستان من
-                </button>
-              </Link>
-            </div>
-            <div className="overflow-y-scroll">
-              {Object.values(notifs).map(function (notif, index) {
-                return notifsType(notif);
-              })}
-            </div>
-          </div>
+    <PagesLayout>
+      <p className="text-xl font-semibold mb-3">اعلانات</p>
+      <div className="w-full bg-inherit flex flex-col justify-center">
+        <div className="text-md font-normal mb-16 justify-start flex">
+          <Link to="/notifs">
+            <button className=" ml-10">اعلانات من </button>
+          </Link>
+          |
+          <Link to="/friends-notifs">
+            <button className="text-[#A5A5A5] mr-10">اعلانات دوستان من</button>
+          </Link>
+        </div>
+        <div className="overflow-y-scroll">
+          {Object.values(notifs).map(function (notif, index) {
+            return notifsType(notif);
+          })}
         </div>
       </div>
-    </>
+    </PagesLayout>
   );
 };
