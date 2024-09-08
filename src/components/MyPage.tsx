@@ -88,8 +88,7 @@ export const MyPage = () => {
     <>
       <div>
         {/* profile informations */}
-        <div className="fixed text-black border-b-2 z-50 border-[#CAC4D0] bg-[#F5F5F5]  w-screen pb-3">
-          <h1 className="mb-3 text-lg font-bold">صفحه من</h1>
+        <div className="text-black border-b-2 z-50 border-[#CAC4D0] bg-[#F5F5F5] sticky top-[64px] pb-3">
           <div className="flex">
             <div className="flex items-center">
               <img
@@ -170,7 +169,7 @@ export const MyPage = () => {
           </div>
         </div>
         {/* posts place */}
-        <div className="mt-40 z-0 bg-inherit py-5">
+        <div className="z-0 bg-inherit py-5">
           <PostsList username={profileUsername} />
         </div>
       </div>
