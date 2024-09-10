@@ -226,7 +226,12 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                     <div className="z-0">
                       <img
                         className="flex relative items-center justify-center  rounded-full w-[60px] h-[60px] border-2"
-                        src={`http://37.32.5.72${user.data.imageUrl}`}
+                        src={
+                          user.data.imageUrl
+                            ? process.env.REACT_APP_IMAGE_URL +
+                              user.data.imageUrl
+                            : "../img/person.png"
+                        }
                         alt=""
                       />
                     </div>
