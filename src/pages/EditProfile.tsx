@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import Cookies from "js-cookie";
 import { UserInfoApi } from "../api/axios";
 import { Spinner } from "flowbite-react";
+import { useQueryClient } from "@tanstack/react-query";
 
 const FormSchema = z.object({
   isPrivate: z.boolean(),
@@ -30,6 +31,7 @@ interface IProps {
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
+  const queryClient = useQueryClient();
   // show toast after successfully profile edited
   const [displayToast, setDispalyToast] = useState(false);
   const [toastMsg, setToastMsg] = useState("");
@@ -127,9 +129,7 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
           setToastMsg("پروفایل با موفقیت ویرایش شد");
           setToastType("success");
           setDispalyToast(true);
-          setTimeout(() => {
-            window.location.reload();
-          }, 1);
+          queryClient.invalidateQueries({ queryKey: [userName, "userInfo"] });
           setTimeout(() => {
             setOpenModal(false);
           }, 2000);

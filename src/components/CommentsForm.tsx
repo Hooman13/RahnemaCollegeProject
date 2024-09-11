@@ -15,6 +15,7 @@ export const CommentsForm: React.FC<IProps> = ({ postId, parentId }) => {
   const queryClient = useQueryClient();
   const [commentInput, setCommentInput] = useState("");
   const token = Cookies.get("token");
+  const userName = Cookies.get("username");
   const commentInputRef = useRef(null);
 
   const mutation = useMutation({
@@ -45,6 +46,20 @@ export const CommentsForm: React.FC<IProps> = ({ postId, parentId }) => {
     e.preventDefault();
     mutation.mutate();
   };
+  interface IUserInfo {
+    bio: string;
+    email: string;
+    fName: string;
+    imageUrl: string;
+    isPrivate: false;
+    lName: string;
+    username: string;
+  }
+  const userInfo: IUserInfo | undefined = queryClient.getQueryData([
+    userName,
+    "userInfo",
+  ]);
+
   return (
     <form
       onSubmit={submitComment}
@@ -53,7 +68,11 @@ export const CommentsForm: React.FC<IProps> = ({ postId, parentId }) => {
       <div className="grow-0">
         <img
           className="w-10 h-10 rounded-full ml-3"
-          src="../img/person.png"
+          src={
+            userInfo?.imageUrl
+              ? process.env.REACT_APP_IMAGE_URL + userInfo?.imageUrl
+              : "../img/person.png"
+          }
           alt=""
         />
       </div>
