@@ -12,32 +12,34 @@ import { FollowingsList } from "../pages/FollowingsList";
 import { EditProfile } from "../pages/EditProfile";
 import { DeleteFollowReq } from "./DeleteFollowReq";
 import { CloseFriendB } from "./CloseFriendB";
+import { useQuery } from "@tanstack/react-query";
+
 
 export const MyPage = () => {
-  interface IUser {
-    bio: string;
-    email: string;
-    fName: string;
-    imageUrl: string;
-    isPrivate: boolean;
-    lName: string;
-    username: string;
-    followersCount: number;
-    postCount: number;
-    followingsCount: number;
-  }
-  const [user, setUser] = useState<IUser>({
-    bio: "",
-    email: "",
-    fName: "",
-    imageUrl: "",
-    isPrivate: false,
-    lName: "",
-    username: "",
-    followersCount: 0,
-    followingsCount: 0,
-    postCount: 0,
-  });
+  // interface IUser {
+  //   bio: string;
+  //   email: string;
+  //   fName: string;
+  //   imageUrl: string;
+  //   isPrivate: boolean;
+  //   lName: string;
+  //   username: string;
+  //   followersCount: number;
+  //   postCount: number;
+  //   followingsCount: number;
+  // }
+  // const [user, setUser] = useState<IUser>({
+  //   bio: "",
+  //   email: "",
+  //   fName: "",
+  //   imageUrl: "",
+  //   isPrivate: false,
+  //   lName: "",
+  //   username: "",
+  //   followersCount: 0,
+  //   followingsCount: 0,
+  //   postCount: 0,
+  // });
   const { username } = useParams();
   const [openFollowingsModal, setOpenFollowingsModal] = useState(false);
   const [openFollowersModal, setOpenFollowersModal] = useState(false);
@@ -49,28 +51,42 @@ export const MyPage = () => {
   const [isMyProfile, setIsMyProfile] = useState(false);
   const token = Cookies.get("token");
 
-  const getProfileData = async () => {
-    try {
-      const data: any = await UserInfoApi.get(`${profileUsername}`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }).then((res) => {
-        const userData = res.data;
-        setUser((prevState) => ({
-          ...prevState,
-          ...userData,
-        }));
-      });
-    } catch (error) {
-      console.log({ error });
-    }
+  // const getProfileData = async () => {
+  //   try {
+  //     const data: any = await UserInfoApi.get(`${profileUsername}`, {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     }).then((res) => {
+  //       const userData = res.data;
+  //       setUser((prevState) => ({
+  //         ...prevState,
+  //         ...userData,
+  //       }));
+  //     });
+  //   } catch (error) {
+  //     console.log({ error });
+  //   }
+  // };
+
+  const getProfileData = () => {
+    return UserInfoApi.get(profileUsername ?? "", {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((res) => res.data);
   };
 
+
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: [profileUsername, "userInfo"],
+    queryFn: getProfileData,
+  });
+
   const checkMyProfile = () => {
-    if (cookieUsername === user.username) {
-      // (username === undefined || username === user.username)
+    if (cookieUsername === data?.username) {
       setIsMyProfile(true);
     } else {
       setIsMyProfile(false);
@@ -82,7 +98,7 @@ export const MyPage = () => {
   }, [profileUsername]);
   useEffect(() => {
     checkMyProfile();
-  }, [user]);
+  }, [data]);
 
   return (
     <>
@@ -94,8 +110,8 @@ export const MyPage = () => {
               <img
                 className="border rounded-full w-[105px] h-[105px]"
                 src={
-                  user.imageUrl
-                    ? process.env.REACT_APP_IMAGE_URL + user.imageUrl
+                  data?.imageUrl
+                    ? process.env.REACT_APP_IMAGE_URL + data?.imageUrl
                     : "../img/person.png"
                 }
                 alt=""
@@ -104,25 +120,25 @@ export const MyPage = () => {
                 <div className="flex">
                   <div className="user-full-name text-base ml-4 text-[#191919]">
                     <span className="text-xl font-bold">
-                      {user.fName} {user.lName}
+                      {data?.fName} {data?.lName}
                     </span>
                     <span className="text-base font-normal mr-4 ">
-                      {user.username}@
+                      {data?.username}@
                     </span>
                   </div>
                   <div className="ml-4">
-                    {!isMyProfile && <Follow user={user.username} />}
+                    {!isMyProfile && <Follow user={data?.username} />}
                   </div>
                   <div>
-                    {!isMyProfile && <DeleteFollowReq user={user.username} />}
+                    {!isMyProfile && <DeleteFollowReq user={data?.username} />}
                   </div>
                   <div>
-                    {!isMyProfile && <CloseFriendB user={user.username} />}
+                    {!isMyProfile && <CloseFriendB user={data?.username} />}
                   </div>
                 </div>
                 <div className="text-base font-normal flex ">
                   <div className="user-followers-details pl-2 text-[#C19008]">
-                    {user?.followersCount}
+                    {data?.followersCount}
                     <button
                       onClick={() => {
                         setOpenFollowersModal(true);
@@ -133,7 +149,7 @@ export const MyPage = () => {
                   </div>
                   |
                   <div className="user-followers-details px-2 text-[#C19008]">
-                    {user?.followingsCount}
+                    {data?.followingsCount}
                     <button
                       onClick={() => {
                         setOpenFollowingsModal(true);
@@ -144,12 +160,12 @@ export const MyPage = () => {
                   </div>
                   |
                   <div className="user-followers-details pr-2">
-                    {user?.postCount}
+                    {data?.postCount}
                     <span className="mx-1">پست</span>
                   </div>
                 </div>
                 <div className="user-followers-details text-sm font-normal w-[377px] text-[#A5A5A5]">
-                  {user.bio}
+                  {data?.bio}
                 </div>
               </div>
             </div>
