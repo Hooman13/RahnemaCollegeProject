@@ -126,8 +126,16 @@ export const MyPage = () => {
               دنبال کردن
             </div>
           );
-        //   case "twoWayBlocked":
-        //     return <UnBlock user={data?.username} />;
+        case "twoWayBlocked":
+          return (
+            <div
+              className="flex items-center text-xs font-semibold
+              py-1 px-5 bg-[#EA5A69] rounded-[100px] text-white"
+            >
+              <FontAwesomeIcon className="ml-2" icon={faPlus} />
+              دنبال کردن
+            </div>
+          );
         default:
           return null;
       }
