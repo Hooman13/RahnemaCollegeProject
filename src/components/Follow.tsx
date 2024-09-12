@@ -5,7 +5,6 @@ import { useEffect } from "react";
 import { ToastR } from "../components/controles/ToastR";
 import { useMutation } from "@tanstack/react-query";
 import { useQueryClient } from "@tanstack/react-query";
-import { BaseApi } from "../api/axios";
 
 interface IUser {
   user: string;
