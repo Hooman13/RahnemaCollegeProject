@@ -14,7 +14,8 @@ import { DeleteFollowReq } from "./DeleteFollowReq";
 import { CloseFriendB } from "./CloseFriendB";
 import { useQuery } from "@tanstack/react-query";
 import { MyPageSkeleton } from "./MyPageSkeleton";
-
+import { useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 
 export const MyPage = () => {
   // interface IUser {
@@ -51,6 +52,7 @@ export const MyPage = () => {
 
   const [isMyProfile, setIsMyProfile] = useState(false);
   const token = Cookies.get("token");
+  const queryClient = useQueryClient();
 
   // const getProfileData = async () => {
   //   try {
@@ -80,7 +82,6 @@ export const MyPage = () => {
     }).then((res) => res.data);
   };
 
-
   const { data, isLoading, isError, error } = useQuery({
     queryKey: [profileUsername, "userInfo"],
     queryFn: getProfileData,
@@ -101,78 +102,118 @@ export const MyPage = () => {
     checkMyProfile();
   }, [data]);
 
+  // swich case
+  const buttonType = (data: any) => {
+    {
+      switch (data?.relationState) {
+        case "notFollowed":
+          return <Follow user={data?.username} />;
+        case "followed":
+          return <UnFollow user={data?.username} />;
+        case "requested":
+          return <DeleteFollowReq user={data?.username} />;
+        // case "followedBy":
+        //   return (
+        //     <FollowedByNotifCard
+        //       user={notif.user}
+        //       createdAt={notif.createdAt}
+        //       isSeen={notif.isSeen}
+        //       followState={notif.followState}
+        //     />
+        //   );
+        // case "incommingReq":
+        //   return (
+        //     <IncommingReqNotifCard
+        //       user={notif.user}
+        //       createdAt={notif.createdAt}
+        //       isSeen={notif.isSeen}
+        //     />
+        //   );
+        default:
+          return null;
+      }
+    }
+  };
+  useEffect(() => {
+    buttonType(data);
+  }, [data?.relationState]);
+
   return (
     <>
       <div>
         {/* profile informations */}
         <div className="text-black border-b-2 z-50 border-[#CAC4D0] bg-[#F5F5F5] sticky top-[64px] pb-3">
           <div className="flex">
-            {isLoading ? (<MyPageSkeleton/>):(
+            {isLoading ? (
+              <MyPageSkeleton />
+            ) : (
               <div className="flex items-center">
-              <img
-                className="border rounded-full w-[105px] h-[105px]"
-                src={
-                  data?.imageUrl
-                    ? process.env.REACT_APP_IMAGE_URL + data?.imageUrl
-                    : "../img/person.png"
-                }
-                alt=""
-              />
-              <div className="grid grid-rows-3 h-[105px] mr-4">
-                <div className="flex">
-                  <div className="user-full-name text-base ml-4 text-[#191919]">
-                    <span className="text-xl font-bold">
-                      {data?.fName} {data?.lName}
-                    </span>
-                    <span className="text-base font-normal mr-4 ">
-                      {data?.username}@
-                    </span>
+                <img
+                  className="border rounded-full w-[105px] h-[105px]"
+                  src={
+                    data?.imageUrl
+                      ? process.env.REACT_APP_IMAGE_URL + data?.imageUrl
+                      : "../img/person.png"
+                  }
+                  alt=""
+                />
+                <div className="grid grid-rows-3 h-[105px] mr-4">
+                  <div className="flex">
+                    <div className="user-full-name text-base ml-4 text-[#191919]">
+                      <span className="text-xl font-bold">
+                        {data?.fName} {data?.lName}
+                      </span>
+                      <span className="text-base font-normal mr-4 ">
+                        {data?.username}@
+                      </span>
+                    </div>
+                    <div className="ml-4">
+                      {!isMyProfile && buttonType(data)}
+                    </div>
+                    {/* <div>
+                      {!isMyProfile && (
+                        <DeleteFollowReq user={data?.username} />
+                      )}
+                    </div> */}
+                    <div>
+                      {!isMyProfile && <CloseFriendB user={data?.username} />}
+                    </div>
                   </div>
-                  <div className="ml-4">
-                    {!isMyProfile && <Follow user={data?.username} />}
+                  <div className="text-base font-normal flex ">
+                    <div className="user-followers-details pl-2 text-[#C19008]">
+                      {data?.followersCount}
+                      <button
+                        onClick={() => {
+                          setOpenFollowersModal(true);
+                        }}
+                      >
+                        <span className="mx-1">دنبال کننده</span>
+                      </button>
+                    </div>
+                    |
+                    <div className="user-followers-details px-2 text-[#C19008]">
+                      {data?.followingsCount}
+                      <button
+                        onClick={() => {
+                          setOpenFollowingsModal(true);
+                        }}
+                      >
+                        <span className="mx-1">دنبال شونده</span>
+                      </button>
+                    </div>
+                    |
+                    <div className="user-followers-details pr-2">
+                      {data?.postCount}
+                      <span className="mx-1">پست</span>
+                    </div>
                   </div>
-                  <div>
-                    {!isMyProfile && <DeleteFollowReq user={data?.username} />}
+                  <div className="user-followers-details text-sm font-normal w-[377px] text-[#A5A5A5]">
+                    {data?.bio}
                   </div>
-                  <div>
-                    {!isMyProfile && <CloseFriendB user={data?.username} />}
-                  </div>
-                </div>
-                <div className="text-base font-normal flex ">
-                  <div className="user-followers-details pl-2 text-[#C19008]">
-                    {data?.followersCount}
-                    <button
-                      onClick={() => {
-                        setOpenFollowersModal(true);
-                      }}
-                    >
-                      <span className="mx-1">دنبال کننده</span>
-                    </button>
-                  </div>
-                  |
-                  <div className="user-followers-details px-2 text-[#C19008]">
-                    {data?.followingsCount}
-                    <button
-                      onClick={() => {
-                        setOpenFollowingsModal(true);
-                      }}
-                    >
-                      <span className="mx-1">دنبال شونده</span>
-                    </button>
-                  </div>
-                  |
-                  <div className="user-followers-details pr-2">
-                    {data?.postCount}
-                    <span className="mx-1">پست</span>
-                  </div>
-                </div>
-                <div className="user-followers-details text-sm font-normal w-[377px] text-[#A5A5A5]">
-                  {data?.bio}
                 </div>
               </div>
-            </div>
             )}
-            
+
             <div className="flex items-center mr-[250px]">
               {isMyProfile && (
                 <button
