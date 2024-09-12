@@ -18,7 +18,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useMutation } from "@tanstack/react-query";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
-import RelationButton from "./RelationButton";
+import { RelationButton } from "./RelationButton";
 
 export const MyPage = () => {
   // interface IUser {
@@ -225,7 +225,14 @@ export const MyPage = () => {
             <div className="flex items-center">
               {!isMyProfile && (
                 <div className="flex">
-                  <div>{!isMyProfile && <RelationButton />}</div>
+                  <div>
+                    {!isMyProfile && (
+                      <RelationButton
+                        user={data?.username}
+                        relation={data.relationState}
+                      />
+                    )}
+                  </div>
 
                   <div className="text-[#EA5A69] text-4xl items-end">
                     <FontAwesomeIcon icon={faEllipsisVertical} />
