@@ -80,7 +80,7 @@ export const DeleteFollowReq: React.FC<PropsWithChildren<IUser>> = ({
         <button
           onClick={handleDeleteFollow}
           type="button"
-          className="text-sm font-semibold py-1 px-4 bg-[#EA5A69] rounded-[100px] text-white"
+          className="text-xs font-semibold py-1 px-6 rounded-[100px] border border-[#EA5A69] text-[#EA5A69]"
         >
           حذف درخواست
         </button>

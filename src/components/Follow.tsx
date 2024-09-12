@@ -5,6 +5,8 @@ import { useEffect } from "react";
 import { ToastR } from "../components/controles/ToastR";
 import { useMutation } from "@tanstack/react-query";
 import { useQueryClient } from "@tanstack/react-query";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 interface IUser {
   user: string;
@@ -87,8 +89,9 @@ export const Follow: React.FC<PropsWithChildren<IUser>> = ({
         <button
           onClick={handleFollow}
           type="button"
-          className="text-sm font-semibold py-1 px-4 bg-[#EA5A69] rounded-[100px] text-white"
+          className="flex items-center text-xs font-semibold py-1 px-5 bg-[#EA5A69] rounded-[100px] text-white"
         >
+          <FontAwesomeIcon className="ml-2" icon={faPlus} />
           دنبال کردن
         </button>
       </section>

@@ -16,6 +16,8 @@ import { useQuery } from "@tanstack/react-query";
 import { MyPageSkeleton } from "./MyPageSkeleton";
 import { useQueryClient } from "@tanstack/react-query";
 import { useMutation } from "@tanstack/react-query";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 export const MyPage = () => {
   // interface IUser {
@@ -114,8 +116,16 @@ export const MyPage = () => {
           return <DeleteFollowReq user={data?.username} />;
         // case "blocked":
         //   return <UnBlock user={data?.username} />;
-        // case "gotBlocked":
-        //   return <div>gotBlocked</div>;
+        case "gotBlocked":
+          return (
+            <div
+              className="flex items-center text-xs font-semibold
+            py-1 px-5 bg-[#EA5A69] rounded-[100px] text-white"
+            >
+              <FontAwesomeIcon className="ml-2" icon={faPlus} />
+              دنبال کردن
+            </div>
+          );
         //   case "twoWayBlocked":
         //     return <UnBlock user={data?.username} />;
         default:
