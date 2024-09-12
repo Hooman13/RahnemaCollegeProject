@@ -11,7 +11,7 @@ import { Follow } from "./Follow";
 
 interface IUser {
   user: string;
-  relation: string;
+  relation?: string;
 }
 
 export const BlockButton: React.FC<PropsWithChildren<IUser>> = ({
@@ -55,7 +55,7 @@ export const BlockButton: React.FC<PropsWithChildren<IUser>> = ({
   };
 
   // swich case
-  const buttonType = (relation: string) => {
+  const buttonType = (relation: string | undefined) => {
     {
       switch (relation) {
         case "blocked":

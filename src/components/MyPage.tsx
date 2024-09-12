@@ -229,7 +229,7 @@ export const MyPage = () => {
                     {!isMyProfile && (
                       <RelationButton
                         user={data?.username}
-                        relation={data.relationState}
+                        relation={data?.relationState}
                       />
                     )}
                   </div>

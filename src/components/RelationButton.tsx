@@ -7,7 +7,7 @@ import React, { useState, PropsWithChildren } from "react";
 
 interface IUser {
   user: string;
-  relation: string;
+  relation?: string;
 }
 
 export const RelationButton: React.FC<PropsWithChildren<IUser>> = ({
