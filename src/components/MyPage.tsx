@@ -225,18 +225,12 @@ export const MyPage = () => {
             <div className="flex items-center">
               {!isMyProfile && (
                 <div className="flex">
-                  <div>
-                    {!isMyProfile && (
-                      <RelationButton
-                        user={data?.username}
-                        relation={data?.relationState}
-                      />
-                    )}
-                  </div>
-
-                  <div className="text-[#EA5A69] text-4xl items-end">
-                    <FontAwesomeIcon icon={faEllipsisVertical} />
-                  </div>
+                  {!isMyProfile && (
+                    <RelationButton
+                      user={data?.username}
+                      relation={data?.relationState}
+                    />
+                  )}
                 </div>
               )}
               {isMyProfile && (
