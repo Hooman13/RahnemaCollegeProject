@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
 import { BlockButton } from "./BlockButton";
 import React, { useState, PropsWithChildren } from "react";
+import { BlockUnBlock } from "./BlockUnblock";
 
 interface IUser {
   user: string;
@@ -46,7 +47,7 @@ export const RelationButton: React.FC<PropsWithChildren<IUser>> = ({
           </MenuItem>
           <MenuItem>
             <div className=" data-[focus]:bg-gray-100">
-              <BlockButton user={user} relation={relation} />
+              <BlockUnBlock user={user} relation={relation} />
             </div>
           </MenuItem>
         </div>

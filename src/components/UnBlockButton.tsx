@@ -13,7 +13,7 @@ interface IUser {
   user: string;
 }
 
-export const BlockButton: React.FC<PropsWithChildren<IUser>> = ({
+export const UnBlockButton: React.FC<PropsWithChildren<IUser>> = ({
   user,
   children,
 }) => {
@@ -35,7 +35,7 @@ export const BlockButton: React.FC<PropsWithChildren<IUser>> = ({
   const mutation = useMutation({
     mutationFn: () => {
       return fetch("http://37.32.5.72:3000/user-relations/blocks/" + user, {
-        method: "POST",
+        method: "DELETE",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -52,6 +52,27 @@ export const BlockButton: React.FC<PropsWithChildren<IUser>> = ({
     mutation.mutate();
   };
 
+  // swich case
+  const buttonType = (relation: string | undefined) => {
+    {
+      switch (relation) {
+        case "blocked":
+          return <div>قبلا بلاک کردی</div>;
+        default:
+          return (
+            <button
+              onClick={handleBlock}
+              type="button"
+              className="flex px-4 py-2 text-xs"
+            >
+              <FontAwesomeIcon icon={faUserLock} />
+              <div className="mr-2">بلاک کردن</div>
+            </button>
+          );
+      }
+    }
+  };
+
   return (
     <>
       <section>
@@ -62,7 +83,7 @@ export const BlockButton: React.FC<PropsWithChildren<IUser>> = ({
           className="flex px-4 py-2 text-xs"
         >
           <FontAwesomeIcon icon={faUserLock} />
-          <div className="mr-2">بلاک کردن</div>
+          <div className="mr-2">آنبلاک کردن</div>
         </button>
       </section>
     </>
