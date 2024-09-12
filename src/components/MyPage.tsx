@@ -13,6 +13,7 @@ import { EditProfile } from "../pages/EditProfile";
 import { DeleteFollowReq } from "./DeleteFollowReq";
 import { CloseFriendB } from "./CloseFriendB";
 import { useQuery } from "@tanstack/react-query";
+import { MyPageSkeleton } from "./MyPageSkeleton";
 
 
 export const MyPage = () => {
@@ -106,7 +107,8 @@ export const MyPage = () => {
         {/* profile informations */}
         <div className="text-black border-b-2 z-50 border-[#CAC4D0] bg-[#F5F5F5] sticky top-[64px] pb-3">
           <div className="flex">
-            <div className="flex items-center">
+            {isLoading ? (<MyPageSkeleton/>):(
+              <div className="flex items-center">
               <img
                 className="border rounded-full w-[105px] h-[105px]"
                 src={
@@ -169,6 +171,8 @@ export const MyPage = () => {
                 </div>
               </div>
             </div>
+            )}
+            
             <div className="flex items-center mr-[250px]">
               {isMyProfile && (
                 <button
