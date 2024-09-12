@@ -178,14 +178,6 @@ export const MyPage = () => {
                     <div className="ml-4">
                       {!isMyProfile && buttonType(data)}
                     </div>
-                    {/* <div>
-                      {!isMyProfile && (
-                        <DeleteFollowReq user={data?.username} />
-                      )}
-                    </div> */}
-                    <div>
-                      {!isMyProfile && <CloseFriendB user={data?.username} />}
-                    </div>
                   </div>
                   <div className="text-base font-normal flex ">
                     <div className="user-followers-details pl-2 text-[#C19008]">

@@ -5,6 +5,7 @@ import { faPlus, faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
 import { BlockButton } from "./BlockButton";
 import React, { useState, PropsWithChildren } from "react";
 import { BlockUnBlock } from "./BlockUnblock";
+import { CloseFriendB } from "./CloseFriendB";
 
 interface IUser {
   user: string;
@@ -38,12 +39,9 @@ export const RelationButton: React.FC<PropsWithChildren<IUser>> = ({
             </a>
           </MenuItem>
           <MenuItem>
-            <a
-              href="#"
-              className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
-            >
-              افزودن به دوستان نزدیک
-            </a>
+            <div className=" data-[focus]:bg-gray-100">
+              <CloseFriendB user={user} relation={relation} />
+            </div>
           </MenuItem>
           <MenuItem>
             <div className=" data-[focus]:bg-gray-100">
