@@ -4,7 +4,7 @@ export const PostItemSkeleton = () => {
       role="status"
       className="relative max-w-sm cursor-pointer rounded-3xl border border-neutral-400 hover:shadow-lg aspect-square transition-transform duration-300 transform hover:scale-105 peer animate-pulse"
     >
-      <div className="rounded-t-3xl aspect-square flex items-center justify-center bg-gray-300 rounded dark:bg-gray-700">
+      <div className="rounded-3xl aspect-square flex items-center justify-center bg-gray-300 dark:bg-gray-700">
         <svg
           className="w-10 h-10 text-gray-200 dark:text-gray-600"
           aria-hidden="true"
