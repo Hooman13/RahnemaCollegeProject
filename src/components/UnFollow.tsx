@@ -1,11 +1,20 @@
 import axios from "axios";
 import Cookies from "js-cookie";
-import React, { useState } from "react";
+import React, { useState, PropsWithChildren } from "react";
 import { useEffect } from "react";
 import { ToastR } from "../components/controles/ToastR";
+import { useMutation } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 
-export const UnFollow = ({ user }: any) => {
-  // show toast after successfully unfollow someone
+interface IUser {
+  user: string;
+}
+
+export const UnFollow: React.FC<PropsWithChildren<IUser>> = ({
+  user,
+  children,
+}) => {
+  // show toast after successfully follow someone
   const [displayToast, setDispalyToast] = useState(false);
   const [toastMsg, setToastMsg] = useState("");
   const [toastType, setToastType] = useState("basic");
@@ -15,28 +24,31 @@ export const UnFollow = ({ user }: any) => {
     }, 3000);
     return () => clearTimeout(timeoutId);
   }, [displayToast]);
-
   const token = Cookies.get("token");
-  const handleUnFollow = () => {
-    fetch("http://37.32.5.72:3000/unfollow/" + user, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => {
-        if (response.status === 200) {
-          setToastMsg(` با ${user} دوست نیستی دیگه`);
-          setToastType("success");
-          setDispalyToast(true);
-          console.log(response);
-        }
-      })
-      .catch((err) => {
-        console.log({ err });
+  const queryClient = useQueryClient();
+  const cookieUsername = Cookies.get("username");
+  const profileUsername = user;
+
+  const mutation = useMutation({
+    mutationFn: () => {
+      return fetch("http://37.32.5.72:3000/user-relations/followings/" + user, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       });
+    },
+  });
+  useEffect(() => {
+    queryClient.invalidateQueries({ queryKey: [profileUsername, "userInfo"] });
+  }, [mutation.isSuccess]);
+
+  const handleUnFollow = (e: any) => {
+    e.preventDefault();
+    mutation.mutate();
   };
+
   return (
     <>
       <section>

@@ -112,23 +112,12 @@ export const MyPage = () => {
           return <UnFollow user={data?.username} />;
         case "requested":
           return <DeleteFollowReq user={data?.username} />;
-        // case "followedBy":
-        //   return (
-        //     <FollowedByNotifCard
-        //       user={notif.user}
-        //       createdAt={notif.createdAt}
-        //       isSeen={notif.isSeen}
-        //       followState={notif.followState}
-        //     />
-        //   );
-        // case "incommingReq":
-        //   return (
-        //     <IncommingReqNotifCard
-        //       user={notif.user}
-        //       createdAt={notif.createdAt}
-        //       isSeen={notif.isSeen}
-        //     />
-        //   );
+        // case "blocked":
+        //   return <UnBlock user={data?.username} />;
+        // case "gotBlocked":
+        //   return <div>gotBlocked</div>;
+        //   case "twoWayBlocked":
+        //     return <UnBlock user={data?.username} />;
         default:
           return null;
       }
