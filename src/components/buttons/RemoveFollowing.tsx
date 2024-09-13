@@ -28,6 +28,7 @@ export const RemoveFollowing: React.FC<PropsWithChildren<IUser>> = ({
     }, 3000);
     return () => clearTimeout(timeoutId);
   }, [displayToast]);
+
   const token = Cookies.get("token");
   const queryClient = useQueryClient();
   const mutation = useMutation({
@@ -52,6 +53,7 @@ export const RemoveFollowing: React.FC<PropsWithChildren<IUser>> = ({
     e.preventDefault();
     mutation.mutate();
   };
+
   return (
     <>
       <section>

@@ -52,6 +52,7 @@ export const RemoveFollower: React.FC<PropsWithChildren<IUser>> = ({
     e.preventDefault();
     mutation.mutate();
   };
+
   return (
     <>
       <section>
