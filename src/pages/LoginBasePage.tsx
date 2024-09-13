@@ -39,7 +39,7 @@ export const LoginBasePage = () => {
             <Route path="/profile/:username?" element={<Profile />} />
             <Route path="/saved" element={<Saved />} />
             <Route path="/messages" element={<Messages />} />
-            <Route path="/search" element={<Search />} />
+            <Route path="/search-people" element={<Search />} />
             <Route path="/explore" element={<Explore />} />
             <Route path="/tags" element={<Tags />} />
             <Route path="/Notifs" element={<Notifs />} />
