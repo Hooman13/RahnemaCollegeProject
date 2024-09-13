@@ -4,7 +4,7 @@ import React, { useState, PropsWithChildren } from "react";
 import { useEffect } from "react";
 import { ToastR } from "../controles/ToastR";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
+import { faUserMinus } from "@fortawesome/free-solid-svg-icons";
 import { useMutation } from "@tanstack/react-query";
 import { useQueryClient } from "@tanstack/react-query";
 
@@ -56,10 +56,13 @@ export const RemoveFollowing: React.FC<PropsWithChildren<IUser>> = ({
     <>
       <section>
         {displayToast && <ToastR type={toastType}>{toastMsg}</ToastR>}
-        <button onClick={handleFollow} type="button">
-          <div className="text-[#EA5A69] col-span-2 mr-4 items-end">
-            <FontAwesomeIcon icon={faEllipsisVertical} />
-          </div>
+        <button
+          onClick={handleFollow}
+          type="button"
+          className="flex px-4 py-2 text-xs"
+        >
+          <FontAwesomeIcon icon={faUserMinus} />
+          <div className="mr-2">حذف از دنبال‌شونده‌ها</div>
         </button>
       </section>
     </>
