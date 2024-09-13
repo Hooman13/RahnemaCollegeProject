@@ -10,7 +10,7 @@ import { UserCard } from "../components/cards/UserCard";
 export const SearchPeaple = () => {
   const token = Cookies.get("token");
   const getPosts = () => {
-    return BaseApi.get("/dashboard/explosre", {
+    return BaseApi.get("/dashboard/explore", {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -67,18 +67,18 @@ export const SearchPeaple = () => {
     <>
       {data?.length ? (
         <div className="grid grid-cols-2 md:grid-cols-3 gap-5 px-2">
-          {/* {data.map(function (item: any, index: any) {
+          {data.map(function (item: any, index: any) {
             return (
-              // <UserCard
-              //  username={data.username},
-              // imageUrl,
-              // fName,
-              // lName,
-              // followersCount,
-              // relationState,
-              // />
+              <UserCard
+                username={data.username}
+                imageUrl={data.imageUrl}
+                fName={data.fName}
+                lName={data.lName}
+                followersCount={data.followersCount}
+                relationState={data.relationState}
+              />
             );
-          })} */}
+          })}
         </div>
       ) : (
         <div className="mt-8 bg-inherit h-full border border-[#CDCDCD] rounded-3xl">
