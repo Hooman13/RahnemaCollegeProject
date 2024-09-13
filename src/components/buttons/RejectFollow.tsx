@@ -57,7 +57,7 @@ export const RejectFollow: React.FC<PropsWithChildren<IUser>> = ({
         <button
           onClick={handleDeleteFollow}
           type="button"
-          className="text-sm font-semibold py-1 px-4 bg-[#EA5A69] rounded-[100px] text-white"
+          className="text-xs font-semibold py-1 px-5 bg-[#EA5A69] rounded-[100px] text-white"
         >
           ازش خوشم نمیاد
         </button>

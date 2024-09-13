@@ -49,6 +49,7 @@ export const Follow: React.FC<PropsWithChildren<IUser>> = ({
   useEffect(() => {
     queryClient.invalidateQueries({ queryKey: [profileUsername, "userInfo"] });
     queryClient.invalidateQueries({ queryKey: ["myNotifs"] });
+    queryClient.invalidateQueries({ queryKey: ["friendsNotifs"] });
   }, [mutation.isSuccess]);
 
   const handleFollow = (e: any) => {

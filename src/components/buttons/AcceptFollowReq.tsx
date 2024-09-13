@@ -42,7 +42,7 @@ export const AcceptFollowReq: React.FC<PropsWithChildren<IUser>> = ({
     },
   });
   useEffect(() => {
-    queryClient.invalidateQueries({ queryKey: [profileUsername, "userInfo"] });
+    queryClient.invalidateQueries({ queryKey: ["myNotifs"] });
   }, [mutation.isSuccess]);
 
   const handleAcceptFollow = (e: any) => {
@@ -58,9 +58,9 @@ export const AcceptFollowReq: React.FC<PropsWithChildren<IUser>> = ({
           <button
             onClick={handleAcceptFollow}
             type="button"
-            className="text-sm font-semibold py-1 px-4 bg-[#EA5A69] rounded-[100px] text-white"
+            className="text-xs font-semibold py-1 px-6 bg-[#EA5A69] rounded-[100px] text-white"
           >
-            قبوله
+            قبولهههه
           </button>
         )}
       </section>
