@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { FunctionComponent, PropsWithChildren } from "react";
+import { TimeAgoDate } from "../../utils/TimeAgoDate";
 
 interface IUsers {
   username: string;
@@ -45,7 +46,7 @@ export const AcceptedFollowNotifCard: FunctionComponent<
                 : `${user.username}  درخواست دوستی‌ات رو قبول کرد`}
             </div>
             <div className="text-xs h-6 font-normal ">
-              <p>{createdAt} در تاریخ</p>
+              <p>{createdAt && TimeAgoDate(createdAt)}</p>
             </div>
           </div>
         </div>

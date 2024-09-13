@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { FunctionComponent, PropsWithChildren } from "react";
 import { RejectFollow } from "../buttons/RejectFollow";
 import { AcceptFollowReq } from "../buttons/AcceptFollowReq";
+import { TimeAgoDate } from "../../utils/TimeAgoDate";
 
 interface IUsers {
   username: string;
@@ -49,7 +50,7 @@ export const IncommingReqNotifCard: FunctionComponent<
               </div>
             </div>
             <div className="text-xs h-6 font-normal ">
-              <p>{createdAt} در تاریخ</p>
+              <p>{createdAt && TimeAgoDate(createdAt)}</p>
             </div>
           </div>
           <div className="flex mr-20">

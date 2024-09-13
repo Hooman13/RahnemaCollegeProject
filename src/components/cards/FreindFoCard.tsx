@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { FunctionComponent, PropsWithChildren } from "react";
 import { Follow } from "../buttons/Follow";
 import { DeleteFollowReq } from "../buttons/DeleteFollowReq";
+import { TimeAgoDate } from "../../utils/TimeAgoDate";
 
 interface IUsers {
   username: string;
@@ -61,7 +62,7 @@ export const FreindFoCard: FunctionComponent<PropsWithChildren<IFollow>> = ({
               </div>
             </div>
             <div className="text-xs h-6 font-normal ">
-              <p>{createdAt} در تاریخ</p>
+              <p>{createdAt && TimeAgoDate(createdAt)}</p>
             </div>
           </div>
           <div className="mr-20">
