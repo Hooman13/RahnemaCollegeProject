@@ -5,6 +5,8 @@ import { useEffect } from "react";
 import { ToastR } from "../controles/ToastR";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
+import { useMutation } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface IUser {
   user: string;
@@ -18,6 +20,7 @@ export const RemoveFollowing: React.FC<PropsWithChildren<IUser>> = ({
   const [displayToast, setDispalyToast] = useState(false);
   const [toastMsg, setToastMsg] = useState("");
   const [toastType, setToastType] = useState("basic");
+  const profileUsername = user;
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       setDispalyToast(false);
@@ -25,32 +28,29 @@ export const RemoveFollowing: React.FC<PropsWithChildren<IUser>> = ({
     return () => clearTimeout(timeoutId);
   }, [displayToast]);
   const token = Cookies.get("token");
-  const handleFollow = () => {
-    // axios
-    //   .patch(`http://37.32.5.72:3000/follow/` + user, {
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       Authorization: `Bearer ${token}`,
-    //     },
-    //   })
-    fetch("http://37.32.5.72:3000/user-relations/followings/" + user, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => {
-        if (response.status === 200) {
-          setToastMsg(`${user} از فالوئینگات حذف شد`);
-          setToastType("success");
-          setDispalyToast(true);
-          // changeButton()
-        }
-      })
-      .catch((err) => {
-        console.log({ err });
+  const queryClient = useQueryClient();
+  const mutation = useMutation({
+    mutationFn: () => {
+      return fetch("http://37.32.5.72:3000/user-relations/followings/" + user, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       });
+    },
+  });
+  useEffect(() => {
+    queryClient.invalidateQueries({ queryKey: [profileUsername, "userInfo"] });
+    queryClient.invalidateQueries({ queryKey: ["myNotifs"] });
+    queryClient.invalidateQueries({ queryKey: ["friendsNotifs"] });
+    queryClient.invalidateQueries({ queryKey: ["FollowersList"] });
+    queryClient.invalidateQueries({ queryKey: ["FollowingsList"] });
+  }, [mutation.isSuccess]);
+
+  const handleFollow = (e: any) => {
+    e.preventDefault();
+    mutation.mutate();
   };
   return (
     <>
