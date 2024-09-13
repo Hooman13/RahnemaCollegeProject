@@ -9,85 +9,28 @@ import { LikeNotifCard } from "../components/cards/LikeNotifCard";
 import { MentionCard } from "../components/cards/MentionCard";
 import { FollowedByNotifCard } from "../components/cards/FollowedByNotifCard";
 import { IncommingReqNotifCard } from "../components/cards/IncommingReqNotifCard";
+import { useQuery } from "@tanstack/react-query";
+
 export const Notifs = () => {
-  interface IUsers {
-    username: string;
-    fName: string;
-    lName: string;
-    imageUrl: string;
-  }
-  interface IPost {
-    postId: string;
-    imageUrl: string;
-  }
-  interface IMention {
-    type: string;
-    user: IUsers;
-    createdAt: string;
-    isSeen: boolean;
-    post: IPost;
-  }
-  interface ILike {
-    type: string;
-    user: IUsers;
-    createdAt: string;
-    isSeen: boolean;
-    post: IPost;
-  }
-  interface IacceptedFollow {
-    type: string;
-    user: IUsers;
-    createdAt: string;
-    isSeen: boolean;
-  }
-  interface IFollowedBy {
-    type: string;
-    user: IUsers;
-    createdAt: string;
-    isSeen: boolean;
-    followState: string;
-  }
-  interface IncommingReq {
-    type: string;
-    user: IUsers;
-    createdAt: string;
-    isSeen: boolean;
-  }
-  interface INotif {
-    acceptedFollow?: IacceptedFollow;
-    like?: ILike;
-    mention?: IMention;
-    incommingReq?: IncommingReq;
-    followedBy?: IFollowedBy;
-  }
-  interface INotifs extends Array<INotif> {}
-  const [notifs, setNotifs] = useState<INotifs>([]);
   const token = Cookies.get("token");
   const { username } = useParams();
   const userName = Cookies.get("username");
   const userInfoEndpoint = username ? `${username}` : userName;
-  const getNotifs = async () => {
-    try {
-      const data: any = await BaseApi.get("/dashboard/notif", {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }).then((res) => {
-        const userNotifs = res.data.notifs;
-        setNotifs((prevState) => ({
-          ...prevState,
-          ...userNotifs,
-        }));
-      });
-    } catch (error) {
-      console.log({ error });
-    }
-  };
 
-  useEffect(() => {
-    getNotifs();
-  }, []);
+  const getNotifs = () => {
+    return BaseApi.get("/dashboard/notif", {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      return res.data;
+    });
+  };
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ["myNotifs"],
+    queryFn: getNotifs,
+  });
 
   // swich case
   const notifsType = (notif: any) => {
@@ -156,9 +99,11 @@ export const Notifs = () => {
           </Link>
         </div>
         <div className="overflow-y-scroll">
-          {Object.values(notifs).map(function (notif, index) {
-            return notifsType(notif);
-          })}
+          {data?.notifs
+            ? Object.values(data.notifs).map(function (notif, index) {
+                return notifsType(notif);
+              })
+            : null}
         </div>
       </div>
     </PagesLayout>

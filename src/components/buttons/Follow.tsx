@@ -31,33 +31,6 @@ export const Follow: React.FC<PropsWithChildren<IUser>> = ({
   const cookieUsername = Cookies.get("username");
 
   const profileUsername = user;
-  // const handleFollow = () => {
-  //   // axios
-  //   //   .patch(`http://37.32.5.72:3000/follow/` + user, {
-  //   //     headers: {
-  //   //       "Content-Type": "application/json",
-  //   //       Authorization: `Bearer ${token}`,
-  //   //     },
-  //   //   })
-  //   fetch("http://37.32.5.72:3000/user-relations/follow/" + user + "/req", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Authorization: `Bearer ${token}`,
-  //     },
-  //   })
-  //     .then((response) => {
-  //       if (response.status === 200) {
-  //         setToastMsg(`درخواست دوستیت برای ${user} ارسال شد`);
-  //         setToastType("success");
-  //         setDispalyToast(true);
-  //         // changeButton()
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       console.log({ err });
-  //     });
-  // };
 
   const mutation = useMutation({
     mutationFn: () => {
@@ -75,6 +48,8 @@ export const Follow: React.FC<PropsWithChildren<IUser>> = ({
   });
   useEffect(() => {
     queryClient.invalidateQueries({ queryKey: [profileUsername, "userInfo"] });
+    queryClient.invalidateQueries({ queryKey: ["myNotifs"] });
+    queryClient.invalidateQueries({ queryKey: ["friendsNotifs"] });
   }, [mutation.isSuccess]);
 
   const handleFollow = (e: any) => {
