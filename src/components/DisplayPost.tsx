@@ -10,7 +10,7 @@ import { PostLike } from "./PostLike";
 import { Comments } from "./Comments";
 import { PostComment } from "./PostComment";
 import Cookies from "js-cookie";
-import moment from "jalali-moment";
+import { TimeAgoDate } from "../utils/TimeAgoDate";
 interface IProps {
   postId: string;
 }
@@ -149,10 +149,7 @@ export const DisplayPost: React.FC<IProps> = ({ postId }) => {
          text-neutral-800 dark:text-gray-400"
           >
             <time title={post.createdAt}>
-              {post.createdAt &&
-                moment(post.createdAt, "YYYY/MM/DD")
-                  .locale("fa")
-                  .format("MM/DD HH:mm")}
+              {post.createdAt && TimeAgoDate(post.createdAt)}
             </time>
           </p>
           <p className="text-sm font-normal text-neutral-800 my-4">

@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faArrowsTurnRight } from "@fortawesome/free-solid-svg-icons";
-import moment from "jalali-moment";
 import { Link } from "react-router-dom";
+import { TimeAgoDate } from "../utils/TimeAgoDate";
 
 interface IProps {
   username: string;
@@ -33,7 +33,7 @@ export const CommentsItem: React.FC<IProps> = ({
           {username}
         </Link>
         <div className="basis-1/6 grow text-[10px] font-bold text-neutral-400">
-          {moment(createdAt, "YYYY/MM/DD").locale("fa").format("MM/DD HH:mm")}
+          {createdAt && TimeAgoDate(createdAt)}
         </div>
         <div className="basis-1/6 grow-0 text-xs font-black text-red-400">
           <button onClick={() => {}}>
