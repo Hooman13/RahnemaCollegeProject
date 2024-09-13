@@ -85,7 +85,7 @@ export const MyPage = () => {
           return (
             <div
               className="flex items-center text-xs font-semibold
-              py-1 px-5 bg-[##A5A5A5] rounded-[100px] text-white"
+              py-1 px-5 bg-[#A5A5A5] rounded-[100px] text-white"
             >
               <FontAwesomeIcon className="ml-2" icon={faPlus} />
               دنبال کردن
