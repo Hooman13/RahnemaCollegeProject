@@ -1,15 +1,20 @@
-import axios from "axios";
 import Cookies from "js-cookie";
 import React, { useState, PropsWithChildren } from "react";
 import { useEffect } from "react";
 import { ToastR } from "../components/controles/ToastR";
+import { useMutation } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
 
 interface IUser {
   user: string;
+  relation?: string;
 }
 
 export const CloseFriendB: React.FC<PropsWithChildren<IUser>> = ({
   user,
+  relation,
   children,
 }) => {
   // show toast after successfully follow someone
@@ -23,45 +28,56 @@ export const CloseFriendB: React.FC<PropsWithChildren<IUser>> = ({
     return () => clearTimeout(timeoutId);
   }, [displayToast]);
   const token = Cookies.get("token");
-  const handleFollow = () => {
-    // axios
-    //   .patch(`http://37.32.5.72:3000/follow/` + user, {
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       Authorization: `Bearer ${token}`,
-    //     },
-    //   })
-    fetch("http://37.32.5.72:3000/user-relations/friends/" + user, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => {
-        if (response.status === 200) {
-          setToastMsg(` کلوز فرند ${user}  شد`);
-          setToastType("success");
-          setDispalyToast(true);
-          // changeButton()
-        }
-      })
-      .catch((err) => {
-        console.log({ err });
+  const queryClient = useQueryClient();
+  const cookieUsername = Cookies.get("username");
+  const profileUsername = user;
+
+  const mutation = useMutation({
+    mutationFn: () => {
+      return fetch("http://37.32.5.72:3000/user-relations/friends/" + user, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       });
+    },
+  });
+  useEffect(() => {
+    queryClient.invalidateQueries({ queryKey: [profileUsername, "userInfo"] });
+  }, [mutation.isSuccess]);
+
+  const handleCloseFriend = (e: any) => {
+    e.preventDefault();
+    mutation.mutate();
   };
+  // swich case
+  const buttonType = (relation: string | undefined) => {
+    {
+      switch (relation) {
+        case "friend":
+          return null;
+        default:
+          return (
+            <section>
+              {displayToast && <ToastR type={toastType}>{toastMsg}</ToastR>}
+              <button
+                onClick={handleCloseFriend}
+                type="button"
+                className="flex px-4 py-2 text-xs"
+              >
+                <FontAwesomeIcon icon={faUserPlus} />
+                <div className="mr-2">افزودن به دوستان نزدیک</div>
+              </button>
+            </section>
+          );
+      }
+    }
+  };
+
   return (
     <>
-      <section>
-        {displayToast && <ToastR type={toastType}>{toastMsg}</ToastR>}
-        <button
-          onClick={handleFollow}
-          type="button"
-          className="mr-5 text-sm font-semibold py-1 px-4 bg-[#EA5A69] rounded-[100px] text-white"
-        >
-          کلوز فرند
-        </button>
-      </section>
+      <section>{buttonType(relation)}</section>
     </>
   );
 };
