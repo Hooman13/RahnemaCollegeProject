@@ -5,7 +5,7 @@ import { BaseApi } from "../api/axios";
 import { Link, useParams } from "react-router-dom";
 import { Button, Modal } from "flowbite-react";
 import { FollowerCard } from "../components/cards/FollowerCard";
-
+import { useQuery } from "@tanstack/react-query";
 interface IProps {
   openModal: boolean;
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -15,44 +15,24 @@ export const FollowersList: React.FC<IProps> = ({
   openModal,
   setOpenModal,
 }) => {
-  interface IUser {
-    username: string;
-    followersCount: number;
-    imageUrl: string;
-  }
-  interface IUsers extends Array<IUser> {}
-  const [followersData, setFollowersData] = useState<IUsers>([]);
   const { username } = useParams();
   const token = Cookies.get("token");
   const userName = Cookies.get("username");
   const followersEndpoint = username ? `${username}` : userName;
-  const getFollowersData = async () => {
-    try {
-      const data: any = await BaseApi.get(
-        "/user-relations/followers/" + followersEndpoint,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      ).then((res) => {
-        const userData = res.data;
-        const followersList = userData.followers;
-        setFollowersData((prevState) => ({
-          ...prevState,
-          ...followersList,
-        }));
-        console.log("followers", followersList);
-      });
-    } catch (error) {
-      console.log({ error });
-    }
+  const getFollowersData = () => {
+    return BaseApi.get("/user-relations/followers/" + followersEndpoint, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      return res.data.followers;
+    });
   };
-
-  useEffect(() => {
-    getFollowersData();
-  }, []);
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ["FollowersList"],
+    queryFn: getFollowersData,
+  });
 
   return (
     <>
@@ -65,20 +45,23 @@ export const FollowersList: React.FC<IProps> = ({
                   دنبال کننده‌ها
                 </div>
                 <div className="overflow-y-scroll">
-                  {Object.values(followersData).map(function (user, index) {
-                    return (
-                      <FollowerCard
-                        username={user.username}
-                        followersCount={user.followersCount}
-                        imageUrl={
-                          user.imageUrl
-                            ? process.env.REACT_APP_IMAGE_URL + user.imageUrl
-                            : "../img/person.png"
-                        }
-                        key={index}
-                      ></FollowerCard>
-                    );
-                  })}
+                  {data
+                    ? Object.values(data).map(function (user: any, index) {
+                        return (
+                          <FollowerCard
+                            username={user.username}
+                            followersCount={user.followersCount}
+                            imageUrl={
+                              user.imageUrl
+                                ? process.env.REACT_APP_IMAGE_URL +
+                                  user.imageUrl
+                                : "../img/person.png"
+                            }
+                            key={index}
+                          ></FollowerCard>
+                        );
+                      })
+                    : null}
                 </div>
                 <div className="flex items-center justify-end text-sm">
                   <div className="text-white text-center mr-1 flex border-solid rounded-2xl bg-[#EA5A69] w-[62px] h-[36px] text-sm justify-center items-center px-[8px] py-[16px] ">
