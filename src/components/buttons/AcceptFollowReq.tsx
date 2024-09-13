@@ -1,8 +1,9 @@
-import axios from "axios";
 import Cookies from "js-cookie";
 import React, { useState, PropsWithChildren } from "react";
 import { useEffect } from "react";
 import { ToastR } from "../controles/ToastR";
+import { useMutation } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface IUser {
   user: string;
@@ -24,41 +25,38 @@ export const AcceptFollowReq: React.FC<PropsWithChildren<IUser>> = ({
     return () => clearTimeout(timeoutId);
   }, [displayToast]);
   const token = Cookies.get("token");
-  const handleDeleteFollow = () => {
-    // axios
-    //   .patch(`http://37.32.5.72:3000/follow/` + user, {
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       Authorization: `Bearer ${token}`,
-    //     },
-    //   })
-    fetch("http://37.32.5.72:3000/user-relations/follow/" + user, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => {
-        if (response.status === 200) {
-          setToastMsg(`درخواست دوستی ${user} رو قبول کردی`);
-          setToastType("success");
-          setDispalyToast(true);
-          setFollowAccepted(false);
-          // changeButton()
-        }
-      })
-      .catch((err) => {
-        console.log({ err });
+  const queryClient = useQueryClient();
+  const cookieUsername = Cookies.get("username");
+
+  const profileUsername = user;
+
+  const mutation = useMutation({
+    mutationFn: () => {
+      return fetch("http://37.32.5.72:3000/user-relations/follow/" + user, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       });
+    },
+  });
+  useEffect(() => {
+    queryClient.invalidateQueries({ queryKey: [profileUsername, "userInfo"] });
+  }, [mutation.isSuccess]);
+
+  const handleAcceptFollow = (e: any) => {
+    e.preventDefault();
+    mutation.mutate();
   };
+
   return (
     <>
       <section>
         {displayToast && <ToastR type={toastType}>{toastMsg}</ToastR>}
         {followAccepted && (
           <button
-            onClick={handleDeleteFollow}
+            onClick={handleAcceptFollow}
             type="button"
             className="text-sm font-semibold py-1 px-4 bg-[#EA5A69] rounded-[100px] text-white"
           >

@@ -29,26 +29,6 @@ export const DeleteFollowReq: React.FC<PropsWithChildren<IUser>> = ({
   const cookieUsername = Cookies.get("username");
 
   const profileUsername = user;
-  // const handleDeleteFollow = () => {
-  //   fetch("http://37.32.5.72:3000/user-relations/follow/" + user + "/req", {
-  //     method: "DELETE",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Authorization: `Bearer ${token}`,
-  //     },
-  //   })
-  //     .then((response) => {
-  //       if (response.status === 200) {
-  //         setToastMsg(`درخواست دوستیت برای ${user} حذف شد`);
-  //         setToastType("success");
-  //         setDispalyToast(true);
-  //         // changeButton()
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       console.log({ err });
-  //     });
-  // };
 
   const mutation = useMutation({
     mutationFn: () => {
@@ -66,6 +46,7 @@ export const DeleteFollowReq: React.FC<PropsWithChildren<IUser>> = ({
   });
   useEffect(() => {
     queryClient.invalidateQueries({ queryKey: [profileUsername, "userInfo"] });
+    queryClient.invalidateQueries({ queryKey: ["myNotifs"] });
   }, [mutation.isSuccess]);
 
   const handleDeleteFollow = (e: any) => {
