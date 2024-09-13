@@ -17,7 +17,8 @@ import { MyPageSkeleton } from "./MyPageSkeleton";
 import { useQueryClient } from "@tanstack/react-query";
 import { useMutation } from "@tanstack/react-query";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
+import { RelationButton } from "./RelationButton";
 
 export const MyPage = () => {
   // interface IUser {
@@ -150,7 +151,7 @@ export const MyPage = () => {
       <div>
         {/* profile informations */}
         <div className="text-black border-b-2 z-50 border-[#CAC4D0] bg-[#F5F5F5] sticky top-[64px] pb-3">
-          <div className="flex">
+          <div className="flex justify-between">
             {isLoading ? (
               <MyPageSkeleton />
             ) : (
@@ -221,7 +222,17 @@ export const MyPage = () => {
               </div>
             )}
 
-            <div className="flex items-center mr-[250px]">
+            <div className="flex items-center">
+              {!isMyProfile && (
+                <div className="flex">
+                  {!isMyProfile && (
+                    <RelationButton
+                      user={data?.username}
+                      relation={data?.relationState}
+                    />
+                  )}
+                </div>
+              )}
               {isMyProfile && (
                 <button
                   type="button"
