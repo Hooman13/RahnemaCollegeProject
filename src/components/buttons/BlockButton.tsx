@@ -29,7 +29,8 @@ export const BlockButton: React.FC<PropsWithChildren<IUser>> = ({
   const token = Cookies.get("token");
   const queryClient = useQueryClient();
   const cookieUsername = Cookies.get("username");
-  const profileUsername = user;
+
+  const profileUsername = cookieUsername;
 
   const mutation = useMutation({
     mutationFn: () => {

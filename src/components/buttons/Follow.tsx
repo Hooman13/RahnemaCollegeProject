@@ -28,9 +28,9 @@ export const Follow: React.FC<PropsWithChildren<IUser>> = ({
   }, [displayToast]);
   const token = Cookies.get("token");
   const queryClient = useQueryClient();
-  const cookieUsername = Cookies.get("username");
 
-  const profileUsername = user;
+  const cookieUsername = Cookies.get("username");
+  const profileUsername = cookieUsername;
 
   const mutation = useMutation({
     mutationFn: () => {

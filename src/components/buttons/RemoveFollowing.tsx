@@ -20,7 +20,8 @@ export const RemoveFollowing: React.FC<PropsWithChildren<IUser>> = ({
   const [displayToast, setDispalyToast] = useState(false);
   const [toastMsg, setToastMsg] = useState("");
   const [toastType, setToastType] = useState("basic");
-  const profileUsername = user;
+  const cookieUsername = Cookies.get("username");
+  const profileUsername = cookieUsername;
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       setDispalyToast(false);

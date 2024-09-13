@@ -26,7 +26,8 @@ export const RemoveFollower: React.FC<PropsWithChildren<IUser>> = ({
     }, 3000);
     return () => clearTimeout(timeoutId);
   }, [displayToast]);
-  const profileUsername = user;
+  const cookieUsername = Cookies.get("username");
+  const profileUsername = cookieUsername;
   const token = Cookies.get("token");
   const queryClient = useQueryClient();
   const mutation = useMutation({
