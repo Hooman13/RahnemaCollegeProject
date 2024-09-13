@@ -1,10 +1,10 @@
-import { FollowerCard } from "../components/FollowerCard";
 import { useState } from "react";
 import { useEffect } from "react";
 import Cookies from "js-cookie";
 import { BaseApi } from "../api/axios";
 import { Link, useParams } from "react-router-dom";
 import { Button, Modal } from "flowbite-react";
+import { FollowerCard } from "../components/cards/FollowerCard";
 
 interface IProps {
   openModal: boolean;

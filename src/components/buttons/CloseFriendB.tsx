@@ -1,20 +1,20 @@
-import axios from "axios";
 import Cookies from "js-cookie";
 import React, { useState, PropsWithChildren } from "react";
 import { useEffect } from "react";
-import { ToastR } from "../components/controles/ToastR";
 import { useMutation } from "@tanstack/react-query";
 import { useQueryClient } from "@tanstack/react-query";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserLock } from "@fortawesome/free-solid-svg-icons";
-import { Follow } from "./Follow";
+import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
+import { ToastR } from "../controles/ToastR";
 
 interface IUser {
   user: string;
+  relation?: string;
 }
 
-export const BlockButton: React.FC<PropsWithChildren<IUser>> = ({
+export const CloseFriendB: React.FC<PropsWithChildren<IUser>> = ({
   user,
+  relation,
   children,
 }) => {
   // show toast after successfully follow someone
@@ -34,7 +34,7 @@ export const BlockButton: React.FC<PropsWithChildren<IUser>> = ({
 
   const mutation = useMutation({
     mutationFn: () => {
-      return fetch("http://37.32.5.72:3000/user-relations/blocks/" + user, {
+      return fetch("http://37.32.5.72:3000/user-relations/friends/" + user, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -47,24 +47,37 @@ export const BlockButton: React.FC<PropsWithChildren<IUser>> = ({
     queryClient.invalidateQueries({ queryKey: [profileUsername, "userInfo"] });
   }, [mutation.isSuccess]);
 
-  const handleBlock = (e: any) => {
+  const handleCloseFriend = (e: any) => {
     e.preventDefault();
     mutation.mutate();
+  };
+  // swich case
+  const buttonType = (relation: string | undefined) => {
+    {
+      switch (relation) {
+        case "friend":
+          return null;
+        default:
+          return (
+            <section>
+              {displayToast && <ToastR type={toastType}>{toastMsg}</ToastR>}
+              <button
+                onClick={handleCloseFriend}
+                type="button"
+                className="flex px-4 py-2 text-xs"
+              >
+                <FontAwesomeIcon icon={faUserPlus} />
+                <div className="mr-2">افزودن به دوستان نزدیک</div>
+              </button>
+            </section>
+          );
+      }
+    }
   };
 
   return (
     <>
-      <section>
-        {displayToast && <ToastR type={toastType}>{toastMsg}</ToastR>}
-        <button
-          onClick={handleBlock}
-          type="button"
-          className="flex px-4 py-2 text-xs"
-        >
-          <FontAwesomeIcon icon={faUserLock} />
-          <div className="mr-2">بلاک کردن</div>
-        </button>
-      </section>
+      <section>{buttonType(relation)}</section>
     </>
   );
 };

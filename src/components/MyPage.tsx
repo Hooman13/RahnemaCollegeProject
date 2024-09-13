@@ -1,50 +1,23 @@
-import styles from "./MyPage.module.css";
 import { Link, useParams } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
 import Cookies from "js-cookie";
 import { UserInfoApi } from "../api/axios";
 import { PostsList } from "./PostList";
-import { Follow } from "./Follow";
-import { UnFollow } from "./UnFollow";
+import { Follow } from "./buttons/Follow";
+import { UnFollow } from "./buttons/UnFollow";
 import { FollowersList } from "../pages/FollowersList";
 import { FollowingsList } from "../pages/FollowingsList";
 import { EditProfile } from "../pages/EditProfile";
-import { DeleteFollowReq } from "./DeleteFollowReq";
-import { CloseFriendB } from "./CloseFriendB";
+import { DeleteFollowReq } from "./buttons/DeleteFollowReq";
 import { useQuery } from "@tanstack/react-query";
 import { MyPageSkeleton } from "./MyPageSkeleton";
 import { useQueryClient } from "@tanstack/react-query";
-import { useMutation } from "@tanstack/react-query";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
-import { RelationButton } from "./RelationButton";
+import { RelationButton } from "./buttons/RelationButton";
 
 export const MyPage = () => {
-  // interface IUser {
-  //   bio: string;
-  //   email: string;
-  //   fName: string;
-  //   imageUrl: string;
-  //   isPrivate: boolean;
-  //   lName: string;
-  //   username: string;
-  //   followersCount: number;
-  //   postCount: number;
-  //   followingsCount: number;
-  // }
-  // const [user, setUser] = useState<IUser>({
-  //   bio: "",
-  //   email: "",
-  //   fName: "",
-  //   imageUrl: "",
-  //   isPrivate: false,
-  //   lName: "",
-  //   username: "",
-  //   followersCount: 0,
-  //   followingsCount: 0,
-  //   postCount: 0,
-  // });
   const { username } = useParams();
   const [openFollowingsModal, setOpenFollowingsModal] = useState(false);
   const [openFollowersModal, setOpenFollowersModal] = useState(false);
@@ -56,25 +29,6 @@ export const MyPage = () => {
   const [isMyProfile, setIsMyProfile] = useState(false);
   const token = Cookies.get("token");
   const queryClient = useQueryClient();
-
-  // const getProfileData = async () => {
-  //   try {
-  //     const data: any = await UserInfoApi.get(`${profileUsername}`, {
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     }).then((res) => {
-  //       const userData = res.data;
-  //       setUser((prevState) => ({
-  //         ...prevState,
-  //         ...userData,
-  //       }));
-  //     });
-  //   } catch (error) {
-  //     console.log({ error });
-  //   }
-  // };
 
   const getProfileData = () => {
     return UserInfoApi.get(profileUsername ?? "", {

@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { BaseApi } from "../api/axios";
 import { useQuery } from "@tanstack/react-query";
 import { ToastR } from "./controles/ToastR";
@@ -41,7 +40,7 @@ export const ExploreList = () => {
     return <h1>خطا:{error.message}</h1>;
   }
 
-  if (data.length==0)
+  if (data.length == 0)
     return (
       <div className="flex-row items-end text-center">
         <div className="mb-8 text-4xl font-bold">

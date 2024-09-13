@@ -2,26 +2,8 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
 import { Link } from "react-router-dom";
-import styles from "./Profile.module.css";
-import { useNavigate } from "react-router-dom";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faThumbTack,
-  faBookmark,
-  faCommentDots,
-  faBell,
-  faTag,
-  faMagnifyingGlass,
-  faGripVertical,
-  faCirclePlus,
-} from "@fortawesome/free-solid-svg-icons";
-import { MyPage } from "../components/MyPage";
-import { useEffect } from "react";
 import Cookies from "js-cookie";
-import { boolean, string } from "zod";
 
 const FormSchema = z.object({
   caption: z.string().optional(),
@@ -41,19 +23,6 @@ export const CaptionPage = () => {
 
   const onSubmit = (data: IFormInput) => {
     console.log(data);
-    // axios
-    //   .post("http://37.32.5.72:3000/", JSON.stringify(data), {
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       Authorization: `Bearer ${token}`,
-    //     },
-    //   })
-    //   .then((response) => {
-    //     // if (response.status === 200) {
-    //     //   handlecaptionSent();
-    //     // }
-    //   })
-    //   .catch((err) => console.log(err));
   };
 
   const [formInput, setFormInput] = useState({

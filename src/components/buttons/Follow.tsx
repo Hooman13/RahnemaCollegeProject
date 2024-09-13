@@ -2,15 +2,17 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import React, { useState, PropsWithChildren } from "react";
 import { useEffect } from "react";
-import { ToastR } from "../components/controles/ToastR";
+import { ToastR } from "../controles/ToastR";
 import { useMutation } from "@tanstack/react-query";
 import { useQueryClient } from "@tanstack/react-query";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 interface IUser {
   user: string;
 }
 
-export const DeleteFollowReq: React.FC<PropsWithChildren<IUser>> = ({
+export const Follow: React.FC<PropsWithChildren<IUser>> = ({
   user,
   children,
 }) => {
@@ -29,9 +31,16 @@ export const DeleteFollowReq: React.FC<PropsWithChildren<IUser>> = ({
   const cookieUsername = Cookies.get("username");
 
   const profileUsername = user;
-  // const handleDeleteFollow = () => {
+  // const handleFollow = () => {
+  //   // axios
+  //   //   .patch(`http://37.32.5.72:3000/follow/` + user, {
+  //   //     headers: {
+  //   //       "Content-Type": "application/json",
+  //   //       Authorization: `Bearer ${token}`,
+  //   //     },
+  //   //   })
   //   fetch("http://37.32.5.72:3000/user-relations/follow/" + user + "/req", {
-  //     method: "DELETE",
+  //     method: "POST",
   //     headers: {
   //       "Content-Type": "application/json",
   //       Authorization: `Bearer ${token}`,
@@ -39,7 +48,7 @@ export const DeleteFollowReq: React.FC<PropsWithChildren<IUser>> = ({
   //   })
   //     .then((response) => {
   //       if (response.status === 200) {
-  //         setToastMsg(`درخواست دوستیت برای ${user} حذف شد`);
+  //         setToastMsg(`درخواست دوستیت برای ${user} ارسال شد`);
   //         setToastType("success");
   //         setDispalyToast(true);
   //         // changeButton()
@@ -55,7 +64,7 @@ export const DeleteFollowReq: React.FC<PropsWithChildren<IUser>> = ({
       return fetch(
         "http://37.32.5.72:3000/user-relations/follow/" + user + "/req",
         {
-          method: "DELETE",
+          method: "POST",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
@@ -68,7 +77,7 @@ export const DeleteFollowReq: React.FC<PropsWithChildren<IUser>> = ({
     queryClient.invalidateQueries({ queryKey: [profileUsername, "userInfo"] });
   }, [mutation.isSuccess]);
 
-  const handleDeleteFollow = (e: any) => {
+  const handleFollow = (e: any) => {
     e.preventDefault();
     mutation.mutate();
   };
@@ -78,11 +87,12 @@ export const DeleteFollowReq: React.FC<PropsWithChildren<IUser>> = ({
       <section>
         {displayToast && <ToastR type={toastType}>{toastMsg}</ToastR>}
         <button
-          onClick={handleDeleteFollow}
+          onClick={handleFollow}
           type="button"
-          className="text-xs font-semibold py-1 px-6 rounded-[100px] border border-[#EA5A69] text-[#EA5A69]"
+          className="flex items-center text-xs font-semibold py-1 px-5 bg-[#EA5A69] rounded-[100px] text-white"
         >
-          حذف درخواست
+          <FontAwesomeIcon className="ml-2" icon={faPlus} />
+          دنبال کردن
         </button>
       </section>
     </>

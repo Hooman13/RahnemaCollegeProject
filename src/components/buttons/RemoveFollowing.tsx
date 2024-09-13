@@ -2,17 +2,18 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import React, { useState, PropsWithChildren } from "react";
 import { useEffect } from "react";
-import { ToastR } from "../components/controles/ToastR";
+import { ToastR } from "../controles/ToastR";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
 
 interface IUser {
   user: string;
 }
 
-export const AcceptFollowReq: React.FC<PropsWithChildren<IUser>> = ({
+export const RemoveFollowing: React.FC<PropsWithChildren<IUser>> = ({
   user,
   children,
 }) => {
-  const [followAccepted, setFollowAccepted] = useState(true);
   // show toast after successfully follow someone
   const [displayToast, setDispalyToast] = useState(false);
   const [toastMsg, setToastMsg] = useState("");
@@ -24,7 +25,7 @@ export const AcceptFollowReq: React.FC<PropsWithChildren<IUser>> = ({
     return () => clearTimeout(timeoutId);
   }, [displayToast]);
   const token = Cookies.get("token");
-  const handleDeleteFollow = () => {
+  const handleFollow = () => {
     // axios
     //   .patch(`http://37.32.5.72:3000/follow/` + user, {
     //     headers: {
@@ -32,8 +33,8 @@ export const AcceptFollowReq: React.FC<PropsWithChildren<IUser>> = ({
     //       Authorization: `Bearer ${token}`,
     //     },
     //   })
-    fetch("http://37.32.5.72:3000/user-relations/follow/" + user, {
-      method: "POST",
+    fetch("http://37.32.5.72:3000/user-relations/followings/" + user, {
+      method: "DELETE",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -41,10 +42,9 @@ export const AcceptFollowReq: React.FC<PropsWithChildren<IUser>> = ({
     })
       .then((response) => {
         if (response.status === 200) {
-          setToastMsg(`درخواست دوستی ${user} رو قبول کردی`);
+          setToastMsg(`${user} از فالوئینگات حذف شد`);
           setToastType("success");
           setDispalyToast(true);
-          setFollowAccepted(false);
           // changeButton()
         }
       })
@@ -56,15 +56,11 @@ export const AcceptFollowReq: React.FC<PropsWithChildren<IUser>> = ({
     <>
       <section>
         {displayToast && <ToastR type={toastType}>{toastMsg}</ToastR>}
-        {followAccepted && (
-          <button
-            onClick={handleDeleteFollow}
-            type="button"
-            className="text-sm font-semibold py-1 px-4 bg-[#EA5A69] rounded-[100px] text-white"
-          >
-            قبوله
-          </button>
-        )}
+        <button onClick={handleFollow} type="button">
+          <div className="text-[#EA5A69] col-span-2 mr-4 items-end">
+            <FontAwesomeIcon icon={faEllipsisVertical} />
+          </div>
+        </button>
       </section>
     </>
   );

@@ -1,20 +1,12 @@
-import { Header } from "../components/Header";
-import { ProfileSidebar } from "../components/ProfileSidebar";
 import { Link, useParams } from "react-router-dom";
-import { MentionCard } from "../components/MentionCard";
 import { useState } from "react";
 import { useEffect } from "react";
 import Cookies from "js-cookie";
 import { BaseApi } from "../api/axios";
-import { any, object } from "zod";
-import { LikeNotifCard } from "../components/LikeNotifCard";
-import { AcceptedFollowNotifCard } from "../components/AcceptedFollowNotifCard";
-import { FollowedByNotifCard } from "../components/FollowedByNotifCard";
-import { IncommingReqNotifCard } from "../components/IncommingReqNotifCard";
-import { FLikeNotifCard } from "../components/FLikeNotifCard";
-import { FreindFoCard } from "../components/FreindFoCard";
-import { CommentNotifCard } from "../components/CommentNotifCard";
+import { FLikeNotifCard } from "../components/cards/FLikeNotifCard";
+import { CommentNotifCard } from "../components/cards/CommentNotifCard";
 import { PagesLayout } from "./PagesLayout";
+import { FreindFoCard } from "../components/cards/FreindFoCard";
 export const FriendsNotif = () => {
   interface IUsers {
     username: string;

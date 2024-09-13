@@ -1,4 +1,3 @@
-import { faBookmark, faComment } from "@fortawesome/free-regular-svg-icons";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { DisplayPostApi } from "../api/axios";
