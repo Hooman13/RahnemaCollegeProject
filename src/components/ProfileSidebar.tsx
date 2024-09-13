@@ -94,7 +94,7 @@ export const ProfileSidebar: FunctionComponent = () => {
             اکسپلور
           </div>
         </Link>
-        <Link to="/search">
+        <Link to="/search-people">
           <div className="w-auto 2xl:text-xl font-normal items-center py-3 flex h-auto pr-9 hover:bg-[#F5F5F5] border-none rounded-[75px] text-center">
             <FontAwesomeIcon className="ml-4" icon={faMagnifyingGlass} />
             جستجو
