@@ -43,6 +43,8 @@ export const AcceptFollowReq: React.FC<PropsWithChildren<IUser>> = ({
   });
   useEffect(() => {
     queryClient.invalidateQueries({ queryKey: ["myNotifs"] });
+    queryClient.invalidateQueries({ queryKey: ["FollowersList"] });
+    queryClient.invalidateQueries({ queryKey: ["FollowingsList"] });
   }, [mutation.isSuccess]);
 
   const handleAcceptFollow = (e: any) => {
