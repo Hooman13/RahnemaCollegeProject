@@ -1,6 +1,7 @@
 import { PagesLayout } from "./PagesLayout";
 import { Link } from "react-router-dom";
 import { ExploreItemSkeleton } from "../components/ExploreItemSkeleton";
+import { SearchPeaple } from "./SearchPeaple";
 
 export const Search = () => {
   return (
@@ -23,7 +24,9 @@ export const Search = () => {
               <button className="text-[#A5A5A5] mr-10">پست‌ها</button>
             </Link>
           </div>
-          <div>{/* <SearchPeaple /> */}</div>
+          <div>
+            <SearchPeaple />
+          </div>
         </div>
       </PagesLayout>
     </>
