@@ -42,7 +42,7 @@ export const ProfileSidebar: FunctionComponent = () => {
 
   return (
     <div className="text-sm rounded-t-[30px] w-full h-full relative">
-      <div className="w-full sticky top-24 bg-white rounded-t-2xl min-h-[90vh]">
+      <div className="border border-[#A5A5A5] w-full sticky top-24 bg-white rounded-t-2xl min-h-[90vh]">
         <div>
           <div className="items-center flex h-auto mt-3 mr-6 py-2 ">
             <img
