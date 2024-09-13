@@ -1,82 +1,48 @@
 import { useState } from "react";
+import { LanguageServiceMode } from "typescript";
+import { useNavigate } from "react-router-dom";
 interface IProps {
-  postId: string;
-  postImage: string;
-  userAvatar: string;
-  userName: string;
-  userFName: string;
-  userFollowersCount: number;
-  commentCount: number;
-  likeCount: number;
-  bookmarkCount: number;
-  isLiked: boolean;
-  isBookmarked: boolean;
+  username: string;
+  imageUrl: string;
+  fName: string;
+  lName: string;
+  followersCount: number;
+  relationState: string;
 }
 export const UserCard: React.FC<IProps> = ({
-  postId,
-  postImage,
-  userAvatar,
-  userFName,
-  userName,
-  bookmarkCount,
-  commentCount,
-  isBookmarked,
-  isLiked,
-  likeCount,
-  userFollowersCount,
+  username,
+  imageUrl,
+  fName,
+  lName,
+  followersCount,
+  relationState,
 }) => {
-  const [openModal, setOpenModal] = useState(false);
-
+  const navigate = useNavigate();
+  const visitProfile = () => {
+    navigate(`/profile/${username}`);
+  };
   return (
     <>
-      <figure
-        onClick={() => setOpenModal(true)}
-        id={postId}
-        className="relative max-w-sm cursor-pointer rounded-3xl border border-neutral-400 hover:shadow-lg aspect-square transition-transform duration-300 transform hover:scale-105 peer"
-      >
-        <img
-          className="rounded-t-3xl aspect-square object-cover "
-          src={postImage}
-          alt=""
-        />
-
-        <figcaption className="bottom-6 w-100">
-          <div className="flex flex-row gap-1 items-center py-4 px-6 text-md text-zinc-900">
-            <PostComment
-              postId={postId}
-              commentCount={commentCount}
-              type="explore"
+      <div className="grid grid-cols-6 justify-between items-center  h-14  text-xl text-center mb-8">
+        <div className="items-center col-span-4 flex justify-start w-[210px] h-14">
+          <button onClick={() => visitProfile()}>
+            <img
+              className="border rounded-full ml-7 w-[56px] h-[56px]"
+              src={imageUrl}
+              alt=""
             />
-            <PostLike
-              postId={postId}
-              likeCount={likeCount}
-              isLiked={isLiked}
-              type="explore"
-            />
-            <PostBookmark
-              postId={postId}
-              bookMarkCount={bookmarkCount}
-              isBookMarked={isBookmarked}
-              type="explore"
-            />
+          </button>
+          <div className="grid grid-rows-2 text-right">
+            <div className="user-display-name text-sm h-6 font-bold">
+              {username}
+            </div>
+            <div className="user-full-name text-xs h-6 font-normal ">
+              <p>{followersCount} دنبال کننده</p>
+            </div>
           </div>
-          <div className="py-4 px-4">
-            <UserAvatar
-              username={userName}
-              fullname={userFName}
-              imgUrl={userAvatar}
-              followersCount={userFollowersCount}
-            />
-          </div>
-        </figcaption>
-      </figure>
-      {openModal && (
-        <PostModal
-          postId={postId}
-          openModal={openModal}
-          setOpenModal={setOpenModal}
-        />
-      )}
+        </div>
+        <div>{/* <RemoveFollower user={username} /> */}</div>
+      </div>
     </>
   );
 };

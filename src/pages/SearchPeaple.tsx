@@ -5,6 +5,7 @@ import { ExploreItemSkeleton } from "../components/ExploreItemSkeleton";
 import { ToastR } from "../components/controles/ToastR";
 import { ExploreItem } from "../components/ExploreItem";
 import { PeopleSkeleton } from "../components/PeopleSkeleton";
+import { UserCard } from "../components/cards/UserCard";
 
 export const SearchPeaple = () => {
   const token = Cookies.get("token");
@@ -66,24 +67,18 @@ export const SearchPeaple = () => {
     <>
       {data?.length ? (
         <div className="grid grid-cols-2 md:grid-cols-3 gap-5 px-2">
-          {data.map(function (item: any, index: any) {
+          {/* {data.map(function (item: any, index: any) {
             return (
-              <ExploreItem
-                postId={item.postId}
-                postImage={process.env.REACT_APP_IMAGE_URL + item.postImage}
-                key={index}
-                userAvatar={item.creator.imageUrl}
-                userName={item.creator.username}
-                userFName={item.creator.fullname}
-                bookmarkCount={item.bookmarkCount}
-                commentCount={item.commentCount}
-                isBookmarked={item.isBookmarked}
-                isLiked={item.isLiked}
-                likeCount={item.likeCount}
-                userFollowersCount={item.creator.followersCount}
-              ></ExploreItem>
+              // <UserCard
+              //  username={data.username},
+              // imageUrl,
+              // fName,
+              // lName,
+              // followersCount,
+              // relationState,
+              // />
             );
-          })}
+          })} */}
         </div>
       ) : (
         <div className="mt-8 bg-inherit h-full border border-[#CDCDCD] rounded-3xl">
