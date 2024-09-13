@@ -1,14 +1,14 @@
 import { Link, useParams } from "react-router-dom";
-import { MentionCard } from "../components/MentionCard";
 import { useState } from "react";
 import { useEffect } from "react";
 import Cookies from "js-cookie";
 import { BaseApi } from "../api/axios";
-import { LikeNotifCard } from "../components/LikeNotifCard";
-import { AcceptedFollowNotifCard } from "../components/AcceptedFollowNotifCard";
-import { FollowedByNotifCard } from "../components/FollowedByNotifCard";
-import { IncommingReqNotifCard } from "../components/IncommingReqNotifCard";
+import { AcceptedFollowNotifCard } from "../components/cards/AcceptedFollowNotifCard";
 import { PagesLayout } from "./PagesLayout";
+import { LikeNotifCard } from "../components/cards/LikeNotifCard";
+import { MentionCard } from "../components/cards/MentionCard";
+import { FollowedByNotifCard } from "../components/cards/FollowedByNotifCard";
+import { IncommingReqNotifCard } from "../components/cards/IncommingReqNotifCard";
 export const Notifs = () => {
   interface IUsers {
     username: string;

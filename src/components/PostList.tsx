@@ -3,7 +3,6 @@ import { PostItem } from "./PostItem";
 import { PostListApi } from "../api/axios";
 import { useQuery } from "@tanstack/react-query";
 import { ToastR } from "./controles/ToastR";
-import { env } from "process";
 import Cookies from "js-cookie";
 import { PostItemSkeleton } from "./PostItemSkeleton";
 interface IPostListProps {

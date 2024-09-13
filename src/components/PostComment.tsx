@@ -1,7 +1,6 @@
 import { faComment } from "@fortawesome/free-regular-svg-icons";
 import { faComment as solidComment } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { DisplayPostApi } from "../api/axios";
 import { Spinner } from "flowbite-react";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";

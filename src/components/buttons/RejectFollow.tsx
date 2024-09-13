@@ -2,7 +2,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import React, { useState, PropsWithChildren } from "react";
 import { useEffect } from "react";
-import { ToastR } from "../components/controles/ToastR";
+import { ToastR } from "../controles/ToastR";
 
 interface IUser {
   user: string;

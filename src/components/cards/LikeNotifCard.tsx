@@ -1,32 +1,34 @@
 import { useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
 import { FunctionComponent, PropsWithChildren } from "react";
 
 interface IUsers {
   username: string;
   fName: string;
   lName: string;
+}
+interface IPost {
+  postId: string;
   imageUrl: string;
 }
 interface ILike {
   user: IUsers;
   createdAt: string;
   isSeen: boolean;
-  postId: string;
+  post: IPost;
 }
 
-export const FLikeNotifCard: FunctionComponent<PropsWithChildren<ILike>> = ({
+export const LikeNotifCard: FunctionComponent<PropsWithChildren<ILike>> = ({
   children,
   user,
   createdAt,
   isSeen,
-  postId,
+  post,
 }) => {
   const navigate = useNavigate();
   const visitProfile = () => {
-    navigate(`/profile/${user?.username}`);
+    navigate(`/post/${post.postId}`);
   };
+  console.log(post);
 
   return (
     <>
@@ -37,8 +39,8 @@ export const FLikeNotifCard: FunctionComponent<PropsWithChildren<ILike>> = ({
               <img
                 className="border rounded-full ml-7 w-[56px] h-[56px]"
                 src={
-                  user.imageUrl
-                    ? process.env.REACT_APP_IMAGE_URL + user.imageUrl
+                  post.imageUrl
+                    ? process.env.REACT_APP_IMAGE_URL + post.imageUrl
                     : "../img/person.png"
                 }
                 alt=""

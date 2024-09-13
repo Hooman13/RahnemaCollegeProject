@@ -2,15 +2,17 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import React, { useState, PropsWithChildren } from "react";
 import { useEffect } from "react";
-import { ToastR } from "../components/controles/ToastR";
+import { ToastR } from "../controles/ToastR";
 import { useMutation } from "@tanstack/react-query";
 import { useQueryClient } from "@tanstack/react-query";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUserLock } from "@fortawesome/free-solid-svg-icons";
 
 interface IUser {
   user: string;
 }
 
-export const UnFollow: React.FC<PropsWithChildren<IUser>> = ({
+export const BlockButton: React.FC<PropsWithChildren<IUser>> = ({
   user,
   children,
 }) => {
@@ -31,8 +33,8 @@ export const UnFollow: React.FC<PropsWithChildren<IUser>> = ({
 
   const mutation = useMutation({
     mutationFn: () => {
-      return fetch("http://37.32.5.72:3000/user-relations/followings/" + user, {
-        method: "DELETE",
+      return fetch("http://37.32.5.72:3000/user-relations/blocks/" + user, {
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -44,7 +46,7 @@ export const UnFollow: React.FC<PropsWithChildren<IUser>> = ({
     queryClient.invalidateQueries({ queryKey: [profileUsername, "userInfo"] });
   }, [mutation.isSuccess]);
 
-  const handleUnFollow = (e: any) => {
+  const handleBlock = (e: any) => {
     e.preventDefault();
     mutation.mutate();
   };
@@ -54,11 +56,12 @@ export const UnFollow: React.FC<PropsWithChildren<IUser>> = ({
       <section>
         {displayToast && <ToastR type={toastType}>{toastMsg}</ToastR>}
         <button
-          onClick={handleUnFollow}
+          onClick={handleBlock}
           type="button"
-          className="text-xs font-semibold py-1 px-6 rounded-[100px] border border-[#EA5A69] text-[#EA5A69]"
+          className="flex px-4 py-2 text-xs"
         >
-          دنبال نکردن
+          <FontAwesomeIcon icon={faUserLock} />
+          <div className="mr-2">بلاک کردن</div>
         </button>
       </section>
     </>

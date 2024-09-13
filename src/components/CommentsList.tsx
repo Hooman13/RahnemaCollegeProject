@@ -10,8 +10,7 @@ interface IProps {
 }
 export const CommentsList: React.FC<IProps> = ({ postId }) => {
   const token = Cookies.get("token");
-  const [parentId, setParentId] = useState(null);
-  
+
   const getPostComments = () => {
     return BaseApi.get(`/posts/${postId}/comments?c=1000`, {
       headers: {
@@ -25,7 +24,6 @@ export const CommentsList: React.FC<IProps> = ({ postId }) => {
     queryKey: [postId, "postComments"],
     queryFn: getPostComments,
   });
-
 
   if (isLoading) return <Spinner aria-label="Loading..." size="sm"></Spinner>;
   if (isError) return <>خطا : {error.message}</>;
@@ -47,7 +45,9 @@ export const CommentsList: React.FC<IProps> = ({ postId }) => {
           );
         })
       ) : (
-        <div className="w-full font-normal text-xs text-center text-zinc-900">کامنتی وجود ندارد</div>
+        <div className="w-full font-normal text-xs text-center text-zinc-900">
+          کامنتی وجود ندارد
+        </div>
       )}
     </>
   );

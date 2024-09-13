@@ -1,8 +1,6 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
-import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
-import { BlockButton } from "./BlockButton";
 import React, { useState, PropsWithChildren } from "react";
 import { BlockUnBlock } from "./BlockUnblock";
 import { CloseFriendB } from "./CloseFriendB";

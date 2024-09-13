@@ -1,10 +1,10 @@
-import { FollowingCard } from "../components/FollowingCard";
 import { Link, useParams } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
 import Cookies from "js-cookie";
 import { BaseApi } from "../api/axios";
 import { Button, Modal } from "flowbite-react";
+import { FollowingCard } from "../components/cards/FollowingCard";
 
 interface IProps {
   openModal: boolean;

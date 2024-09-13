@@ -1,7 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import { FunctionComponent, PropsWithChildren } from "react";
-import { Follow } from "./Follow";
-import { DeleteFollowReq } from "./DeleteFollowReq";
 
 interface IUsers {
   username: string;
@@ -9,26 +7,19 @@ interface IUsers {
   lName: string;
   imageUrl: string;
 }
-interface FUser {
-  username: string;
-  fName: string;
-  lName: string;
-}
-interface IFollow {
+interface ILike {
   user: IUsers;
-  friendUser: FUser;
-  followState: string;
   createdAt: string;
   isSeen: boolean;
+  postId: string;
 }
 
-export const FreindFoCard: FunctionComponent<PropsWithChildren<IFollow>> = ({
+export const FLikeNotifCard: FunctionComponent<PropsWithChildren<ILike>> = ({
   children,
   user,
   createdAt,
-  friendUser,
   isSeen,
-  followState,
+  postId,
 }) => {
   const navigate = useNavigate();
   const visitProfile = () => {
@@ -37,7 +28,7 @@ export const FreindFoCard: FunctionComponent<PropsWithChildren<IFollow>> = ({
 
   return (
     <>
-      <div className="flex justify-between items-center   text-xl text-center mb-8">
+      <div className="flex justify-between items-center  text-xl text-center mb-8">
         <div className="items-center flex justify-start">
           <div>
             <button onClick={() => visitProfile()}>
@@ -56,26 +47,14 @@ export const FreindFoCard: FunctionComponent<PropsWithChildren<IFollow>> = ({
             <div className="row-span-1 flex text-sm h-6 font-medium">
               <div>
                 {user.fName && user.lName
-                  ? `${user.fName} ${user.lName} ${friendUser.fName} ${friendUser.lName} را دنبال کرد `
-                  : `${user.username} ${friendUser.fName} ${friendUser.lName} را دنبال کرد`}
+                  ? `${user.fName} ${user.lName} این عکس رو لایک کرده`
+                  : `${user.username} این عکس رو لایک کرده`}
               </div>
+              {/* <p>این عکس رو لایک کرده</p> */}
             </div>
             <div className="text-xs h-6 font-normal ">
               <p>{createdAt} در تاریخ</p>
             </div>
-          </div>
-          <div className="mr-20">
-            {followState === "notFollowed" ? (
-              <button>
-                <Follow user={user.username} />
-              </button>
-            ) : followState === "requested" ? (
-              <button>
-                <DeleteFollowReq user={user.username} />
-              </button>
-            ) : (
-              ""
-            )}
           </div>
         </div>
       </div>

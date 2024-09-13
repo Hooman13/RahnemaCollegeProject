@@ -1,14 +1,13 @@
 import { useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
 import { FunctionComponent, PropsWithChildren } from "react";
-import { RemoveFollower } from "./RemoveFollower";
+import { RemoveFollowing } from "../buttons/RemoveFollowing";
 interface IUsers {
   username: string;
   followersCount: number;
   imageUrl: string;
 }
-export const FollowerCard: FunctionComponent<PropsWithChildren<IUsers>> = ({
+
+export const FollowingCard: FunctionComponent<PropsWithChildren<IUsers>> = ({
   children,
   username,
   followersCount,
@@ -34,13 +33,13 @@ export const FollowerCard: FunctionComponent<PropsWithChildren<IUsers>> = ({
             <div className="user-display-name text-sm h-6 font-bold">
               {username}
             </div>
-            <div className="user-full-name text-xs h-6 font-normal ">
+            <div className="user-full-name text-xs h-6 font-normal text-black">
               <p>{followersCount} دنبال کننده</p>
             </div>
           </div>
         </div>
         <div>
-          <RemoveFollower user={username} />
+          <RemoveFollowing user={username} />
         </div>
       </div>
     </>

@@ -1,5 +1,4 @@
-import { FunctionComponent, PropsWithChildren } from "react";
-import React, { useState, useEffect } from "react";
+import { FunctionComponent } from "react";
 import Cookies from "js-cookie";
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -18,7 +17,6 @@ import { UserInfoApi } from "../api/axios";
 import { useQuery } from "@tanstack/react-query";
 
 export const ProfileSidebar: FunctionComponent = () => {
-
   const token = Cookies.get("token");
   const userName = Cookies.get("username");
 
@@ -37,7 +35,6 @@ export const ProfileSidebar: FunctionComponent = () => {
     }).then((res) => res.data);
   };
 
-
   const { data, isLoading, isError, error } = useQuery({
     queryKey: [userName, "userInfo"],
     queryFn: getProfileData,
@@ -47,7 +44,6 @@ export const ProfileSidebar: FunctionComponent = () => {
     <div className="text-sm rounded-t-[30px] w-full h-full relative">
       <div className="w-full sticky top-24 bg-white rounded-t-2xl min-h-[90vh]">
         <div>
-
           <div className="items-center flex h-auto mt-3 mr-6 py-2 ">
             <img
               className="border rounded-full w-10 2xl:w-14 h-10 2xl:h-14 mt-3"
