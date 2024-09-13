@@ -3,6 +3,8 @@ import Cookies from "js-cookie";
 import React, { useState, PropsWithChildren } from "react";
 import { useEffect } from "react";
 import { ToastR } from "../components/controles/ToastR";
+import { useMutation } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface IUser {
   user: string;
@@ -23,33 +25,54 @@ export const DeleteFollowReq: React.FC<PropsWithChildren<IUser>> = ({
     return () => clearTimeout(timeoutId);
   }, [displayToast]);
   const token = Cookies.get("token");
-  const handleDeleteFollow = () => {
-    // axios
-    //   .patch(`http://37.32.5.72:3000/follow/` + user, {
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       Authorization: `Bearer ${token}`,
-    //     },
-    //   })
-    fetch("http://37.32.5.72:3000/user-relations/follow/" + user + "/req", {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => {
-        if (response.status === 200) {
-          setToastMsg(`درخواست دوستیت برای ${user} حذف شد`);
-          setToastType("success");
-          setDispalyToast(true);
-          // changeButton()
+  const queryClient = useQueryClient();
+  const cookieUsername = Cookies.get("username");
+
+  const profileUsername = user;
+  // const handleDeleteFollow = () => {
+  //   fetch("http://37.32.5.72:3000/user-relations/follow/" + user + "/req", {
+  //     method: "DELETE",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Authorization: `Bearer ${token}`,
+  //     },
+  //   })
+  //     .then((response) => {
+  //       if (response.status === 200) {
+  //         setToastMsg(`درخواست دوستیت برای ${user} حذف شد`);
+  //         setToastType("success");
+  //         setDispalyToast(true);
+  //         // changeButton()
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       console.log({ err });
+  //     });
+  // };
+
+  const mutation = useMutation({
+    mutationFn: () => {
+      return fetch(
+        "http://37.32.5.72:3000/user-relations/follow/" + user + "/req",
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
         }
-      })
-      .catch((err) => {
-        console.log({ err });
-      });
+      );
+    },
+  });
+  useEffect(() => {
+    queryClient.invalidateQueries({ queryKey: [profileUsername, "userInfo"] });
+  }, [mutation.isSuccess]);
+
+  const handleDeleteFollow = (e: any) => {
+    e.preventDefault();
+    mutation.mutate();
   };
+
   return (
     <>
       <section>
@@ -57,7 +80,7 @@ export const DeleteFollowReq: React.FC<PropsWithChildren<IUser>> = ({
         <button
           onClick={handleDeleteFollow}
           type="button"
-          className="text-sm font-semibold py-1 px-4 bg-[#EA5A69] rounded-[100px] text-white"
+          className="text-xs font-semibold py-1 px-6 rounded-[100px] border border-[#EA5A69] text-[#EA5A69]"
         >
           حذف درخواست
         </button>
