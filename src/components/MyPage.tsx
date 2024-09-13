@@ -65,9 +65,9 @@ export const MyPage = () => {
       switch (data?.relationState) {
         case "notFollowed":
           return <Follow user={data?.username} />;
-        case "followed":
+        case "follow":
           return <UnFollow user={data?.username} />;
-        case "requested":
+        case "requestedFollow":
           return <DeleteFollowReq user={data?.username} />;
         // case "blocked":
         //   return <UnBlock user={data?.username} />;
@@ -75,7 +75,7 @@ export const MyPage = () => {
           return (
             <div
               className="flex items-center text-xs font-semibold
-            py-1 px-5 bg-[#EA5A69] rounded-[100px] text-white"
+            py-1 px-5 bg-[#A5A5A5] rounded-[100px] text-white"
             >
               <FontAwesomeIcon className="ml-2" icon={faPlus} />
               دنبال کردن
@@ -85,7 +85,7 @@ export const MyPage = () => {
           return (
             <div
               className="flex items-center text-xs font-semibold
-              py-1 px-5 bg-[#EA5A69] rounded-[100px] text-white"
+              py-1 px-5 bg-[##A5A5A5] rounded-[100px] text-white"
             >
               <FontAwesomeIcon className="ml-2" icon={faPlus} />
               دنبال کردن
