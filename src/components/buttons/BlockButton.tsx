@@ -29,7 +29,8 @@ export const BlockButton: React.FC<PropsWithChildren<IUser>> = ({
   const token = Cookies.get("token");
   const queryClient = useQueryClient();
   const cookieUsername = Cookies.get("username");
-  const profileUsername = user;
+
+  const profileUsername = cookieUsername;
 
   const mutation = useMutation({
     mutationFn: () => {
@@ -44,6 +45,8 @@ export const BlockButton: React.FC<PropsWithChildren<IUser>> = ({
   });
   useEffect(() => {
     queryClient.invalidateQueries({ queryKey: [profileUsername, "userInfo"] });
+    queryClient.invalidateQueries({ queryKey: ["FollowersList"] });
+    queryClient.invalidateQueries({ queryKey: ["FollowingsList"] });
   }, [mutation.isSuccess]);
 
   const handleBlock = (e: any) => {
