@@ -35,7 +35,7 @@ export const UserCard: React.FC<IProps> = ({
       switch (relationState) {
         case "notFollowed":
           return <Follow user={username} />;
-        case "followed":
+        case "follow":
           return <UnFollow user={username} />;
         case "requestedFollow":
           return <DeleteFollowReq user={username} />;

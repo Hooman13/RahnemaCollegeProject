@@ -44,6 +44,7 @@ export const AcceptFollowReq: React.FC<PropsWithChildren<IUser>> = ({
     queryClient.invalidateQueries({ queryKey: ["myNotifs"] });
     queryClient.invalidateQueries({ queryKey: [profileUsername, "userInfo"] });
     queryClient.invalidateQueries({ queryKey: [user, "userInfo"] });
+    queryClient.invalidateQueries({ queryKey: ["userSearch"] });
     queryClient.invalidateQueries({ queryKey: ["FollowersList"] });
     queryClient.invalidateQueries({ queryKey: ["FollowingsList"] });
   }, [mutation.isSuccess]);
