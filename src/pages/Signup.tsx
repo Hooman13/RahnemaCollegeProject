@@ -197,7 +197,7 @@ export const Signup = () => {
               <div>
                 <button
                   className="font-normal text-sm text-center mt-6 flex border-solid rounded-2xl bg-[#EA5A69]  text-white w-[84px] mr-auto justify-center items-center px-[16px] py-[8px] "
-                  type={"submit"}
+                  type="submit"
                 >
                   {!isLoading && <span>ثبت نام</span>}
                   {isLoading && (

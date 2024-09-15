@@ -6,21 +6,31 @@ import { ToastR } from "../components/controles/ToastR";
 import { ExploreItem } from "../components/ExploreItem";
 import { PeopleSkeleton } from "../components/PeopleSkeleton";
 import { UserCard } from "../components/cards/UserCard";
+import React, { useState, PropsWithChildren } from "react";
 
-export const SearchPeaple = () => {
+interface IUser {
+  user: string;
+}
+
+export const SearchPeaple: React.FC<PropsWithChildren<IUser>> = ({
+  user,
+  children,
+}) => {
   const token = Cookies.get("token");
   const getPosts = () => {
-    return BaseApi.get("/dashboard/explore", {
+    console.log("user:", user);
+    return BaseApi.get("/dashboard/search-users?s=" + user, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
     }).then((res) => {
-      return res.data;
+      console.log("res2", res.data);
+      return res.data.users;
     });
   };
   const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["explore"],
+    queryKey: ["userSearch"],
     queryFn: getPosts,
   });
 
@@ -70,12 +80,16 @@ export const SearchPeaple = () => {
           {data.map(function (item: any, index: any) {
             return (
               <UserCard
-                username={data.username}
-                imageUrl={data.imageUrl}
-                fName={data.fName}
-                lName={data.lName}
-                followersCount={data.followersCount}
-                relationState={data.relationState}
+                username={item.username}
+                imageUrl={
+                  item.imageUrl
+                    ? process.env.REACT_APP_IMAGE_URL + item.imageUrl
+                    : "../img/person.png"
+                }
+                fName={item.fName}
+                lName={item.lName}
+                followersCount={item.followersCount}
+                relationState={item.relationState}
               />
             );
           })}

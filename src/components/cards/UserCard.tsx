@@ -85,15 +85,15 @@ export const UserCard: React.FC<IProps> = ({
           <button onClick={() => visitProfile()}>
             <img
               className="border rounded-full ml-7 w-[56px] h-[56px]"
-              // src={imageUrl}
-              src="./img/person.png"
+              src={imageUrl}
+              // src="./img/person.png"
               alt=""
             />
           </button>
           <div className="grid grid-rows-2 text-right">
             <div className="user-display-name text-sm h-6 font-bold">
-              {/* {username} */}
-              متین دهقان
+              {username}
+              {/* متین دهقان */}
             </div>
             <div className="user-full-name text-xs h-6 font-normal ">
               <p>{followersCount} دنبال کننده</p>
