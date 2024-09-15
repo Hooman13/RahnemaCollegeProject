@@ -70,7 +70,7 @@ export const FreindFoCard: FunctionComponent<PropsWithChildren<IFollow>> = ({
               <button>
                 <Follow user={user.username} />
               </button>
-            ) : followState === "requested" ? (
+            ) : followState === "requestedFollow" ? (
               <button>
                 <DeleteFollowReq user={user.username} />
               </button>
