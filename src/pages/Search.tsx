@@ -59,11 +59,11 @@ export const Search = () => {
                 }
               />
               <button
-                className="absolute left-2 top-1/2 transform -translate-y-1/2"
+                className="absolute left-3 top-1/2 transform -translate-y-1/2"
                 type="submit"
               >
                 <FontAwesomeIcon
-                  className="text-gray-500"
+                  className="text-black"
                   icon={faMagnifyingGlass}
                 />
               </button>
