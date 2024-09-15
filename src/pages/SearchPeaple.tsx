@@ -18,14 +18,12 @@ export const SearchPeaple: React.FC<PropsWithChildren<IUser>> = ({
 }) => {
   const token = Cookies.get("token");
   const getPosts = () => {
-    console.log("user:", user);
     return BaseApi.get("/dashboard/search-users?s=" + user, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
     }).then((res) => {
-      console.log("res2", res.data);
       return res.data.users;
     });
   };

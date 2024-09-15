@@ -8,13 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 const FormSchema = z.object({
-  username: z
-    .string()
-    .min(1, "نام کاربری باید شامل حداقل ۳ حرف باشد")
-    .regex(
-      /^[a-zA-Z0-9_]+$/,
-      " نام کاربری باید فقط شامل حروف و عدد و آندرلاین باشد"
-    ),
+  username: z.string(),
 });
 type IFormInput = z.infer<typeof FormSchema>;
 export const Search = () => {
@@ -38,18 +32,12 @@ export const Search = () => {
       [name]: value,
     });
   };
-  console.log("salam", formInput);
+
   const onSubmit = (data: IFormInput) => {
-    console.log("data", data.username);
     setUsername(data.username);
     setComponentKey((prevKey) => prevKey + 1);
     setShowSearchPeaple(true);
     setTimeout(() => setShowSearchPeaple(true), 0);
-  };
-  console.log("usernameeee", username);
-
-  const reloadPage = () => {
-    window.location.reload();
   };
 
   return (
