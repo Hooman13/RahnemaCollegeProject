@@ -8,7 +8,7 @@ export const Header = () => {
   const [modalSize, setModalSize] = useState<string>("5xl");
   return (
     <header className="relative h-[72px] bg-[#F5F5F5] w-full">
-      <nav className="bg-[#F5F5F5] max-w-7xl mx-auto fixed top-0 z-10 w-full left-1/2 -translate-x-1/2">
+      <nav className="bg-[#F5F5F5] max-w-7xl mx-auto px-4 md:px-10 fixed top-0 z-10 w-full left-1/2 -translate-x-1/2">
         <div className="flex items-center justify-between py-2 px-4">
           <button
             onClick={() => {
