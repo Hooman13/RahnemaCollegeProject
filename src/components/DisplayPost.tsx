@@ -90,10 +90,10 @@ export const DisplayPost: React.FC<IProps> = ({ postId }) => {
 
   return (
     <>
-      <article className="flex flex-row items-start gap-8 mt-8 w-full max-w-2xl format format-sm sm:format-base lg:format-lg format-blue dark:format-invert">
+      <article className="flex flex-row items-start gap-8 mt-8 w-full format format-sm sm:format-base lg:format-lg format-blue dark:format-invert">
         <div className="basis-1/2">
           {post.imageInfos.length && (
-            <div className="mb-14 h-56 sm:h-64 xl:h-80 2xl:h-96 bg-slate-500 rounded-3xl">
+            <div className="mb-14 h-auto xl:h-80 2xl:h-96 bg-slate-500 rounded-3xl">
               <Carousel className="rounded-t-lg" dir="ltr">
                 {post.imageInfos.map((item, index) => {
                   const image = process.env.REACT_APP_IMAGE_URL + item.url;
@@ -102,7 +102,7 @@ export const DisplayPost: React.FC<IProps> = ({ postId }) => {
                       key={index}
                       src={image}
                       alt="image"
-                      className="rounded-3xl h-full w-auto"
+                      className="rounded-3xl h-auto w-full"
                     />
                   );
                 })}
