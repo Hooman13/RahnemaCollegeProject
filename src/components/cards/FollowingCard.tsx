@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { FunctionComponent, PropsWithChildren } from "react";
-import { RemoveFollowing } from "../buttons/RemoveFollowing";
+import { FollowingMenu } from "../FollowingMenu";
 interface IUsers {
   username: string;
   followersCount: number;
@@ -39,7 +39,7 @@ export const FollowingCard: FunctionComponent<PropsWithChildren<IUsers>> = ({
           </div>
         </div>
         <div>
-          <RemoveFollowing user={username} />
+          <FollowingMenu user={username} />
         </div>
       </div>
     </>
