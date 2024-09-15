@@ -49,7 +49,7 @@ export const Search = () => {
           <div className="text-sm font-normal sticky z-50 top-[20px] mb-3">
             <label className="relative bg-white">
               <input
-                className="rounded-[35px] w-[360px] pl-10 pr-12"
+                className="rounded-[35px] border-white w-[360px] pl-10 pr-12"
                 type="text"
                 placeholder="جستجو در افراد، تگ‌ها، واژه‌ها و..."
                 {...register("username")}
