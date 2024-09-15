@@ -28,9 +28,9 @@ export const Follow: React.FC<PropsWithChildren<IUser>> = ({
   }, [displayToast]);
   const token = Cookies.get("token");
   const queryClient = useQueryClient();
-  const cookieUsername = Cookies.get("username");
 
-  const profileUsername = user;
+  const cookieUsername = Cookies.get("username");
+  const profileUsername = cookieUsername;
 
   const mutation = useMutation({
     mutationFn: () => {
@@ -50,6 +50,8 @@ export const Follow: React.FC<PropsWithChildren<IUser>> = ({
     queryClient.invalidateQueries({ queryKey: [profileUsername, "userInfo"] });
     queryClient.invalidateQueries({ queryKey: ["myNotifs"] });
     queryClient.invalidateQueries({ queryKey: ["friendsNotifs"] });
+    queryClient.invalidateQueries({ queryKey: ["FollowersList"] });
+    queryClient.invalidateQueries({ queryKey: ["FollowingsList"] });
   }, [mutation.isSuccess]);
 
   const handleFollow = (e: any) => {

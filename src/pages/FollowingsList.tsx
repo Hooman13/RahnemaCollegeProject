@@ -5,6 +5,7 @@ import Cookies from "js-cookie";
 import { BaseApi } from "../api/axios";
 import { Button, Modal } from "flowbite-react";
 import { FollowingCard } from "../components/cards/FollowingCard";
+import { useQuery } from "@tanstack/react-query";
 
 interface IProps {
   openModal: boolean;
@@ -15,44 +16,31 @@ export const FollowingsList: React.FC<IProps> = ({
   openModal,
   setOpenModal,
 }) => {
-  interface IUser {
-    username: string;
-    followersCount: number;
-    imageUrl: string;
-  }
-  interface IUsers extends Array<IUser> {}
-  const [followingsData, setFollowingsData] = useState<IUsers>([]);
+  // interface IUser {
+  //   username: string;
+  //   followersCount: number;
+  //   imageUrl: string;
+  // }
+  // interface IUsers extends Array<IUser> {}
   const token = Cookies.get("token");
   const { username } = useParams();
   const userName = Cookies.get("username");
   const userInfoEndpoint = username ? `${username}` : userName;
-  const getFollowingsData = async () => {
-    try {
-      const data: any = await BaseApi.get(
-        "/user-relations/followings/" + userInfoEndpoint,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      ).then((res) => {
-        const userData = res.data;
-        const followingsList = userData.followings;
-        setFollowingsData((prevState) => ({
-          ...prevState,
-          ...followingsList,
-        }));
-        console.log("followings", followingsList);
-      });
-    } catch (error) {
-      console.log({ error });
-    }
-  };
 
-  useEffect(() => {
-    getFollowingsData();
-  }, []);
+  const getFollowingsData = () => {
+    return BaseApi.get("/user-relations/followings/" + userInfoEndpoint, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      return res.data.followings;
+    });
+  };
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ["FollowingsList"],
+    queryFn: getFollowingsData,
+  });
 
   return (
     <>
@@ -65,20 +53,22 @@ export const FollowingsList: React.FC<IProps> = ({
                   دنبال شونده ها
                 </div>
                 <div className="overflow-y-scroll">
-                  {Object.values(followingsData).map(function (user, index) {
-                    return (
-                      <FollowingCard
-                        username={user.username}
-                        followersCount={user.followersCount}
-                        imageUrl={
-                          user.imageUrl
-                            ? process.env.REACT_APP_IMAGE_URL + user.imageUrl
-                            : "../img/person.png"
-                        }
-                        key={index}
-                      ></FollowingCard>
-                    );
-                  })}
+                  {data
+                    ? Object.values(data).map(function (user: any, index) {
+                        return (
+                          <FollowingCard
+                            username={user.username}
+                            followersCount={user.followersCount}
+                            imageUrl={
+                              user.imageUrl
+                                ? process.env.REACT_APP_IMAGE_URL +
+                                  user.imageUrl
+                                : "../img/person.png"
+                            }
+                          ></FollowingCard>
+                        );
+                      })
+                    : null}
                 </div>
                 <div className="flex items-center justify-end text-sm">
                   <div className="text-white text-center mr-1 flex border-solid rounded-2xl bg-[#EA5A69] w-[62px] h-[36px] text-sm justify-center items-center px-[8px] py-[16px] ">
