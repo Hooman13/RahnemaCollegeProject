@@ -7,7 +7,7 @@ export const Search = () => {
   return (
     <>
       <PagesLayout>
-        <div className="text-sm font-normal mb-3">
+        <div className="text-sm font-normal sticky z-50 top-[20px] mb-3">
           <input
             type="text"
             className="rounded-[35px] w-[360px]"
