@@ -45,6 +45,7 @@ export const UnBlockButton: React.FC<PropsWithChildren<IUser>> = ({
   });
   useEffect(() => {
     queryClient.invalidateQueries({ queryKey: [profileUsername, "userInfo"] });
+    queryClient.invalidateQueries({ queryKey: ["myNotifs"] });
   }, [mutation.isSuccess]);
 
   const handleBlock = (e: any) => {

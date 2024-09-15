@@ -3,6 +3,10 @@ import Cookies from "js-cookie";
 import React, { useState, PropsWithChildren } from "react";
 import { useEffect } from "react";
 import { ToastR } from "../controles/ToastR";
+import { useMutation } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 interface IUser {
   user: string;
@@ -22,33 +26,33 @@ export const RejectFollow: React.FC<PropsWithChildren<IUser>> = ({
     }, 3000);
     return () => clearTimeout(timeoutId);
   }, [displayToast]);
+
   const token = Cookies.get("token");
-  const handleDeleteFollow = () => {
-    // axios
-    //   .patch(`http://37.32.5.72:3000/follow/` + user, {
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       Authorization: `Bearer ${token}`,
-    //     },
-    //   })
-    fetch("http://37.32.5.72:3000/user-relations/follow/" + user, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => {
-        if (response.status === 200) {
-          setToastMsg(`درخواست ${user} رو رد کردی`);
-          setToastType("success");
-          setDispalyToast(true);
-          // changeButton()
-        }
-      })
-      .catch((err) => {
-        console.log({ err });
+  const queryClient = useQueryClient();
+  const cookieUsername = Cookies.get("username");
+
+  const profileUsername = user;
+
+  const mutation = useMutation({
+    mutationFn: () => {
+      return fetch("http://37.32.5.72:3000/user-relations/follow/" + user, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       });
+    },
+  });
+  useEffect(() => {
+    queryClient.invalidateQueries({ queryKey: [profileUsername, "userInfo"] });
+    queryClient.invalidateQueries({ queryKey: ["myNotifs"] });
+    queryClient.invalidateQueries({ queryKey: ["friendsNotifs"] });
+  }, [mutation.isSuccess]);
+
+  const handleDeleteFollow = (e: any) => {
+    e.preventDefault();
+    mutation.mutate();
   };
   return (
     <>
