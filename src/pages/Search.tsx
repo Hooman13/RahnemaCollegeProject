@@ -6,6 +6,8 @@ import { useState } from "react";
 import { string, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 const FormSchema = z.object({
   username: z.string(),
@@ -45,17 +47,27 @@ export const Search = () => {
       <PagesLayout>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="text-sm font-normal sticky z-50 top-[20px] mb-3">
-            <input
-              type="text"
-              className="rounded-[35px] w-[360px]"
-              placeholder="جستجو در افراد، تگ‌ها، واژه‌ها و..."
-              {...register("username")}
-              value={formInput.username}
-              onChange={({ target }) => {
-                handleUserInput(target.name, target.value);
-              }}
-            />
-            <button type={"submit"}>search</button>
+            <label className="relative bg-white">
+              <input
+                className="rounded-[35px] w-[360px] pl-10 pr-12"
+                type="text"
+                placeholder="جستجو در افراد، تگ‌ها، واژه‌ها و..."
+                {...register("username")}
+                value={formInput.username}
+                onChange={({ target }) =>
+                  handleUserInput(target.name, target.value)
+                }
+              />
+              <button
+                className="absolute left-2 top-1/2 transform -translate-y-1/2"
+                type="submit"
+              >
+                <FontAwesomeIcon
+                  className="text-gray-500"
+                  icon={faMagnifyingGlass}
+                />
+              </button>
+            </label>
           </div>
         </form>
         <div className="w-full bg-inherit flex flex-col justify-center">
