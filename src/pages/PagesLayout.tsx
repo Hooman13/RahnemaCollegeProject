@@ -8,7 +8,7 @@ export const PagesLayout = ({ children }: { children: any }) => {
       {/* header */}
       <Header />
       {/* main */}
-      <section className="max-w-7xl w-full mx-auto px-4 md:px-0">
+      <section className="max-w-7xl w-full mx-auto px-4 md:px-6">
         <div className="grid grid-cols-12 items-start md:gap-[72px]">
           {/* sideBar */}
           <div className="col-span-3 pt-2 h-full relative hidden md:flex">
