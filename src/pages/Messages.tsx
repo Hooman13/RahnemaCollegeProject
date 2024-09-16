@@ -51,9 +51,13 @@ export const Messages = () => {
         </p>
         <div className="w-full bg-inherit flex flex-col justify-center">
           {data
-            ? Object.values(data).map(function (item: any, index) {
+            ? data.map(function (item: IChat, index: number) {
                 return (
-                  <MessageCard contact={item.contact} chatId={item.chatId} />
+                  <MessageCard
+                    contact={item.contact}
+                    chatId={item.chatId}
+                    key={index}
+                  />
                 );
               })
             : null}
