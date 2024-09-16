@@ -32,7 +32,7 @@ export const MessageCard: FunctionComponent<PropsWithChildren<IChat>> = ({
 
   return (
     <>
-      <div className="flex justify-between items-center  text-xl text-center mb-8">
+      <div className="flex items-center  text-xl text-center mb-8">
         <div className="items-center flex justify-start">
           <div>
             {/* <button onClick={() => visitProfile()}> */}
@@ -47,26 +47,28 @@ export const MessageCard: FunctionComponent<PropsWithChildren<IChat>> = ({
             />
             {/* </button> */}
           </div>
-          <div className="grid grid-rows-2 text-right">
-            <div className="row-span-1 flex text-sm h-6 font-medium">
-              <div>
+          <div className="text-right">
+            <div className="flex mb-2 text-sm items-center font-medium">
+              <div className="ml-4">
                 {contact.fName && contact.lName
-                  ? `${contact.fName} ${contact.lName} توی اون یکی عکس تگت کرد`
-                  : `${contact.username} توی اون یکی عکس تگت کرد`}
+                  ? `${contact.fName} ${contact.lName}`
+                  : `${contact.username}`}
               </div>
-              <div className="text-xs h-6 font-normal ">
+              <div className="text-xs font-normal ">
                 <p>
                   {contact.lastMessage.createdAt &&
                     TimeAgoDate(contact.lastMessage.createdAt)}
                 </p>
               </div>
             </div>
-            <div className="text-xs h-6 font-normal ">
+            <div className="text-xs font-normal ">
               {contact.lastMessage.content}
             </div>
           </div>
         </div>
-        <div className="mr-9">{contact.unseenCount}</div>
+        <div className="flex justify-center justify-items-center mr-14 w-6 h-6 border border-[#F6881F] rounded-full bg-[#F6881F] text-base">
+          <p>{contact.unseenCount}</p>
+        </div>
       </div>
     </>
   );
