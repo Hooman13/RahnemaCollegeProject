@@ -3,6 +3,7 @@ import Cookies from "js-cookie";
 import { BaseApi } from "../api/axios";
 import { useQuery } from "@tanstack/react-query";
 import { PagesLayout } from "../pages/PagesLayout";
+import { BlockUserCard } from "./cards/BlockUserCard";
 
 export const BlockList = () => {
   const token = Cookies.get("token");
@@ -38,11 +39,25 @@ export const BlockList = () => {
           </Link>
         </div>
         <div className="overflow-y-scroll">
-          {/* {data?.notifs
-            ? Object.values(data.notifs).map(function (notif, index) {
-                return notifsType(notif);
+          {data?.blocks
+            ? Object.values(data.blocks).map(function (
+                item: any,
+                index: number
+              ) {
+                return (
+                  <BlockUserCard
+                    username={item.username}
+                    followersCount={item.followersCount}
+                    imageUrl={
+                      item.imageUrl
+                        ? process.env.REACT_APP_IMAGE_URL + item.imageUrl
+                        : "../img/person.png"
+                    }
+                    key={index}
+                  />
+                );
               })
-            : null} */}
+            : null}
         </div>
       </div>
     </PagesLayout>
