@@ -34,13 +34,16 @@ export const BlockButton: React.FC<PropsWithChildren<IUser>> = ({
 
   const mutation = useMutation({
     mutationFn: () => {
-      return fetch("http://37.32.5.72:3000/user-relations/blocks/" + user, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      return fetch(
+        process.env.REACT_APP_API_BASE_URL + "user-relations/blocks/" + user,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
     },
   });
   useEffect(() => {

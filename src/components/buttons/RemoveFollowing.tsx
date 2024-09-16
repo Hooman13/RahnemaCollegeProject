@@ -33,13 +33,18 @@ export const RemoveFollowing: React.FC<PropsWithChildren<IUser>> = ({
   const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: () => {
-      return fetch("http://37.32.5.72:3000/user-relations/followings/" + user, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      return fetch(
+        process.env.REACT_APP_API_BASE_URL +
+          "user-relations/followings/" +
+          user,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
     },
   });
   useEffect(() => {
