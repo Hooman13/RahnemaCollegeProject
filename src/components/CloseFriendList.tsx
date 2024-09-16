@@ -29,11 +29,11 @@ export const CloseFriendList = () => {
     <PagesLayout>
       <div className="w-full bg-inherit flex flex-col justify-center">
         <div className="text-md font-normal mb-16 justify-start flex">
-          <Link to="/notifs">
+          <Link to="/close-friend">
             <button className=" ml-10">دوستان نزدیک</button>
           </Link>
           |
-          <Link to="/friends-notifs">
+          <Link to="/block-list">
             <button className="text-[#A5A5A5] mr-10">لیست سیاه</button>
           </Link>
         </div>
