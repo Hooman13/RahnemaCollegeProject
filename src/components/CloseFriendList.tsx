@@ -3,6 +3,7 @@ import Cookies from "js-cookie";
 import { BaseApi } from "../api/axios";
 import { useQuery } from "@tanstack/react-query";
 import { PagesLayout } from "../pages/PagesLayout";
+import { CloseFriendCard } from "./cards/CloseFriendCard";
 
 export const CloseFriendList = () => {
   const token = Cookies.get("token");
@@ -11,7 +12,7 @@ export const CloseFriendList = () => {
   const userInfoEndpoint = username ? `${username}` : userName;
 
   const getNotifs = () => {
-    return BaseApi.get("/user-relations/blocks", {
+    return BaseApi.get("/user-relations/friends", {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -38,11 +39,25 @@ export const CloseFriendList = () => {
           </Link>
         </div>
         <div className="overflow-y-scroll">
-          {/* {data?.notifs
-            ? Object.values(data.notifs).map(function (notif, index) {
-                return notifsType(notif);
+          {data?.friends
+            ? Object.values(data.friends).map(function (
+                item: any,
+                index: number
+              ) {
+                return (
+                  <CloseFriendCard
+                    username={item.username}
+                    followersCount={item.followersCount}
+                    imageUrl={
+                      item.imageUrl
+                        ? process.env.REACT_APP_IMAGE_URL + item.imageUrl
+                        : "../img/person.png"
+                    }
+                    key={index}
+                  />
+                );
               })
-            : null} */}
+            : null}
         </div>
       </div>
     </PagesLayout>
