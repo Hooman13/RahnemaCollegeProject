@@ -4,6 +4,7 @@ import { faPlus, faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
 import React, { useState, PropsWithChildren } from "react";
 import { BlockUnBlock } from "./BlockUnblock";
 import { CloseFriendB } from "./CloseFriendB";
+import { DeleteCloseFriend } from "./DeleteCloseFriend";
 
 interface IUser {
   user: string;
@@ -36,11 +37,19 @@ export const RelationButton: React.FC<PropsWithChildren<IUser>> = ({
               پیام
             </a>
           </MenuItem>
-          <MenuItem>
-            <div className=" data-[focus]:bg-gray-100">
-              <CloseFriendB user={user} relation={relation} />
-            </div>
-          </MenuItem>
+          {relation === "friend" ? (
+            <MenuItem>
+              <div className=" data-[focus]:bg-gray-100">
+                <DeleteCloseFriend user={user} relation={relation} />
+              </div>
+            </MenuItem>
+          ) : relation === "follow" ? (
+            <MenuItem>
+              <div className=" data-[focus]:bg-gray-100">
+                <CloseFriendB user={user} relation={relation} />
+              </div>
+            </MenuItem>
+          ) : null}
           <MenuItem>
             <div className=" data-[focus]:bg-gray-100">
               <BlockUnBlock user={user} relation={relation} />
