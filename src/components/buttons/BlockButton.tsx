@@ -52,6 +52,7 @@ export const BlockButton: React.FC<PropsWithChildren<IUser>> = ({
     queryClient.invalidateQueries({ queryKey: ["userSearch"] });
     queryClient.invalidateQueries({ queryKey: ["FollowersList"] });
     queryClient.invalidateQueries({ queryKey: ["FollowingsList"] });
+    queryClient.invalidateQueries({ queryKey: ["blocklist"] });
   }, [mutation.isSuccess]);
 
   const handleBlock = (e: any) => {
