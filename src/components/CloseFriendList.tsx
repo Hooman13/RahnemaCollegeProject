@@ -11,7 +11,7 @@ export const CloseFriendList = () => {
   const userName = Cookies.get("username");
   const userInfoEndpoint = username ? `${username}` : userName;
 
-  const getNotifs = () => {
+  const getClosefriend = () => {
     return BaseApi.get("/user-relations/friends", {
       headers: {
         "Content-Type": "application/json",
@@ -22,8 +22,8 @@ export const CloseFriendList = () => {
     });
   };
   const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["myNotifs"],
-    queryFn: getNotifs,
+    queryKey: ["closefriend"],
+    queryFn: getClosefriend,
   });
 
   return (
