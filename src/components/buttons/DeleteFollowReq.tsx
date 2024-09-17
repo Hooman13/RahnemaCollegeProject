@@ -33,7 +33,10 @@ export const DeleteFollowReq: React.FC<PropsWithChildren<IUser>> = ({
   const mutation = useMutation({
     mutationFn: () => {
       return fetch(
-        "http://37.32.5.72:3000/user-relations/follow/" + user + "/req",
+        process.env.REACT_APP_API_BASE_URL +
+          "user-relations/follow/" +
+          user +
+          "/req",
         {
           method: "DELETE",
           headers: {
