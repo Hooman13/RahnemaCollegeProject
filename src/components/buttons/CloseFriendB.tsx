@@ -46,6 +46,7 @@ export const CloseFriendB: React.FC<PropsWithChildren<IUser>> = ({
   useEffect(() => {
     queryClient.invalidateQueries({ queryKey: [profileUsername, "userInfo"] });
     queryClient.invalidateQueries({ queryKey: [user, "userInfo"] });
+    queryClient.invalidateQueries({ queryKey: ["userSearch"] });
     queryClient.invalidateQueries({ queryKey: ["myNotifs"] });
   }, [mutation.isSuccess]);
 

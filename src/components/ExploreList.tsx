@@ -14,6 +14,7 @@ export const ExploreList = () => {
         Authorization: `Bearer ${token}`,
       },
     }).then((res) => {
+      console.log("res", res.data);
       return res.data;
     });
   };
