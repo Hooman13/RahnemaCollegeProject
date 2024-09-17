@@ -11,7 +11,7 @@ export const BlockList = () => {
   const userName = Cookies.get("username");
   const userInfoEndpoint = username ? `${username}` : userName;
 
-  const getNotifs = () => {
+  const getBlocklist = () => {
     return BaseApi.get("/user-relations/blocks", {
       headers: {
         "Content-Type": "application/json",
@@ -22,8 +22,8 @@ export const BlockList = () => {
     });
   };
   const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["myNotifs"],
-    queryFn: getNotifs,
+    queryKey: ["blocklist"],
+    queryFn: getBlocklist,
   });
 
   return (
