@@ -37,7 +37,7 @@ export const UserCard: React.FC<IProps> = ({
           return <Follow user={username} />;
         case "followed":
           return <UnFollow user={username} />;
-        case "requested":
+        case "requestedFollow":
           return <DeleteFollowReq user={username} />;
         // case "blocked":
         //   return <UnBlock user={data?.username} />;

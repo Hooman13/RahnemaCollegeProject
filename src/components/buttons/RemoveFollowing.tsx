@@ -44,6 +44,7 @@ export const RemoveFollowing: React.FC<PropsWithChildren<IUser>> = ({
   });
   useEffect(() => {
     queryClient.invalidateQueries({ queryKey: [profileUsername, "userInfo"] });
+    queryClient.invalidateQueries({ queryKey: [user, "userInfo"] });
     queryClient.invalidateQueries({ queryKey: ["myNotifs"] });
     queryClient.invalidateQueries({ queryKey: ["friendsNotifs"] });
     queryClient.invalidateQueries({ queryKey: ["FollowingsList"] });
