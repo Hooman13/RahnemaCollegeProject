@@ -15,6 +15,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { UserInfoApi } from "../api/axios";
 import { useQuery } from "@tanstack/react-query";
+import { MoreButton } from "./buttons/MoreButton";
 
 export const ProfileSidebar: FunctionComponent = () => {
   const token = Cookies.get("token");
@@ -115,12 +116,7 @@ export const ProfileSidebar: FunctionComponent = () => {
             </div>
           </button>
         </div>
-        <Link to="/search">
-          <div className="w-auto mt-14 2xl:text-xl font-normal py-3 flex h-auto pr-9 hover:bg-[#F5F5F5] border-none rounded-[75px] text-center">
-            <FontAwesomeIcon className="ml-4" icon={faList} />
-            بیشتر
-          </div>
-        </Link>
+        <div>{userName ? <MoreButton user={userName} /> : null}</div>
       </div>
     </div>
   );

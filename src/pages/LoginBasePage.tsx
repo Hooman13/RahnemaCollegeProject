@@ -16,6 +16,8 @@ import { Notifs } from "./Notifs";
 import { PostPage } from "./PostPage";
 import { Home } from "./Home";
 import { FriendsNotif } from "./FriendsNotif";
+import { CloseFriendList } from "../components/CloseFriendList";
+import { BlockList } from "../components/BlockList";
 
 export const LoginBasePage = () => {
   return (
@@ -44,6 +46,8 @@ export const LoginBasePage = () => {
             <Route path="/tags" element={<Tags />} />
             <Route path="/Notifs" element={<Notifs />} />
             <Route path="/friends-notifs" element={<FriendsNotif />} />
+            <Route path="/close-friend" element={<CloseFriendList />} />
+            <Route path="/block-list" element={<BlockList />} />
           </Route>
         </Routes>
       </BrowserRouter>
