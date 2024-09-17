@@ -59,7 +59,7 @@ export const FollowedByNotifCard: FunctionComponent<
               <button>
                 <Follow user={user.username} />
               </button>
-            ) : followState === "requested" ? (
+            ) : followState === "requestedFollow" ? (
               <button>
                 <DeleteFollowReq user={user.username} />
               </button>
