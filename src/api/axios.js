@@ -5,11 +5,6 @@ export const BaseApi = axios.create({
   baseURL: BASE_URL,
 });
 
-
-export const SignupApi = axios.create({
-  baseURL: BASE_URL + "auth/signup",
-});
-
 export const DisplayPostApi = axios.create({
   baseURL: BASE_URL + "posts",
 });
