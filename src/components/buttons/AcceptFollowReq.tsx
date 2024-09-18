@@ -43,7 +43,7 @@ export const AcceptFollowReq: React.FC<PropsWithChildren<IUser>> = ({
       );
     },
     onSuccess: (res) => {
-      setToastMsg("درخواست شما با موفقیت انجام شد");
+      setToastMsg(`درخواست ${user} رو قبول کردی`);
       setToastType("success");
       setDispalyToast(true);
     },
