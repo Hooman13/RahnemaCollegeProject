@@ -46,6 +46,16 @@ export const RejectFollow: React.FC<PropsWithChildren<IUser>> = ({
         }
       );
     },
+    onSuccess: (res) => {
+      setToastMsg(`درخواست ${user} رو رد کردی`);
+      setToastType("success");
+      setDispalyToast(true);
+    },
+    onError: () => {
+      setToastMsg("متاسفانه درخواست شما انجام نشد");
+      setToastType("error");
+      setDispalyToast(true);
+    },
   });
   useEffect(() => {
     queryClient.invalidateQueries({ queryKey: [profileUsername, "userInfo"] });
