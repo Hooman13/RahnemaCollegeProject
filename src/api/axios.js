@@ -5,9 +5,6 @@ export const BaseApi = axios.create({
   baseURL: BASE_URL,
 });
 
-export const LoginApi = axios.create({
-  baseURL: BASE_URL + "auth/login",
-});
 
 export const SignupApi = axios.create({
   baseURL: BASE_URL + "auth/signup",
