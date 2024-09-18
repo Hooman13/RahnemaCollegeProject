@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
-import { useEffect, useRef, useState } from "react";
-import { BaseApi } from "../api/axios";
+import { useRef, useState } from "react";
+import { createComment } from "../api/comments";
 import Cookies from "js-cookie";
 import { useMutation } from "@tanstack/react-query";
 import { Spinner } from "flowbite-react";
@@ -14,33 +14,26 @@ interface IProps {
 export const CommentsForm: React.FC<IProps> = ({ postId, parentId }) => {
   const queryClient = useQueryClient();
   const [commentInput, setCommentInput] = useState("");
-  const token = Cookies.get("token");
   const userName = Cookies.get("username");
   const commentInputRef = useRef(null);
 
   const mutation = useMutation({
     mutationFn: () => {
-      return BaseApi.post(
-        `/posts/${postId}/comments`,
-        {
-          type: "comment",
-          content: commentInput,
-          parentId: parentId,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      return createComment(postId,{
+        type: "comment",
+        content: commentInput,
+        parentId: parentId,
+      })
+    },
+    onSuccess: () => {
+      setCommentInput("")
+      queryClient.invalidateQueries({ queryKey: [postId, "postComments"] });
+    },
+    onError: () => {
+      console.log("error");
     },
   });
 
-  useEffect(() => {
-    queryClient.invalidateQueries({ queryKey: [postId, "postComments"] });
-    setCommentInput("");
-  }, [mutation.isSuccess]);
 
   const submitComment = (e: any) => {
     e.preventDefault();

@@ -1,6 +1,6 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import React, { useRef, useState, useEffect } from "react";
-import { LoginApi } from "../api/axios";
+import { login } from "../api/login";
 import useAuth from "../hooks/useAuth";
 import Cookies from "js-cookie";
 import { ToastR } from "../components/controles/ToastR";
@@ -50,53 +50,51 @@ export const Login = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     setIsLoading(true);
-    try {
-      let requestBody = {
-        password: pwd,
-        rememberMe: rememberMe,
-      };
 
-      let emailKey = "email";
-      let userKey = "username";
-      requestBody = checkIfEmailInString(user)
-        ? { ...requestBody, [emailKey]: user }
-        : { ...requestBody, [userKey]: user };
+    let requestBody = {
+      password: pwd,
+      rememberMe: rememberMe,
+    };
 
-      const response = await LoginApi.post("", JSON.stringify(requestBody), {
-        headers: { "Content-Type": "application/json" },
-      });
-      const jwt = response?.data.token;
-      const roles = response?.data?.roles;
-      setUser("");
-      setPwd("");
-      Cookies.set("token", jwt, { expires: 7 });
-      Cookies.set("username", user, { expires: 7 });
-      setAuth({ user, pwd, jwt });
-      setToastMsg("ورود موفقیت آمیز");
-      setToastType("success");
-      setDispalyToast(true);
-      setTimeout(() => {
-        navigate(from, { replace: true });
-      }, 2000);
-    } catch (err: any) {
-      if (!err?.response) {
-        setToastMsg("سرور در دسترس نیست");
-        setToastType("danger");
+    let emailKey = "email";
+    let userKey = "username";
+    requestBody = checkIfEmailInString(user)
+      ? { ...requestBody, [emailKey]: user }
+      : { ...requestBody, [userKey]: user };
+
+    login(requestBody)
+      .then((res) => {
+        const jwt = res.token;
+        setUser("");
+        setPwd("");
+        Cookies.set("token", jwt, { expires: 7 });
+        Cookies.set("username", user, { expires: 7 });
+        setAuth({ user, pwd, jwt });
+        setToastMsg("ورود موفقیت آمیز");
+        setToastType("success");
         setDispalyToast(true);
-      } else if (err.response?.status === 400) {
-        setErrMsg("نام کاربری یا رمز عبور وجود ندارد");
-      } else if (err.response?.status === 401) {
-        setErrMsg("نام کاربری یا رمز عبور اشتباه است");
-      } else {
-        setToastMsg("خطا در ورود ");
-        setToastType("danger");
-        setDispalyToast(true);
-      }
+        setTimeout(() => {
+          navigate(from, { replace: true });
+        }, 2000);
+      })
+      .catch((err) => {
+        if (!err?.response) {
+          setToastMsg("سرور در دسترس نیست");
+          setToastType("danger");
+          setDispalyToast(true);
+        } else if (err.response?.status === 400) {
+          setErrMsg("نام کاربری یا رمز عبور وجود ندارد");
+        } else if (err.response?.status === 422) {
+          setErrMsg("نام کاربری یا رمز عبور اشتباه است");
+        } else {
+          setToastMsg("خطا در ورود ");
+          setToastType("danger");
+          setDispalyToast(true);
+        }
 
-      (errRef as any).current.focus();
-    } finally {
-      setIsLoading(false);
-    }
+        (errRef as any).current.focus();
+      })
+      .finally(() => setIsLoading(false));
   };
 
   return (

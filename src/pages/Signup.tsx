@@ -1,11 +1,10 @@
 import { Link } from "react-router-dom";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { SignupApi } from "../api/axios";
+import { signup } from "../api/signup";
 import { useNavigate } from "react-router-dom";
-import { Login } from "./Login";
 import { ToastR } from "../components/controles/ToastR";
 import { Spinner } from "flowbite-react";
 
@@ -54,13 +53,9 @@ export const Signup = () => {
 
   const onSubmit = (data: IFormInput) => {
     setIsLoading(true);
-    // console.log(data);
 
-    SignupApi.post("", JSON.stringify(data), {
-      headers: { "Content-Type": "application/json" },
-    })
+    signup(data)
       .then((response) => {
-        console.log(response);
         if (response.status === 201) {
           setToastMsg("ثبت نام شما با موفقیت انجام شد");
           setToastType("success");
