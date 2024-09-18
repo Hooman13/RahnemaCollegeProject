@@ -51,7 +51,7 @@ export const DeleteFollowReq: React.FC<PropsWithChildren<IUser>> = ({
       );
     },
     onSuccess: (res) => {
-      setToastMsg("درخواست شما با موفقیت انجام شد");
+      setToastMsg(`درخواستت دنبال کردنت از ${user} حذف شد`);
       setToastType("success");
       setDispalyToast(true);
     },
