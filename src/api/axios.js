@@ -27,31 +27,36 @@ export const UserInfoApi = axios.create({
 
 export const axiosInstance = axios.create({
   baseURL: BASE_URL,
-})
+});
 
 axiosInstance.interceptors.request.use(
   (config) => {
-  const token = Cookies.get("token");
+    const token = Cookies.get("token");
 
     if (token) {
-      config.headers['Authorization'] = `Bearer ${token}`;
+      config.headers["Authorization"] = `Bearer ${token}`;
     }
     return config;
   },
-  (error) => {debugger
+  (error) => {
+    debugger;
     return Promise.reject(error);
   }
 );
 
 axiosInstance.interceptors.response.use(
   (response) => response,
-  (error) => {debugger
+  (error) => {
+    debugger;
     if (error.response && error.response.status === 401) {
-      console.log('call the refresh token api here')
+      console.log("call the refresh token api here");
       // Handle 401 error, e.g., redirect to login or refresh token
     }
-    return Promise.reject(error)
-  },
-)
+    return Promise.reject(error);
+  }
+);
 
 export default axiosInstance;
+export const EditPostApi = axios.create({
+  baseURL: BASE_URL + "posts/",
+});
