@@ -2,7 +2,7 @@ import React, { FunctionComponent, PropsWithChildren, useState } from "react";
 import { useForm } from "react-hook-form";
 import { string, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CreatePostApi } from "../api/axios";
+import { createPost } from "../api/posts";
 import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -78,12 +78,7 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
       formData.append(`mentions[${i}]`, arr[i]);
     }
 
-    CreatePostApi.post("", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-        Authorization: `Bearer ${token}`,
-      },
-    })
+    createPost(formData)
       .then((response) => {
         console.log(response);
         if (response.status === 201) {

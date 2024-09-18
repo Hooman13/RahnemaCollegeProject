@@ -10,10 +10,6 @@ export const SignupApi = axios.create({
   baseURL: BASE_URL + "auth/signup",
 });
 
-export const CreatePostApi = axios.create({
-  baseURL: BASE_URL + "posts",
-});
-
 export const DisplayPostApi = axios.create({
   baseURL: BASE_URL + "posts",
 });
