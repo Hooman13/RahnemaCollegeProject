@@ -45,6 +45,16 @@ export const DeleteCloseFriend: React.FC<PropsWithChildren<IUser>> = ({
         }
       );
     },
+    onSuccess: (res) => {
+      setToastMsg(`${user} دیگه دوست نزدیکت نیست`);
+      setToastType("success");
+      setDispalyToast(true);
+    },
+    onError: () => {
+      setToastMsg("متاسفانه درخواست شما انجام نشد");
+      setToastType("error");
+      setDispalyToast(true);
+    },
   });
   useEffect(() => {
     queryClient.invalidateQueries({ queryKey: [profileUsername, "userInfo"] });
