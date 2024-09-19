@@ -3,7 +3,7 @@ import axiosInstance from "./axios";
 export const createPost = async (postData: any) => {
   try {
     const response = await axiosInstance.post("posts", postData);
-    return response.data;
+    return response;
   } catch (error: any) {
     console.error("An error occurred:", error.message);
   }
