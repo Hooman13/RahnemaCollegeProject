@@ -45,12 +45,23 @@ export const UnBlockButton: React.FC<PropsWithChildren<IUser>> = ({
         }
       );
     },
+    onSuccess: (res) => {
+      setToastMsg(`${user} دیگه توی لیست سیاه تو نیست`);
+      setToastType("success");
+      setDispalyToast(true);
+    },
+    onError: () => {
+      setToastMsg("متاسفانه درخواست شما انجام نشد");
+      setToastType("error");
+      setDispalyToast(true);
+    },
   });
   useEffect(() => {
     queryClient.invalidateQueries({ queryKey: [profileUsername, "userInfo"] });
     queryClient.invalidateQueries({ queryKey: [user, "userInfo"] });
     queryClient.invalidateQueries({ queryKey: ["myNotifs"] });
     queryClient.invalidateQueries({ queryKey: ["userSearch"] });
+    queryClient.invalidateQueries({ queryKey: ["blocklist"] });
   }, [mutation.isSuccess]);
 
   const handleBlock = (e: any) => {

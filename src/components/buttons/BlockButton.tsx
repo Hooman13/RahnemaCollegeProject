@@ -45,6 +45,16 @@ export const BlockButton: React.FC<PropsWithChildren<IUser>> = ({
         }
       );
     },
+    onSuccess: (res) => {
+      setToastMsg(`${user} رو بلاک کردی`);
+      setToastType("success");
+      setDispalyToast(true);
+    },
+    onError: () => {
+      setToastMsg("متاسفانه درخواست شما انجام نشد");
+      setToastType("error");
+      setDispalyToast(true);
+    },
   });
   useEffect(() => {
     queryClient.invalidateQueries({ queryKey: [profileUsername, "userInfo"] });
@@ -52,6 +62,7 @@ export const BlockButton: React.FC<PropsWithChildren<IUser>> = ({
     queryClient.invalidateQueries({ queryKey: ["userSearch"] });
     queryClient.invalidateQueries({ queryKey: ["FollowersList"] });
     queryClient.invalidateQueries({ queryKey: ["FollowingsList"] });
+    queryClient.invalidateQueries({ queryKey: ["blocklist"] });
   }, [mutation.isSuccess]);
 
   const handleBlock = (e: any) => {

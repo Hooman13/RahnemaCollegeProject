@@ -12,7 +12,7 @@ interface IUser {
   relation?: string;
 }
 
-export const CloseFriendB: React.FC<PropsWithChildren<IUser>> = ({
+export const DeleteCloseFriend: React.FC<PropsWithChildren<IUser>> = ({
   user,
   relation,
   children,
@@ -37,7 +37,7 @@ export const CloseFriendB: React.FC<PropsWithChildren<IUser>> = ({
       return fetch(
         process.env.REACT_APP_API_BASE_URL + "user-relations/friends/" + user,
         {
-          method: "POST",
+          method: "DELETE",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
@@ -46,7 +46,7 @@ export const CloseFriendB: React.FC<PropsWithChildren<IUser>> = ({
       );
     },
     onSuccess: (res) => {
-      setToastMsg(`${user} الان دوست نزدیک توعه`);
+      setToastMsg(`${user} دیگه دوست نزدیکت نیست`);
       setToastType("success");
       setDispalyToast(true);
     },
@@ -73,8 +73,6 @@ export const CloseFriendB: React.FC<PropsWithChildren<IUser>> = ({
     {
       switch (relation) {
         case "friend":
-          return null;
-        default:
           return (
             <section>
               {displayToast && <ToastR type={toastType}>{toastMsg}</ToastR>}
@@ -84,10 +82,12 @@ export const CloseFriendB: React.FC<PropsWithChildren<IUser>> = ({
                 className="flex px-4 py-2 text-xs"
               >
                 <FontAwesomeIcon icon={faUserPlus} />
-                <div className="mr-2">افزودن به دوستان نزدیک</div>
+                <div className="mr-2">حذف از دوستان نزدیک</div>
               </button>
             </section>
           );
+        default:
+          return null;
       }
     }
   };

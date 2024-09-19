@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useQueryClient } from "@tanstack/react-query";
 import { ToastR } from "../controles/ToastR";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 
 interface IUser {
   user: string;
@@ -15,6 +16,9 @@ export const DeleteFollowReq: React.FC<PropsWithChildren<IUser>> = ({
   children,
 }) => {
   // show toast after successfully follow someone
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   const [displayToast, setDispalyToast] = useState(false);
   const [toastMsg, setToastMsg] = useState("");
   const [toastType, setToastType] = useState("basic");
@@ -45,6 +49,16 @@ export const DeleteFollowReq: React.FC<PropsWithChildren<IUser>> = ({
           },
         }
       );
+    },
+    onSuccess: (res) => {
+      setToastMsg(`درخواستت دنبال کردنت از ${user} حذف شد`);
+      setToastType("success");
+      setDispalyToast(true);
+    },
+    onError: () => {
+      setToastMsg("متاسفانه درخواست شما انجام نشد");
+      setToastType("error");
+      setDispalyToast(true);
     },
   });
   useEffect(() => {
