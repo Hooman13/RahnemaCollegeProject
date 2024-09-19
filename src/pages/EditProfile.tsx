@@ -11,6 +11,8 @@ import Cookies from "js-cookie";
 import { UserInfoApi } from "../api/axios";
 import { Spinner } from "flowbite-react";
 import { useQueryClient } from "@tanstack/react-query";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faRotateRight } from "@fortawesome/free-solid-svg-icons";
 
 const FormSchema = z.object({
   isPrivate: z.boolean(),
@@ -220,8 +222,15 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                     type="file"
                     accept="image/png,image/jpg"
                     onChange={handleOnChangePhoto}
-                    className="absolute top-0 right-0 left-0 bottom-0 opacity-0 cursor-pointer z-50 "
+                    className="absolute top-0 right-0 left-0 bottom-0 opacity-0 cursor-pointer z-50"
                   />
+                  <div className="z-50 absolute top-50 left-50 cursor-pointer ">
+                    <FontAwesomeIcon
+                      className=""
+                      icon={faRotateRight}
+                      style={{ color: "#F7901E" }}
+                    />
+                  </div>
                   {!file && (
                     <div className="z-0">
                       <img
