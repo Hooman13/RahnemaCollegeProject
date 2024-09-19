@@ -25,7 +25,7 @@ export const ChatForm: React.FC<IProps> = ({ ReciverUsername }) => {
   const mutation = useMutation({
     mutationFn: (formdata: FormData) => {
       return BaseApi.post(
-        `/dashboard/message/${ReciverUsername}`,
+        `/dashboard/messages/${ReciverUsername}`,
         formdata,
         {
           headers: {
@@ -63,9 +63,9 @@ export const ChatForm: React.FC<IProps> = ({ ReciverUsername }) => {
       {displayToast && <ToastR type={toastType}>{toastMsg}</ToastR>}
       <form
       onSubmit={submitComment}
-      className="flex flex-row py-0.5 items-center justify-between mb-4"
+      className="flex flex-row py-0.5 items-center mb-4 w-full gap-2"
     >
-      <div className="grow-0">
+      <div className="flex-none">
         <img
           className="w-10 h-10 rounded-full ml-3"
           src={
@@ -76,7 +76,7 @@ export const ChatForm: React.FC<IProps> = ({ ReciverUsername }) => {
           alt=""
         />
       </div>
-      <div className="grow">
+      <div className="flex-auto">
         <input
           type="text"
           ref={msgInputRef}
@@ -89,7 +89,7 @@ export const ChatForm: React.FC<IProps> = ({ ReciverUsername }) => {
           placeholder="نظر خود را بنویسید ..."
         ></input>
       </div>
-      <div className="grow-0">
+      <div className="flex-none">
         <button className="">
           {mutation.isPending ? (
             <Spinner aria-label="Loading..." size="sm"></Spinner>

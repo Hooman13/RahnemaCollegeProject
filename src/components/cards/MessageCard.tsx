@@ -1,6 +1,6 @@
-import { useNavigate } from "react-router-dom";
-import { FunctionComponent, PropsWithChildren } from "react";
+import { useState } from "react";
 import { TimeAgoDate } from "../../utils/TimeAgoDate";
+import { ChatModal } from "../../features/chat/components/ChatModal";
 
 interface IUsers {
   username: string;
@@ -19,23 +19,29 @@ interface IChat {
   chatId: string;
 }
 
-export const MessageCard: FunctionComponent<PropsWithChildren<IChat>> = ({
-  children,
+export const MessageCard:React.FC<IChat> = ({
   contact,
   chatId,
 }) => {
-  //   const navigate = useNavigate();
-  //   const visitProfile = () => {
-  //     navigate(`/post/${post.postId}`);
-  //   };
-  //   console.log(post);
+  const [openModal, setOpenModal] = useState(false);
 
   return (
     <>
-      <div className="flex items-center  text-xl text-center mb-8">
+      {openModal && (
+        <ChatModal
+          fullname={contact.fName + contact.lName}
+          imgUrl={contact.imageUrl}
+          openModal={openModal}
+          setOpenModal={setOpenModal}
+          username={contact.username}
+        />
+      )}
+      <div
+        className="flex items-center  text-xl text-center mb-8"
+        onClick={() => setOpenModal(true)}
+      >
         <div className="items-center flex justify-start">
           <div>
-            {/* <button onClick={() => visitProfile()}> */}
             <img
               className="border rounded-full ml-7 w-[56px] h-[56px]"
               src={
@@ -45,7 +51,6 @@ export const MessageCard: FunctionComponent<PropsWithChildren<IChat>> = ({
               }
               alt=""
             />
-            {/* </button> */}
           </div>
           <div className="text-right">
             <div className="flex mb-2 text-sm items-center font-medium">

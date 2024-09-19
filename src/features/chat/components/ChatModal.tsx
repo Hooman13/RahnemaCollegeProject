@@ -6,8 +6,8 @@ interface IProps {
   openModal: boolean;
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
   username: string;
-  imgUrl:string;
-  fullname:string;
+  imgUrl?: string;
+  fullname?: string;
 }
 export const ChatModal: React.FC<IProps> = ({
   openModal,
@@ -15,7 +15,6 @@ export const ChatModal: React.FC<IProps> = ({
   username,
   imgUrl,
   fullname,
-
 }) => {
   return (
     <>
@@ -25,19 +24,21 @@ export const ChatModal: React.FC<IProps> = ({
         onClose={() => setOpenModal(false)}
         size="4xl"
       >
-        <Modal.Header>
-          <UserAvatar
-            username={username}
-            imgUrl={imgUrl}
-            fullname={fullname}
-            followersCount={0}
-          />
+        <Modal.Header className="grid grid-cols-4">
+          <div className="flex ml-auto">
+            <UserAvatar
+              username={username}
+              imgUrl={imgUrl}
+              fullname={fullname}
+              followersCount={0}
+            />
+          </div>
         </Modal.Header>
         <Modal.Body>
-          <Chat username={username} />
+          <Chat username={username} imgUrl={imgUrl} fullname={fullname} />
         </Modal.Body>
         <Modal.Footer>
-          <ChatForm ReciverUsername={username}/>
+          <ChatForm ReciverUsername={username} />
         </Modal.Footer>
       </Modal>
     </>
