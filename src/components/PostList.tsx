@@ -19,9 +19,14 @@ export const PostsList: React.FC<PropsWithChildren<IPostListProps>> = ({
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-    }).then((res) => {
-      return res.data.posts;
-    });
+    })
+      .then((res) => {
+        console.log("helooo", res.data.posts);
+        return res.data.posts;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const { data, isLoading, isError, error } = useQuery({
@@ -50,7 +55,13 @@ export const PostsList: React.FC<PropsWithChildren<IPostListProps>> = ({
     {
       <ToastR type="danger">خطا در دریافت پست ها</ToastR>;
     }
-    return <h1>خطا:{error.message}</h1>;
+    return (
+      <div className="mt-8 bg-inherit h-full border border-[#CDCDCD] rounded-3xl">
+        <div className="flex flex-row min-h-screen justify-center items-center">
+          <p>نمیتونی پستای {username} رو ببینی! </p>
+        </div>
+      </div>
+    );
   }
   return (
     <>
