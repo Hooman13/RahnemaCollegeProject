@@ -48,6 +48,7 @@ export const CloseFriendList = () => {
                   <CloseFriendCard
                     username={item.username}
                     followersCount={item.followersCount}
+                    relationStatus={item.relationStatus}
                     imageUrl={
                       item.imageUrl
                         ? process.env.REACT_APP_IMAGE_URL + item.imageUrl
