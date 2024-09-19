@@ -11,6 +11,7 @@ import { Comments } from "./Comments";
 import { PostComment } from "./PostComment";
 import Cookies from "js-cookie";
 import { TimeAgoDate } from "../utils/TimeAgoDate";
+import { EditPostModal } from "./post/edit/Modal";
 interface IProps {
   postId: string;
 }
@@ -133,14 +134,13 @@ export const DisplayPost: React.FC<IProps> = ({ postId }) => {
                 </Link>
               </div>
               {post.creator.username == Cookies.get("username") && (
-                <button
-                  type="button"
-                  className="w-auto py-2 px-4 bg-[#EA5A69] rounded-3xl text-white "
-                >
-                  <FontAwesomeIcon icon={faPen} className="ml-2" />
-                  <span className="font-medium text-sm"></span>
-                  ویرایش پست
-                </button>
+                <EditPostModal postID={post.postId}>
+                  <div className="w-auto py-2 px-4 bg-[#EA5A69] rounded-3xl text-white ">
+                    <FontAwesomeIcon icon={faPen} className="ml-2" />
+                    <span className="font-medium text-sm"></span>
+                    ویرایش پست
+                  </div>
+                </EditPostModal>
               )}
             </address>
           </header>

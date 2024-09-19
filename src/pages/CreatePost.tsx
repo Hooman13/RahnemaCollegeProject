@@ -42,7 +42,6 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
   const [showCaptionPage, setShowCaptionPage] = useState(false);
   const [showSendPost, setShowSendPost] = useState(false);
   const [files, setFiles] = useState<File[] | undefined>();
-  const [selectedImages, setSelectedImages] = useState<string[]>();
   // const [modalSize, setModalSize] = useState<string>("lg");
   const modalSize = "md";
 
@@ -123,12 +122,6 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
     const selectedPhotos = target.files;
     const selectedPhotosArray = Array.from(selectedPhotos);
     setFiles(selectedPhotosArray);
-    console.log(selectedPhotosArray);
-    const imagesArray = selectedPhotosArray.map((file) => {
-      return URL.createObjectURL(file);
-    });
-    console.log(imagesArray);
-    setSelectedImages(imagesArray);
   };
 
   return (
@@ -194,21 +187,20 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                     </div>
                   </div>
                   <div className="grid grid-cols-3">
-                    {selectedImages &&
-                      selectedImages.map((image, index) => {
+                    {files &&
+                      files.map((file, index) => {
                         return (
-                          <div key={image} className="relative mr-2">
+                          <div key={index} className="relative mr-2">
                             <img
                               className="flex relative items-center justify-center  rounded-2xl w-[70px] h-[70px] border-2"
-                              src={image}
+                              src={URL.createObjectURL(file)}
                               alt=""
                             />
                             <button
-                              onClick={() =>
-                                setSelectedImages(
-                                  selectedImages.filter((e) => e !== image)
-                                )
-                              }
+                              onClick={(e) => {
+                                e.preventDefault();
+                                setFiles(files.filter((e) => e !== file));
+                              }}
                             >
                               <FontAwesomeIcon
                                 className="absolute top-[-7px] right-[58px]"
