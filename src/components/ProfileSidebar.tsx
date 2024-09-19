@@ -74,7 +74,7 @@ export const ProfileSidebar: FunctionComponent = () => {
               <FontAwesomeIcon className="ml-4" icon={faCommentDots} />
               پیام‌ها
               <div className="flex justify-center justify-items-center mr-14 w-6 h-6 border border-[#F6881F] rounded-full bg-[#F6881F] text-base">
-                <p>{data.messagesCount}</p>
+                <p>{data?.messagesCount}</p>
               </div>
             </div>
           </Link>
@@ -83,7 +83,7 @@ export const ProfileSidebar: FunctionComponent = () => {
               <FontAwesomeIcon className="ml-4" icon={faBell} />
               اعلانات
               <div className="flex justify-center justify-items-center mr-14 w-6 h-6 border border-[#F6881F] rounded-full bg-[#F6881F] text-base">
-                <p>{data.notifsCount}</p>
+                <p>{data?.notifsCount}</p>
               </div>
             </div>
           </Link>
