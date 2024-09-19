@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 
 interface IProps {
   username: string;
-  fullname: string;
-  imgUrl: string;
+  fullname?: string;
+  imgUrl?: string;
   followersCount: number;
 }
 export const UserAvatar: React.FC<IProps> = ({
