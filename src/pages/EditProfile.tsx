@@ -224,7 +224,7 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                     onChange={handleOnChangePhoto}
                     className="absolute top-0 right-0 left-0 bottom-0 opacity-0 cursor-pointer z-50"
                   />
-                  <div className="z-50 absolute top-50 left-50 cursor-pointer ">
+                  <div className="z-40 absolute top-50 left-50 cursor-pointer ">
                     <FontAwesomeIcon
                       className=""
                       icon={faRotateRight}
