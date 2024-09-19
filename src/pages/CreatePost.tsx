@@ -80,8 +80,7 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
 
     createPost(formData)
       .then((response) => {
-        console.log(response);
-        if (response.status === 201) {
+        if (response?.status === 201) {
           setToastMsg("پست با موفقیت ارسال شد");
           setToastType("success");
           setDispalyToast(true);
