@@ -18,6 +18,7 @@ import { ToastR } from "../components/controles/ToastR";
 const FormSchema = z.object({
   mentions: z.string().optional(),
   caption: z.string().optional(),
+  isCloseFriend: z.boolean().optional(),
 });
 type FormData = z.infer<typeof FormSchema>;
 
@@ -25,6 +26,7 @@ interface IProps {
   openModal: boolean;
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
 export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
   // show toast after successfully profile edited
   const [displayToast, setDispalyToast] = useState(false);
@@ -36,6 +38,9 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
     }, 3000);
     return () => clearTimeout(timeoutId);
   }, [displayToast]);
+  function refreshPage() {
+    window.location.reload();
+  }
 
   // create post
   const [showAddPhoto, setShowAddPhoto] = useState(true);
@@ -76,6 +81,7 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
     for (let i = 0; i < arr.length; i++) {
       formData.append(`mentions[${i}]`, arr[i]);
     }
+    formData.append("isCloseFriend", "false");
 
     createPost(formData)
       .then((response) => {
@@ -216,7 +222,12 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                 {/* buttons */}
                 <div className="flex items-center justify-end text-sm">
                   <div className="flex pl-5">
-                    <button onClick={() => setOpenModal(false)}>
+                    <button
+                      onClick={() => {
+                        setOpenModal(false);
+                        refreshPage();
+                      }}
+                    >
                       پشیمون شدم
                     </button>
                   </div>
@@ -279,7 +290,12 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                 {/* buttons */}
                 <div className="flex items-center justify-end ml-5 text-sm">
                   <div className="flex pl-5">
-                    <button onClick={() => setOpenModal(false)}>
+                    <button
+                      onClick={() => {
+                        setOpenModal(false);
+                        refreshPage();
+                      }}
+                    >
                       پشیمون شدم
                     </button>
                   </div>
@@ -347,7 +363,12 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                 {/* buttons */}
                 <div className="flex items-center justify-end text-sm">
                   <div className="flex pl-5">
-                    <button onClick={() => setOpenModal(false)}>
+                    <button
+                      onClick={() => {
+                        setOpenModal(false);
+                        refreshPage();
+                      }}
+                    >
                       پشیمون شدم
                     </button>
                   </div>
