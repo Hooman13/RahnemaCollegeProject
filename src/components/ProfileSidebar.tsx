@@ -73,12 +73,18 @@ export const ProfileSidebar: FunctionComponent = () => {
             <div className="w-auto 2xl:text-xl font-normal items-center py-3 flex h-auto pr-9 hover:bg-[#F5F5F5] border-none rounded-[75px] text-center">
               <FontAwesomeIcon className="ml-4" icon={faCommentDots} />
               پیام‌ها
+              <div className="flex justify-center justify-items-center mr-14 w-6 h-6 border border-[#F6881F] rounded-full bg-[#F6881F] text-base">
+                <p>{data.messagesCount}</p>
+              </div>
             </div>
           </Link>
           <Link to="/notifs">
             <div className="w-auto 2xl:text-xl font-normal items-center py-3 flex h-auto pr-9 hover:bg-[#F5F5F5] border-none rounded-[75px] text-center">
               <FontAwesomeIcon className="ml-4" icon={faBell} />
               اعلانات
+              <div className="flex justify-center justify-items-center mr-14 w-6 h-6 border border-[#F6881F] rounded-full bg-[#F6881F] text-base">
+                <p>{data.notifsCount}</p>
+              </div>
             </div>
           </Link>
           <Link to="/tags">
