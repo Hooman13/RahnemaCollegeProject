@@ -7,12 +7,14 @@ interface IUsers {
   username: string;
   followersCount: number;
   imageUrl: string;
+  relationStatus: string;
 }
 export const BlockUserCard: FunctionComponent<PropsWithChildren<IUsers>> = ({
   children,
   username,
   followersCount,
   imageUrl,
+  relationStatus,
 }) => {
   const navigate = useNavigate();
   const visitProfile = () => {
@@ -40,7 +42,7 @@ export const BlockUserCard: FunctionComponent<PropsWithChildren<IUsers>> = ({
           </div>
         </div>
         <div>
-          <RelationButton user={username} relation={"follow"} />
+          <RelationButton user={username} relation={relationStatus} />
         </div>
       </div>
     </>
