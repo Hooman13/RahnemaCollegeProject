@@ -56,7 +56,7 @@ export const Signup = () => {
 
     signup(data)
       .then((response) => {
-        if (response.status === 201) {
+        if (response?.status === 201) {
           setToastMsg("ثبت نام شما با موفقیت انجام شد");
           setToastType("success");
           setDispalyToast(true);

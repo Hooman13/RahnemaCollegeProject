@@ -6,7 +6,7 @@ export const signup = async (data: any) => {
       `auth/signup`,
       data
     )
-    return response.data;
+    return response;
   } catch (error:any) {
     console.error("An error occurred:", error.message);
     // Here, you might handle errors coming from the backend
