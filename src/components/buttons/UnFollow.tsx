@@ -74,7 +74,7 @@ export const UnFollow: React.FC<PropsWithChildren<IUser>> = ({
         <button
           onClick={handleUnFollow}
           type="button"
-          className="text-xs font-semibold py-1 px-6 rounded-[100px] border border-[#EA5A69] text-[#EA5A69]"
+          className="text-xs font-semibold py-1 px-5 rounded-[100px] border border-[#EA5A69] text-[#EA5A69]"
         >
           دنبال نکردن
         </button>
