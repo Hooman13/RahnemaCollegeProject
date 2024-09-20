@@ -18,6 +18,7 @@ import { Home } from "./Home";
 import { FriendsNotif } from "./FriendsNotif";
 import { CloseFriendList } from "../components/CloseFriendList";
 import { BlockList } from "../components/BlockList";
+import { SearchTages } from "./SearchTags";
 
 export const LoginBasePage = () => {
   return (
@@ -42,6 +43,7 @@ export const LoginBasePage = () => {
             <Route path="/saved" element={<Saved />} />
             <Route path="/messages" element={<Messages />} />
             <Route path="/search-people" element={<Search />} />
+            <Route path="/search-posts" element={<SearchTages />} />
             <Route path="/explore" element={<Explore />} />
             <Route path="/tags" element={<Tags />} />
             <Route path="/Notifs" element={<Notifs />} />

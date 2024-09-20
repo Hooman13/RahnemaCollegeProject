@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useQueryClient } from "@tanstack/react-query";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
+import { faUserPlus, faUserMinus } from "@fortawesome/free-solid-svg-icons";
 import { ToastR } from "../controles/ToastR";
 
 interface IUser {
@@ -81,7 +81,7 @@ export const DeleteCloseFriend: React.FC<PropsWithChildren<IUser>> = ({
                 type="button"
                 className="flex px-4 py-2 text-xs"
               >
-                <FontAwesomeIcon icon={faUserPlus} />
+                <FontAwesomeIcon icon={faUserMinus} />
                 <div className="mr-2">حذف از دوستان نزدیک</div>
               </button>
             </section>
