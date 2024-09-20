@@ -117,7 +117,7 @@ export const UserCard: React.FC<IProps> = ({
 
   return (
     <>
-      <div className="flex-col mt-4 p-8 border border-solid border-black rounded-3xl">
+      <div className="flex-col mt-4 p-8 border border-solid border-[#A5A5A5] rounded-3xl">
         <div className="flex">
           <button onClick={() => visitProfile()}>
             <img
