@@ -158,8 +158,8 @@ export const DisplayPost: React.FC<IProps> = ({ postId }) => {
           <div className="flex flex-wrap gap-2">
             {post.mentions.map((item, index) => {
               return (
-                <Link to={"/profile/" + item.mentionedId}>
-                  <Badge key={index} size="sm" color="info">
+                <Link to={"/profile/" + item.mentionedId} key={index}>
+                  <Badge size="sm" color="info">
                     {item.mentionedId}
                   </Badge>
                 </Link>
