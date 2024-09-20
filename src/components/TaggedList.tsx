@@ -7,8 +7,8 @@ import { PostItem } from "./PostItem";
 
 export const TaggedList = () => {
   const token = Cookies.get("token");
-  const getPosts = () => {
-    return BaseApi.get("/dashboard/explore", {
+  const getTagsList = () => {
+    return BaseApi.get("/dashboard/mentioned-posts", {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -19,7 +19,7 @@ export const TaggedList = () => {
   };
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["tagged"],
-    queryFn: getPosts,
+    queryFn: getTagsList,
   });
 
   const skeletonArray = new Array(9).fill("");
