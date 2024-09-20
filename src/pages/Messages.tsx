@@ -24,11 +24,9 @@ interface IChat {
 
 export const Messages = () => {
   const token = Cookies.get("token");
-  const { username } = useParams();
   const userName = Cookies.get("username");
-  const userInfoEndpoint = username ? `${username}` : userName;
 
-  const getNotifs = () => {
+  const getMessages = () => {
     return BaseApi.get("/dashboard/messages?p=1&c=5", {
       headers: {
         "Content-Type": "application/json",
@@ -39,8 +37,8 @@ export const Messages = () => {
     });
   };
   const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["myNotifs"],
-    queryFn: getNotifs,
+    queryKey: ["myMessages", userName],
+    queryFn: getMessages,
   });
 
   return (
@@ -49,18 +47,17 @@ export const Messages = () => {
         <p className="text-xl font-semibold sticky z-50 top-[20px] mb-3">
           پیام‌ها
         </p>
-        <div className="w-full bg-inherit flex flex-col justify-center">
-          {data
-            ? data.map(function (item: IChat, index: number) {
-                return (
-                  <MessageCard
-                    contact={item.contact}
-                    chatId={item.chatId}
-                    key={index}
-                  />
-                );
-              })
-            : null}
+        <div className="w-full bg-inherit flex flex-col justify-center cursor-pointer">
+          {data &&
+            data?.map(function (item: IChat, index: number) {
+              return (
+                <MessageCard
+                  contact={item.contact}
+                  chatId={item.chatId}
+                  key={index}
+                />
+              );
+            })}
         </div>
       </PagesLayout>
     </>
