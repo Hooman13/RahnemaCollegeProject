@@ -24,7 +24,7 @@ import { CaptionPage } from "./CaptionPage";
 import { EditPostContext } from "./post/edit/Modal";
 
 const FormSchema = z.object({
-  bio: z.string().optional(),
+  deletedImages: z.string().optional(),
 });
 type IFormInput = z.infer<typeof FormSchema>;
 interface IImage {
@@ -34,12 +34,17 @@ interface IImage {
 
 export const AddPhoto = () => {
   const [showResults, setShowResults] = React.useState(false);
-  const [files, setFiles] = useState<File[] | undefined>();
 
   const onClick = () => setShowResults(true);
 
-  const { postData, setPostData, deletedImages, setDeletedImages } =
-    useContext(EditPostContext);
+  const {
+    postData,
+    setPostData,
+    deletedImages,
+    setDeletedImages,
+    files,
+    setFiles,
+  } = useContext(EditPostContext);
 
   const token = Cookies.get("token");
   const {
@@ -57,6 +62,8 @@ export const AddPhoto = () => {
 
     const selectedPhotos = target.files;
     const selectedPhotosArray = Array.from(selectedPhotos);
+    console.log(selectedPhotosArray);
+
     setFiles(selectedPhotosArray);
   };
   return (
@@ -126,7 +133,10 @@ export const AddPhoto = () => {
                         <button
                           onClick={(e) => {
                             e.preventDefault();
-                            setDeletedImages([...deletedImages, file.url]);
+                            setDeletedImages([
+                              ...deletedImages,
+                              { url: file.url, imageId: file.imageId },
+                            ]);
                             setPostData({
                               ...postData,
                               imageInfos: postData.imageInfos.filter(
