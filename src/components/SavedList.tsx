@@ -21,7 +21,6 @@ export const SavedList = () => {
     queryKey: ["saved"],
     queryFn: getBookmarks,
   });
-  console.log("saved", data);
 
   const skeletonArray = new Array(9).fill("");
   if (isLoading) {
