@@ -103,7 +103,7 @@ export const DisplayPost: React.FC<IProps> = ({ postId }) => {
                       key={index}
                       src={image}
                       alt="image"
-                      className="rounded-3xl h-full w-full"
+                      className="rounded-3xl h-auto w-auto object-contain"
                     />
                   );
                 })}
