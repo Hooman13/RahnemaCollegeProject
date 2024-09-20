@@ -7,8 +7,8 @@ import { PostItem } from "./PostItem";
 
 export const SavedList = () => {
   const token = Cookies.get("token");
-  const getPosts = () => {
-    return BaseApi.get("/dashboard/explore", {
+  const getBookmarks = () => {
+    return BaseApi.get("/dashboard/bookmarks", {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -19,7 +19,7 @@ export const SavedList = () => {
   };
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["saved"],
-    queryFn: getPosts,
+    queryFn: getBookmarks,
   });
 
   const skeletonArray = new Array(9).fill("");
