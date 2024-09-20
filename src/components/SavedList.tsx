@@ -21,6 +21,7 @@ export const SavedList = () => {
     queryKey: ["saved"],
     queryFn: getBookmarks,
   });
+  console.log("saved", data);
 
   const skeletonArray = new Array(9).fill("");
   if (isLoading) {
@@ -58,7 +59,7 @@ export const SavedList = () => {
             <PostItem
               key={index}
               id={item.postId}
-              imgUrl={process.env.REACT_APP_IMAGE_URL + item.postImage}
+              imgUrl={process.env.REACT_APP_IMAGE_URL + item.imageInfo.url}
             />
           );
         })}
