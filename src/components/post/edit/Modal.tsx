@@ -1,5 +1,5 @@
 import { Button, Modal } from "flowbite-react";
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import Cookies from "js-cookie";
 import { BaseApi, DisplayPostApi, EditPostApi } from "../../../api/axios";
@@ -8,6 +8,8 @@ import { string, z } from "zod";
 import { AddPhoto } from "../../AddPhoto";
 import { CaptionPage } from "../../CaptionPage";
 import { MentionPost } from "../../MentionPost";
+import { useQueryClient } from "@tanstack/react-query";
+import { json } from "react-router-dom";
 
 interface IProps {
   postId: string;
@@ -44,10 +46,10 @@ export interface Ipost {
 export const EditPostContext = createContext({
   postData: {} as Ipost | null,
   setPostData: (postData: Ipost) => {},
-  files: null as any,
-  setFiles: null as any,
-  deletedImages: [] as string[],
-  setDeletedImages: (images: string[]) => {},
+  files: [] as File[],
+  setFiles: (files: File[]) => {},
+  deletedImages: [] as object[],
+  setDeletedImages: (images: object[]) => {},
 });
 
 export function EditPostModal({
@@ -63,7 +65,7 @@ export function EditPostModal({
 
   const [postData, setPostData] = useState(null as Ipost | null);
   const [files, setFiles] = useState<File[]>([]);
-  const [deletedImages, setDeletedImages] = useState([] as string[]);
+  const [deletedImages, setDeletedImages] = useState([] as object[]);
   const modalSize = "md";
 
   const token = Cookies.get("token");
@@ -78,6 +80,8 @@ export function EditPostModal({
     });
   };
 
+  const queryClient = useQueryClient();
+
   const { mutate } = useMutation({
     mutationFn: async () => {
       const formData = new FormData() as any;
@@ -86,15 +90,29 @@ export function EditPostModal({
           formData.append("images", files[i]);
         }
       }
+      let deletedImagesArray: any = deletedImages;
+
+      if (deletedImages !== undefined && deletedImages !== null) {
+        for (let i = 0; i < deletedImagesArray.length; i++) {
+          formData.append(
+            `deletedImages[${i}]`,
+            JSON.stringify(deletedImagesArray[i])
+          );
+        }
+      }
+
+      formData.append("isCloseFriend", "false");
       formData.append("caption", postData?.caption);
       let arr: any = postData?.mentions;
-      //   .replaceAll("@", "")
-      //   .split(" ")
-      //   .filter((m) => m !== "");
-      // console.log(arr);
 
-      for (let i = 0; i < arr.length; i++) {
-        formData.append(`mentions[${i}]`, arr[i]);
+      if (
+        postData?.mentions !== undefined &&
+        postData?.mentions !== null &&
+        arr[0] !== ""
+      ) {
+        for (let i = 0; i < arr.length; i++) {
+          formData.append(`mentions[${i}]`, arr[i]);
+        }
       }
 
       return EditPostApi.put(`/${postID}`, formData, {
@@ -122,10 +140,15 @@ export function EditPostModal({
       // validate caption
       // if get error
       mutate();
+      setOpenModal(false);
     }
     setStep(step + 1);
   }
 
+  useEffect(() => {
+    queryClient.invalidateQueries({ queryKey: ["postdetails"] });
+    setStep(0);
+  }, [openModal]);
   return (
     <>
       <button onClick={() => setOpenModal(true)}>{children}</button>
@@ -142,7 +165,7 @@ export function EditPostModal({
         <Modal
           size={modalSize}
           show={openModal}
-          dismissible
+          // dismissible
           onClose={() => setOpenModal(false)}
         >
           <Modal.Header>ویرایش پست</Modal.Header>
