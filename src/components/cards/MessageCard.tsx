@@ -19,10 +19,7 @@ interface IChat {
   chatId: string;
 }
 
-export const MessageCard:React.FC<IChat> = ({
-  contact,
-  chatId,
-}) => {
+export const MessageCard: React.FC<IChat> = ({ contact, chatId }) => {
   const [openModal, setOpenModal] = useState(false);
 
   return (
@@ -71,9 +68,11 @@ export const MessageCard:React.FC<IChat> = ({
             </div>
           </div>
         </div>
-        <div className="flex justify-center justify-items-center mr-14 w-6 h-6 border border-[#F6881F] rounded-full bg-[#F6881F] text-base">
-          <p>{contact.unseenCount}</p>
-        </div>
+        {contact?.unseenCount && contact?.unseenCount !== 0 ? (
+          <div className="flex justify-center justify-items-center mr-14 w-6 h-6 border border-[#F6881F] rounded-full bg-[#F6881F] text-base">
+            <p>{contact?.unseenCount}</p>
+          </div>
+        ) : null}
       </div>
     </>
   );
