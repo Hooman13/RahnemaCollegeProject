@@ -76,8 +76,6 @@ export const UserCard: React.FC<IProps> = ({
               </div>
             </div>
           );
-        // case "blocked":
-        //   return <UnBlock user={data?.username} />;
         case "gotBlocked":
           return (
             <div
@@ -117,20 +115,18 @@ export const UserCard: React.FC<IProps> = ({
 
   return (
     <>
-      <div className="flex-col mt-4 p-8 border border-solid border-black rounded-3xl">
+      <div className="flex-col mt-4 p-8 border border-solid border-[#A5A5A5] rounded-3xl">
         <div className="flex">
           <button onClick={() => visitProfile()}>
             <img
               className="border rounded-full ml-7 w-[56px] h-[56px]"
               src={imageUrl}
-              // src="./img/person.png"
               alt=""
             />
           </button>
           <div className="grid grid-rows-2 text-right">
             <div className="user-display-name text-sm h-6 font-bold">
               {username}
-              {/* متین دهقان */}
             </div>
             <div className="user-full-name text-xs h-6 font-normal ">
               <p>{followersCount} دنبال کننده</p>
