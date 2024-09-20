@@ -18,7 +18,7 @@ import { Home } from "./Home";
 import { FriendsNotif } from "./FriendsNotif";
 import { CloseFriendList } from "../components/CloseFriendList";
 import { BlockList } from "../components/BlockList";
-import { SearchTages } from "./SearchTags";
+import SearchTag from "./SearchTag";
 
 export const LoginBasePage = () => {
   return (
@@ -43,7 +43,7 @@ export const LoginBasePage = () => {
             <Route path="/saved" element={<Saved />} />
             <Route path="/messages" element={<Messages />} />
             <Route path="/search-people" element={<Search />} />
-            <Route path="/search-posts" element={<SearchTages />} />
+            <Route path="/search-tags" element={<SearchTag />} />
             <Route path="/explore" element={<Explore />} />
             <Route path="/tags" element={<Tags />} />
             <Route path="/Notifs" element={<Notifs />} />

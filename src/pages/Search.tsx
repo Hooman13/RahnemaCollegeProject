@@ -76,7 +76,7 @@ export const Search = () => {
               <button className=" ml-10">افراد </button>
             </Link>
             |
-            <Link to="/search-posts">
+            <Link to="/search-tags">
               <button className="text-[#A5A5A5] mr-10">پست‌ها</button>
             </Link>
           </div>

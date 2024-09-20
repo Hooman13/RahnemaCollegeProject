@@ -59,6 +59,7 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(FormSchema),
@@ -201,6 +202,20 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
     setFile(selectedPhotosArray[0]);
     setPhoto(URL.createObjectURL(target.files[0]));
   };
+
+  useEffect(() => {
+    setFile(undefined);
+    setFormInput({
+      ...formInput,
+      fName: user.data.fName,
+      lName: user.data.lName,
+      email: user.data.email,
+      bio: user.data.bio,
+      password: "",
+      confirmPassword: "",
+    });
+    reset();
+  }, [openModal]);
 
   return (
     <>

@@ -14,7 +14,8 @@ const FormSchema = z.object({
   tageName: z.string(),
 });
 type IFormInput = z.infer<typeof FormSchema>;
-export const SearchTages = () => {
+
+export default function SearchTag() {
   const {
     register,
     handleSubmit,
@@ -77,7 +78,7 @@ export const SearchTages = () => {
               <button className="text-[#A5A5A5] ml-10">افراد </button>
             </Link>
             |
-            <Link to="/search-posts">
+            <Link to="/search-tags">
               <button className=" mr-10">پست‌ها</button>
             </Link>
           </div>
@@ -96,4 +97,4 @@ export const SearchTages = () => {
       </PagesLayout>
     </>
   );
-};
+}
