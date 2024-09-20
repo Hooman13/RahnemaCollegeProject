@@ -38,9 +38,6 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
     }, 3000);
     return () => clearTimeout(timeoutId);
   }, [displayToast]);
-  function refreshPage() {
-    window.location.reload();
-  }
 
   // create post
   const [showAddPhoto, setShowAddPhoto] = useState(true);
@@ -55,6 +52,7 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(FormSchema),
@@ -128,6 +126,18 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
     const selectedPhotosArray = Array.from(selectedPhotos);
     setFiles(selectedPhotosArray);
   };
+
+  useEffect(() => {
+    setFiles(undefined);
+    reset();
+    setFormInput({
+      caption: "",
+      mentions: "",
+    });
+    setShowAddPhoto(true);
+    setShowCaptionPage(false);
+    setShowSendPost(false);
+  }, [openModal]);
 
   return (
     <>
@@ -224,7 +234,6 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                     <button
                       onClick={() => {
                         setOpenModal(false);
-                        refreshPage();
                       }}
                     >
                       پشیمون شدم
@@ -292,7 +301,6 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                     <button
                       onClick={() => {
                         setOpenModal(false);
-                        refreshPage();
                       }}
                     >
                       پشیمون شدم
@@ -365,7 +373,6 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                     <button
                       onClick={() => {
                         setOpenModal(false);
-                        refreshPage();
                       }}
                     >
                       پشیمون شدم
