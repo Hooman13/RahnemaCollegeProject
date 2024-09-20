@@ -8,6 +8,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
 import { useEffect } from "react";
+import { DeleteCloseFriend } from "../buttons/DeleteCloseFriend";
 interface IProps {
   username: string;
   imageUrl: string;
@@ -34,18 +35,54 @@ export const UserCard: React.FC<IProps> = ({
     {
       switch (relationState) {
         case "notFollowed":
-          return <Follow user={username} />;
+          return (
+            <div
+              className="flex items-center text-xs font-semibold
+            py-3 px-10  bg-[#EA5A69] rounded-[100px] text-white"
+            >
+              <Follow user={username} />
+            </div>
+          );
         case "follow":
-          return <UnFollow user={username} />;
+          return (
+            <div
+              className="relative flex items-center text-xs font-semibold
+          py-4 px-16  bg-white rounded-[100px] border border-[#EA5A69] text-[#EA5A69]"
+            >
+              دنبال نکردن
+              <div className="absolute top-[-10px] opacity-0 right-[-16px] py-4 px-16 z-50">
+                <UnFollow user={username} />;
+              </div>
+            </div>
+          );
+        case "friend":
+          return (
+            <div
+              className="flex items-center text-xs font-semibold
+            py-2 px-5 bg-white  rounded-[100px] border border-[#EA5A69] text-[#EA5A69]"
+            >
+              <DeleteCloseFriend user={username} relation={"friend"} />
+            </div>
+          );
         case "requestedFollow":
-          return <DeleteFollowReq user={username} />;
+          return (
+            <div
+              className="relative flex items-center text-xs font-semibold
+            py-4 px-16  bg-white rounded-[100px] border border-[#EA5A69] text-[#EA5A69]"
+            >
+              حذف درخواست
+              <div className="absolute top-[-10px] opacity-0 right-[-16px] py-4 px-16 z-50">
+                <DeleteFollowReq user={username} />
+              </div>
+            </div>
+          );
         // case "blocked":
         //   return <UnBlock user={data?.username} />;
         case "gotBlocked":
           return (
             <div
               className="flex items-center text-xs font-semibold
-            py-3 px-16 bg-[#A5A5A5] rounded-[100px] text-white"
+            py-4 px-16 bg-[#A5A5A5] rounded-[100px] text-white"
             >
               <FontAwesomeIcon className="ml-2" icon={faPlus} />
               دنبال کردن
@@ -55,7 +92,7 @@ export const UserCard: React.FC<IProps> = ({
           return (
             <div
               className="flex items-center text-xs font-semibold
-            py-3 px-16 bg-[#A5A5A5] rounded-[100px] text-white"
+            py-4 px-16 bg-[#A5A5A5] rounded-[100px] text-white"
             >
               <FontAwesomeIcon className="ml-2" icon={faPlus} />
               دنبال کردن
@@ -65,7 +102,7 @@ export const UserCard: React.FC<IProps> = ({
           return (
             <div
               className="flex items-center text-xs font-semibold
-            py-3 px-16 bg-[#A5A5A5] rounded-[100px] text-white"
+            py-4 px-16 bg-[#A5A5A5] rounded-[100px] text-white"
             >
               <FontAwesomeIcon className="ml-2" icon={faPlus} />
               دنبال کردن
