@@ -18,6 +18,8 @@ export const BlockUnBlock: React.FC<PropsWithChildren<IUser>> = ({
       switch (relation) {
         case "blocked":
           return <UnBlockButton user={user} />;
+        case "twoWayBlocked":
+          return <UnBlockButton user={user} />;
         default:
           return <BlockButton user={user} />;
       }
