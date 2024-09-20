@@ -7,29 +7,32 @@ import { ExploreItem } from "../components/ExploreItem";
 import { PeopleSkeleton } from "../components/PeopleSkeleton";
 import { UserCard } from "../components/cards/UserCard";
 import React, { useState, PropsWithChildren } from "react";
+import { PostItem } from "../components/PostItem";
 
 interface IUser {
-  user: string;
+  tageName: string;
 }
 
-export const SearchPeaple: React.FC<PropsWithChildren<IUser>> = ({
-  user,
+export const SearchPosts: React.FC<PropsWithChildren<IUser>> = ({
+  tageName,
   children,
 }) => {
   const token = Cookies.get("token");
-  const getPosts = () => {
-    return BaseApi.get("/dashboard/search-users?s=" + user, {
+  const getTagedPosts = () => {
+    return BaseApi.get("/dashboard/tag-posts/" + tageName, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
     }).then((res) => {
-      return res.data.users;
+      console.log("dataaaa", res.data.posts);
+
+      return res.data.posts;
     });
   };
   const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["userSearch"],
-    queryFn: getPosts,
+    queryKey: ["postsSearch"],
+    queryFn: getTagedPosts,
   });
 
   const skeletonArray = new Array(9).fill("");
@@ -49,32 +52,24 @@ export const SearchPeaple: React.FC<PropsWithChildren<IUser>> = ({
     }
     return <h1>خطا:{error.message}</h1>;
   }
-
   return (
     <>
       {data?.length ? (
         <div className="grid grid-cols-2 md:grid-cols-3 gap-5 px-2">
           {data.map(function (item: any, index: any) {
             return (
-              <UserCard
-                username={item.username}
-                imageUrl={
-                  item.imageUrl
-                    ? process.env.REACT_APP_IMAGE_URL + item.imageUrl
-                    : "../img/person.png"
-                }
-                fName={item.fName}
-                lName={item.lName}
-                followersCount={item.followersCount}
-                relationState={item.relationState}
-              />
+              <PostItem
+                id={item.postId}
+                imgUrl={process.env.REACT_APP_IMAGE_URL + item.imageInfo.url}
+                key={index}
+              ></PostItem>
             );
           })}
         </div>
       ) : (
         <div className="mt-8 bg-inherit h-full border border-[#CDCDCD] rounded-3xl">
           <div className="flex flex-row min-h-screen justify-center items-center">
-            پستی برای نمایش وجود ندارد
+            پستی برای این تگ پیدا نشد!
           </div>
         </div>
       )}
