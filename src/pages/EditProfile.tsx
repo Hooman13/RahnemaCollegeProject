@@ -23,8 +23,16 @@ const FormSchema = z.object({
     .min(3, "نام خانوادگی باید شامل حداقل ۳ حرف باشد")
     .optional(),
   email: z.string().email("ایمیل وارد شده نامعتبر است").optional(),
-  password: z.optional(z.string().min(8, "رمزعبور باید حداقل شامل ۸ حرف باشد")),
-  confirmPassword: z.optional(z.string().min(8)),
+  password: z
+    .string()
+    .min(8, "رمزعبور باید حداقل شامل ۸ حرف باشد")
+    .optional()
+    .or(z.literal("")),
+  confirmPassword: z
+    .string()
+    .min(8, "رمزعبور باید حداقل شامل ۸ حرف باشد")
+    .optional()
+    .or(z.literal("")),
 });
 
 type FormData = z.infer<typeof FormSchema>;
@@ -60,6 +68,9 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
     register,
     handleSubmit,
     reset,
+    getValues,
+    setValue,
+    watch,
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(FormSchema),
@@ -87,7 +98,7 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
         },
       });
       setUser(data);
-      setIsUserUpdated(false);
+      setIsUserUpdated(true);
     } catch (error) {
       console.log({ error });
     }
@@ -98,28 +109,40 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
   }, [token, isUserUpdated]);
 
   useEffect(() => {
-    if (user) {
+    if (isUserUpdated) {
       setFormInput({
         ...formInput,
         fName: user.data.fName,
         lName: user.data.lName,
         email: user.data.email,
         bio: user.data.bio,
+        isPrivate: user.data.isPrivate,
       });
+      setValue("isPrivate", user.data.isPrivate);
     }
-  }, [user]);
+  }, [isUserUpdated]);
+
+  useEffect(() => {
+    watch((value, { name, type }) => console.log(value, name, type));
+  }, [watch]);
 
   const onSubmit = () => {
     setIsLoading(true);
-    // console.log(data);
+
     const formData = new FormData();
     if (typeof file !== "undefined") formData.append("image", file);
     formData.append("fName", formInput.fName);
     formData.append("lName", formInput.lName);
     formData.append("bio", formInput.bio);
     formData.append("email", formInput.email);
-    formData.append("password", formInput.password);
-    formData.append("confirmPassword", formInput.confirmPassword);
+    if (formInput.password !== "" && formInput.password !== null) {
+      formData.append("password", formInput.password);
+      formData.append("confirmPassword", formInput.confirmPassword);
+    }
+    formData.append(
+      "isPrivate",
+      getValues("isPrivate") === true ? "true" : "false"
+    );
 
     EditProfileApi.put("", formData, {
       headers: {
@@ -204,17 +227,36 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
   };
 
   useEffect(() => {
-    setFile(undefined);
-    setFormInput({
-      ...formInput,
-      fName: user.data.fName,
-      lName: user.data.lName,
-      email: user.data.email,
-      bio: user.data.bio,
-      password: "",
-      confirmPassword: "",
-    });
-    reset();
+    if (openModal == false) {
+      console.log("1");
+      setFile(undefined);
+      setFormInput({
+        ...formInput,
+        fName: user.data.fName,
+        lName: user.data.lName,
+        email: user.data.email,
+        bio: user.data.bio,
+        password: "",
+        confirmPassword: "",
+        isPrivate: user.data.isPrivate,
+      });
+      reset();
+      setIsUserUpdated(false);
+      setUser({
+        data: {
+          bio: "",
+          email: "",
+          fName: "",
+          imageUrl: "",
+          isPrivate: false,
+          lName: "",
+          username: "",
+        },
+      });
+    } else {
+      console.log("2");
+      getProfileData();
+    }
   }, [openModal]);
 
   return (
@@ -360,9 +402,8 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
                   </span>
                   <input
                     type="checkbox"
-                    {...register("isPrivate")}
-                    value=""
                     className="sr-only peer"
+                    {...register("isPrivate")}
                   />
 
                   <div className="relative w-11 h-6 bg-gray-200 border-[0.5px] peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-white dark:peer-focus:ring-white rounded-full peer dark:bg-white peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>

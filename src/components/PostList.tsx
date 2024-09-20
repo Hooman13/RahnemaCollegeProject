@@ -21,7 +21,6 @@ export const PostsList: React.FC<PropsWithChildren<IPostListProps>> = ({
       },
     })
       .then((res) => {
-        console.log("helooo", res.data.posts);
         return res.data.posts;
       })
       .catch((err) => {
