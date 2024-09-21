@@ -27,13 +27,11 @@ export const PassRecovery = () => {
     navigate("/email-sent-page");
   };
   const onSubmit = (data: IFormInput) => {
-    // console.log(data);
     axios
       .post("http://37.32.5.72:3000/auth/send-reset", JSON.stringify(data), {
         headers: { "Content-Type": "application/json" },
       })
       .then((response) => {
-        // console.log(response)
         if (response.status === 200) {
           handleEmailSent();
         }

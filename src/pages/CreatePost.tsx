@@ -74,7 +74,6 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
       .replaceAll("@", "")
       .split(" ")
       .filter((m) => m !== "");
-    console.log(arr);
 
     for (let i = 0; i < arr.length; i++) {
       formData.append(`mentions[${i}]`, arr[i]);

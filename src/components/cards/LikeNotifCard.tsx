@@ -29,7 +29,6 @@ export const LikeNotifCard: FunctionComponent<PropsWithChildren<ILike>> = ({
   const visitProfile = () => {
     navigate(`/post/${post.postId}`);
   };
-  console.log(post);
 
   return (
     <>

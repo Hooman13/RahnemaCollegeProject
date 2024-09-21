@@ -228,7 +228,6 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
 
   useEffect(() => {
     if (openModal == false) {
-      console.log("1");
       setFile(undefined);
       setFormInput({
         ...formInput,
@@ -254,7 +253,6 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
         },
       });
     } else {
-      console.log("2");
       getProfileData();
     }
   }, [openModal]);

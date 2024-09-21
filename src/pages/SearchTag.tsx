@@ -9,6 +9,10 @@ import { useForm } from "react-hook-form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { SearchPosts } from "./SearchPosts";
+import { BaseApi } from "../api/axios";
+import { useQuery } from "@tanstack/react-query";
+import Cookies from "js-cookie";
+import { useQueryClient } from "@tanstack/react-query";
 
 const FormSchema = z.object({
   tageName: z.string(),
@@ -23,11 +27,13 @@ export default function SearchTag() {
   } = useForm<IFormInput>({
     resolver: zodResolver(FormSchema),
   });
-
+  const token = Cookies.get("token");
+  const queryClient = useQueryClient();
   const [formInput, setFormInput] = useState({
     tageName: "",
   });
   const [tageName, setTageName] = useState(String);
+  const [showTages, setShowTags] = useState(false);
   const [showSearchPeaple, setShowSearchPeaple] = useState(false);
   const [componentKey, setComponentKey] = useState(0);
   const handleUserInput = (name: string, value: string) => {
@@ -35,6 +41,7 @@ export default function SearchTag() {
       ...formInput,
       [name]: value,
     });
+    // fetchTags(formInput),
   };
 
   const onSubmit = (data: IFormInput) => {
@@ -44,6 +51,31 @@ export default function SearchTag() {
     setTimeout(() => setShowSearchPeaple(true), 0);
   };
 
+  const fetchTags = (query: string) => {
+    return BaseApi.get("/dashboard/search-tags?s=" + query, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      return res.data;
+    });
+  };
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ["tagsSearch", formInput.tageName],
+    queryFn: async () => await fetchTags(formInput.tageName),
+    enabled:
+      formInput.tageName !== null ||
+      formInput.tageName !== "" ||
+      formInput.tageName !== undefined,
+  });
+
+  const showTagOptions = () => {
+    queryClient.invalidateQueries({
+      queryKey: ["tagsSearch", formInput.tageName],
+    });
+    setShowTags(true);
+  };
   return (
     <>
       <PagesLayout>
@@ -59,6 +91,9 @@ export default function SearchTag() {
                 onChange={({ target }) =>
                   handleUserInput(target.name, target.value)
                 }
+                onKeyUp={() => {
+                  setTimeout(showTagOptions, 2000);
+                }}
               />
               <button
                 className="absolute left-3 top-1/2 transform -translate-y-1/2"
@@ -71,6 +106,36 @@ export default function SearchTag() {
               </button>
             </label>
           </div>
+          {showTages ? (
+            <div className="absolute z-50 border min-w-96 h-auto bg-white rounded-tl-3xl rounded-b-3xl px-8 py-2 border-black">
+              <div>
+                <div>
+                  {data?.tags
+                    ? Object.values(data?.tags?.tags).map(function (
+                        item: any,
+                        index: any
+                      ) {
+                        return (
+                          <div
+                            className="cursor-pointer mb-2 border bg-slate-200 pr-2 rounded-lg"
+                            onClick={(e) => {
+                              handleUserInput("tageName", item);
+                              setTageName(item);
+                              queryClient.invalidateQueries({
+                                queryKey: ["postsSearch"],
+                              });
+                              setShowTags(false);
+                            }}
+                          >
+                            {item}
+                          </div>
+                        );
+                      })
+                    : null}
+                </div>
+              </div>
+            </div>
+          ) : null}
         </form>
         <div className="w-full bg-inherit flex flex-col justify-center">
           <div className="text-md font-normal mt-6 justify-start flex">

@@ -29,7 +29,6 @@ export const MentionCard: FunctionComponent<PropsWithChildren<IMention>> = ({
   const visitProfile = () => {
     navigate(`/post/${post.postId}`);
   };
-  console.log(post);
 
   return (
     <>
