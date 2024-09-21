@@ -184,7 +184,7 @@ export const MyPage = () => {
               {isMyProfile && (
                 <button
                   type="button"
-                  className="text-sm px-10 py-2 w-auto bg-[#EA5A69] rounded-3xl text-white "
+                  className="text-sm px-6 lg:px-10 py-2 w-max bg-[#EA5A69] rounded-3xl text-white "
                   onClick={() => {
                     setOpenEditProfilModal(true);
                   }}
