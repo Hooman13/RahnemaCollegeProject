@@ -30,7 +30,7 @@ export const MessageCard: React.FC<IChat> = ({ contact, chatId }) => {
           imgUrl={contact.imageUrl}
           openModal={openModal}
           setOpenModal={setOpenModal}
-          username={contact.username}
+          reciverUsername={contact.username}
         />
       )}
       <div
