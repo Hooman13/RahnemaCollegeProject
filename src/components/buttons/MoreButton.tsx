@@ -33,14 +33,6 @@ export const MoreButton: React.FC<PropsWithChildren<IUser>> = ({
       >
         <div className="py-3">
           <MenuItem>
-            <a
-              href="#"
-              className="block px-4 py-2 text-xs font-normal text-Black data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
-            >
-              پیام
-            </a>
-          </MenuItem>
-          <MenuItem>
             <div className=" data-[focus]:bg-gray-100">
               <Link to="/close-friend">
                 <a

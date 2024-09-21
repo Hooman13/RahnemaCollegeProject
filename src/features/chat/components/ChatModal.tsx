@@ -17,8 +17,6 @@ export const ChatModal: React.FC<IProps> = ({
   imgUrl,
   fullname,
 }) => {
-  
-
   return (
     <>
       <Modal
@@ -33,7 +31,7 @@ export const ChatModal: React.FC<IProps> = ({
               username={reciverUsername}
               imgUrl={imgUrl}
               fullname={fullname}
-              followersCount={0}
+              // followersCount={2}
             />
           </div>
         </Modal.Header>

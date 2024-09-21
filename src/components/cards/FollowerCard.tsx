@@ -25,7 +25,7 @@ export const FollowerCard: FunctionComponent<PropsWithChildren<IUsers>> = ({
           <button onClick={() => visitProfile()}>
             <img
               className="border rounded-full ml-7 w-[56px] h-[56px]"
-              src={imageUrl}
+              src={process.env.REACT_APP_IMAGE_URL + imageUrl}
               alt=""
             />
           </button>
@@ -39,7 +39,7 @@ export const FollowerCard: FunctionComponent<PropsWithChildren<IUsers>> = ({
           </div>
         </div>
         <div>
-          <FollowerMenu user={username} />
+          <FollowerMenu user={username} imgUrl={imageUrl} />
         </div>
       </div>
     </>

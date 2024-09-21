@@ -4,7 +4,7 @@ interface IProps {
   username: string;
   fullname?: string;
   imgUrl?: string;
-  followersCount: number;
+  followersCount?: number;
 }
 export const UserAvatar: React.FC<IProps> = ({
   username,
@@ -29,10 +29,12 @@ export const UserAvatar: React.FC<IProps> = ({
       />
       <div className="flex-auto">
         <div className="font-bold">{fullname || username}</div>
-        <div className="text-xs font-normal">
-          {followersCount}
-          <span className="mr-1">دنبال کننده</span>
-        </div>
+        {followersCount > 0 ? (
+          <div className="text-xs font-normal">
+            {followersCount}
+            <span className="mr-1">دنبال کننده</span>
+          </div>
+        ) : null}
       </div>
     </Link>
   );

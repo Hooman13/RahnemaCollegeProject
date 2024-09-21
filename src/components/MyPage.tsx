@@ -175,6 +175,8 @@ export const MyPage = () => {
                     <RelationButton
                       user={data?.username}
                       relation={data?.relationState}
+                      fullname={data?.fName + data?.lName}
+                      imgUrl={data?.imageUrl}
                     />
                   )}
                 </div>
