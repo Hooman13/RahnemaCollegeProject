@@ -1,6 +1,6 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import React, { useRef, useState, useEffect } from "react";
-import { login } from "../api/login";
+import { BaseApi } from "../api/axios";
 import useAuth from "../hooks/useAuth";
 import Cookies from "js-cookie";
 import { ToastR } from "../components/controles/ToastR";
@@ -62,9 +62,11 @@ export const Login = () => {
       ? { ...requestBody, [emailKey]: user }
       : { ...requestBody, [userKey]: user };
 
-    login(requestBody)
+    BaseApi.post(`auth/login`, JSON.stringify(requestBody), {
+      headers: { "Content-Type": "application/json" },
+    })
       .then((res) => {
-        const jwt = res.token;
+        const jwt = res?.data.token;
         setUser("");
         setPwd("");
         Cookies.set("token", jwt, { expires: 7 });
@@ -78,18 +80,24 @@ export const Login = () => {
         }, 2000);
       })
       .catch((err) => {
-        if (!err?.response) {
-          setToastMsg("سرور در دسترس نیست");
-          setToastType("danger");
-          setDispalyToast(true);
-        } else if (err.response?.status === 400) {
-          setErrMsg("نام کاربری یا رمز عبور وجود ندارد");
-        } else if (err.response?.status === 422) {
-          setErrMsg("نام کاربری یا رمز عبور اشتباه است");
-        } else {
-          setToastMsg("خطا در ورود ");
-          setToastType("danger");
-          setDispalyToast(true);
+        switch (err?.response?.data?.reason) {
+          case 'WrongEmail':
+          case 'InvalidUsername':
+          case 'InvalidEmail':
+            setErrMsg("نام کاربری وجود ندارد");
+            break;
+          case 'WrongPassword':
+          case 'InvalidPassword':
+            setErrMsg("رمز عبور اشتباه است");
+            break;
+
+          case 'InvalidRememberMe':
+            setErrMsg("خطای به یاد سپاری");
+            break;
+        
+          default:
+            setErrMsg("سرور در دسترس نیست");
+            break;
         }
 
         (errRef as any).current.focus();
