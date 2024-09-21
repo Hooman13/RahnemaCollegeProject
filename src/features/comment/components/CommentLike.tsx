@@ -1,11 +1,11 @@
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { DisplayPostApi } from "../api/axios";
+import { DisplayPostApi } from "../../../api/axios";
 import { Spinner } from "flowbite-react";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
-import { ToastR } from "./controles/ToastR";
+import { ToastR } from "../../../components/controles/ToastR";
 
 interface IProps {
   commentId: string;

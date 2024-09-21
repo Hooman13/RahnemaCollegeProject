@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { BaseApi } from "../api/axios";
+import { BaseApi } from "../../../api/axios";
 import Cookies from "js-cookie";
 import { CommentsItem } from "./CommentsItem";
 import { Spinner } from "flowbite-react";
@@ -17,7 +17,9 @@ export const CommentsList: React.FC<IProps> = ({ postId }) => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-    }).then((res) => res.data.comments);
+    }).then((res) => {
+      return res.data.comments
+    });
   };
 
   const { data, isLoading, isError, error } = useQuery({
@@ -41,6 +43,7 @@ export const CommentsList: React.FC<IProps> = ({ postId }) => {
               likeCount={item.likeCount}
               parentId={null}
               username={item.commentor.username}
+              replays={item.replays}
             />
           );
         })
