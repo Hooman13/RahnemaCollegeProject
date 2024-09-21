@@ -7,7 +7,7 @@ import { Link, useParams } from "react-router-dom";
 import { ToastR } from "./controles/ToastR";
 import { PostBookmark } from "./PostBookmark";
 import { PostLike } from "./PostLike";
-import { Comments } from "./Comments";
+import { Comments } from "../features/comment/components/Comments";
 import { PostComment } from "./PostComment";
 import Cookies from "js-cookie";
 import { TimeAgoDate } from "../utils/TimeAgoDate";

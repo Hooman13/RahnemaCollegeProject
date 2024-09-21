@@ -1,11 +1,12 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
-import { useRef, useState } from "react";
-import { createComment } from "../api/comments";
+import { faPaperPlane, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { useContext, useRef, useState } from "react";
+import { createComment } from "../../../api/comments";
 import Cookies from "js-cookie";
 import { useMutation } from "@tanstack/react-query";
 import { Spinner } from "flowbite-react";
 import { useQueryClient } from "@tanstack/react-query";
+import { CommentContext } from "./Comments";
 
 interface IProps {
   postId: string;
@@ -16,24 +17,25 @@ export const CommentsForm: React.FC<IProps> = ({ postId, parentId }) => {
   const [commentInput, setCommentInput] = useState("");
   const userName = Cookies.get("username");
   const commentInputRef = useRef(null);
-
+  const { parentCommentId, setParentCommentId } = useContext(CommentContext);
+  const commentType = parentCommentId ? "replay" : "comment";
   const mutation = useMutation({
     mutationFn: () => {
-      return createComment(postId,{
-        type: "comment",
+      return createComment(postId, {
+        type: commentType,
         content: commentInput,
         parentId: parentId,
-      })
+      });
     },
     onSuccess: () => {
-      setCommentInput("")
+      setCommentInput("");
+      setParentCommentId(null);
       queryClient.invalidateQueries({ queryKey: [postId, "postComments"] });
     },
     onError: () => {
-      console.log("error");
+      console.log("error"); 
     },
   });
-
 
   const submitComment = (e: any) => {
     e.preventDefault();
@@ -70,6 +72,14 @@ export const CommentsForm: React.FC<IProps> = ({ postId, parentId }) => {
         />
       </div>
       <div className="grow">
+        {parentCommentId && (
+          <div className="text-xs font-bold text-red-400 bg-cyan-200 p-2 w-5/6">
+            <span className="mx-2 w-full">پاسخ به نظر</span>
+            <button onClick={() => setParentCommentId(null)}>
+              <FontAwesomeIcon  icon={faXmark}  className="w-4 h-4 text-zinc-400 left-2 float-right"/>
+            </button> 
+          </div>
+        )}
         <input
           type="text"
           ref={commentInputRef}
@@ -78,7 +88,7 @@ export const CommentsForm: React.FC<IProps> = ({ postId, parentId }) => {
             setCommentInput(e.target.value);
           }}
           required
-          className="py-2 px-4 border-zinc-300 border-l rounded-2xl h-9"
+          className="py-2 px-4 border-zinc-300 border-l rounded-2xl h-9 w-full"
           placeholder="نظر خود را بنویسید ..."
         ></input>
       </div>
