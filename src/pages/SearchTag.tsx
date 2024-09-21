@@ -107,7 +107,7 @@ export default function SearchTag() {
             </label>
           </div>
           {showTages ? (
-            <div className="absolute border max-w-96 h-auto bg-white rounded-tl-3xl rounded-b-3xl px-8 py-2 border-black">
+            <div className="absolute z-50 border min-w-96 h-auto bg-white rounded-tl-3xl rounded-b-3xl px-8 py-2 border-black">
               <div>
                 <div>
                   {data?.tags
@@ -117,14 +117,13 @@ export default function SearchTag() {
                       ) {
                         return (
                           <div
-                            onClick={() => {
-                              setTageName(item);
-                              console.log("taggg", formInput.tageName);
+                            onClick={(e) => {
                               handleUserInput("tageName", item);
-                              setShowTags(false);
+                              setTageName(item);
                               queryClient.invalidateQueries({
-                                queryKey: ["tagsSearch", formInput.tageName],
+                                queryKey: ["postsSearch"],
                               });
+                              setShowTags(false);
                             }}
                           >
                             {item}
