@@ -58,7 +58,7 @@ export const TaggedList = () => {
             <PostItem
               key={index}
               id={item.postId}
-              imgUrl={process.env.REACT_APP_IMAGE_URL + item.postImage}
+              imgUrl={process.env.REACT_APP_IMAGE_URL + item.imageInfo.url}
             />
           );
         })}
