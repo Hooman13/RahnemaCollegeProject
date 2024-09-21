@@ -12,7 +12,13 @@ export const PostsList: React.FC<PropsWithChildren<IPostListProps>> = ({
   username,
   children,
 }) => {
-  const token = Cookies.get("token");
+  const selectedAccount = Cookies.get("selectedAccount");
+  const currentTokenCookie = Cookies.get("token");
+  const token =
+    currentTokenCookie && selectedAccount
+      ? JSON.parse(currentTokenCookie)[parseInt(selectedAccount)]
+      : null;
+
   const getUserPosts = () => {
     return PostListApi.get(`${username}`, {
       headers: {

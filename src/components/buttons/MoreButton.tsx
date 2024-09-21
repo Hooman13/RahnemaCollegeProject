@@ -7,6 +7,7 @@ import { CloseFriendB } from "./CloseFriendB";
 import { CloseFriendList } from "../CloseFriendList";
 import { BlockList } from "../BlockList";
 import { Link } from "react-router-dom";
+import Cookies from "js-cookie";
 
 interface IUser {
   user: string;
@@ -16,6 +17,36 @@ export const MoreButton: React.FC<PropsWithChildren<IUser>> = ({
   user,
   children,
 }) => {
+  const selectedAccount = Cookies.get("selectedAccount");
+  const currentTokenCookie = Cookies.get("token");
+  const token =
+    currentTokenCookie && selectedAccount
+      ? JSON.parse(currentTokenCookie)[parseInt(selectedAccount)]
+      : null;
+
+  const currentUsernameCookie = Cookies.get("username");
+  const cookieUsername =
+    currentUsernameCookie && selectedAccount
+      ? JSON.parse(currentUsernameCookie)[parseInt(selectedAccount)]
+      : null;
+
+  const switchUser = () => {
+    {
+      selectedAccount === "0"
+        ? Cookies.set(
+            "selectedAccount",
+            (parseInt(selectedAccount) + 1).toString(),
+            {
+              expires: 7,
+            }
+          )
+        : Cookies.set("selectedAccount", "0", {
+            expires: 7,
+          });
+    }
+    window.location.reload();
+  };
+
   return (
     <Menu as="div" className="relative inline-block">
       <div>
@@ -32,6 +63,17 @@ export const MoreButton: React.FC<PropsWithChildren<IUser>> = ({
         className="absolute bottom-12 z-10 w-56  rounded-t-lg rounded-bl-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
       >
         <div className="py-3">
+          <MenuItem>
+            <div className=" data-[focus]:bg-gray-100">
+              <button
+                onClick={() => {
+                  switchUser();
+                }}
+              >
+                swich
+              </button>
+            </div>
+          </MenuItem>
           <MenuItem>
             <div className=" data-[focus]:bg-gray-100">
               <Link to="/close-friend">

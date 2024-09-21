@@ -18,7 +18,12 @@ import { useQuery } from "@tanstack/react-query";
 import { MoreButton } from "./buttons/MoreButton";
 
 export const ProfileSidebar: FunctionComponent = () => {
-  const token = Cookies.get("token");
+  const selectedAccount = Cookies.get("selectedAccount");
+  const currentTokenCookie = Cookies.get("token");
+  const token =
+    currentTokenCookie && selectedAccount
+      ? JSON.parse(currentTokenCookie)[parseInt(selectedAccount)]
+      : null;
   const userName = Cookies.get("username");
 
   const navigate = useNavigate();

@@ -69,7 +69,19 @@ export function EditPostModal({
   const [deletedImages, setDeletedImages] = useState([] as object[]);
   const modalSize = "md";
 
-  const token = Cookies.get("token");
+  const selectedAccount = Cookies.get("selectedAccount");
+  const currentTokenCookie = Cookies.get("token");
+  const token =
+    currentTokenCookie && selectedAccount
+      ? JSON.parse(currentTokenCookie)[parseInt(selectedAccount)]
+      : null;
+
+  const currentUsernameCookie = Cookies.get("username");
+  const cookieUsername =
+    currentUsernameCookie && selectedAccount
+      ? JSON.parse(currentUsernameCookie)[parseInt(selectedAccount)]
+      : null;
+
   const getPostDetails = () => {
     return DisplayPostApi.get(`/${postID}`, {
       headers: {
