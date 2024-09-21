@@ -111,12 +111,13 @@ export default function SearchTag() {
               <div>
                 <div>
                   {data?.tags
-                    ? Object.values(data?.tags.tags).map(function (
+                    ? Object.values(data?.tags?.tags).map(function (
                         item: any,
                         index: any
                       ) {
                         return (
                           <div
+                            className="cursor-pointer mb-2 border bg-slate-200 pr-2 rounded-lg"
                             onClick={(e) => {
                               handleUserInput("tageName", item);
                               setTageName(item);
