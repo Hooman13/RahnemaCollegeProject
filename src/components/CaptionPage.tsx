@@ -22,16 +22,6 @@ export const CaptionPage = () => {
     resolver: zodResolver(FormSchema),
   });
   const { postData, setPostData } = useContext(EditPostContext);
-  const [formInput, setFormInput] = useState({
-    caption: "",
-  });
-
-  // const handleUserInput = (name: string, value?: string) => {
-  //   setFormInput({
-  //     ...formInput,
-  //     [name]: value,
-  //   });
-  // };
 
   if (!postData) return <></>;
   return (
