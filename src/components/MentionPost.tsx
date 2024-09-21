@@ -7,7 +7,7 @@ import Cookies from "js-cookie";
 import { EditPostContext } from "./post/edit/Modal";
 
 const FormSchema = z.object({
-  mentions: z.string().optional(),
+  mentions: z.array(z.string()).optional(),
 });
 
 type IFormInput = z.infer<typeof FormSchema>;
@@ -17,21 +17,14 @@ export const MentionPost = () => {
   const {
     register,
     handleSubmit,
+    reset,
+    getValues,
+    setValue,
     formState: { errors },
   } = useForm<IFormInput>({
     resolver: zodResolver(FormSchema),
   });
   const { postData, setPostData } = useContext(EditPostContext);
-  const [formInput, setFormInput] = useState({
-    caption: "",
-  });
-
-  // const handleUserInput = (name: string, value?: string) => {
-  //   setFormInput({
-  //     ...formInput,
-  //     [name]: value,
-  //   });
-  // };
 
   if (!postData) return <></>;
   return (
@@ -73,14 +66,22 @@ export const MentionPost = () => {
                 <input
                   className="w-[320px] h-[32px] border solid border-[#17494D]/50 rounded-xl"
                   type="text"
-                  {...register("mentions")}
                   value={postData.mentions}
                   onChange={({ target }) => {
+                    let mentions = getValues("mentions");
+                    if (mentions != undefined) {
+                      mentions.push(target.value);
+                    } else {
+                      mentions = [target.value];
+                    }
                     setPostData({
                       ...postData,
-                      mentions: [...postData.mentions, target.value],
+                      mentions: mentions,
                     });
                   }}
+                  // onChange={() => {
+                  //   setValue("mentions", target.value);
+                  // }}
                   dir="ltr"
                 />
               </div>
