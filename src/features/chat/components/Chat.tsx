@@ -14,7 +14,9 @@ interface IProps {
 
 export const Chat: React.FC<IProps> = ({ username, imgUrl, fullname }) => {
   const queryClient = useQueryClient();
-  const socket = io(process.env.REACT_APP_API_BASE_URL as string, { autoConnect: false });
+  const socket = io(process.env.REACT_APP_API_SOCKET_URL as string, {
+    autoConnect: false,
+  });
 
   socket.on("connect_error", (err) => {
     console.log("connect_error : " + err);
@@ -46,7 +48,9 @@ export const Chat: React.FC<IProps> = ({ username, imgUrl, fullname }) => {
   }, []);
 
   const getPvChats = () => {
-    return getMessage(username).then((res) =>{debugger; return res} );
+    return getMessage(username).then((res) => {
+      return res;
+    });
   };
 
   const { data, isLoading, isError, error } = useQuery({
