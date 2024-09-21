@@ -1,9 +1,11 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { ChatBubble } from "./ChatBubble";
 import { getMessage } from "../../../api/chat";
 import { IMessage } from "../../../data/types";
 import { ChatBubbleSkeleton } from "./ChatBubbleSkeleton";
-
+import { io } from "socket.io-client";
+import { createContext, useEffect } from "react";
+import Cookies from "js-cookie";
 interface IProps {
   username: string;
   imgUrl?: string;
@@ -11,8 +13,40 @@ interface IProps {
 }
 
 export const Chat: React.FC<IProps> = ({ username, imgUrl, fullname }) => {
+  const queryClient = useQueryClient();
+  const socket = io(process.env.REACT_APP_API_BASE_URL as string, { autoConnect: false });
+
+  socket.on("connect_error", (err) => {
+    console.log("connect_error : " + err);
+  });
+
+  socket.on("connect", () => {
+    console.log(socket.id);
+  });
+
+  socket.on("disconnect", () => {
+    console.log(socket.id);
+  });
+
+  socket.on("error", (err) => {
+    console.log("error : " + err);
+  });
+
+  socket.on("pvMessage", (message) => {
+    console.log("revceived message : " + message);
+    queryClient.invalidateQueries({ queryKey: ["pv", username] });
+  });
+
+  useEffect(() => {
+    const jwt = Cookies.get("token");
+    socket.auth = { jwt };
+    socket.connect();
+    console.log(socket);
+    socket.emit("pvConnect", username);
+  }, []);
+
   const getPvChats = () => {
-    return getMessage(username).then((res) => res);
+    return getMessage(username).then((res) =>{debugger; return res} );
   };
 
   const { data, isLoading, isError, error } = useQuery({

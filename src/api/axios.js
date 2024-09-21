@@ -39,7 +39,7 @@ axiosInstance.interceptors.request.use(
     return config;
   },
   (error) => {
-    debugger;
+
     return Promise.reject(error);
   }
 );
@@ -47,7 +47,6 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
-    debugger;
     if (error.response && error.response.status === 401) {
       console.log("call the refresh token api here");
       // Handle 401 error, e.g., redirect to login or refresh token
