@@ -16,6 +16,7 @@ export const Chat: React.FC<IProps> = ({ username, imgUrl, fullname }) => {
   const queryClient = useQueryClient();
   const socket = io(process.env.REACT_APP_API_SOCKET_URL as string, {
     autoConnect: false,
+    secure: true,
   });
 
   socket.on("connect_error", (err) => {
