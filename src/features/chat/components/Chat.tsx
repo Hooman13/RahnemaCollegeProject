@@ -4,8 +4,9 @@ import { getMessage } from "../../../api/chat";
 import { IMessage } from "../../../data/types";
 import { ChatBubbleSkeleton } from "./ChatBubbleSkeleton";
 import { io } from "socket.io-client";
-import { createContext, useEffect } from "react";
+import { useEffect, useRef } from "react";
 import Cookies from "js-cookie";
+
 interface IProps {
   username: string;
   imgUrl?: string;
@@ -20,23 +21,22 @@ export const Chat: React.FC<IProps> = ({ username, imgUrl, fullname }) => {
   });
 
   socket.on("connect_error", (err) => {
-    console.log("connect_error : " + err);
+    // console.log("connect_error : " + err);
   });
 
   socket.on("connect", () => {
-    console.log(socket.id);
+    // console.log(socket.id);
   });
 
   socket.on("disconnect", () => {
-    console.log(socket.id);
+    // console.log(socket.id);
   });
 
   socket.on("error", (err) => {
-    console.log("error : " + err);
+    // console.log("error : " + err);
   });
 
   socket.on("pvMessage", (message) => {
-    console.log("revceived message : " + message);
     queryClient.invalidateQueries({ queryKey: ["pv", username] });
   });
 
@@ -44,13 +44,12 @@ export const Chat: React.FC<IProps> = ({ username, imgUrl, fullname }) => {
     const jwt = Cookies.get("token");
     socket.auth = { jwt };
     socket.connect();
-    console.log(socket);
     socket.emit("pvConnect", username);
   }, []);
 
   const getPvChats = () => {
     return getMessage(username).then((res) => {
-      return res;
+      return res?.reverse();
     });
   };
 
@@ -59,6 +58,14 @@ export const Chat: React.FC<IProps> = ({ username, imgUrl, fullname }) => {
     queryFn: getPvChats,
   });
 
+  const lastMessageRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (lastMessageRef.current) {
+      (lastMessageRef.current as HTMLDivElement).scrollIntoView({
+        behavior: "smooth",
+      });
+    }
+  }, [lastMessageRef]);
   const skeletonArray = new Array(5).fill("");
   if (isLoading) {
     return (
@@ -92,6 +99,7 @@ export const Chat: React.FC<IProps> = ({ username, imgUrl, fullname }) => {
             />
           );
         })}
+        <div ref={lastMessageRef} className="invisible h-0"></div>
       </div>
     </>
   );
