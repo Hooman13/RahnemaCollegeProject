@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faArrowsTurnRight } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { TimeAgoDate } from "../utils/TimeAgoDate";
+import { CommentLike } from "./CommentLike";
 
 interface IProps {
   username: string;
@@ -10,7 +11,7 @@ interface IProps {
   parentId: string | null;
   commentId: string;
   createdAt: string;
-  likeCount: string;
+  likeCount: number;
 }
 
 export const CommentsItem: React.FC<IProps> = ({
@@ -36,10 +37,8 @@ export const CommentsItem: React.FC<IProps> = ({
           {createdAt && TimeAgoDate(createdAt)}
         </div>
         <div className="basis-1/6 grow-0 text-xs font-black text-red-400">
-          <button onClick={() => {}}>
-            <span className="ml-2">{likeCount}</span>
-            <FontAwesomeIcon icon={faHeart} />
-          </button>
+        <CommentLike commentId={commentId} isLiked={false} likeCount={likeCount} />
+          
         </div>
         <div className="basis-1/6 grow-0 text-xs font-black text-red-400">
           <button onClick={() => {}}>
