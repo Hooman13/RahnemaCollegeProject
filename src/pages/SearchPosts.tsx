@@ -25,8 +25,6 @@ export const SearchPosts: React.FC<PropsWithChildren<IUser>> = ({
         Authorization: `Bearer ${token}`,
       },
     }).then((res) => {
-      console.log("dataaaa", res.data.posts);
-
       return res.data.posts;
     });
   };
