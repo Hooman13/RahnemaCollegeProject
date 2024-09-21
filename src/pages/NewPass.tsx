@@ -38,8 +38,6 @@ export const NewPass = () => {
   // const { token } = useParams();
   useEffect(() => {
     setToken(paramTokenSearch);
-    // setEmail(paramSearch);
-    // console.log(email);
   }, []);
 
   const navigate = useNavigate();
@@ -68,7 +66,6 @@ export const NewPass = () => {
         }
       )
       .then((response) => {
-        console.log(response);
         if (response.status === 200) {
           setToastMsg("تغییر رمز با موفقیت انجام شد");
           setToastType("success");

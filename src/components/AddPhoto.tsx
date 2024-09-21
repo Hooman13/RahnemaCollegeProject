@@ -62,7 +62,6 @@ export const AddPhoto = () => {
 
     const selectedPhotos = target.files;
     const selectedPhotosArray = Array.from(selectedPhotos);
-    console.log(selectedPhotosArray);
 
     setFiles(selectedPhotosArray);
   };

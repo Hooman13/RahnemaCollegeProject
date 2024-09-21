@@ -26,7 +26,6 @@ export const CommentNotifCard: FunctionComponent<
   const visitProfile = () => {
     navigate(`/profile/${user?.username}`);
   };
-  console.log(post);
 
   return (
     <>
