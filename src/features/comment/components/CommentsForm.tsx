@@ -15,7 +15,21 @@ interface IProps {
 export const CommentsForm: React.FC<IProps> = ({ postId, parentId }) => {
   const queryClient = useQueryClient();
   const [commentInput, setCommentInput] = useState("");
-  const userName = Cookies.get("username");
+
+  const selectedAccount = Cookies.get("selectedAccount");
+  const currentTokenCookie = Cookies.get("token");
+  const token =
+    currentTokenCookie && selectedAccount
+      ? JSON.parse(currentTokenCookie)[parseInt(selectedAccount)]
+      : null;
+
+  const currentUsernameCookie = Cookies.get("username");
+  const cookieUsername =
+    currentUsernameCookie && selectedAccount
+      ? JSON.parse(currentUsernameCookie)[parseInt(selectedAccount)]
+      : null;
+
+  const userName = cookieUsername;
   const commentInputRef = useRef(null);
   const { parentCommentId, setParentCommentId } = useContext(CommentContext);
   const commentType = parentCommentId ? "replay" : "comment";
@@ -33,7 +47,7 @@ export const CommentsForm: React.FC<IProps> = ({ postId, parentId }) => {
       queryClient.invalidateQueries({ queryKey: [postId, "postComments"] });
     },
     onError: () => {
-      console.log("error"); 
+      console.log("error");
     },
   });
 
@@ -76,8 +90,11 @@ export const CommentsForm: React.FC<IProps> = ({ postId, parentId }) => {
           <div className="text-xs font-bold text-red-400 bg-cyan-200 p-2 w-5/6">
             <span className="mx-2 w-full">پاسخ به نظر</span>
             <button onClick={() => setParentCommentId(null)}>
-              <FontAwesomeIcon  icon={faXmark}  className="w-4 h-4 text-zinc-400 left-2 float-right"/>
-            </button> 
+              <FontAwesomeIcon
+                icon={faXmark}
+                className="w-4 h-4 text-zinc-400 left-2 float-right"
+              />
+            </button>
           </div>
         )}
         <input
