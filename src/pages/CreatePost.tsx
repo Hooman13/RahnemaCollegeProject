@@ -15,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { Button, Modal, Spinner } from "flowbite-react";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
+import { useQueryClient } from "@tanstack/react-query";
 const FormSchema = z.object({
   mentions: z.string().optional(),
   caption: z.string().optional(),
@@ -28,8 +29,7 @@ interface IProps {
 }
 
 export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
-
-
+  const queryClient = useQueryClient();
   // create post
   const [showAddPhoto, setShowAddPhoto] = useState(true);
   const [showCaptionPage, setShowCaptionPage] = useState(false);
@@ -65,6 +65,7 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
   });
   const navigate = useNavigate();
   const handlePostSent = () => {
+    queryClient.invalidateQueries({ queryKey: [`userPostList-${userName}`] });
     setOpenModal(false);
     navigate("/profile");
   };
