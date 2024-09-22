@@ -16,8 +16,23 @@ export const FollowersList: React.FC<IProps> = ({
   setOpenModal,
 }) => {
   const { username } = useParams();
-  const token = Cookies.get("token");
-  const userName = Cookies.get("username");
+  const modalSize = "md";
+  const selectedAccount = Cookies.get("selectedAccount");
+  const currentTokenCookie = Cookies.get("token");
+  const token =
+    currentTokenCookie && selectedAccount
+      ? JSON.parse(currentTokenCookie)[parseInt(selectedAccount)]
+      : null;
+
+  const currentUsernameCookie = Cookies.get("username");
+  const cookieUsername =
+    currentUsernameCookie && selectedAccount
+      ? JSON.parse(currentUsernameCookie)[parseInt(selectedAccount)]
+      : null;
+  // const profileUsername = username ? `${username}` : cookieUsername;
+  const profileUsername = cookieUsername;
+
+  const userName = cookieUsername;
   const followersEndpoint = username ? `${username}` : userName;
   const getFollowersData = () => {
     return BaseApi.get("/user-relations/followers/" + followersEndpoint, {
@@ -36,15 +51,19 @@ export const FollowersList: React.FC<IProps> = ({
 
   return (
     <>
-      <Modal show={openModal} onClose={() => setOpenModal(false)}>
+      <Modal
+        show={openModal}
+        onClose={() => setOpenModal(false)}
+        size={modalSize}
+      >
         <Modal.Body>
           <section>
             <form>
-              <div className=" bg-white w-auto h-auto py-16 rounded-3xl mt-3 px-12 ">
-                <div className="flex justify-center pb-10 text-xl overflow-y-hidden font-bold text-[#191919]">
-                  دنبال کننده‌ها
+              <div className=" bg-white w-auto h-auto py-3 rounded-3xl mt-3 px-3">
+                <div className="flex justify-center pb-10 text-xl font-bold text-[#191919]">
+                  دنبال شونده ها
                 </div>
-                <div className="overflow-y-scroll">
+                <div>
                   {data
                     ? Object.values(data).map(function (user: any, index) {
                         return (
