@@ -5,7 +5,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useQueryClient } from "@tanstack/react-query";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserPlus, faUserMinus } from "@fortawesome/free-solid-svg-icons";
-import { ToastR } from "../controles/ToastR";
+import { toast } from "react-toastify";
 
 interface IUser {
   user: string;
@@ -17,16 +17,8 @@ export const DeleteCloseFriend: React.FC<PropsWithChildren<IUser>> = ({
   relation,
   children,
 }) => {
-  // show toast after successfully follow someone
-  const [displayToast, setDispalyToast] = useState(false);
-  const [toastMsg, setToastMsg] = useState("");
-  const [toastType, setToastType] = useState("basic");
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setDispalyToast(false);
-    }, 3000);
-    return () => clearTimeout(timeoutId);
-  }, [displayToast]);
+
+
   const token = Cookies.get("token");
   const queryClient = useQueryClient();
   const cookieUsername = Cookies.get("username");
@@ -46,14 +38,10 @@ export const DeleteCloseFriend: React.FC<PropsWithChildren<IUser>> = ({
       );
     },
     onSuccess: (res) => {
-      setToastMsg(`${user} دیگه دوست نزدیکت نیست`);
-      setToastType("success");
-      setDispalyToast(true);
+      toast.info(`${user} دیگه دوست نزدیکت نیست`);
     },
     onError: () => {
-      setToastMsg("متاسفانه درخواست شما انجام نشد");
-      setToastType("error");
-      setDispalyToast(true);
+      toast.error("متاسفانه درخواست شما انجام نشد");
     },
   });
   useEffect(() => {
@@ -75,7 +63,6 @@ export const DeleteCloseFriend: React.FC<PropsWithChildren<IUser>> = ({
         case "friend":
           return (
             <section>
-              {displayToast && <ToastR type={toastType}>{toastMsg}</ToastR>}
               <button
                 onClick={handleCloseFriend}
                 type="button"

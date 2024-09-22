@@ -2,7 +2,6 @@ import { BaseApi } from "../api/axios";
 import { useQuery } from "@tanstack/react-query";
 import Cookies from "js-cookie";
 import { ExploreItemSkeleton } from "../components/ExploreItemSkeleton";
-import { ToastR } from "../components/controles/ToastR";
 import { ExploreItem } from "../components/ExploreItem";
 import { PeopleSkeleton } from "../components/PeopleSkeleton";
 import { UserCard } from "../components/cards/UserCard";
@@ -44,9 +43,6 @@ export const SearchPeaple: React.FC<PropsWithChildren<IUser>> = ({
   }
 
   if (isError) {
-    {
-      <ToastR type="danger">خطا در دریافت </ToastR>;
-    }
     return <h1>خطا:{error.message}</h1>;
   }
 

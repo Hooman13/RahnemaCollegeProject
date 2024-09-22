@@ -2,11 +2,12 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import React, { useState, PropsWithChildren } from "react";
 import { useEffect } from "react";
-import { ToastR } from "../controles/ToastR";
+import { toast } from "react-toastify";
 import { useMutation } from "@tanstack/react-query";
 import { useQueryClient } from "@tanstack/react-query";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserLock } from "@fortawesome/free-solid-svg-icons";
+
 
 interface IUser {
   user: string;
@@ -16,16 +17,7 @@ export const BlockButton: React.FC<PropsWithChildren<IUser>> = ({
   user,
   children,
 }) => {
-  // show toast after successfully follow someone
-  const [displayToast, setDispalyToast] = useState(false);
-  const [toastMsg, setToastMsg] = useState("");
-  const [toastType, setToastType] = useState("basic");
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setDispalyToast(false);
-    }, 3000);
-    return () => clearTimeout(timeoutId);
-  }, [displayToast]);
+
   const token = Cookies.get("token");
   const queryClient = useQueryClient();
   const cookieUsername = Cookies.get("username");
@@ -46,14 +38,10 @@ export const BlockButton: React.FC<PropsWithChildren<IUser>> = ({
       );
     },
     onSuccess: (res) => {
-      setToastMsg(`${user} رو بلاک کردی`);
-      setToastType("success");
-      setDispalyToast(true);
+      toast.info(`${user} رو بلاک کردی`)
     },
     onError: () => {
-      setToastMsg("متاسفانه درخواست شما انجام نشد");
-      setToastType("error");
-      setDispalyToast(true);
+      toast.error("متاسفانه درخواست شما انجام نشد")
     },
   });
   useEffect(() => {
@@ -73,7 +61,6 @@ export const BlockButton: React.FC<PropsWithChildren<IUser>> = ({
   return (
     <>
       <section>
-        {displayToast && <ToastR type={toastType}>{toastMsg}</ToastR>}
         <button
           onClick={handleBlock}
           type="button"

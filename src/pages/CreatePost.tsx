@@ -14,7 +14,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { Button, Modal, Spinner } from "flowbite-react";
 import { useEffect } from "react";
-import { ToastR } from "../components/controles/ToastR";
+import { toast } from "react-toastify";
 const FormSchema = z.object({
   mentions: z.string().optional(),
   caption: z.string().optional(),
@@ -28,16 +28,7 @@ interface IProps {
 }
 
 export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
-  // show toast after successfully profile edited
-  const [displayToast, setDispalyToast] = useState(false);
-  const [toastMsg, setToastMsg] = useState("");
-  const [toastType, setToastType] = useState("basic");
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setDispalyToast(false);
-    }, 3000);
-    return () => clearTimeout(timeoutId);
-  }, [displayToast]);
+
 
   // create post
   const [showAddPhoto, setShowAddPhoto] = useState(true);
@@ -83,19 +74,17 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
     createPost(formData)
       .then((response) => {
         if (response?.status === 201) {
-          setToastMsg("پست با موفقیت ارسال شد");
-          setToastType("success");
-          setDispalyToast(true);
-          setTimeout(() => {
-            window.location.reload();
-          }, 1);
+          toast.success("پست با موفقیت ارسال شد");
           setTimeout(() => {
             setOpenModal(false);
           }, 2000);
           handlePostSent();
         }
       })
-      .catch((err) => console.log(err))
+      .catch((err) => {
+        toast.error("خطا در ارسال پست : " + err);
+        console.log(err);
+      })
       .finally(() => {
         setIsLoading(false);
       });
@@ -140,7 +129,6 @@ export const CreatePost: React.FC<IProps> = ({ openModal, setOpenModal }) => {
 
   return (
     <>
-      {displayToast && <ToastR type={toastType}>{toastMsg}</ToastR>}
       <Modal
         show={openModal}
         onClose={() => setOpenModal(false)}

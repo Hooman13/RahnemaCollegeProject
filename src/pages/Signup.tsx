@@ -5,8 +5,10 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signup } from "../api/signup";
 import { useNavigate } from "react-router-dom";
-import { ToastR } from "../components/controles/ToastR";
+import { toast } from "react-toastify";
 import { Spinner } from "flowbite-react";
+
+import { BaseApi } from "../api/axios";
 
 const FormSchema = z.object({
   username: z
@@ -24,17 +26,7 @@ const FormSchema = z.object({
 type IFormInput = z.infer<typeof FormSchema>;
 
 export const Signup = () => {
-  const [displayToast, setDispalyToast] = useState(false);
-  const [toastMsg, setToastMsg] = useState("");
-  const [toastType, setToastType] = useState("basic");
-
   const [isLoading, setIsLoading] = useState(false);
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setDispalyToast(false);
-    }, 3000);
-    return () => clearTimeout(timeoutId);
-  }, [displayToast]);
 
   const {
     register,
@@ -54,20 +46,36 @@ export const Signup = () => {
   const onSubmit = (data: IFormInput) => {
     setIsLoading(true);
 
-    signup(data)
+    BaseApi.post("auth/signup", JSON.stringify(data), {
+      headers: { "Content-Type": "application/json" },
+    })
       .then((response) => {
         if (response?.status === 201) {
-          setToastMsg("ثبت نام شما با موفقیت انجام شد");
-          setToastType("success");
-          setDispalyToast(true);
+          toast.success("ثبت نام شما با موفقیت انجام شد");
           handleSignupSuccess();
         }
       })
       .catch((err) => {
-        setToastMsg(" ایمیل وارد شده قبلا عضو کالج‌گرام شده است");
-        setToastType("danger");
-        setDispalyToast(true);
-        console.log(err);
+        switch (err?.response?.data?.reason) {
+          case "DupUser":
+            toast.error("این کاربر قبلا عضو کالج گرام شده است");
+            break;
+          case "InvalidUsername":
+          case "InvalidEmail":
+            toast.error("فرمت نام کاربری یا ایمیل اشتباه است");
+            break;
+          case "InvalidPassword":
+          case "InvalidConfirmPassword":
+            toast.error("فرمت رمز عبور اشتباه است");
+            break;
+          case "NotSamePasswords":
+            toast.error("تکرار رمز عبور اشتباه است");
+            break;
+
+          default:
+            toast.error("سرور در دسترس نیست");
+            break;
+        }
       })
       .finally(() => {
         setIsLoading(false);
@@ -110,7 +118,6 @@ export const Signup = () => {
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
         <section>
-          {displayToast && <ToastR type={toastType}>{toastMsg}</ToastR>}
           <div
             className="frame5 w-screen h-screen bg-no-repeat bg-center bg-cover flex justify-center items-center"
             style={{ backgroundImage: "url(./img/login-background.png)" }}

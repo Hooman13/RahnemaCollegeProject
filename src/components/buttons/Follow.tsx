@@ -2,11 +2,12 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import React, { useState, PropsWithChildren } from "react";
 import { useEffect } from "react";
-import { ToastR } from "../controles/ToastR";
+import { toast } from "react-toastify";
 import { useMutation } from "@tanstack/react-query";
 import { useQueryClient } from "@tanstack/react-query";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+
 
 interface IUser {
   user: string;
@@ -16,16 +17,7 @@ export const Follow: React.FC<PropsWithChildren<IUser>> = ({
   user,
   children,
 }) => {
-  // show toast after successfully follow someone
-  const [displayToast, setDispalyToast] = useState(false);
-  const [toastMsg, setToastMsg] = useState("");
-  const [toastType, setToastType] = useState("basic");
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setDispalyToast(false);
-    }, 3000);
-    return () => clearTimeout(timeoutId);
-  }, [displayToast]);
+
   const token = Cookies.get("token");
   const queryClient = useQueryClient();
 
@@ -49,14 +41,10 @@ export const Follow: React.FC<PropsWithChildren<IUser>> = ({
       );
     },
     onSuccess: (res) => {
-      setToastMsg(`درخواست دنبال کردن ${user} براش ارسال شد`);
-      setToastType("success");
-      setDispalyToast(true);
+      toast.info(`درخواست دنبال کردن ${user} براش ارسال شد`);
     },
     onError: () => {
-      setToastMsg("متاسفانه درخواست شما انجام نشد");
-      setToastType("error");
-      setDispalyToast(true);
+      toast.error("متاسفانه درخواست شما انجام نشد");
     },
   });
   useEffect(() => {
@@ -77,7 +65,6 @@ export const Follow: React.FC<PropsWithChildren<IUser>> = ({
   return (
     <>
       <section>
-        {displayToast && <ToastR type={toastType}>{toastMsg}</ToastR>}
         <button
           onClick={handleFollow}
           type="button"

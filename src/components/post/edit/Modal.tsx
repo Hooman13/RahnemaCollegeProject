@@ -10,6 +10,7 @@ import { CaptionPage } from "../../CaptionPage";
 import { MentionPost } from "../../MentionPost";
 import { useQueryClient } from "@tanstack/react-query";
 import { json } from "react-router-dom";
+import { toast } from "react-toastify";
 
 interface IProps {
   postId: string;
@@ -124,7 +125,11 @@ export function EditPostModal({
       });
     },
     onSuccess: () => {
+      toast.success("پست ویرایش شد");
       setOpenModal(false);
+    },
+    onError: () => {
+      toast.error("خطا در ویرایش پست");
     },
   });
   const { data, status, error } = useQuery({

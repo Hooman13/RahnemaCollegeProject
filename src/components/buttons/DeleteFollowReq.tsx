@@ -4,8 +4,9 @@ import React, { useState, PropsWithChildren } from "react";
 import { useEffect } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useQueryClient } from "@tanstack/react-query";
-import { ToastR } from "../controles/ToastR";
+import { toast } from "react-toastify";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
+
 
 interface IUser {
   user: string;
@@ -15,19 +16,10 @@ export const DeleteFollowReq: React.FC<PropsWithChildren<IUser>> = ({
   user,
   children,
 }) => {
-  // show toast after successfully follow someone
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
-  const [displayToast, setDispalyToast] = useState(false);
-  const [toastMsg, setToastMsg] = useState("");
-  const [toastType, setToastType] = useState("basic");
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setDispalyToast(false);
-    }, 3000);
-    return () => clearTimeout(timeoutId);
-  }, [displayToast]);
+
   const token = Cookies.get("token");
   const queryClient = useQueryClient();
   const cookieUsername = Cookies.get("username");
@@ -51,14 +43,10 @@ export const DeleteFollowReq: React.FC<PropsWithChildren<IUser>> = ({
       );
     },
     onSuccess: (res) => {
-      setToastMsg(`درخواستت دنبال کردنت از ${user} حذف شد`);
-      setToastType("success");
-      setDispalyToast(true);
+      toast.info(`درخواستت دنبال کردنت از ${user} حذف شد`)
     },
     onError: () => {
-      setToastMsg("متاسفانه درخواست شما انجام نشد");
-      setToastType("error");
-      setDispalyToast(true);
+      toast.error("متاسفانه درخواست شما انجام نشد");
     },
   });
   useEffect(() => {
@@ -77,7 +65,6 @@ export const DeleteFollowReq: React.FC<PropsWithChildren<IUser>> = ({
   return (
     <>
       <section>
-        {displayToast && <ToastR type={toastType}>{toastMsg}</ToastR>}
         <button
           onClick={handleDeleteFollow}
           type="button"

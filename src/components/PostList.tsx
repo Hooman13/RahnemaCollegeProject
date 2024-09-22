@@ -2,7 +2,6 @@ import { PropsWithChildren, useEffect, useState } from "react";
 import { PostItem } from "./PostItem";
 import { PostListApi } from "../api/axios";
 import { useQuery } from "@tanstack/react-query";
-import { ToastR } from "./controles/ToastR";
 import Cookies from "js-cookie";
 import { PostItemSkeleton } from "./PostItemSkeleton";
 interface IPostListProps {
@@ -51,9 +50,6 @@ export const PostsList: React.FC<PropsWithChildren<IPostListProps>> = ({
   }
 
   if (isError) {
-    {
-      <ToastR type="danger">خطا در دریافت پست ها</ToastR>;
-    }
     return (
       <div className="mt-8 bg-inherit h-full border border-[#CDCDCD] rounded-3xl">
         <div className="flex flex-row min-h-screen justify-center items-center">

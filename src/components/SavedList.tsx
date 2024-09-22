@@ -1,6 +1,5 @@
 import { BaseApi } from "../api/axios";
 import { useQuery } from "@tanstack/react-query";
-import { ToastR } from "./controles/ToastR";
 import { PostItemSkeleton } from "./PostItemSkeleton";
 import Cookies from "js-cookie";
 import { PostItem } from "./PostItem";
@@ -34,9 +33,6 @@ export const SavedList = () => {
   }
 
   if (isError) {
-    {
-      <ToastR type="danger">خطا در دریافت پست ها</ToastR>;
-    }
     return <h1>خطا:{error.message}</h1>;
   }
 

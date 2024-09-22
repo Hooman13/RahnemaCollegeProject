@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { EditProfileApi } from "../api/axios";
 import { Link } from "react-router-dom";
 import { Button, Modal } from "flowbite-react";
-import { ToastR } from "../components/controles/ToastR";
+import { toast } from "react-toastify";
 import { useEffect } from "react";
 import Cookies from "js-cookie";
 import { UserInfoApi } from "../api/axios";
@@ -42,16 +42,8 @@ interface IProps {
 }
 export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
   const queryClient = useQueryClient();
-  // show toast after successfully profile edited
-  const [displayToast, setDispalyToast] = useState(false);
-  const [toastMsg, setToastMsg] = useState("");
-  const [toastType, setToastType] = useState("basic");
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setDispalyToast(false);
-    }, 3000);
-    return () => clearTimeout(timeoutId);
-  }, [displayToast]);
+
+
 
   // modalSize
   const modalSize = "md";
@@ -152,16 +144,17 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
     })
       .then((response) => {
         if (response.status === 200) {
-          setToastMsg("پروفایل با موفقیت ویرایش شد");
-          setToastType("success");
-          setDispalyToast(true);
+          toast.success("پروفایل با موفقیت ویرایش شد");
           queryClient.invalidateQueries({ queryKey: [userName, "userInfo"] });
           setTimeout(() => {
             setOpenModal(false);
           }, 2000);
         }
       })
-      .catch((err) => console.log(err))
+      .catch((err) => {
+        toast.error("خطا در ویرایش پروفایل :" + err);
+        console.log(err);
+      })
       .finally(() => {
         setIsLoading(false);
       });
@@ -265,7 +258,6 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
         onClose={() => setOpenModal(false)}
       >
         <Modal.Body className=" flex w-auto items-center justify-center py-7 rounded-3xl   ">
-          {displayToast && <ToastR type={toastType}>{toastMsg}</ToastR>}
           <form className="items-center" onSubmit={handleSubmit(onSubmit)}>
             <section>
               <div className="text-center text-sm justify-center font-bold mb-3">
