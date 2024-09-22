@@ -64,13 +64,13 @@ export const MoreButton: React.FC<PropsWithChildren<IUser>> = ({
       >
         <div className="py-3">
           <MenuItem>
-            <div className=" data-[focus]:bg-gray-100">
+            <div className=" data-[focus]:bg-gray-100 block px-4 py-2 text-xs font-normal text-Black data-[focus]:text-gray-900 ">
               <button
                 onClick={() => {
                   switchUser();
                 }}
               >
-                swich
+                برو به اونیکی اکانتم
               </button>
             </div>
           </MenuItem>
