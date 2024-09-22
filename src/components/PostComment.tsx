@@ -19,7 +19,20 @@ export const PostComment: React.FC<IProps> = ({
   useEffect(() => {}, [postId, commentCount]);
   const [isLoading, setIsLoading] = useState(false);
   const [isCommented, setIsCommented] = useState(false);
-  const token = Cookies.get("token");
+  const selectedAccount = Cookies.get("selectedAccount");
+  const currentTokenCookie = Cookies.get("token");
+  const token =
+    currentTokenCookie && selectedAccount
+      ? JSON.parse(currentTokenCookie)[parseInt(selectedAccount)]
+      : null;
+
+  const currentUsernameCookie = Cookies.get("username");
+  const cookieUsername =
+    currentUsernameCookie && selectedAccount
+      ? JSON.parse(currentUsernameCookie)[parseInt(selectedAccount)]
+      : null;
+  // const profileUsername = username ? `${username}` : cookieUsername;
+  const profileUsername = cookieUsername;
 
   const [displayToast, setDispalyToast] = useState(false);
   const [toastMsg, setToastMsg] = useState("");
