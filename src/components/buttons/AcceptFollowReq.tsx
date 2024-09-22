@@ -14,7 +14,6 @@ export const AcceptFollowReq: React.FC<PropsWithChildren<IUser>> = ({
   children,
 }) => {
   const [followAccepted, setFollowAccepted] = useState(true);
-
   const queryClient = useQueryClient();
 
   const selectedAccount = Cookies.get("selectedAccount");
