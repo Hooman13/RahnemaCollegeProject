@@ -1,6 +1,6 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faEllipsisVertical,faCommentDots } from "@fortawesome/free-solid-svg-icons";
 import React, { useState, PropsWithChildren } from "react";
 import { RemoveFollowing } from "./buttons/RemoveFollowing";
 import { RemoveFollower } from "./buttons/RemoveFollower";
@@ -45,12 +45,13 @@ export const FollowerMenu: React.FC<PropsWithChildren<IUser>> = ({
         >
           <div className="py-3">
             <MenuItem>
-              <button
+              <div
                 onClick={() => setOpenModal(true)}
-                className="block px-4 py-2 text-xs font-normal text-Black"
+                className="block px-4 py-2 text-xs font-normal text-Black text-right cursor-pointer"
               >
+                <FontAwesomeIcon className="ml-4" icon={faCommentDots} />
                 پیام
-              </button>
+              </div>
             </MenuItem>
             <MenuItem>
               <div className=" data-[focus]:bg-gray-100">
