@@ -31,7 +31,18 @@ export const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = Cookies.get("token");
+    const selectedAccount = Cookies.get("selectedAccount");
+    const currentTokenCookie = Cookies.get("token");
+    const token =
+      currentTokenCookie && selectedAccount
+        ? JSON.parse(currentTokenCookie)[parseInt(selectedAccount)]
+        : null;
+
+    const currentUsernameCookie = Cookies.get("username");
+    const cookieUsername =
+      currentUsernameCookie && selectedAccount
+        ? JSON.parse(currentUsernameCookie)[parseInt(selectedAccount)]
+        : null;
 
     if (token) {
       config.headers["Authorization"] = `Bearer ${token}`;
@@ -39,7 +50,6 @@ axiosInstance.interceptors.request.use(
     return config;
   },
   (error) => {
-
     return Promise.reject(error);
   }
 );

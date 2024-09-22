@@ -47,7 +47,7 @@ export const FollowerMenu: React.FC<PropsWithChildren<IUser>> = ({
             <MenuItem>
               <button
                 onClick={() => setOpenModal(true)}
-                className="block px-4 py-2 text-xs font-normal text-Black data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
+                className="block px-4 py-2 text-xs font-normal text-Black"
               >
                 پیام
               </button>

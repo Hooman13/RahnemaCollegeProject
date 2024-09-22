@@ -18,8 +18,21 @@ import { useQuery } from "@tanstack/react-query";
 import { MoreButton } from "./buttons/MoreButton";
 
 export const ProfileSidebar: FunctionComponent = () => {
-  const token = Cookies.get("token");
-  const userName = Cookies.get("username");
+  const selectedAccount = Cookies.get("selectedAccount");
+  const currentTokenCookie = Cookies.get("token");
+  const token =
+    currentTokenCookie && selectedAccount
+      ? JSON.parse(currentTokenCookie)[parseInt(selectedAccount)]
+      : null;
+
+  const currentUsernameCookie = Cookies.get("username");
+  const cookieUsername =
+    currentUsernameCookie && selectedAccount
+      ? JSON.parse(currentUsernameCookie)[parseInt(selectedAccount)]
+      : null;
+  // const profileUsername = username ? `${username}` : cookieUsername;
+  const profileUsername = cookieUsername;
+  const userName = cookieUsername;
 
   const navigate = useNavigate();
   const logout = () => {
@@ -126,7 +139,9 @@ export const ProfileSidebar: FunctionComponent = () => {
             </div>
           </button>
         </div>
-        <div>{userName ? <MoreButton user={userName} /> : null}</div>
+        <div className="mt-14 font-normal flex hover:bg-[#F5F5F5]">
+          {userName ? <MoreButton user={userName} /> : null}
+        </div>
       </div>
     </div>
   );

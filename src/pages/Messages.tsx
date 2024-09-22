@@ -23,8 +23,22 @@ interface IChat {
 }
 
 export const Messages = () => {
-  const token = Cookies.get("token");
-  const userName = Cookies.get("username");
+  const selectedAccount = Cookies.get("selectedAccount");
+  const currentTokenCookie = Cookies.get("token");
+  const token =
+    currentTokenCookie && selectedAccount
+      ? JSON.parse(currentTokenCookie)[parseInt(selectedAccount)]
+      : null;
+
+  const currentUsernameCookie = Cookies.get("username");
+  const cookieUsername =
+    currentUsernameCookie && selectedAccount
+      ? JSON.parse(currentUsernameCookie)[parseInt(selectedAccount)]
+      : null;
+  // const profileUsername = username ? `${username}` : cookieUsername;
+  const profileUsername = cookieUsername;
+
+  const userName = cookieUsername;
 
   const getMessages = () => {
     return BaseApi.get("/dashboard/messages?p=1&c=5", {

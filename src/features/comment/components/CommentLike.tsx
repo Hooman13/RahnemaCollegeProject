@@ -18,7 +18,23 @@ export const CommentLike: React.FC<IProps> = ({
   isLiked,
 }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const token = Cookies.get("token");
+
+  const selectedAccount = Cookies.get("selectedAccount");
+  const currentTokenCookie = Cookies.get("token");
+  const token =
+    currentTokenCookie && selectedAccount
+      ? JSON.parse(currentTokenCookie)[parseInt(selectedAccount)]
+      : null;
+
+  const currentUsernameCookie = Cookies.get("username");
+  const cookieUsername =
+    currentUsernameCookie && selectedAccount
+      ? JSON.parse(currentUsernameCookie)[parseInt(selectedAccount)]
+      : null;
+  // const profileUsername = username ? `${username}` : cookieUsername;
+  const profileUsername = cookieUsername;
+
+  const userName = cookieUsername;
   interface ILike {
     likeCount: number;
     isLiked: boolean;
@@ -48,7 +64,8 @@ export const CommentLike: React.FC<IProps> = ({
         },
       }
     )
-      .then((res) => {debugger
+      .then((res) => {
+        debugger;
         const isLiked_result = res.data.message === "liked comment";
         const likeCount_result = res.data.likeCount;
 
@@ -80,9 +97,7 @@ export const CommentLike: React.FC<IProps> = ({
           <FontAwesomeIcon icon={faHeart} />
         )}
       </button>
-      <span className="inline-block mr-2">
-        {like.likeCount}
-      </span>
+      <span className="inline-block mr-2">{like.likeCount}</span>
     </div>
   );
 };

@@ -8,7 +8,6 @@ import { useQueryClient } from "@tanstack/react-query";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
-
 interface IUser {
   user: string;
 }
@@ -17,11 +16,21 @@ export const Follow: React.FC<PropsWithChildren<IUser>> = ({
   user,
   children,
 }) => {
-
-  const token = Cookies.get("token");
   const queryClient = useQueryClient();
 
-  const cookieUsername = Cookies.get("username");
+  const selectedAccount = Cookies.get("selectedAccount");
+  const currentTokenCookie = Cookies.get("token");
+  const token =
+    currentTokenCookie && selectedAccount
+      ? JSON.parse(currentTokenCookie)[parseInt(selectedAccount)]
+      : null;
+
+  const currentUsernameCookie = Cookies.get("username");
+  const cookieUsername =
+    currentUsernameCookie && selectedAccount
+      ? JSON.parse(currentUsernameCookie)[parseInt(selectedAccount)]
+      : null;
+  // const profileUsername = username ? `${username}` : cookieUsername;
   const profileUsername = cookieUsername;
 
   const mutation = useMutation({

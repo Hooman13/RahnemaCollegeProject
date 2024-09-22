@@ -22,13 +22,25 @@ export const MyPage = () => {
   const [openFollowingsModal, setOpenFollowingsModal] = useState(false);
   const [openFollowersModal, setOpenFollowersModal] = useState(false);
   const [openEditProfilModal, setOpenEditProfilModal] = useState(false);
-  const cookieUsername = Cookies.get("username");
-
-  const profileUsername = username ? `${username}` : cookieUsername;
+  // const cookieUsername = Cookies.get("username");
 
   const [isMyProfile, setIsMyProfile] = useState(false);
-  const token = Cookies.get("token");
+
   const queryClient = useQueryClient();
+
+  const selectedAccount = Cookies.get("selectedAccount");
+  const currentTokenCookie = Cookies.get("token");
+  const token =
+    currentTokenCookie && selectedAccount
+      ? JSON.parse(currentTokenCookie)[parseInt(selectedAccount)]
+      : null;
+
+  const currentUsernameCookie = Cookies.get("username");
+  const cookieUsername =
+    currentUsernameCookie && selectedAccount
+      ? JSON.parse(currentUsernameCookie)[parseInt(selectedAccount)]
+      : null;
+  const profileUsername = username ? `${username}` : cookieUsername;
 
   const getProfileData = () => {
     return UserInfoApi.get(profileUsername ?? "", {

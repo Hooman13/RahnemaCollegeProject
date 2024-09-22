@@ -8,6 +8,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { BaseApi } from "../api/axios";
+import { ToastR } from "../components/controles/ToastR";
+import Cookies from "js-cookie";
 
 const FormSchema = z.object({
   newPassword: z.string().min(8, "رمزعبور باید حداقل شامل ۸ حرف باشد"),
@@ -17,16 +19,32 @@ const FormSchema = z.object({
 type IFormInput = z.infer<typeof FormSchema>;
 
 export const NewPass = () => {
-
-
   // reset pass logic
   const [email, setEmail] = useState("");
   const [newPassword, setnewPassword] = useState("");
   // const [confirmPassword, setConfirmPassword] = useState("");
+
+  const selectedAccount = Cookies.get("selectedAccount");
+  const currentTokenCookie = Cookies.get("token");
+  const paramTokenSearch =
+    currentTokenCookie && selectedAccount
+      ? JSON.parse(currentTokenCookie)[parseInt(selectedAccount)]
+      : null;
+
+  const currentUsernameCookie = Cookies.get("username");
+  const cookieUsername =
+    currentUsernameCookie && selectedAccount
+      ? JSON.parse(currentUsernameCookie)[parseInt(selectedAccount)]
+      : null;
+  // const profileUsername = username ? `${username}` : cookieUsername;
+  const profileUsername = cookieUsername;
+
+  const userName = cookieUsername;
+
   const [token, setToken] = useState("");
   const [serachParams] = useSearchParams();
   const paramSearch: any = serachParams.get("email");
-  const paramTokenSearch: any = serachParams.get("token");
+  // const paramTokenSearch: any = serachParams.get("token");
   // const { token } = useParams();
   useEffect(() => {
     setToken(paramTokenSearch);

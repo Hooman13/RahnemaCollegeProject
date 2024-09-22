@@ -60,8 +60,39 @@ export const Login = () => {
         const jwt = res?.data.token;
         setUser("");
         setPwd("");
-        Cookies.set("token", jwt, { expires: 7 });
-        Cookies.set("username", user, { expires: 7 });
+
+        const currentTokenCookie = Cookies.get("token");
+        const currentUsernameCookie = Cookies.get("username");
+        if (currentTokenCookie && currentUsernameCookie) {
+          // json parse and then add the new token to array and finaly set the cookie
+          const currentCookieArray = JSON.parse(currentTokenCookie);
+          currentCookieArray.push(jwt);
+          Cookies.set("token", JSON.stringify(currentCookieArray), {
+            expires: 7,
+          });
+
+          // and do the same for username
+          const currentUsernameArray = JSON.parse(currentUsernameCookie);
+          currentUsernameArray.push(user);
+          Cookies.set("username", JSON.stringify(currentUsernameArray), {
+            expires: 7,
+          });
+
+          // add selectedAccount number of new token
+          Cookies.set(
+            "selectedAccount",
+            (currentCookieArray.length - 1).toString(),
+            { expires: 7 }
+          );
+        } else {
+          // if there is no cookie set the cookie
+          Cookies.set("token", JSON.stringify([jwt]), { expires: 7 });
+          Cookies.set("username", JSON.stringify([user]), { expires: 7 });
+
+          // add selectedAccount number cookie
+          Cookies.set("selectedAccount", "0", { expires: 7 });
+        }
+
         setAuth({ user, pwd, jwt });
 
         toast.success("ورود موفقیت آمیز");

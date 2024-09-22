@@ -14,10 +14,21 @@ export const UnFollow: React.FC<PropsWithChildren<IUser>> = ({
   user,
   children,
 }) => {
-
-  const token = Cookies.get("token");
   const queryClient = useQueryClient();
-  const cookieUsername = Cookies.get("username");
+
+  const selectedAccount = Cookies.get("selectedAccount");
+  const currentTokenCookie = Cookies.get("token");
+  const token =
+    currentTokenCookie && selectedAccount
+      ? JSON.parse(currentTokenCookie)[parseInt(selectedAccount)]
+      : null;
+
+  const currentUsernameCookie = Cookies.get("username");
+  const cookieUsername =
+    currentUsernameCookie && selectedAccount
+      ? JSON.parse(currentUsernameCookie)[parseInt(selectedAccount)]
+      : null;
+  // const profileUsername = username ? `${username}` : cookieUsername;
   const profileUsername = cookieUsername;
 
   const mutation = useMutation({

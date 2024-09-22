@@ -5,7 +5,6 @@ import { toast } from "react-toastify";
 import { useMutation } from "@tanstack/react-query";
 import { useQueryClient } from "@tanstack/react-query";
 
-
 interface IUser {
   user: string;
 }
@@ -15,10 +14,20 @@ export const AcceptFollowReq: React.FC<PropsWithChildren<IUser>> = ({
   children,
 }) => {
   const [followAccepted, setFollowAccepted] = useState(true);
-
-  const token = Cookies.get("token");
   const queryClient = useQueryClient();
-  const cookieUsername = Cookies.get("username");
+
+  const selectedAccount = Cookies.get("selectedAccount");
+  const currentTokenCookie = Cookies.get("token");
+  const token =
+    currentTokenCookie && selectedAccount
+      ? JSON.parse(currentTokenCookie)[parseInt(selectedAccount)]
+      : null;
+
+  const currentUsernameCookie = Cookies.get("username");
+  const cookieUsername =
+    currentUsernameCookie && selectedAccount
+      ? JSON.parse(currentUsernameCookie)[parseInt(selectedAccount)]
+      : null;
   const profileUsername = cookieUsername;
 
   const mutation = useMutation({

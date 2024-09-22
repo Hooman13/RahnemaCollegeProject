@@ -7,7 +7,6 @@ import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 
-
 interface IUser {
   user: string;
 }
@@ -20,10 +19,20 @@ export const DeleteFollowReq: React.FC<PropsWithChildren<IUser>> = ({
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
 
-  const token = Cookies.get("token");
   const queryClient = useQueryClient();
-  const cookieUsername = Cookies.get("username");
+  const selectedAccount = Cookies.get("selectedAccount");
+  const currentTokenCookie = Cookies.get("token");
+  const token =
+    currentTokenCookie && selectedAccount
+      ? JSON.parse(currentTokenCookie)[parseInt(selectedAccount)]
+      : null;
 
+  const currentUsernameCookie = Cookies.get("username");
+  const cookieUsername =
+    currentUsernameCookie && selectedAccount
+      ? JSON.parse(currentUsernameCookie)[parseInt(selectedAccount)]
+      : null;
+  // const profileUsername = username ? `${username}` : cookieUsername;
   const profileUsername = user;
 
   const mutation = useMutation({
@@ -43,7 +52,7 @@ export const DeleteFollowReq: React.FC<PropsWithChildren<IUser>> = ({
       );
     },
     onSuccess: (res) => {
-      toast.info(`درخواستت دنبال کردنت از ${user} حذف شد`)
+      toast.info(`درخواستت دنبال کردنت از ${user} حذف شد`);
     },
     onError: () => {
       toast.error("متاسفانه درخواست شما انجام نشد");
