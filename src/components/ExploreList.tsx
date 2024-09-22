@@ -1,6 +1,5 @@
 import { BaseApi } from "../api/axios";
 import { useQuery } from "@tanstack/react-query";
-import { ToastR } from "./controles/ToastR";
 import { ExploreItem } from "./ExploreItem";
 import { ExploreItemSkeleton } from "./ExploreItemSkeleton";
 import Cookies from "js-cookie";
@@ -34,9 +33,6 @@ export const ExploreList = () => {
   }
 
   if (isError) {
-    {
-      <ToastR type="danger">خطا در دریافت پست ها</ToastR>;
-    }
     return <h1>خطا:{error.message}</h1>;
   }
 

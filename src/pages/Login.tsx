@@ -3,8 +3,8 @@ import React, { useRef, useState, useEffect } from "react";
 import { BaseApi } from "../api/axios";
 import useAuth from "../hooks/useAuth";
 import Cookies from "js-cookie";
-import { ToastR } from "../components/controles/ToastR";
 import { Spinner } from "flowbite-react";
+import { toast } from "react-toastify";
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -21,17 +21,8 @@ export const Login = () => {
   const [rememberMe, setRememberMe] = useState(false);
   const [errMsg, setErrMsg] = useState("");
 
-  const [displayToast, setDispalyToast] = useState(false);
-  const [toastMsg, setToastMsg] = useState("");
-  const [toastType, setToastType] = useState("basic");
 
   const [isLoading, setIsLoading] = useState(false);
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setDispalyToast(false);
-    }, 3000);
-    return () => clearTimeout(timeoutId);
-  }, [displayToast]);
 
   useEffect(() => {
     (userRef as any).current.focus();
@@ -72,12 +63,10 @@ export const Login = () => {
         Cookies.set("token", jwt, { expires: 7 });
         Cookies.set("username", user, { expires: 7 });
         setAuth({ user, pwd, jwt });
-        setToastMsg("ورود موفقیت آمیز");
-        setToastType("success");
-        setDispalyToast(true);
-        setTimeout(() => {
-          navigate(from, { replace: true });
-        }, 2000);
+
+        toast.success("ورود موفقیت آمیز");
+        navigate(from, { replace: true });
+        
       })
       .catch((err) => {
         switch (err?.response?.data?.reason) {
@@ -107,7 +96,6 @@ export const Login = () => {
 
   return (
     <section>
-      {displayToast && <ToastR type={toastType}>{toastMsg}</ToastR>}
       <form onSubmit={handleSubmit}>
         <div
           className="frame5 w-screen h-screen bg-no-repeat bg-center bg-cover flex justify-center items-center"

@@ -4,7 +4,7 @@ import { DisplayPostApi } from "../api/axios";
 import { Carousel, Badge } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { ToastR } from "./controles/ToastR";
+import { toast } from "react-toastify";
 import { PostBookmark } from "./PostBookmark";
 import { PostLike } from "./PostLike";
 import { Comments } from "../features/comment/components/Comments";
@@ -12,6 +12,7 @@ import { PostComment } from "./PostComment";
 import Cookies from "js-cookie";
 import { TimeAgoDate } from "../utils/TimeAgoDate";
 import { EditPostModal } from "./post/edit/Modal";
+
 interface IProps {
   postId: string;
 }
@@ -81,7 +82,7 @@ export const DisplayPost: React.FC<IProps> = ({ postId }) => {
       });
     } catch (error) {
       console.log(error);
-      <ToastR type="danger"></ToastR>;
+      toast.error("خطا در نمایش پست :" + error);
     }
   };
 

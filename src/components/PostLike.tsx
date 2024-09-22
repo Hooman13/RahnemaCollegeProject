@@ -5,7 +5,7 @@ import { DisplayPostApi } from "../api/axios";
 import { Spinner } from "flowbite-react";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
-import { ToastR } from "./controles/ToastR";
+import { toast } from "react-toastify";
 
 interface IProps {
   postId: string;
@@ -37,9 +37,6 @@ export const PostLike: React.FC<IProps> = ({
     }));
   }, [likeCount, isLiked]);
 
-  const [displayToast, setDispalyToast] = useState(false);
-  const [toastMsg, setToastMsg] = useState("");
-  const [toastType, setToastType] = useState("basic");
 
   const likeHandle = () => {
     setIsLoading(true);
@@ -64,9 +61,7 @@ export const PostLike: React.FC<IProps> = ({
         }));
       })
       .catch((e) => {
-        setToastMsg("خطا در لایک");
-        setToastType("danger");
-        setDispalyToast(true);
+        toast.error("خطا در لایک :" + e);
       })
       .finally(() => {
         setIsLoading(false);
@@ -74,8 +69,6 @@ export const PostLike: React.FC<IProps> = ({
   };
   return (
     <div className="flex-none w-9 gap-2 relative">
-      {displayToast && <ToastR type={toastType}>{toastMsg}</ToastR>}
-
       <button
         onClick={() => {
           likeHandle();

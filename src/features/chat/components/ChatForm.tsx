@@ -10,7 +10,7 @@ import Cookies from "js-cookie";
 import { useMutation } from "@tanstack/react-query";
 import { Spinner } from "flowbite-react";
 import { useQueryClient } from "@tanstack/react-query";
-import { ToastR } from "../../../components/controles/ToastR";
+import { toast } from "react-toastify";
 import { IUserInfo } from "../../../data/types";
 interface IProps {
   ReciverUsername: string;
@@ -22,9 +22,6 @@ export const ChatForm: React.FC<IProps> = ({ ReciverUsername }) => {
   const userName = Cookies.get("username");
   const msgInputRef = useRef(null);
 
-  const [displayToast, setDispalyToast] = useState(false);
-  const [toastMsg, setToastMsg] = useState("");
-  const [toastType, setToastType] = useState("basic");
 
   const mutation = useMutation({
     mutationFn: (formdata: FormData) => {
@@ -41,10 +38,7 @@ export const ChatForm: React.FC<IProps> = ({ ReciverUsername }) => {
       queryClient.invalidateQueries({ queryKey: ["pv", ReciverUsername] });
     },
     onError: (error) => {
-      console.log(error);
-      setToastMsg("خطا در ارسال پیام");
-      setToastType("danger");
-      setDispalyToast(true);
+      toast.error("خطا در ارسال پیام : " + error)
     },
   });
   const [file, setFile] = useState<File>();
@@ -73,7 +67,6 @@ export const ChatForm: React.FC<IProps> = ({ ReciverUsername }) => {
   };
   return (
     <>
-      {displayToast && <ToastR type={toastType}>{toastMsg}</ToastR>}
       <form
         onSubmit={submitMessage}
         className="flex flex-row py-0.5 items-center  mb-4 w-full gap-2"
