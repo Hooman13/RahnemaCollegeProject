@@ -10,9 +10,24 @@ import { FreindFoCard } from "../components/cards/FreindFoCard";
 import { useQuery } from "@tanstack/react-query";
 
 export const FriendsNotif = () => {
-  const token = Cookies.get("token");
+  const selectedAccount = Cookies.get("selectedAccount");
+  const currentTokenCookie = Cookies.get("token");
+  const token =
+    currentTokenCookie && selectedAccount
+      ? JSON.parse(currentTokenCookie)[parseInt(selectedAccount)]
+      : null;
+
+  const currentUsernameCookie = Cookies.get("username");
+  const cookieUsername =
+    currentUsernameCookie && selectedAccount
+      ? JSON.parse(currentUsernameCookie)[parseInt(selectedAccount)]
+      : null;
+  // const profileUsername = username ? `${username}` : cookieUsername;
+  const profileUsername = cookieUsername;
+
+  const userName = cookieUsername;
   const { username } = useParams();
-  const userName = Cookies.get("username");
+
   const userInfoEndpoint = username ? `${username}` : userName;
 
   const getNotifs = () => {
