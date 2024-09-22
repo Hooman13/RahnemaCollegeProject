@@ -63,7 +63,22 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   // update profile edits
-  const token = Cookies.get("token");
+  const selectedAccount = Cookies.get("selectedAccount");
+  const currentTokenCookie = Cookies.get("token");
+  const token =
+    currentTokenCookie && selectedAccount
+      ? JSON.parse(currentTokenCookie)[parseInt(selectedAccount)]
+      : null;
+
+  const currentUsernameCookie = Cookies.get("username");
+  const cookieUsername =
+    currentUsernameCookie && selectedAccount
+      ? JSON.parse(currentUsernameCookie)[parseInt(selectedAccount)]
+      : null;
+  // const profileUsername = username ? `${username}` : cookieUsername;
+  const profileUsername = cookieUsername;
+
+  const userName = cookieUsername;
   const {
     register,
     handleSubmit,
@@ -87,7 +102,7 @@ export const EditProfile: React.FC<IProps> = ({ openModal, setOpenModal }) => {
     },
   });
   const [isUserUpdated, setIsUserUpdated] = useState(false);
-  const userName = Cookies.get("username");
+
   // const token = Cookies.get("token");
   const getProfileData = async () => {
     try {
