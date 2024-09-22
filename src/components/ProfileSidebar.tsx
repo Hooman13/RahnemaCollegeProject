@@ -24,7 +24,15 @@ export const ProfileSidebar: FunctionComponent = () => {
     currentTokenCookie && selectedAccount
       ? JSON.parse(currentTokenCookie)[parseInt(selectedAccount)]
       : null;
-  const userName = Cookies.get("username");
+
+  const currentUsernameCookie = Cookies.get("username");
+  const cookieUsername =
+    currentUsernameCookie && selectedAccount
+      ? JSON.parse(currentUsernameCookie)[parseInt(selectedAccount)]
+      : null;
+  // const profileUsername = username ? `${username}` : cookieUsername;
+  const profileUsername = cookieUsername;
+  const userName = cookieUsername;
 
   const navigate = useNavigate();
   const logout = () => {
