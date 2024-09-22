@@ -19,7 +19,7 @@ export const PostItem: FunctionComponent<PropsWithChildren<IPostProps>> = ({
         className="relative max-w-sm cursor-pointer hover:shadow-lg"
       >
         <img
-          className="rounded-3xl aspect-square object-cover transition-transform duration-300 transform hover:scale-105 peer"
+          className="rounded-3xl w-full aspect-square object-cover transition-transform duration-300 transform hover:scale-105 peer"
           src={imgUrl}
           alt=""
         />
