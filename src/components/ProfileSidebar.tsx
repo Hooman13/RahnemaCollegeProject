@@ -139,7 +139,9 @@ export const ProfileSidebar: FunctionComponent = () => {
             </div>
           </button>
         </div>
-        <div>{userName ? <MoreButton user={userName} /> : null}</div>
+        <div className="mt-14 font-normal flex hover:bg-[#F5F5F5]">
+          {userName ? <MoreButton user={userName} /> : null}
+        </div>
       </div>
     </div>
   );

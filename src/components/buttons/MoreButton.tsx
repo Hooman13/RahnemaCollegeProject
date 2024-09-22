@@ -51,7 +51,7 @@ export const MoreButton: React.FC<PropsWithChildren<IUser>> = ({
     <Menu as="div" className="relative inline-block">
       <div>
         <MenuButton>
-          <div className="w-auto mt-14 font-normal py-3 flex h-auto pr-3 lg:pr-9 hover:bg-[#F5F5F5] border-none rounded-[75px] text-center">
+          <div className="w-auto font-normal py-3 flex h-auto pr-3 lg:pr-9 hover:bg-[#F5F5F5] border-none rounded-[75px] text-center">
             <FontAwesomeIcon className="ml-4" icon={faList} />
             بیشتر
           </div>
