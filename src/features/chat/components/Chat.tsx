@@ -41,7 +41,20 @@ export const Chat: React.FC<IProps> = ({ username, imgUrl, fullname }) => {
   });
 
   useEffect(() => {
-    const jwt = Cookies.get("token");
+    const selectedAccount = Cookies.get("selectedAccount");
+    const currentTokenCookie = Cookies.get("token");
+    const token =
+      currentTokenCookie && selectedAccount
+        ? JSON.parse(currentTokenCookie)[parseInt(selectedAccount)]
+        : null;
+
+    const currentUsernameCookie = Cookies.get("username");
+    const cookieUsername =
+      currentUsernameCookie && selectedAccount
+        ? JSON.parse(currentUsernameCookie)[parseInt(selectedAccount)]
+        : null;
+    const jwt = token;
+
     socket.auth = { jwt };
     socket.connect();
     socket.emit("pvConnect", username);

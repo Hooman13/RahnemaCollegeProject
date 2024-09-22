@@ -18,8 +18,23 @@ interface IProps {
 export const ChatForm: React.FC<IProps> = ({ ReciverUsername }) => {
   const queryClient = useQueryClient();
   const [msgInput, setMsgInput] = useState("");
-  const token = Cookies.get("token");
-  const userName = Cookies.get("username");
+
+  const selectedAccount = Cookies.get("selectedAccount");
+  const currentTokenCookie = Cookies.get("token");
+  const token =
+    currentTokenCookie && selectedAccount
+      ? JSON.parse(currentTokenCookie)[parseInt(selectedAccount)]
+      : null;
+
+  const currentUsernameCookie = Cookies.get("username");
+  const cookieUsername =
+    currentUsernameCookie && selectedAccount
+      ? JSON.parse(currentUsernameCookie)[parseInt(selectedAccount)]
+      : null;
+  // const profileUsername = username ? `${username}` : cookieUsername;
+  const profileUsername = cookieUsername;
+
+  const userName = cookieUsername;
   const msgInputRef = useRef(null);
 
   const [displayToast, setDispalyToast] = useState(false);
