@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { ToastR } from "../components/controles/ToastR";
+import Cookies from "js-cookie";
 
 const FormSchema = z.object({
   newPassword: z.string().min(8, "رمزعبور باید حداقل شامل ۸ حرف باشد"),
@@ -31,10 +32,28 @@ export const NewPass = () => {
   const [email, setEmail] = useState("");
   const [newPassword, setnewPassword] = useState("");
   // const [confirmPassword, setConfirmPassword] = useState("");
+
+  const selectedAccount = Cookies.get("selectedAccount");
+  const currentTokenCookie = Cookies.get("token");
+  const paramTokenSearch =
+    currentTokenCookie && selectedAccount
+      ? JSON.parse(currentTokenCookie)[parseInt(selectedAccount)]
+      : null;
+
+  const currentUsernameCookie = Cookies.get("username");
+  const cookieUsername =
+    currentUsernameCookie && selectedAccount
+      ? JSON.parse(currentUsernameCookie)[parseInt(selectedAccount)]
+      : null;
+  // const profileUsername = username ? `${username}` : cookieUsername;
+  const profileUsername = cookieUsername;
+
+  const userName = cookieUsername;
+
   const [token, setToken] = useState("");
   const [serachParams] = useSearchParams();
   const paramSearch: any = serachParams.get("email");
-  const paramTokenSearch: any = serachParams.get("token");
+  // const paramTokenSearch: any = serachParams.get("token");
   // const { token } = useParams();
   useEffect(() => {
     setToken(paramTokenSearch);
