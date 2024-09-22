@@ -21,7 +21,6 @@ export const PostComment: React.FC<IProps> = ({
 
   return (
     <div className="flex-none w-9 gap-2 relative">
-
       <button onClick={() => {}}>
         {isLoading && <Spinner size="sm" className="absolute"></Spinner>}
         {isCommented ? (
