@@ -147,7 +147,7 @@ export const DisplayPost: React.FC<IProps> = ({ postId }) => {
                   {post.creator.username}
                 </Link>
               </div>
-              {post.creator.username == Cookies.get("username") && (
+              {post.creator.username == profileUsername && (
                 <EditPostModal postID={post.postId}>
                   <div className="w-auto py-2 px-4 bg-[#EA5A69] rounded-3xl text-white ">
                     <FontAwesomeIcon icon={faPen} className="ml-2" />

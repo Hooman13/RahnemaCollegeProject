@@ -165,6 +165,9 @@ export function EditPostModal({
 
   useEffect(() => {
     queryClient.invalidateQueries({ queryKey: ["postdetails"] });
+    queryClient.invalidateQueries({
+      queryKey: [`userPostList-${cookieUsername}`],
+    });
     setStep(0);
   }, [openModal]);
   return (
